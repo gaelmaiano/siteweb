@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Projet de Scanner de Ports en Python</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-left: 3px solid #ccc;
+            overflow-x: auto;
+        }
+        code {
+            font-family: "Courier New", Courier, monospace;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        p {
+            line-height: 1.6;
+        }
+        .code-section {
+            margin-bottom: 30px;
+        }
+        .explanation {
+            margin-bottom: 20px;
+        }
+        .warning {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Projet de Scanner de Ports en Python</h1>
+
+<p class="warning">⚠️ <strong>Attention :</strong> L'utilisation de scanners de ports peut être illégale ou contraire aux politiques d'utilisation si elle est effectuée sans autorisation explicite. Assurez-vous d'avoir l'autorisation du propriétaire du réseau ou du système avant d'exécuter ce script.</p>
+
+<h2>Le Code :</h2>
+
+<div class="code-section">
+<pre><code>
+import socket
+import subprocess
+import sys
+from datetime import datetime
+
+# Nettoyer l'écran
+subprocess.call('clear', shell=True)
+
+# Demander à l'utilisateur de saisir l'adresse IP du serveur à scanner
+remoteServerIP = input('Entrer l\'IP d\'un serveur à scanner: ')
+
+# Afficher des informations sur le scan en cours
+print('-' * 60)
+print('Lancement du scan des ports de la machine ' + remoteServerIP)
+print('-' * 60)
+
+# Enregistrer l'heure de début du scan
+t1 = datetime.now()
+
+try:
+    # Scanner les ports de 1 à 1024
+    for port in range(1, 1025):
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        result = sock.connect_ex((remoteServerIP, port))
+        if result == 0:
+            print('Port {}: \t Ouvert'.format(port))
+        sock.close()
+
+except KeyboardInterrupt:
+    print('\nVous avez appuyé sur Ctrl+C. Interruption du programme.')
+    sys.exit()
+
+except socket.error:
+    print('Impossible de se connecter au serveur.')
+    sys.exit()
+
+# Enregistrer l'heure de fin du scan
+t2 = datetime.now()
+
+# Calculer le temps total du scan
+total = t2 - t1
+
+# Afficher le temps total du scan
+print('Scan complété en: {}'.format(total))
+</code></pre>
+</div>
+
+<h2>Explication du Code :</h2>
+
+<div class="explanation">
+    <p>Ce script Python réalise un scan des ports sur une machine distante en tentant de se connecter à chaque port dans une plage spécifiée. Voici une explication détaillée de chaque partie du code :</p>
+
+    <h3>Importation des Modules :</h3>
+    <pre><code>import socket
+import subprocess
+import sys
+from datetime import datetime</code></pre>
+    <ul>
+        <li><code>socket</code> : Pour créer des connexions réseau et interagir avec les ports.</li>
+        <li><code>subprocess</code> : Pour exécuter des commandes système, comme nettoyer l'écran.</li>
+        <li><code>sys</code> : Pour interagir avec le système et gérer les sorties du programme.</li>
+        <li><code>datetime</code> : Pour enregistrer les temps de début et de fin du scan.</li>
+    </ul>
+
+    <h3>Nettoyage de l'écran :</h3>
+    <pre><code># Nettoyer l'écran
+subprocess.call('clear', shell=True)</code></pre>
+    <p>Cette commande nettoie l'écran du terminal pour une interface utilisateur plus propre.</p>
+
+    <h3>Saisie de l'adresse IP :</h3>
+    <pre><code>remoteServerIP = input('Entrer l\'IP d\'un serveur à scanner: ')</code></pre>
+    <p>Demande à l'utilisateur de saisir l'adresse IP du serveur qu'il souhaite scanner.</p>
+
+    <h3>Affichage des informations initiales :</h3>
+    <pre><code>print('-' * 60)
+print('Lancement du scan des ports de la machine ' + remoteServerIP)
+print('-' * 60)</code></pre>
+    <p>Affiche une ligne de séparation et une description du scan qui va être effectué.</p>
+
+    <h3>Enregistrement du temps de début :</h3>
+    <pre><code>t1 = datetime.now()</code></pre>
+    <p>Stocke le temps actuel pour calculer la durée totale du scan plus tard.</p>
+
+    <h3>Bloc <code>try</code> pour le scan des ports :</h3>
+    <pre><code>try:
+    for port in range(1, 1025):
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        result = sock.connect_ex((remoteServerIP, port))
+        if result == 0:
+            print('Port {}: \t Ouvert'.format(port))
+        sock.close()</code></pre>
+    <p>Ce bloc tente de se connecter à chaque port de 1 à 1024 sur le serveur distant.</p>
+    <ul>
+        <li><code>socket.socket()</code> : Crée un nouvel objet socket.</li>
+        <li><code>sock.connect_ex()</code> : Tente de se connecter au port spécifié. Retourne 0 si la connexion est réussie.</li>
+        <li>Si le port est ouvert (connexion réussie), le script affiche que le port est ouvert.</li>
+        <li><code>sock.close()</code> : Ferme la connexion socket.</li>
+    </ul>
+
+    <h3>Gestion des exceptions :</h3>
+    <pre><code>except KeyboardInterrupt:
+    print('\nVous avez appuyé sur Ctrl+C. Interruption du programme.')
+    sys.exit()
+
+except socket.error:
+    print('Impossible de se connecter au serveur.')
+    sys.exit()</code></pre>
+    <p>Ce bloc gère les erreurs potentielles :</p>
+    <ul>
+        <li><code>KeyboardInterrupt</code> : Si l'utilisateur interrompt le programme avec Ctrl+C.</li>
+        <li><code>socket.error</code> : Si le script ne peut pas se connecter au serveur (par exemple, si l'adresse IP est invalide).</li>
+    </ul>
+
+    <h3>Calcul et affichage du temps total du scan :</h3>
+    <pre><code># Enregistrer l'heure de fin du scan
+t2 = datetime.now()
+
+# Calculer le temps total du scan
+total = t2 - t1
+
+# Afficher le temps total du scan
+print('Scan complété en: {}'.format(total))</code></pre>
+    <p>Ces lignes calculent la durée totale du scan en soustrayant le temps de début du temps de fin, puis affichent le résultat.</p>
+</div>
+
+<h2>Comment Utiliser ce Script :</h2>
+
+<p>Pour exécuter ce script, suivez les étapes suivantes :</p>
+<ol>
+    <li>Assurez-vous d'avoir Python installé sur votre système.</li>
+    <li>Copiez le code Python ci-dessus dans un fichier avec l'extension <code>.py</code>, par exemple <code>scanner_ports.py</code>.</li>
+    <li>Ouvrez un terminal ou une invite de commande.</li>
+    <li>Exécutez le script avec la commande <code>python scanner_ports.py</code> (ou <code>python3 scanner_ports.py</code> selon votre configuration).</li>
+    <li>Saisissez l'adresse IP du serveur que
