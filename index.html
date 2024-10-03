@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+  <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -15,10 +16,26 @@
             padding: 60px 0;
             text-align: center;
             color: white;
+            position: relative;
+        }
+        header img.profile-photo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid white;
         }
         header h1 {
             margin: 0;
             font-size: 48px;
+            cursor: pointer;
+            transition: transform 0.3s, color 0.3s;
+        }
+        header h1:hover {
+            transform: scale(1.05);
+            color: #e0f7f4;
         }
         #projects {
             display: flex;
@@ -32,6 +49,11 @@
             padding: 20px;
             width: 300px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .project:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         .project img {
             max-width: 100%;
@@ -52,6 +74,7 @@
 <body>
 
     <header>
+        <img src="votre-photo.jpg" alt="Votre Photo" class="profile-photo">
         <h1>Bienvenue sur mon portfolio</h1>
     </header>
 
@@ -75,19 +98,46 @@
     </section>
 
     <footer>
-        <p>© gaelmaiano</p>
+        <p>© 2023 Votre Nom</p>
     </footer>
 
     <script>
         // Animation du titre avec GSAP
         gsap.from("header h1", {duration: 1, y: -50, opacity: 0});
 
-        // Animation des projets
+        // Animation de la photo de profil
+        gsap.from(".profile-photo", {duration: 1, x: -100, opacity: 0});
+
+        // Animation des projets à l'apparition
         gsap.from(".project", {
             duration: 1,
             y: 50,
             opacity: 0,
             stagger: 0.3
+        });
+
+        // Animation au survol des projets
+        const projects = document.querySelectorAll('.project');
+
+        projects.forEach(project => {
+            project.addEventListener('mouseenter', () => {
+                gsap.to(project, {duration: 0.3, scale: 1.05, boxShadow: "0 4px 15px rgba(0,0,0,0.2)"});
+            });
+
+            project.addEventListener('mouseleave', () => {
+                gsap.to(project, {duration: 0.3, scale: 1, boxShadow: "0 2px 5px rgba(0,0,0,0.1)"});
+            });
+        });
+
+        // Animation au survol du titre
+        const headerTitle = document.querySelector('header h1');
+
+        headerTitle.addEventListener('mouseenter', () => {
+            gsap.to(headerTitle, {duration: 0.3, scale: 1.05, color: "#e0f7f4"});
+        });
+
+        headerTitle.addEventListener('mouseleave', () => {
+            gsap.to(headerTitle, {duration: 0.3, scale: 1, color: "white"});
         });
     </script>
 
