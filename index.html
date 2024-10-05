@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <title>Mon Portfolio</title>
     <style>
+        /* Styles généraux */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
         }
+        /* En-tête */
         header {
             background-color: #50b3a2;
             padding: 60px 0;
@@ -36,6 +38,7 @@
             transform: scale(1.05);
             color: #e0f7f4;
         }
+        /* Projets */
         #projects {
             display: flex;
             flex-wrap: wrap;
@@ -60,7 +63,12 @@
         .project h3 {
             margin-top: 15px;
         }
-         
+        /* Formulaire de contact */
+        #contact {
+            background-color: #fff;
+            padding: 40px;
+            text-align: center;
+        }
         #contact h2 {
             margin-bottom: 20px;
         }
@@ -94,8 +102,7 @@
         #contact input[type="submit"]:hover {
             background-color: #429488;
         }
-
-        /* Styles pour les messages */
+        /* Messages */
         #message-box {
             margin-bottom: 20px;
             padding: 10px;
@@ -112,7 +119,13 @@
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
-    </style>
+        /* Pied de page */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
     </style>
     <!-- Inclure GSAP depuis le CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
@@ -126,19 +139,19 @@
 
     <section id="projects">
         <div class="project">
-            <img src="scanner.jpeg" alt="créer un scanner de port">
+            <img src="scanner.jpeg" alt="Créer un scanner de port">
             <h3>Créer un scanner de port</h3>
-            <p>Ici on va coder un scanner de port en python à l'image de nmap pour comprendre comment ce dernier fonctionne.</p>
+            <p>Ici on va coder un scanner de port en Python à l'image de Nmap pour comprendre comment ce dernier fonctionne.</p>
             <a href="scannerPort.html" target="_blank">Voir le code</a>
         </div>
         <div class="project">
-            <img src="keyllogger.jpeg" alt="keylogger python">
+            <img src="keyllogger.jpeg" alt="Keylogger Python">
             <h3>Keylogger en Python</h3>
             <p>Ici on va créer un keylogger en Python.</p>
             <a href="keylogger.html" target="_blank">Voir le code</a>
         </div>
         <div class="project">
-            <img src="rust.jpeg" alt="décodeur de mot de passe">
+            <img src="rust.jpeg" alt="Décodeur de mot de passe">
             <h3>Décodeur de mot de passe en Rust</h3>
             <p>Ici on va créer un décodeur de mot de passe en Rust.</p>
             <a href="passworddecoder.html" target="_blank">Voir le code</a>
@@ -146,10 +159,31 @@
         <!-- Ajoutez plus de projets si nécessaire -->
     </section>
 
-   
+    <!-- Section du formulaire de contact -->
+    <section id="contact">
+        <h2>Contactez-moi</h2>
+        <!-- Boîte pour afficher les messages -->
+        <div id="message-box" style="display:none;"></div>
+
+        <form action="contact.php" method="post">
+            <label for="name">Nom :</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message :</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <input type="submit" value="Envoyer">
+        </form>
+    </section>
+
+    <footer>
         <p>© 2023 GaelMaiano</p>
     </footer>
 
+    <!-- Scripts JavaScript -->
     <script>
         // Animation du titre avec GSAP
         gsap.from("header h1", {duration: 1, y: -50, opacity: 0});
@@ -191,57 +225,6 @@
 
         // Animation pour le formulaire de contact
         gsap.from("#contact", {duration: 1, y: 50, opacity: 0});
-
-    </script>
-
-</body>
-</html>
-
-
-
-
-
-
- 
-
-       
-     
-    <!-- Inclure GSAP depuis le CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
-</head>
-<body>
-
-    <!-- Votre contenu existant -->
-
-    <!-- Section du formulaire de contact -->
-    <section id="contact">
-        <h2>Contactez-moi</h2>
-        <!-- Boîte pour afficher les messages -->
-        <div id="message-box" style="display:none;"></div>
-
-        <form action="contact.php" method="post">
-            <label for="name">Nom :</label>
-            <input type="text" id="name" name="name" required>
-
-            <label for="email">Email :</label>
-            <input type="email" id="email" name="email" required>
-
-            <label for="message">Message :</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-
-            <input type="submit" value="Envoyer">
-        </form>
-    </section>
-
-    <!-- Votre pied de page -->
-    <footer>
-        <p>© 2023 GaelMaiano</p>
-    </footer>
-
-    <!-- Vos scripts JavaScript -->
-    <script>
-        // Vos animations GSAP existantes
-        // ...
 
         // Fonction pour obtenir les paramètres GET de l'URL
         function getQueryParams() {
