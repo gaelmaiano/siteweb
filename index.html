@@ -4,20 +4,221 @@
     <meta charset="UTF-8">
     <title>Mon Portfolio</title>
     <style>
-        /* Votre code CSS existant */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
         }
-        /* ... (autres styles) ... */
-
+        header {
+            background-color: #50b3a2;
+            padding: 60px 0;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        header img.profile-photo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 48px;
+            cursor: pointer;
+            transition: transform 0.3s, color 0.3s;
+        }
+        header h1:hover {
+            transform: scale(1.05);
+            color: #e0f7f4;
+        }
+        #projects {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 40px 0;
+        }
+        .project {
+            background-color: white;
+            margin: 20px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .project:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .project img {
+            max-width: 100%;
+        }
+        .project h3 {
+            margin-top: 15px;
+        }
         /* Styles pour le formulaire de contact */
         #contact {
             background-color: #fff;
             padding: 40px;
             text-align: center;
+        }
+        #contact h2 {
+            margin-bottom: 20px;
+        }
+        #contact form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #contact label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        #contact input, #contact textarea {
+            width: 100%;
+            max-width: 500px;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #contact input[type="submit"] {
+            margin-top: 20px;
+            background-color: #50b3a2;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 15px 30px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        #contact input[type="submit"]:hover {
+            background-color: #429488;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+         /* Styles pour le formulaire de contact */
+        #contact {
+            background-color: #fff;
+            padding: 40px;
+            text-align: center;
+    </style>
+    <!-- Inclure GSAP depuis le CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+</head>
+<body>
+
+    <header>
+        <img src="photo portrait.jpg" alt="Votre Photo" class="profile-photo">
+        <h1>Bienvenue sur mon portfolio</h1>
+    </header>
+
+    <section id="projects">
+        <div class="project">
+            <img src="scanner.jpeg" alt="créer un scanner de port">
+            <h3>Créer un scanner de port</h3>
+            <p>Ici on va coder un scanner de port en python à l'image de nmap pour comprendre comment ce dernier fonctionne.</p>
+            <a href="scannerPort.html" target="_blank">Voir le code</a>
+        </div>
+        <div class="project">
+            <img src="keyllogger.jpeg" alt="keylogger python">
+            <h3>Keylogger en Python</h3>
+            <p>Ici on va créer un keylogger en Python.</p>
+            <a href="keylogger.html" target="_blank">Voir le code</a>
+        </div>
+        <div class="project">
+            <img src="rust.jpeg" alt="décodeur de mot de passe">
+            <h3>Décodeur de mot de passe en Rust</h3>
+            <p>Ici on va créer un décodeur de mot de passe en Rust.</p>
+            <a href="passworddecoder.html" target="_blank">Voir le code</a>
+        </div>
+        <!-- Ajoutez plus de projets si nécessaire -->
+    </section>
+
+    <!-- Section du formulaire de contact -->
+    <section id="contact">
+        <h2>Contactez-moi</h2>
+        <form action="mailto:phenixcyber8@gmail.com" method="post" enctype="text/plain">
+            <label for="name">Nom :</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message :</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <input type="submit" value="Envoyer">
+        </form>
+    </section>
+
+    <footer>
+        <p>© 2023 GaelMaiano</p>
+    </footer>
+
+    <script>
+        // Animation du titre avec GSAP
+        gsap.from("header h1", {duration: 1, y: -50, opacity: 0});
+
+        // Animation de la photo de profil
+        gsap.from(".profile-photo", {duration: 1, x: -100, opacity: 0});
+
+        // Animation des projets à l'apparition
+        gsap.from(".project", {
+            duration: 1,
+            y: 50,
+            opacity: 0,
+            stagger: 0.3
+        });
+
+        // Animation au survol des projets
+        const projects = document.querySelectorAll('.project');
+
+        projects.forEach(project => {
+            project.addEventListener('mouseenter', () => {
+                gsap.to(project, {duration: 0.3, scale: 1.05, boxShadow: "0 4px 15px rgba(0,0,0,0.2)"});
+            });
+
+            project.addEventListener('mouseleave', () => {
+                gsap.to(project, {duration: 0.3, scale: 1, boxShadow: "0 2px 5px rgba(0,0,0,0.1)"});
+            });
+        });
+
+        // Animation au survol du titre
+        const headerTitle = document.querySelector('header h1');
+
+        headerTitle.addEventListener('mouseenter', () => {
+            gsap.to(headerTitle, {duration: 0.3, scale: 1.05, color: "#e0f7f4"});
+        });
+
+        headerTitle.addEventListener('mouseleave', () => {
+            gsap.to(headerTitle, {duration: 0.3, scale: 1, color: "white"});
+        });
+
+        // Animation pour le formulaire de contact
+        gsap.from("#contact", {duration: 1, y: 50, opacity: 0});
+
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+ 
+
+       
         }
         #contact h2 {
             margin-bottom: 20px;
