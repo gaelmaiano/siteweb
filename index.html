@@ -3,65 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Mon Portfolio</title>
-    <!-- Styles CSS -->
     <style>
-        /* Styles CSS */
+        /* Votre code CSS existant */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
         }
-        header {
-            background-color: #50b3a2;
-            padding: 60px 0;
-            text-align: center;
-            color: white;
-            position: relative;
-        }
-        header img.profile-photo {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 3px solid white;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 48px;
-            cursor: pointer;
-            transition: transform 0.3s, color 0.3s;
-        }
-        header h1:hover {
-            transform: scale(1.05);
-            color: #e0f7f4;
-        }
-        #projects {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 40px 0;
-        }
-        .project {
-            background-color: white;
-            margin: 20px;
-            padding: 20px;
-            width: 300px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .project:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        .project img {
-            max-width: 100%;
-        }
-        .project h3 {
-            margin-top: 15px;
-        }
+        /* ... (autres styles) ... */
+
         /* Styles pour le formulaire de contact */
         #contact {
             background-color: #fff;
@@ -101,11 +52,23 @@
         #contact input[type="submit"]:hover {
             background-color: #429488;
         }
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 20px 0;
+
+        /* Styles pour les messages */
+        #message-box {
+            margin-bottom: 20px;
+            padding: 10px;
+            max-width: 500px;
+            border-radius: 5px;
+        }
+        #message-box.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        #message-box.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
     </style>
     <!-- Inclure GSAP depuis le CDN -->
@@ -113,52 +76,14 @@
 </head>
 <body>
 
-    <header>
-        <img src="photo portrait.jpg" alt="Votre Photo" class="profile-photo">
-        <h1>Bienvenue sur mon portfolio</h1>
-    </header>
-
-    <section id="projects">
-        <div class="project">
-            <img src="scanner.jpeg" alt="Créer un scanner de port">
-            <h3>Créer un scanner de port</h3>
-            <p>Ici on va coder un scanner de port en Python à l'image de Nmap pour comprendre comment ce dernier fonctionne.</p>
-            <a href="scannerPort.html" target="_blank">Voir le code</a>
-        </div>
-        <div class="project">
-            <img src="keyllogger.jpeg" alt="Keylogger Python">
-            <h3>Keylogger en Python</h3>
-            <p>Ici on va créer un keylogger en Python.</p>
-            <a href="keylogger.html" target="_blank">Voir le code</a>
-        </div>
-        <div class="project">
-            <img src="rust.jpeg" alt="Décodeur de mot de passe">
-            <h3>Décodeur de mot de passe en Rust</h3>
-            <p>Ici on va créer un décodeur de mot de passe en Rust.</p>
-            <a href="passworddecoder.html" target="_blank">Voir le code</a>
-        </div>
-        <!-- Ajoutez plus de projets si nécessaire -->
-    </section>
+    <!-- Votre contenu existant -->
 
     <!-- Section du formulaire de contact -->
     <section id="contact">
         <h2>Contactez-moi</h2>
-        <!-- Affichage des messages de retour -->
-        <?php
-        if (isset($_GET['success'])) {
-            echo "<p style='color:green;'>Merci, votre message a été envoyé.</p>";
-        }
-        if (isset($_GET['error'])) {
-            $error = $_GET['error'];
-            if ($error == 1) {
-                echo "<p style='color:red;'>Une erreur est survenue lors de l'envoi de votre message.</p>";
-            } elseif ($error == 2) {
-                echo "<p style='color:red;'>L'adresse email que vous avez entrée n'est pas valide.</p>";
-            } elseif ($error == 3) {
-                echo "<p style='color:red;'>Veuillez remplir tous les champs du formulaire.</p>";
-            }
-        }
-        ?>
+        <!-- Boîte pour afficher les messages -->
+        <div id="message-box" style="display:none;"></div>
+
         <form action="contact.php" method="post">
             <label for="name">Nom :</label>
             <input type="text" id="name" name="name" required>
@@ -173,52 +98,54 @@
         </form>
     </section>
 
+    <!-- Votre pied de page -->
     <footer>
         <p>© 2023 GaelMaiano</p>
     </footer>
 
-    <!-- Scripts JavaScript -->
+    <!-- Vos scripts JavaScript -->
     <script>
-        // Animation du titre avec GSAP
-        gsap.from("header h1", {duration: 1, y: -50, opacity: 0});
+        // Vos animations GSAP existantes
+        // ...
 
-        // Animation de la photo de profil
-        gsap.from(".profile-photo", {duration: 1, x: -100, opacity: 0});
+        // Fonction pour obtenir les paramètres GET de l'URL
+        function getQueryParams() {
+            let params = {};
+            let queryString = window.location.search.substring(1);
+            let vars = queryString.split("&");
+            for (let i = 0; i < vars.length; i++) {
+                let pair = vars[i].split("=");
+                params[pair[0]] = decodeURIComponent(pair[1]);
+            }
+            return params;
+        }
 
-        // Animation des projets à l'apparition
-        gsap.from(".project", {
-            duration: 1,
-            y: 50,
-            opacity: 0,
-            stagger: 0.3
-        });
+        // Affichage des messages en fonction des paramètres
+        window.onload = function() {
+            let params = getQueryParams();
+            let messageBox = document.getElementById('message-box');
 
-        // Animation au survol des projets
-        const projects = document.querySelectorAll('.project');
+            if (params['success']) {
+                messageBox.style.display = 'block';
+                messageBox.className = 'success';
+                messageBox.innerText = 'Merci, votre message a été envoyé.';
+            }
 
-        projects.forEach(project => {
-            project.addEventListener('mouseenter', () => {
-                gsap.to(project, {duration: 0.3, scale: 1.05, boxShadow: "0 4px 15px rgba(0,0,0,0.2)"});
-            });
+            if (params['error']) {
+                messageBox.style.display = 'block';
+                messageBox.className = 'error';
 
-            project.addEventListener('mouseleave', () => {
-                gsap.to(project, {duration: 0.3, scale: 1, boxShadow: "0 2px 5px rgba(0,0,0,0.1)"});
-            });
-        });
-
-        // Animation au survol du titre
-        const headerTitle = document.querySelector('header h1');
-
-        headerTitle.addEventListener('mouseenter', () => {
-            gsap.to(headerTitle, {duration: 0.3, scale: 1.05, color: "#e0f7f4"});
-        });
-
-        headerTitle.addEventListener('mouseleave', () => {
-            gsap.to(headerTitle, {duration: 0.3, scale: 1, color: "white"});
-        });
-
-        // Animation pour le formulaire de contact
-        gsap.from("#contact", {duration: 1, y: 50, opacity: 0});
+                if (params['error'] == '1') {
+                    messageBox.innerText = 'Une erreur est survenue lors de l\'envoi de votre message.';
+                } else if (params['error'] == '2') {
+                    messageBox.innerText = 'L\'adresse email que vous avez entrée n\'est pas valide.';
+                } else if (params['error'] == '3') {
+                    messageBox.innerText = 'Veuillez remplir tous les champs du formulaire.';
+                } else {
+                    messageBox.innerText = 'Une erreur inconnue est survenue.';
+                }
+            }
+        };
     </script>
 
 </body>
