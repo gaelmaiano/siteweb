@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($name) && !empty($email) && !empty($message)) {
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             // Destinataire de l'email (votre adresse email)
-            $to = "phenixcyber8@gmail.com"; // Remplacez par votre adresse email
+            $to = "votreadresse@example.com"; // Remplacez par votre adresse email
 
             // Sujet de l'email
             $subject = "Nouveau message de votre portfolio";
@@ -24,27 +24,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Envoi de l'email
             if (mail($to, $subject, $email_content, $email_headers)) {
-                // Redirection ou message de succès
-                header("Location: index.php?success=1");
+                // Redirection avec paramètre de succès
+                header("Location: index.html?success=1");
                 exit;
             } else {
-                // Message d'erreur si l'email n'a pas pu être envoyé
-                header("Location: index.php?error=1");
+                // Redirection avec paramètre d'erreur
+                header("Location: index.html?error=1");
                 exit;
             }
         } else {
             // Email invalide
-            header("Location: index.php?error=2");
+            header("Location: index.html?error=2");
             exit;
         }
     } else {
         // Champs vides
-        header("Location: index.php?error=3");
+        header("Location: index.html?error=3");
         exit;
     }
 } else {
     // Accès direct au script sans soumission du formulaire
-    header("Location: index.php");
+    header("Location: index.html");
     exit;
 }
 ?>
