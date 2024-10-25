@@ -106,5 +106,17 @@
             });
 
             return false;
+          
         }
+// Animation du cercle avec GSAP
+gsap.to("#myCircle", {
+  duration: 2,         // Durée de l'animation
+  x: 50,               // Translation de 50px à droite
+  scale: 1.5,          // Agrandissement du cercle
+  rotation: 360,       // Rotation complète
+  ease: "bounce.out",  // Effet de rebond
+  repeat: -1,          // Boucle infinie
+  yoyo: true           // Rebondit en aller-retour
+});
+
     </script>
