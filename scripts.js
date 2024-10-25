@@ -1,16 +1,6 @@
 // Animation du titre
 gsap.from("header h1", {duration: 1, y: -50, opacity: 0});
 
-// Animation du cercle
-gsap.to("#myCircle", {
-  duration: 2,
-  x: 50,
-  scale: 1.5,
-  rotation: 360,
-  ease: "bounce.out",
-  repeat: -1,
-  yoyo: true
-});
 
 // Animation de la photo de profil
 gsap.from(".profile-photo", {duration: 1, x: -100, opacity: 0});
