@@ -1,3 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Go - Port Scanner</title>
+    <!-- Inclusion de Prism.js pour la coloration syntaxique -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-okaidia.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
+</head>
+<body>
+
+    <h1>Code Go - Port Scanner</h1>
+    <p>Ce code scanne les ports de l'adresse IP <code>192.168.0.1</code> et affiche les ports ouverts.</p>
+    
+    <!-- Bloc de code Go avec coloration syntaxique -->
+    <pre><code class="language-go">
+// Port scanner en Go pour 192.168.0.1
 package main
 
 import (
@@ -19,4 +37,24 @@ func main() {
             defer wg.Done() // Diminue le compteur WaitGroup quand la goroutine se termine
             
             // Formate l'adresse IP et le port sous la forme "192.168.0.1:port"
-            address := fmt.Sprintf("192.168.0.1:%d
+            address := fmt.Sprintf("192.168.0.1:%d", port)
+            
+            // Tente d'ouvrir une connexion TCP avec un délai de 1 seconde
+            conn, err := net.DialTimeout("tcp", address, 1*time.Second)
+            if err != nil {
+                // Si une erreur survient, cela signifie que le port est fermé ou filtré,
+                // donc on termine la goroutine sans action supplémentaire
+                return
+            }
+            
+            conn.Close() // Ferme la connexion pour libérer les ressources
+            fmt.Printf("Port %d ouvert\n", port) // Affiche le numéro du port ouvert
+        }(i) // Passe "i" comme argument à la fonction anonyme pour capturer sa valeur actuelle
+    }
+    
+    wg.Wait() // Attend que toutes les goroutines se terminent avant de quitter le programme
+}
+    </code></pre>
+
+</body>
+</html>
