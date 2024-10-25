@@ -1,0 +1,22 @@
+package main
+
+import (
+    "fmt"      // Package pour le formatage d'entrées/sorties
+    "net"      // Package pour les opérations réseau
+    "time"     // Package pour gérer le temps et les délais
+    "sync"     // Package pour la synchronisation entre les goroutines
+)
+
+func main() {
+    var wg sync.WaitGroup // Crée une instance WaitGroup pour gérer les goroutines
+    
+    // Boucle de 1 à 1024 pour scanner chaque port sur 192.168.0.1
+    for i := 1; i <= 1024; i++ {
+        wg.Add(1) // Incrémente le compteur WaitGroup pour chaque goroutine
+        
+        // Lance une goroutine pour chaque port
+        go func(port int) {
+            defer wg.Done() // Diminue le compteur WaitGroup quand la goroutine se termine
+            
+            // Formate l'adresse IP et le port sous la forme "192.168.0.1:port"
+            address := fmt.Sprintf("192.168.0.1:%d
