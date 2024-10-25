@@ -5,8 +5,6 @@
         gsap.from("header h1", {duration: 1, y: -50, opacity: 0});
 
 
-  <circle id="myCircle" cx="100" cy="100" r="50" fill="#4CAF50" />
-</svg>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
 <script>
