@@ -7,7 +7,19 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
 <script>
+  gsap.to("#myCircle", {
+    duration: 2,
+    x: 100,
+    scale: 1.5,
+    rotation: 360,
+    ease: "elastic.out(1, 0.3)",
+    repeat: -1,
+    yoyo: true
+  });
+
   gsap.to("#myCircle", {
     duration: 2,
     x: 100,
