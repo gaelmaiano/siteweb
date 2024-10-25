@@ -4,6 +4,22 @@
         // Animation du titre avec GSAP
         gsap.from("header h1", {duration: 1, y: -50, opacity: 0});
 
+<svg width="200" height="200" viewBox="0 0 200 200">
+  <circle id="myCircle" cx="100" cy="100" r="50" fill="#4CAF50" />
+</svg>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+<script>
+  gsap.to("#myCircle", {
+    duration: 2,
+    x: 100,
+    scale: 1.5,
+    rotation: 360,
+    ease: "elastic.out(1, 0.3)",
+    repeat: -1,
+    yoyo: true
+  });
+</script>
         // Animation de la photo de profil
         gsap.from(".profile-photo", {duration: 1, x: -100, opacity: 0});
 
