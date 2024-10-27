@@ -1,16 +1,4 @@
-// Chargement de la police
-const loader = new THREE.FontLoader();
-let textMesh; // Déclare textMesh ici pour qu'il soit accessible dans toute la portée
 
-loader.load('path/to/font.typeface.json', function(font) {
-    const geometry = new THREE.TextGeometry('Votre Titre', {
-        font: font,
-        size: 1,
-        height: 0.1,
-    });
-    const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    textMesh = new THREE.Mesh(geometry, material);
-    scene.add(textMesh);
 
     // Animation d'apparition avec GSAP
     gsap.from(textMesh.position, { duration: 1, y: -5, opacity: 0 });
