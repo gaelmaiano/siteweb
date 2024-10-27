@@ -15,7 +15,12 @@ scene.add(ambientLight);
 const pointLight = new THREE.PointLight(0xffffff, 1);
 pointLight.position.set(10, 10, 10);
 scene.add(pointLight);
-
+function animate() {
+    requestAnimationFrame(animate);
+    textMesh.rotation.y += 0.01; // rotation continue
+    renderer.render(scene, camera);
+}
+animate();
 
 // Animation du titre
 gsap.from("header h1", {duration: 1, y: -50, opacity: 0});
