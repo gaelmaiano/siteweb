@@ -1,3 +1,22 @@
+const loader = new THREE.FontLoader();
+loader.load('path/to/font.typeface.json', function(font) {
+    const geometry = new THREE.TextGeometry('Votre Titre', {
+        font: font,
+        size: 1,
+        height: 0.1,
+    });
+    const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const textMesh = new THREE.Mesh(geometry, material);
+    scene.add(textMesh);
+});
+const ambientLight = new THREE.AmbientLight(0x404040); // lumière ambiante
+scene.add(ambientLight);
+
+const pointLight = new THREE.PointLight(0xffffff, 1);
+pointLight.position.set(10, 10, 10);
+scene.add(pointLight);
+
+
 // Animation du titre
 gsap.from("header h1", {duration: 1, y: -50, opacity: 0});
 
