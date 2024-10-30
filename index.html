@@ -15,31 +15,58 @@
             padding: 0;
             background-color: #f4f4f4;
        
+        }  header {
+            background-color: #50b3a2;
+            padding: 60px 0;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
         }
-    
-      /* En-tête */
-          <header>
+
+        /* Iframe pour la vidéo YouTube en background */
+        header iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 100vh;
+            transform: translate(-50%, -50%);
+            pointer-events: none; /* Désactive les clics sur la vidéo */
+            z-index: -1;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 48px;
+            cursor: pointer;
+            transition: transform 0.3s, color 0.3s;
+            position: relative; /* Superposition au-dessus de l'iframe */
+            z-index: 1;
+        }
+        
+        header h1:hover {
+            transform: scale(1.05);
+            color: #e0f7f4;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
         <!-- Iframe pour la vidéo YouTube -->
-      
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/bKIZiMX8xlI?si=tV9mDZdj_d8IHH53" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> 
+        <iframe 
+            src="https://www.youtube.com/embed/bKIZiMX8xlI?autoplay=1&mute=1&loop=1&playlist=bKIZiMX8xlI" 
+            title="YouTube video player" 
             frameborder="0" 
-            allow="autoplay; encrypted-media" 
+            allow="autoplay; encrypted-media; picture-in-picture" 
+            referrerpolicy="strict-origin-when-cross-origin" 
             allowfullscreen>
-      
+        </iframe>
         
         <!-- Contenu du header -->
         <h1>Bienvenue sur mon portfolio</h1>
     </header>
-header {
-    background-color: #50b3a2;
-    padding: 60px 0;
-    text-align: center;
-    color: white;
-    position: relative; /* Nécessaire pour le positionnement absolu des enfants */
-}
-
-
-}
 
         }
         header h1 {
