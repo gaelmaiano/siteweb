@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -16,13 +15,31 @@
 
         /* En-tête */
         header {
-            background-color: #50b3a2;
-            padding: 60px 0;
-            text-align: center;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    text-align: center;
+    color: white;
+}
+
+header iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+header h1 {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    font-size: 48px;
+    top: 50%;
+    transform: translateY(-50%);
+}
 
         /* Iframe pour la vidéo YouTube en background */
         header iframe {
@@ -161,18 +178,16 @@
 <body>
 
     <header>
-        <!-- Iframe pour la vidéo YouTube -->
+        
         <iframe 
             src="https://www.youtube.com/embed/bKIZiMX8xlI?autoplay=1&mute=1&loop=1&playlist=bKIZiMX8xlI" 
-            title="YouTube video player" 
             frameborder="0" 
-            allow="autoplay; encrypted-media; picture-in-picture" 
-            referrerpolicy="strict-origin-when-cross-origin" 
+            allow="autoplay; encrypted-media" 
             allowfullscreen>
         </iframe>
-        
-        <!-- Contenu du header -->
-        <h1>Bienvenue sur mon portfolio</h1>
+        <h1>Mon portfolio</h1>
+
+    
     </header>
 
     <section id="projects">
