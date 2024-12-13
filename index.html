@@ -2,12 +2,9 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio de Gael Maiano, présentant des projets en informatique industrielle, cybersécurité et programmation.">
     <title>Mon Portfolio</title>
-</head>
-    
-
-
-
     <!-- Styles CSS -->
     <style>
         body {
@@ -15,42 +12,6 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
-        }
-
-        /* Section vidéo avec iframe */
-        section.video-section {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-        }
-    section.video-section iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-
-        }
-
-        section.video-section h1 {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 48px;
-            color: white;
-            z-index: 1;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            transition: transform 0.3s, color 0.3s;
-        }
-
-        section.video-section h1:hover {
-            transform: scale(1.05);
-            color: #e0f7f4;
         }
 
         /* Projets */
@@ -138,22 +99,8 @@
             padding: 20px 0;
         }
     </style>
-
-    <!-- Inclure GSAP depuis le CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
 </head>
 <body>
-    <!-- Section vidéo principale -->
-    <section id="film" class="video-section">
-        <iframe 
-            src="https://www.youtube.com/embed/bKIZiMX8xlI? loop=1&playlist=bKIZiMX8xlI" 
-            frameborder="0" 
-            allow=" encrypted-media" 
-            allowfullscreen>
-        </iframe>
-        <h1>Mon portfolio</h1>
-    </section>
-
     <!-- Projets -->
     <section id="projects">
         <div class="project">
@@ -187,24 +134,6 @@
         </div>
     </section>
 
-    <!-- Vidéos supplémentaires -->
-    <section id="mrrobot2" class="video-section">
-        <iframe 
-            src="" 
-         frameborder="0" 
-            allow=" encrypted-media" 
-            allowfullscreen>
-        </iframe>
-    </section>
-
-    <section id="mrrobot" class="video-section">
-     <iframe 
-    src=" frameborder="0" 
-            allow=" encrypted-media" 
-            allowfullscreen>
-</iframe>
-    </section>
-
     <!-- Section du formulaire de contact -->
     <div id="contact">
         <h2>Contactez-moi</h2>
@@ -231,9 +160,6 @@
 
     <!-- Scripts JavaScript -->
     <script>
-        // Animation du titre avec GSAP
-        gsap.from("h1", {duration: 3, y: -50, opacity: 0});
-
         // Animation des projets à l'apparition
         gsap.from(".project", {
             duration: 1,
