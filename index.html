@@ -3,6 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Mon Portfolio</title>
+</head>
+    
+    <section id="film" class="video-section">
+    <iframe 
+        id="videoIframe"
+        src="https://www.youtube.com/embed/bKIZiMX8xlI?loop=1&playlist=bKIZiMX8xlI" 
+        frameborder="0" 
+        allow="autoplay; encrypted-media" 
+        allowfullscreen 
+        style="display: none;">
+    </iframe>
+    <button id="playButton" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 10px 20px; font-size: 20px; cursor: pointer;">Lancer la vidéo</button>
+</section>
+
+<script>
+    const playButton = document.getElementById('playButton');
+    const videoIframe = document.getElementById('videoIframe');
+
+    playButton.addEventListener('click', () => {
+        videoIframe.src += "&autoplay=1";
+        videoIframe.style.display = "block";
+        playButton.style.display = "none";
+    });
+</script>
+
     <!-- Styles CSS -->
     <style>
         body {
