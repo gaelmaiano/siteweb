@@ -14,6 +14,48 @@
         }
 
         /* En-tête */
+          #film h1 {
+    position: relative;
+    z-index: -1;
+    margin: 0;
+    font-size: 48px;
+    top: 25%;
+    transform: translateY(-50%);
+}
+
+        /* Iframe pour la vidéo YouTube en background */
+         #mrrobotiframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 100vh;
+            transform: translate(-50%, -50%);
+            pointer-events: none; /* Désactive les clics sur la vidéo */
+            z-index: -1;
+        }
+
+          #  #mrrobot h1 {
+            margin: 0;
+            font-size: 48px;
+            cursor: pointer;
+            transition: transform 0.3s, color 0.3s;
+            position: relative; /* Superposition au-dessus de l'iframe */
+            z-index: 1;
+        }
+
+         #  #mrrobot h1:hover {
+            transform: scale(1.05);
+            color: #e0f7f4;
+        }
+
+        /* Projets */
+        #projects {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 40px 0;
+        }
      #film iframe {
     position: relative;
     top: -200;
@@ -219,11 +261,11 @@
     </section>
     <p>mes vidéos</p>
     
-<section film presentation>
+<section id = film>
 <iframe  src="https://www.youtube.com/embed/FtQslb01zPg?si=_kjjOfQ9CZjv-7UZ" title="YouTube video player" title="YouTube video player" frameborder="0"  autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"</iframe>
 </section>
 
-<section film mrrobot >
+<section id= mrrobot >
      <iframe  src="https://www.youtube.com/embed/rFkLqrTGHso?si=IsdBLqq12O3k9ef9"  title="YouTube video player"autoplay; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 </section> 
  
