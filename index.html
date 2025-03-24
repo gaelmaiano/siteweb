@@ -13,6 +13,140 @@
 
     <!-- Styles CSS -->
     <style>
+        <style>
+.about-me-section {
+  background-color: #1f2937; /* Gris très foncé */
+  padding: 4rem 0;
+}
+
+.about-me-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.about-me-title {
+  font-size: 2.25rem; /* Taille de police plus grande */
+  font-weight: 600; /* Gras */
+  color: transparent;
+  background-clip: text;
+  background-image: linear-gradient(to right, #6366f1, #8b5cf6); /* Dégradé de bleu à violet */
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.about-me-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+.about-me-image-wrapper {
+  width: 32%; /* Pourcentage pour la largeur de l'image */
+  min-width: 250px; /* Largeur minimale de l'image */
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2); /* Ombre légère */
+  border: 4px solid #374151; /* Bordure plus foncée */
+  transition: border-color 0.3s ease; /* Transition pour la bordure */
+}
+
+.about-me-image-wrapper:hover {
+  border-color: #a855f7; /* Bordure violette au survol */
+}
+
+.about-me-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease; /* Transition pour le zoom */
+}
+
+.about-me-image:hover {
+  transform: scale(1.05); /* Léger zoom au survol */
+}
+
+
+.about-me-text {
+  width: 66%; /* Pourcentage pour la largeur du texte */
+  color: #d1d5db;
+}
+
+.about-me-intro {
+  font-size: 1.25rem; /* Taille de police plus grande */
+  margin-bottom: 1.5rem;
+  line-height: 1.75; /* Hauteur de ligne augmentée pour la lisibilité */
+}
+
+.about-me-intro span {
+  font-weight: 600;
+  color: #a7f3d0; /* Vert clair */
+}
+
+.about-me-description {
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+/* Styles pour les écrans plus petits (moins de 768px) */
+@media (max-width: 768px) {
+  .about-me-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .about-me-image-wrapper {
+    width: 50%;
+    min-width: 200px;
+  }
+  .about-me-text {
+    width: 100%;
+  }
+}
+
+/* Styles pour les écrans encore plus petits (moins de 640px) */
+@media (max-width: 640px) {
+  .about-me-title {
+    font-size: 2rem;
+  }
+  .about-me-intro {
+    font-size: 1.125rem;
+  }
+  .about-me-description {
+    font-size: 1rem;
+  }
+  .about-me-image-wrapper {
+    width: 75%;
+  }
+}
+</style>
+<section class="about-me-section">
+    <div class="about-me-container">
+        <h2 class="about-me-title">À Propos de Moi</h2>
+        <div class="about-me-content">
+            <div class="about-me-image-wrapper">
+                <img
+                    src="https://placehold.co/400x400/EEE/31343C"
+                    alt="Ma Photo"
+                    class="about-me-image"
+                />
+            </div>
+            <div class="about-me-text">
+                <p class="about-me-intro">
+                    <span class="font-semibold text-blue-300">Passionné</span> par la cybersécurité, je suis toujours à la recherche de nouveaux défis et de connaissances.
+                    Ce portfolio met en lumière mon parcours et mes réalisations dans ce domaine en constante évolution.
+                </p>
+                <p class="about-me-description">
+                    Avec une expertise diversifiée couvrant la sécurité des applications, la sécurité des réseaux et la réponse aux incidents,
+                    je m'engage à protéger les actifs numériques et à assurer l'intégrité des systèmes d'information.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
