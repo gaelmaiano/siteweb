@@ -6,147 +6,11 @@
     <meta name="description" content="Portfolio de Gael Maiano, présentant des projets en informatique industrielle, cybersécurité et programmation.">
     <title>Mon Portfolio</title>
     
- <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
- 
- <meta name="description" content="All about my cv.">
- <meta name="keywords" content="cybersecurité, gael maiano , GO , RUST , projet, NMAP, Python">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+    <meta name="keywords" content="cybersecurité, gael maiano, GO, RUST, projet, NMAP, Python">
 
-    <!-- Styles CSS -->
     <style>
-       
-.about-me-section {
-  background-color: #1f2937; /* Gris très foncé */
-  padding: 4rem 0;
-}
-
-.about-me-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
-.about-me-title {
-  font-size: 2.25rem; /* Taille de police plus grande */
-  font-weight: 600; /* Gras */
-  color: transparent;
-  background-clip: text;
-  background-image: linear-gradient(to right, #6366f1, #8b5cf6); /* Dégradé de bleu à violet */
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.about-me-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3rem;
-}
-
-.about-me-image-wrapper {
-  width: 32%; /* Pourcentage pour la largeur de l'image */
-  min-width: 250px; /* Largeur minimale de l'image */
-  position: relative;
-  border-radius: 50%;
-  overflow: hidden;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2); /* Ombre légère */
-  border: 4px solid #374151; /* Bordure plus foncée */
-  transition: border-color 0.3s ease; /* Transition pour la bordure */
-}
-
-.about-me-image-wrapper:hover {
-  border-color: #a855f7; /* Bordure violette au survol */
-}
-
-.about-me-image {
-  display: block;
-  width: 100%;
-  height: auto;
-  transition: transform 0.3s ease; /* Transition pour le zoom */
-}
-
-.about-me-image:hover {
-  transform: scale(1.05); /* Léger zoom au survol */
-}
-
-
-.about-me-text {
-  width: 66%; /* Pourcentage pour la largeur du texte */
-  color: #d1d5db;
-}
-
-.about-me-intro {
-  font-size: 1.25rem; /* Taille de police plus grande */
-  margin-bottom: 1.5rem;
-  line-height: 1.75; /* Hauteur de ligne augmentée pour la lisibilité */
-}
-
-.about-me-intro span {
-  font-weight: 600;
-  color: #a7f3d0; /* Vert clair */
-}
-
-.about-me-description {
-  font-size: 1rem;
-  line-height: 1.75;
-}
-
-/* Styles pour les écrans plus petits (moins de 768px) */
-@media (max-width: 768px) {
-  .about-me-content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  .about-me-image-wrapper {
-    width: 50%;
-    min-width: 200px;
-  }
-  .about-me-text {
-    width: 100%;
-  }
-}
-
-/* Styles pour les écrans encore plus petits (moins de 640px) */
-@media (max-width: 640px) {
-  .about-me-title {
-    font-size: 2rem;
-  }
-  .about-me-intro {
-    font-size: 1.125rem;
-  }
-  .about-me-description {
-    font-size: 1rem;
-  }
-  .about-me-image-wrapper {
-    width: 75%;
-  }
-}
-
-<section class="about-me-section">
-    <div class="about-me-container">
-        <h2 class="about-me-title">À Propos de Moi</h2>
-        <div class="about-me-content">
-            <div class="about-me-image-wrapper">
-                <img
-                    src="https://placehold.co/400x400/EEE/31343C"
-                    alt="Ma Photo"
-                    class="about-me-image"
-                />
-            </div>
-            <div class="about-me-text">
-                <p class="about-me-intro">
-                    <span class="font-semibold text-blue-300">Passionné</span> par la cybersécurité, je suis toujours à la recherche de nouveaux défis et de connaissances.
-                    Ce portfolio met en lumière mon parcours et mes réalisations dans ce domaine en constante évolution.
-                </p>
-                <p class="about-me-description">
-                    Avec une expertise diversifiée couvrant la sécurité des applications, la sécurité des réseaux et la réponse aux incidents,
-                    je m'engage à protéger les actifs numériques et à assurer l'intégrité des systèmes d'information.
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-<style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -154,7 +18,81 @@
             background-color: #f4f4f4;
         }
 
-        /* Projets */
+        .about-me-section {
+            background-color: #1f2937;
+            padding: 4rem 0;
+        }
+
+        .about-me-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .about-me-title {
+            font-size: 2.25rem;
+            font-weight: 600;
+            color: transparent;
+            background-clip: text;
+            background-image: linear-gradient(to right, #6366f1, #8b5cf6);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .about-me-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .about-me-image-wrapper {
+            width: 32%;
+            min-width: 250px;
+            position: relative;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+            border: 4px solid #374151;
+            transition: border-color 0.3s ease;
+        }
+
+        .about-me-image-wrapper:hover {
+            border-color: #a855f7;
+        }
+
+        .about-me-image {
+            display: block;
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .about-me-image:hover {
+            transform: scale(1.05);
+        }
+
+        .about-me-text {
+            width: 66%;
+            color: #d1d5db;
+        }
+
+        .about-me-intro {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.75;
+        }
+
+        .about-me-intro span {
+            font-weight: 600;
+            color: #a7f3d0;
+        }
+
+        .about-me-description {
+            font-size: 1rem;
+            line-height: 1.75;
+        }
+
         #projects {
             display: flex;
             flex-wrap: wrap;
@@ -183,8 +121,10 @@
         .project h3 {
             margin-top: 15px;
         }
+        .project a{
+           color:#007bff;
+        }
 
-        /* Formulaire de contact */
         #contact {
             background-color: #fff;
             padding: 40px;
@@ -231,68 +171,96 @@
             background-color: #429488;
         }
 
-        /* Pied de page */
         footer {
             background-color: #333;
             color: white;
             text-align: center;
             padding: 20px 0;
         }
+
+        /* Styles pour les écrans plus petits (moins de 768px) */
+        @media (max-width: 768px) {
+            .about-me-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .about-me-image-wrapper {
+                width: 50%;
+                min-width: 200px;
+            }
+
+            .about-me-text {
+                width: 100%;
+            }
+        }
+
+        /* Styles pour les écrans encore plus petits (moins de 640px) */
+        @media (max-width: 640px) {
+            .about-me-title {
+                font-size: 2rem;
+            }
+
+            .about-me-intro {
+                font-size: 1.125rem;
+            }
+
+            .about-me-description {
+                font-size: 1rem;
+            }
+
+            .about-me-image-wrapper {
+                width: 75%;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>portfolio</h1>
-    <!-- Projets -->
-    <section class="bg-gray-800 py-10 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-7xl mx-auto">
-        <h2 class="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 text-center mb-8">
-            À Propos de Moi
-        </h2>
-        <div class="flex flex-col md:flex-row items-center gap-12">
-            <div class="md:w-1/3">
-                <div class="relative rounded-full overflow-hidden shadow-lg border-4 border-gray-700 hover:border-purple-500 transition-colors duration-300 group">
+    <h1>Portfolio</h1>
+    <section class="about-me-section">
+        <div class="about-me-container">
+            <h2 class="about-me-title">À Propos de Moi</h2>
+            <div class="about-me-content">
+                <div class="about-me-image-wrapper">
                     <img
                         src="https://placehold.co/400x400/EEE/31343C"
                         alt="Ma Photo"
-                        class="transition-transform duration-300 group-hover:scale-105"
+                        class="about-me-image"
                     />
-                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300"></div>
+                </div>
+                <div class="about-me-text">
+                    <p class="about-me-intro">
+                        <span class="font-semibold text-blue-300">Passionné</span> par la cybersécurité, je suis toujours à la recherche de nouveaux défis et de connaissances.
+                        Ce portfolio met en lumière mon parcours et mes réalisations dans ce domaine en constante évolution.
+                    </p>
+                    <p class="about-me-description">
+                        Avec une expertise diversifiée couvrant la sécurité des applications, la sécurité des réseaux et la réponse aux incidents,
+                        je m'engage à protéger les actifs numériques et à assurer l'intégrité des systèmes d'information.
+                    </p>
                 </div>
             </div>
-            <div class="md:w-2/3 text-gray-300">
-                <p class="text-xl mb-6">
-                    <span class="font-semibold text-blue-300">Passionné</span> par la cybersécurité, je suis toujours à la recherche de nouveaux défis et de connaissances.
-                    Ce portfolio met en lumière mon parcours et mes réalisations dans ce domaine en constante évolution.
-                </p>
-                <p class="text-lg">
-                    Avec une expertise diversifiée couvrant la sécurité des applications, la sécurité des réseaux et la réponse aux incidents,
-                    je m'engage à protéger les actifs numériques et à assurer l'intégrité des systèmes d'information.
-                </p>
-            </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <section id="projects">
-            <div class="project">
+        <div class="project">
             <img src="demeter.jpg" alt="Créer un jeu sur le pentest">
-            <h3>Créer un jeu d apprentissage du pentest</h3>
-            <p>coder un jeu d'apprentissage pour élèves pentester(en cours de création)</p>
-            <a href="https://www.youtube.com/watch?v=Py1aCT-cOr0" target="_blank">voir video</a>
+            <h3>Créer un jeu d'apprentissage du pentest</h3>
+            <p>Coder un jeu d'apprentissage pour élèves pentester (en cours de création)</p>
+            <a href="https://www.youtube.com/watch?v=Py1aCT-cOr0" target="_blank">Voir la vidéo</a>
         </div>
         <div class="project">
-        
             <img src="sacada.jpg" alt="Projet SCADA">
+            <h3>Projet SCADA</h3>
+            <p>Projet de supervision SCADA (informatique industrielle). Utile comme base pour la cybersécurité industrielle.</p>
             <a href="https://github.com/gaelmaiano/siteweb/blob/main/scada.zip" target="_blank">Télécharger le ZIP</a>
-            <p>Projet de supervision SCADA (informatique industrielle). Pas de cybersécurité mais utile comme base pour la cybersécurité industrielle.</p>
         </div>
         <div class="project">
             <img src="scanner.jpeg" alt="Créer un scanner de port">
             <h3>Créer un scanner de port</h3>
             <p>Coder un scanner de port en Python pour comprendre le fonctionnement de Nmap.</p>
             <a href="scannerPort.html" target="_blank">Voir le code</a>
-        </div>
-           
         </div>
         <div class="project">
             <img src="keyllogger.jpeg" alt="Keylogger Python">
@@ -312,76 +280,50 @@
             <p>Créer un scanner plus rapide que celui en Python.</p>
             <a href="passworddecoder.html" target="_blank">Voir le code</a>
         </div>
-    
-   
-      
-  
         <div class="project">
             <img src="OIP.jpg" alt="Projet geo ">
+            <h3>Projet Geo</h3>
+            <p>Nouvelle Calédonie : Haut Commissariat, logement social, mines, élections.</p>
+            <p>Bonus : Monographie urbanisme commercial Nantes.</p>
             <a href="https://github.com/gaelmaiano/siteweb/blob/main/geo.zip" target="_blank">Télécharger le ZIP</a>
-            <p>nouvelle caledonie Haut Commissariat logement social mines  elections et elections</p>
-            <p> bonus monographie urbanisme commercial nantes</p>
         </div>
-    </br>
-        <H1>LOISIR</H1>
         <div class="project">
             <img src="chateau.jpg" alt="Projet jeu">
-    
-            <p> mes loisirs : creer un petit jeu en 24h </p>
-            <a href="https://gaelmaiano.github.io/jeu/" target="_blank"> defi 24H: petit jeu fait en 24h avec google AI studio </a>
-                   <p>LOISIR</p>     
-            
-          </div>
- 
-          <div class="project">
+            <h3>Mes Loisirs : Créer un jeu</h3>
+            <p>Créer un petit jeu en 24h.</p>
+            <a href="https://gaelmaiano.github.io/jeu/" target="_blank">Défi 24H : Petit jeu fait en 24h avec Google AI Studio</a>
+        </div>
+        <div class="project">
             <img src="image5.jpg" alt="Projet dessin ">
-            <a href="https://gaelmaiano.github.io/deepseek/" target="_blank">ici le site </a>
-        <p>LOISIR</p>
-            <p> mes loisirs : Créer un site web pour mes dessins </p>
-          </div>
- 
-        
-          
-        
-        </section>
-    <!-- Section du formulaire de contact -->
-    <div id="contact">
-        <h2>Contactez-moi</h2>
-        <!-- Boîte pour afficher les messages -->
-        <div id="message-box" style="display:none;"></div>
+            <h3>Mes Loisirs : Créer un site web pour mes dessins</h3>
+            <p>Créer un site web pour mes dessins.</p>
+            <a href="https://gaelmaiano.github.io/deepseek/" target="_blank">Voir le site</a>
+        </div>
+    </section>
 
+    <section id="contact">
+        <h2>Contactez-moi</h2>
+        <div id="message-box" style="display:none;"></div>
         <form action="https://formspree.io/f/xbljryyr" method="POST" onsubmit="return submitForm(event);">
             <label for="name">Nom :</label>
             <input type="text" id="name" name="name" required>
-
             <label for="email">Email :</label>
             <input type="email" id="email" name="_replyto" required>
-
             <label for="message">Message :</label>
             <textarea id="message" name="message" rows="5" required></textarea>
-
             <input type="submit" value="Envoyer">
         </form>
-    </div>
-     <a href="https://www.youtube.com/watch?v=rFkLqrTGHso&list=PLmG1vOolmbNN14_L1185SkY8I2B_U__jG">visiter ma chaine youtube</a> 
+    </section>
+     <a href="https://www.youtube.com/watch?v=rFkLqrTGHso&list=PLmG1vOolmbNN14_L1185SkY8I2B_U__jG">visiter ma chaine youtube</a>
 
     <footer>
         <p>© 2024 GaelMaiano</p>
     </footer>
 
-    <!-- Scripts JavaScript -->
     <script>
-        // Animation des projets à l'apparition
-        gsap.from(".project", {
-            duration: 1,
-            y: 50,
-            opacity: 0,
-            stagger: 0.3
-        });
-
         // Fonction pour gérer la soumission du formulaire
         function submitForm(event) {
-            event.preventDefault(); // Empêche l'envoi du formulaire par défaut
+            event.preventDefault();
 
             const form = event.target;
             const data = new FormData(form);
@@ -422,3 +364,4 @@
     </script>
 </body>
 </html>
+
