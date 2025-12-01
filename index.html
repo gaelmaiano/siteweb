@@ -3,313 +3,533 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio  Gael Maiano, présentantion des projets informatique industrielle, cybersécurité et programmation.">
-    <title> Gael Maiano</title>
-    
+    <meta name="description" content="Portfolio Gael Maiano : Cybersécurité, développement (GO, RUST, Python) et informatique industrielle.">
+    <title>Gael Maiano | Cybersécurité & Dev</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    
     <meta name="keywords" content="cybersecurité, gael maiano, GO, RUST, projet, NMAP, Python">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
+        /* ==================================== */
+        /* GÉNÉRAL & TYPOGRAPHIE */
+        /* ==================================== */
+
+        :root {
+            --color-dark: #0f172a; /* Bleu nuit très foncé */
+            --color-mid: #1e293b;  /* Gris foncé */
+            --color-accent: #38bdf8; /* Bleu ciel / Cyan pour l'accent */
+            --color-secondary-accent: #a7f3d0; /* Vert menthe */
+            --color-text: #e2e8f0; /* Gris clair */
+            --color-subtext: #94a3b8; /* Gris moyen */
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: var(--color-dark);
+            color: var(--color-text);
+            line-height: 1.6;
         }
 
-        .about-me-section {
-            background-color: #1f2937;
-            padding: 4rem 0;
+        h1, h2, h3 {
+            color: var(--color-text);
+            margin-top: 0;
         }
 
-        .about-me-container {
+        a {
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--color-secondary-accent);
+        }
+
+        .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1rem;
+            padding: 0 1.5rem;
+        }
+        
+        /* ==================================== */
+        /* HEADER/NAVIGATION */
+        /* ==================================== */
+
+        header {
+            background-color: var(--color-mid);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--color-accent);
+        }
+
+        .nav-links a {
+            margin-left: 1.5rem;
+            font-weight: 500;
+            color: var(--color-subtext);
+            text-transform: uppercase;
+        }
+        
+        .nav-links a:hover {
+            color: var(--color-accent);
+        }
+
+        /* ==================================== */
+        /* SECTION À PROPOS DE MOI */
+        /* ==================================== */
+
+        .about-me-section {
+            background-color: var(--color-dark);
+            padding: 6rem 0; /* Plus d'espace pour l'impact */
+        }
+        
+        .about-me-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 4rem;
         }
 
         .about-me-title {
-            font-size: 2.25rem;
-            font-weight: 600;
+            font-size: 3rem; /* Plus grand pour l'impact */
+            font-weight: 800;
+            text-align: left;
+            margin-bottom: 2rem;
             color: transparent;
             background-clip: text;
-            background-image: linear-gradient(to right, #6366f1, #8b5cf6);
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .about-me-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 3rem;
+            background-image: linear-gradient(to right, var(--color-accent), var(--color-secondary-accent));
         }
 
         .about-me-image-wrapper {
-            width: 32%;
+            width: 350px;
             min-width: 250px;
             position: relative;
             border-radius: 50%;
             overflow: hidden;
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
-            border: 4px solid #374151;
-            transition: border-color 0.3s ease;
+            box-shadow: 0 0 0 8px var(--color-mid), 0 0 30px rgba(56, 189, 248, 0.5); /* Bordure et lueur accentuée */
+            transition: all 0.5s ease;
         }
 
         .about-me-image-wrapper:hover {
-            border-color: #a855f7;
+             box-shadow: 0 0 0 8px var(--color-accent), 0 0 40px var(--color-accent);
         }
 
         .about-me-image {
             display: block;
             width: 100%;
             height: auto;
-            transition: transform 0.3s ease;
-        }
-
-        .about-me-image:hover {
-            transform: scale(1.05);
         }
 
         .about-me-text {
-            width: 66%;
-            color: #d1d5db;
+            flex-grow: 1;
         }
 
         .about-me-intro {
-            font-size: 1.25rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.75;
+            font-size: 1.5rem; /* Plus grand */
+            margin-bottom: 2rem;
+            line-height: 1.4;
+            color: var(--color-text);
         }
 
-        .about-me-intro span {
-            font-weight: 600;
-            color: #a7f3d0;
+        .about-me-intro strong {
+            font-weight: 700;
+            color: var(--color-accent);
         }
 
-        .about-me-description {
-            font-size: 1rem;
-            line-height: 1.75;
-        }
+        /* ==================================== */
+        /* SECTION PROJETS */
+        /* ==================================== */
 
         #projects {
+            background-color: var(--color-mid);
+            padding: 4rem 0;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            color: var(--color-accent);
+            margin-bottom: 3rem;
+        }
+
+        .project-card {
+            background-color: var(--color-dark);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 40px 0;
+            flex-direction: column;
         }
 
-        .project {
-            background-color: white;
-            margin: 20px;
-            padding: 20px;
-            width: 300px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3); /* Ombre avec accent */
         }
 
-        .project:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        .project-image-container {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .project-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
 
-        .project img {
-            max-width: 100%;
+        .project-card:hover .project-image-container img {
+            transform: scale(1.1);
         }
 
-        .project h3 {
-            margin-top: 15px;
+        .project-content {
+            padding: 1.5rem;
+            flex-grow: 1;
         }
-        .project a{
-           color:#007bff;
+
+        .project-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--color-accent);
         }
+
+        .project-content p {
+            color: var(--color-subtext);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .project-link {
+            display: inline-block;
+            background-color: var(--color-accent);
+            color: var(--color-dark);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .project-link:hover {
+            background-color: var(--color-secondary-accent);
+        }
+
+        /* ==================================== */
+        /* SECTION CONTACT */
+        /* ==================================== */
 
         #contact {
-            background-color: #fff;
-            padding: 40px;
+            background-color: var(--color-dark);
+            padding: 4rem 0;
             text-align: center;
         }
 
         #contact h2 {
-            margin-bottom: 20px;
+            color: var(--color-secondary-accent);
         }
 
         #contact form {
             display: flex;
             flex-direction: column;
             align-items: center;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: var(--color-mid);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         #contact label {
-            margin-top: 10px;
+            align-self: flex-start;
             font-weight: bold;
+            color: var(--color-text);
+            margin-top: 0.5rem;
         }
 
         #contact input,
         #contact textarea {
             width: 100%;
-            max-width: 500px;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 12px;
+            border: 1px solid var(--color-subtext);
+            border-radius: 4px;
+            background-color: var(--color-dark);
+            color: var(--color-text);
+            font-size: 1rem;
+            box-sizing: border-box; /* Inclure padding et border dans la largeur */
+        }
+        
+        #contact textarea {
+            resize: vertical;
         }
 
         #contact input[type="submit"] {
-            margin-top: 20px;
-            background-color: #50b3a2;
-            color: white;
+            margin-top: 1.5rem;
+            background-color: var(--color-accent);
+            color: var(--color-dark);
             border: none;
             cursor: pointer;
             padding: 15px 30px;
-            font-size: 16px;
-            transition: background-color 0.3s;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+            width: auto;
         }
 
         #contact input[type="submit"]:hover {
-            background-color: #429488;
+            background-color: var(--color-secondary-accent);
+            transform: translateY(-2px);
         }
+        
+        #message-box {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        #message-box.success {
+            background-color: #a7f3d020;
+            color: var(--color-secondary-accent);
+            border: 1px solid var(--color-secondary-accent);
+        }
+        
+        #message-box.error {
+            background-color: #f8717120;
+            color: #f87171;
+            border: 1px solid #f87171;
+        }
+
+        /* ==================================== */
+        /* FOOTER */
+        /* ==================================== */
 
         footer {
-            background-color: #333;
-            color: white;
+            background-color: #0c121e; /* Plus foncé que le reste */
+            color: var(--color-subtext);
             text-align: center;
-            padding: 20px 0;
+            padding: 1.5rem 0;
+            font-size: 0.9rem;
         }
 
-        /* Styles pour les écrans plus petits (moins de 768px) */
-        @media (max-width: 768px) {
-            .about-me-content {
+        /* ==================================== */
+        /* RESPONSIVE */
+        /* ==================================== */
+        @media (max-width: 900px) {
+            .about-me-container {
                 flex-direction: column;
-                align-items: center;
                 text-align: center;
             }
-
-            .about-me-image-wrapper {
-                width: 50%;
-                min-width: 200px;
+            
+            .about-me-title {
+                text-align: center;
+                font-size: 2.5rem;
             }
-
-            .about-me-text {
-                width: 100%;
+            
+            .about-me-image-wrapper {
+                width: 250px;
+                margin-bottom: 2rem;
+            }
+            
+            .nav-links a {
+                margin-left: 1rem;
             }
         }
 
-        /* Styles pour les écrans encore plus petits (moins de 640px) */
-        @media (max-width: 640px) {
-            .about-me-title {
+        @media (max-width: 600px) {
+            .logo {
+                font-size: 1.25rem;
+            }
+            
+            .nav-links {
+                display: none; /* Simplifier la navigation sur très petits écrans, ou utiliser un menu hamburger (non implémenté ici) */
+            }
+            
+            .projects-grid {
+                gap: 1rem;
+            }
+
+            .section-title {
                 font-size: 2rem;
-            }
-
-            .about-me-intro {
-                font-size: 1.125rem;
-            }
-
-            .about-me-description {
-                font-size: 1rem;
-            }
-
-            .about-me-image-wrapper {
-                width: 75%;
             }
         }
     </style>
 </head>
 <body>
-    <h1>Gael maiano</h1>
-    <section class="about-me-section">
-        <div class="about-me-container">
-            <h2 class="about-me-title"> Gael Maiano</h2>
-            <div class="about-me-content">
-                <div class="about-me-image-wrapper">
-                    <img
-                        src="gael.jpg"
-                        alt="photo gael maiano"
-                        class="about-me-image"
-                    />
+    
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Gael Maiano <span style="color:var(--color-secondary-accent);">Cyber</span></div>
+                <div class="nav-links">
+                    <a href="#about">À Propos</a>
+                    <a href="#projects">Projets</a>
+                    <a href="#contact">Contact</a>
                 </div>
-                <div class="about-me-text">
-                    <p class="about-me-intro">
-                        <span class="font-semibold text-blue-300">Interressé par la cybersécurité, avec une solide expérience en systèmes, réseaux, virtualisation et informatique industrielle. je suis toujours à la recherche de nouveaux défis et de connaissances.
-                        Ce portfolio met en lumière mon parcours et mes réalisations dans ces domaines en constante évolution.
-                    
+            </nav>
+        </div>
+    </header>
 
-
-                        
-                    </p>
-                   
-                     
-                    
-                </div>
+    <section id="about" class="about-me-section">
+        <div class="container about-me-container">
+            <div class="about-me-text">
+                <h2 class="about-me-title">Cybersécurité & Innovation</h2>
+                <p class="about-me-intro">
+                    Intéressé par la **Cybersécurité**, avec une solide expérience en systèmes, réseaux, virtualisation et informatique industrielle.
+                </p>
+                <p class="about-me-description">
+                    Je suis constamment à la recherche de nouveaux défis et de connaissances. Ce portfolio met en lumière mon parcours et mes réalisations dans ces domaines en constante évolution, allant du développement bas niveau en **Rust** et **Go** à l'analyse de sécurité avec **Nmap** et **Python**.
+                </p>
+            </div>
+            <div class="about-me-image-wrapper">
+                <img
+                    src="gael.jpg"
+                    alt="Photo Gael Maiano - Spécialiste Cybersécurité"
+                    class="about-me-image"
+                />
             </div>
         </div>
     </section>
-    <section>
- <div class="project">
-            <img src="unnamed.jpg" alt="Bounty Academy">
-            <h3>Projet : Bounty Academy</h3>
-            <p>Application interactive pour apprendre le Bug Bounty (XSS, IDOR).</p>
-            <a href="https://gaelmaiano.github.io/bounty.html/" target="_blank">Lancer le simulateur</a>
-        </div>
-  
-        <div class="project">
-            <img src="sacada.jpg" alt="Projet SCADA">
-            <h3>Projet SCADA</h3>
-            <p>Projet de supervision SCADA (informatique industrielle). Utile comme base pour la cybersécurité industrielle.</p>
-           <a href="https://www.linkedin.com/posts/gael-maiano-34867a32a_rapport-chaine-de-production-scada-activity-7247783594591490049-1reA?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFMJZGgB6DJLffIZPXEUqJn9lAdbGasOEnI" target="_blank">Télécharger le fichier</a>
-        </div>
-        <div class="project">
-            <img src="scanner.jpeg" alt="Créer un scanner de port">
-            <h3>Créer un scanner de port</h3>
-            <p>Coder un scanner de port en Python pour comprendre le fonctionnement de Nmap.</p>
-            <a href="scannerPort.html" target="_blank">Voir le code</a>
-        </div>
-        <div class="project">
-            <img src="keyllogger.jpeg" alt="Keylogger Python">
-            <h3>Keylogger en Python</h3>
-            <p>Créer un keylogger en Python.</p>
-            <a href="keylogger.html" target="_blank">Voir le code</a>
-        </div>
-        <div class="project">
-            <img src="rust.jpeg" alt="Décodeur de mot de passe">
-            <h3>Décodeur de mot de passe en Rust</h3>
-            <p>Créer un décodeur de mot de passe en Rust.</p>
-            <a href="passworddecoder.html" target="_blank">Voir le code</a>
-        </div>
-        <div class="project">
-            <img src="OIG1.jpg" alt="Scanner en Go">
-            <h3>Scanner en Go</h3>
-            <p>Créer un scanner plus rapide que celui en Python.</p>
-            <a href="passworddecoder.html" target="_blank">Voir le code</a>
-        </div>
-       
+
+    <hr>
+    
+    <section id="projects" class="container">
+        <h2 class="section-title">Mes Projets Techniques 🚀</h2>
         
-       
-   
+        <div class="projects-grid">
+            
+            <div class="project-card">
+                <div class="project-image-container">
+                    <img src="unnamed.jpg" alt="Bounty Academy - Simulateur Bug Bounty">
+                </div>
+                <div class="project-content">
+                    <h3>Bounty Academy</h3>
+                    <p>Application interactive pour l'apprentissage pratique du Bug Bounty (failles **XSS** et **IDOR**). Une approche ludique de la sécurité des applications web.</p>
+                    <a href="https://gaelmaiano.github.io/bounty.html/" target="_blank" class="project-link">
+                        <i class="fas fa-external-link-alt"></i> Lancer le simulateur
+                    </a>
+                </div>
+            </div>
+      
+            <div class="project-card">
+                <div class="project-image-container">
+                    <img src="sacada.jpg" alt="Projet SCADA - Sécurité Industrielle">
+                </div>
+                <div class="project-content">
+                    <h3>Projet SCADA (ICS)</h3>
+                    <p>Mise en place d'un système de supervision **SCADA** (informatique industrielle). Base essentielle pour l'étude et la sécurisation des systèmes de contrôle industriels (ICS).</p>
+                    <a href="https://www.linkedin.com/posts/gael-maiano-34867a32a_rapport-chaine-de-production-scada-activity-7247783594591490049-1reA?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFMJZGgB6DJLffIZPXEUqJn9lAdbGasOEnI" target="_blank" class="project-link">
+                        <i class="fas fa-file-download"></i> Télécharger le rapport
+                    </a>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-image-container">
+                    <img src="scanner.jpeg" alt="Scanner de Port Python - Nmap">
+                </div>
+                <div class="project-content">
+                    <h3>Scanner de Port en Python</h3>
+                    <p>Développement d'un scanner de port basique en **Python** pour comprendre les mécaniques fondamentales derrière des outils comme **Nmap** (handshake TCP/UDP).</p>
+                    <a href="scannerPort.html" target="_blank" class="project-link">
+                        <i class="fas fa-code"></i> Voir le code
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image-container">
+                    <img src="keyllogger.jpeg" alt="Keylogger Python">
+                </div>
+                <div class="project-content">
+                    <h3>Keylogger en Python</h3>
+                    <p>Implémentation d'un **keylogger** en **Python** pour l'étude des malwares et des techniques de persistance/exfiltration de données dans un cadre éthique et éducatif.</p>
+                    <a href="keylogger.html" target="_blank" class="project-link">
+                        <i class="fas fa-code"></i> Voir le code
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image-container">
+                    <img src="rust.jpeg" alt="Décodeur de mot de passe Rust">
+                </div>
+                <div class="project-content">
+                    <h3>Décodeur de Hash/Mot de passe en Rust</h3>
+                    <p>Création d'un outil de décodage de mot de passe / cassage de hash en **Rust**. Exploitation de la performance du langage pour des opérations intensives en calcul.</p>
+                    <a href="passworddecoder.html" target="_blank" class="project-link">
+                        <i class="fas fa-code"></i> Voir le code
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image-container">
+                    <img src="OIG1.jpg" alt="Scanner en Go">
+                </div>
+                <div class="project-content">
+                    <h3>Scanner de Port en Go (Performance)</h3>
+                    <p>Développement d'un scanner en **Go (Golang)**, plus rapide et efficace que la version Python, grâce à la gestion native des goroutines et de la concurrence.</p>
+                    <a href="passworddecoder.html" target="_blank" class="project-link">
+                        <i class="fas fa-code"></i> Voir le code
+                    </a>
+                </div>
+            </div>
+            
+        </div>
     </section>
+
+    <hr>
 
     <section id="contact">
-        <h1>Contactez Gael Maiano</h1>
-        <div id="message-box" style="display:none;"></div>
-        <form action="https://formspree.io/f/xbljryyr" method="POST" onsubmit="return submitForm(event);">
-            <label for="name">Nom :</label>
-            <input type="text" id="name" name="name" required>
-            <label for="email">Email :</label>
-            <input type="email" id="email" name="_replyto" required>
-            <label for="message">Message :</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-            <input type="submit" value="Envoyer">
-        </form>
+        <div class="container">
+            <h2 class="section-title">Me Contacter</h2>
+            <div id="message-box" style="display:none;"></div>
+            <form action="https://formspree.io/f/xbljryyr" method="POST" onsubmit="return submitForm(event);">
+                <label for="name"><i class="fas fa-user"></i> Nom :</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="email"><i class="fas fa-envelope"></i> Email :</label>
+                <input type="email" id="email" name="_replyto" required>
+                
+                <label for="message"><i class="fas fa-comment"></i> Message :</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+                
+                <input type="submit" value="Envoyer le message">
+            </form>
+        </div>
     </section>
      
-
     <footer>
-        <p>© 2024 GaelMaiano</p>
+        <div class="container">
+            <p>© 2024 GaelMaiano | Conçu avec 💙 pour la Cybersécurité</p>
+        </div>
     </footer>
 
     <script>
-        // Fonction pour gérer la soumission du formulaire
         function submitForm(event) {
             event.preventDefault();
 
