@@ -1,778 +1,1148 @@
-
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BountyAcademy - Apprenez le Bug Bounty</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>BountyAcademy - Labs XSS, IDOR, SQLi, CSRF, XXE, Race Condition & LFI</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #0f172a; color: #e2e8f0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; height: 100vh; overflow: hidden; }
+        .app-container { display: flex; height: 100vh; }
+        .sidebar { width: 16rem; background-color: #1e293b; border-right: 1px solid #334155; display: flex; flex-direction: column; z-index: 20; transition: transform 0.3s; }
+        .sidebar-header { padding: 1.5rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: 1px solid #334155; }
+        .sidebar-header i { color: #10b981; font-size: 1.5rem; }
+        .sidebar-header h1 { font-size: 1.25rem; font-weight: bold; color: white; }
+        .sidebar-header span { color: #10b981; }
+        .xp-panel { padding: 1rem; background-color: rgba(30, 41, 59, 0.5); margin: 1rem; border-radius: 0.5rem; border: 1px solid #475569; }
+        .xp-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+        .xp-label { font-size: 0.75rem; color: #94a3b8; font-weight: bold; text-transform: uppercase; }
+        .user-level { font-size: 0.75rem; background-color: rgba(16, 185, 129, 0.2); color: #34d399; padding: 0.25rem 0.5rem; border-radius: 0.25rem; }
+        .xp-bar-container { width: 100%; background-color: #334155; height: 0.5rem; border-radius: 9999px; overflow: hidden; }
+        .xp-bar { background-color: #10b981; height: 100%; transition: width 0.5s; }
+        .xp-info { display: flex; justify-content: space-between; margin-top: 0.25rem; font-size: 0.75rem; color: #94a3b8; }
+        .nav-section { flex: 1; overflow-y: auto; padding: 0.5rem 0; }
+        .nav-btn { width: 100%; text-align: left; padding: 0.75rem 1.5rem; color: #94a3b8; background: none; border: none; border-left: 4px solid transparent; display: flex; align-items: center; gap: 0.75rem; cursor: pointer; transition: all 0.15s; position: relative; }
+        .nav-btn:hover, .nav-btn.active { color: #34d399; background-color: #1e293b; border-left-color: #10b981; }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .sidebar-footer { padding: 1rem; text-align: center; font-size: 0.75rem; color: #475569; border-top: 1px solid #334155; }
+        .main-content { flex: 1; overflow-y: auto; background-color: #0f172a; position: relative; }
+        .content-area { padding: 2rem; max-width: 64rem; margin: 0 auto; min-height: 100%; }
+        .dashboard-title { font-size: 1.875rem; font-weight: bold; margin-bottom: 1.5rem; }
+        .stat-card { background: rgba(30, 41, 59, 0.7); padding: 1.5rem; border-radius: 0.5rem; border: 1px solid rgba(255, 255, 255, 0.05); }
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+        .module-card { background-color: #1e293b; padding: 1rem; border-radius: 0.5rem; border: 1px solid #475569; margin-bottom: 1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: transform 0.2s; }
+        .module-card:hover { border-color: #10b981; transform: translateX(5px); }
+        .action-btn { width: 100%; padding: 1rem; background-color: #059669; color: white; border: none; border-radius: 0.5rem; cursor: pointer; margin-top: 1rem; font-size: 1rem; transition: background 0.2s; }
+        .action-btn:hover { background-color: #047857; }
+        .action-btn:disabled { background-color: #334155; cursor: not-allowed; }
+        .back-btn { background:none; border:none; color: #94a3b8; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; font-size: 1rem; }
+        .back-btn:hover { color: #10b981; }
+        
+        /* Progress indicators */
+        .module-progress { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.25rem; padding: 0 1.5rem; }
+        .progress-bar { flex: 1; height: 4px; background: #334155; border-radius: 2px; overflow: hidden; }
+        .progress-fill { height: 100%; background: #10b981; transition: width 0.3s ease; }
+        .progress-text { font-size: 0.7rem; color: #64748b; min-width: 2rem; }
+        
+        /* Labs Containers */
+        .lab-container { background-color: #1e293b; border: 1px solid #475569; border-radius: 0.5rem; padding: 1.5rem; margin-top: 1rem; }
+        .lab-browser { background-color: #f8fafc; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); color: #334155; font-family: 'Segoe UI', sans-serif; border: 1px solid #cbd5e1; }
+        .browser-bar { background-color: #e2e8f0; padding: 0.5rem 1rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid #cbd5e1; }
+        .browser-dots { display: flex; gap: 0.25rem; }
+        .dot { width: 0.75rem; height: 0.75rem; border-radius: 50%; }
+        .dot-red { background-color: #ef4444; }
+        .dot-yellow { background-color: #f59e0b; }
+        .dot-green { background-color: #10b981; }
+        .url-bar { background-color: white; padding: 0.25rem 0.75rem; border-radius: 0.25rem; flex: 1; font-size: 0.8rem; color: #64748b; margin-left: 1rem; border: 1px solid #cbd5e1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .browser-content { padding: 2rem; min-height: 250px; text-align: center; position: relative; }
+        
+        /* Inputs & Buttons Labs */
+        .vulnerable-input { padding: 0.75rem; border: 2px solid #cbd5e1; border-radius: 0.25rem; width: 70%; margin-right: 0.5rem; font-size: 1rem; outline: none; }
+        .vulnerable-input:focus { border-color: #3b82f6; }
+        .vulnerable-btn { padding: 0.75rem 1.5rem; background-color: #3b82f6; color: white; border: none; border-radius: 0.25rem; cursor: pointer; font-size: 1rem; transition: background 0.2s; }
+        .vulnerable-btn:hover { background-color: #2563eb; }
+        .search-result { margin-top: 2rem; padding: 1rem; border: 1px dashed #94a3b8; background-color: #f1f5f9; border-radius: 0.25rem; display: none; text-align: left; max-width: 80%; margin-left: auto; margin-right: auto; }
+        
+        /* IDOR Styles */
+        .profile-card { border: 1px solid #cbd5e1; border-radius: 8px; padding: 20px; max-width: 400px; margin: 0 auto; background: white; text-align: left; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .profile-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; }
+        .profile-avatar { width: 60px; height: 60px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #64748b; }
+        .profile-details p { margin-bottom: 8px; font-size: 0.9rem; }
+        .profile-label { font-weight: bold; color: #475569; width: 80px; display: inline-block; }
+        .api-key { background: #fee2e2; color: #991b1b; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 0.85rem; }
+        .idor-control { margin-top: 20px; padding: 15px; background: #f1f5f9; border-radius: 8px; display: inline-flex; align-items: center; gap: 10px; }
+        
+        /* SQLi/CSRF Styles */
+        .login-box { max-width: 350px; margin: 0 auto; background: white; padding: 2rem; border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .login-input { width: 100%; padding: 10px; margin-bottom: 1rem; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 1rem; }
+        .sql-debug { margin-top: 20px; font-family: monospace; font-size: 0.85rem; background: #1e293b; color: #10b981; padding: 10px; border-radius: 4px; text-align: left; border-left: 3px solid #10b981; min-height: 3.5em; display: flex; align-items: center; }
 
-        :root {
-            --bg-dark: #0f172a;
-            --accent: #10b981; /* Emerald 500 */
-            --accent-hover: #059669;
-            --text-main: #e2e8f0;
-            --terminal-bg: #1e293b;
-        }
+        /* CSRF Styles */
+        .csrf-panel { max-width: 500px; margin: 0 auto; }
+        .csrf-target { background: white; padding: 1.5rem; border-radius: 8px; border: 1px solid #e2e8f0; text-align: left; color: #334155; }
+        .csrf-attacker { background: #fee2e2; padding: 1rem; border-radius: 8px; border: 1px solid #fca5a5; margin-top: 1rem; text-align: left; color: #991b1b; }
+        .csrf-payload { width: 100%; height: 80px; font-family: monospace; font-size: 0.85rem; padding: 5px; border: 1px solid #fca5a5; margin-top: 0.5rem; resize: vertical; }
+        
+        /* XXE Styles */
+        .xxe-input { width: 100%; height: 150px; font-family: monospace; font-size: 0.9rem; padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; resize: vertical; }
+        .xxe-output { margin-top: 1.5rem; padding: 1rem; border: 1px solid #e2e8f0; background: #f1f5f9; border-radius: 4px; text-align: left; min-height: 100px; color: #334155; overflow: auto; }
+        .xxe-error { color:#ef4444; font-weight:bold; }
+        .xxe-success { color:#10b981; font-weight:bold; }
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-        }
-
-        .mono {
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0f172a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
-        }
-
-        /* Animations */
-        .fade-in {
-            animation: fadeIn 0.3s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .glass-panel {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* Toast Notification */
-        #toast-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 50;
-        }
-        .toast {
-            background: #1e293b;
-            border-left: 4px solid var(--accent);
-            color: white;
-            padding: 15px 20px;
-            margin-top: 10px;
-            border-radius: 4px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transform: translateX(100%);
-            transition: transform 0.3s ease-out;
-        }
-        .toast.show {
-            transform: translateX(0);
-        }
-
-        /* Code Syntax Highlighting Simulation */
-        .code-block {
-            background: #000;
-            border-radius: 6px;
+        /* Race Condition Styles */
+        .shop-mission-box { background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; border-radius: 10px; padding: 1.5rem; margin: 1rem 0; }
+        .shop-product-card { background: #1e293b; border-radius: 12px; padding: 2rem; border: 1px solid #334155; max-width: 400px; margin: 0 auto 2rem; }
+        .shop-product-image { width: 100%; height: 150px; background: linear-gradient(45deg, #334155, #475569); border-radius: 8px; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: #94a3b8; }
+        .shop-product-price { color: #10b981; font-size: 2rem; font-weight: bold; margin: 1rem 0; }
+        .shop-cart-summary { background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: 10px; padding: 1.5rem; margin: 2rem auto; max-width: 500px; text-align: center; }
+        .shop-cart-value { font-size: 2rem; font-weight: bold; color: #fbbf24; margin: 0.5rem 0; }
+        .shop-amount-paid { font-size: 2rem; font-weight: bold; color: #10b981; margin: 0.5rem 0; }
+        .shop-savings { font-size: 1.5rem; font-weight: bold; color: #ef4444; margin: 0.5rem 0; }
+        .shop-attack-panel { background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; border-radius: 12px; padding: 1.5rem; margin-top: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+        .shop-logs { background: #0f172a; border-radius: 8px; padding: 1.5rem; margin-top: 2rem; max-height: 400px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 0.9rem; }
+        .shop-products-received { display: flex; justify-content: center; gap: 1rem; margin: 1rem 0; flex-wrap: wrap; }
+        .shop-product-received { background: #334155; padding: 1rem; border-radius: 8px; text-align: center; min-width: 80px; border: 2px solid #475569; }
+        .shop-product-free { border-color: #f59e0b; background: rgba(245, 158, 11, 0.1); }
+        
+        /* LFI Styles (New) */
+        .lfi-file-content {
+            margin-top: 1.5rem;
             padding: 1rem;
-            border: 1px solid #334155;
-            overflow-x: auto;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            text-align: left;
+            min-height: 100px;
+            color: #334155;
+            overflow: auto;
+            font-family: monospace;
+            white-space: pre-wrap;
         }
-        .kw { color: #c678dd; } /* Keyword */
-        .str { color: #98c379; } /* String */
-        .fn { color: #61afef; } /* Function */
-        .com { color: #5c6370; font-style: italic; } /* Comment */
+
+        /* Tutorial and hints */
+        .tutorial-box { background: rgba(59, 130, 246, 0.1); border: 1px solid #3b82f6; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; }
+        .tutorial-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; color: #3b82f6; }
+        .hint-btn { background: none; border: 1px solid #64748b; color: #64748b; padding: 0.25rem 0.5rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem; margin-left: 0.5rem; }
+        .hint-btn:hover { background: #334155; }
+        .hint-content { margin-top: 0.5rem; padding: 0.75rem; background: rgba(30, 41, 59, 0.5); border-radius: 4px; font-size: 0.9rem; display: none; }
+        
+        /* Feedback Elements */
+        .fake-alert-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 50; backdrop-filter: blur(2px); }
+        .fake-alert-box { background: white; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); width: 320px; text-align: center; color: #0f172a; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .alert-btn { margin-top: 1rem; background: #3b82f6; color: white; border: none; padding: 0.5rem 1.5rem; border-radius: 0.25rem; cursor: pointer; }
+        .toast { position: fixed; bottom: 20px; right: 20px; background: #1e293b; border-left: 4px solid #10b981; color: white; padding: 15px 20px; border-radius: 4px; transform: translateX(150%); transition: transform 0.3s; z-index: 100; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); display: flex; align-items: center; gap: 10px; }
+        .toast.show { transform: translateX(0); }
+        
+        .mobile-header { display: none; }
+        @media (max-width: 768px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .sidebar { position: fixed; transform: translateX(-100%); height: 100vh; }
+            .sidebar.mobile-open { transform: translateX(0); }
+            .mobile-header { display: flex; padding: 1rem; background: #1e293b; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; }
+            .mobile-menu-btn { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+            .vulnerable-input { width: 100%; margin-bottom: 0.5rem; }
+            .vulnerable-btn { width: 100%; }
+        }
     </style>
 </head>
-<body class="h-screen flex flex-col md:flex-row overflow-hidden">
-
-    <!-- Sidebar Navigation -->
-    <nav class="w-full md:w-64 bg-slate-900 border-r border-slate-800 flex flex-col z-20">
-        <div class="p-6 flex items-center gap-3 border-b border-slate-800">
-            <i class="fa-solid fa-bug text-emerald-500 text-2xl"></i>
-            <h1 class="text-xl font-bold tracking-wider text-white">Bounty<span class="text-emerald-500">Acad</span></h1>
-        </div>
-
-        <!-- User Stats -->
-        <div class="p-4 bg-slate-800/50 m-4 rounded-lg border border-slate-700">
-            <div class="flex justify-between items-center mb-2">
-                <span class="text-xs text-slate-400 uppercase font-bold">Rang Actuel</span>
-                <span id="user-level" class="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded">Novice</span>
+<body>
+    <div class="app-container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-bug"></i>
+                <h1>Bounty<span>Acad</span></h1>
             </div>
-            <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden">
-                <div id="xp-bar" class="bg-emerald-500 h-full transition-all duration-500" style="width: 0%"></div>
+            <div class="xp-panel">
+                <div class="xp-header">
+                    <span class="xp-label">Rang</span>
+                    <span id="user-level" class="user-level">Novice</span>
+                </div>
+                <div class="xp-bar-container">
+                    <div id="xp-bar" class="xp-bar" style="width: 0%"></div>
+                </div>
+                <div class="xp-info">
+                    <span id="current-xp">0 XP</span>
+                    <span id="next-level-xp">3000 XP (Max)</span>
+                </div>
             </div>
-            <div class="flex justify-between mt-1 text-xs text-slate-400">
-                <span id="current-xp">0 XP</span>
-                <span id="next-level-xp">1000 XP</span>
+            <div class="nav-section">
+                <button class="nav-btn active" onclick="navigateTo('dashboard')" data-view="dashboard">
+                    <i class="fa-solid fa-chart-line"></i> Dashboard
+                </button>
+                <div style="padding: 1rem; font-size: 0.75rem; color: #64748b; font-weight: bold;">MODULES PRATIQUES</div>
+                <button class="nav-btn" onclick="navigateTo('module-xss')" data-view="module-xss">
+                    <i class="fa-solid fa-code"></i> Lab 1: XSS Reflected
+                    <div class="module-progress">
+                        <div class="progress-bar">
+                            <div id="progress-xss" class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <span id="progress-text-xss" class="progress-text">0%</span>
+                    </div>
+                </button>
+                <button class="nav-btn" onclick="navigateTo('module-idor')" data-view="module-idor">
+                    <i class="fa-solid fa-id-card"></i> Lab 2: IDOR
+                    <div class="module-progress">
+                        <div class="progress-bar">
+                            <div id="progress-idor" class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <span id="progress-text-idor" class="progress-text">0%</span>
+                    </div>
+                </button>
+                <button class="nav-btn" onclick="navigateTo('module-sqli')" data-view="module-sqli">
+                    <i class="fa-solid fa-database"></i> Lab 3: SQL Injection
+                    <div class="module-progress">
+                        <div class="progress-bar">
+                            <div id="progress-sqli" class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <span id="progress-text-sqli" class="progress-text">0%</span>
+                    </div>
+                </button>
+                <button class="nav-btn" onclick="navigateTo('module-csrf')" data-view="module-csrf">
+                    <i class="fa-solid fa-hand-pointer"></i> Lab 4: CSRF
+                    <div class="module-progress">
+                        <div class="progress-bar">
+                            <div id="progress-csrf" class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <span id="progress-text-csrf" class="progress-text">0%</span>
+                    </div>
+                </button>
+                <button class="nav-btn" onclick="navigateTo('module-xxe')" data-view="module-xxe">
+                    <i class="fa-solid fa-file-code"></i> Lab 5: XXE
+                    <div class="module-progress">
+                        <div class="progress-bar">
+                            <div id="progress-xxe" class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <span id="progress-text-xxe" class="progress-text">0%</span>
+                    </div>
+                </button>
+                <button class="nav-btn" onclick="navigateTo('module-race-condition')" data-view="module-race-condition">
+                    <i class="fa-solid fa-gauge-high"></i> Lab 6: Race Condition
+                    <div class="module-progress">
+                        <div class="progress-bar">
+                            <div id="progress-rc" class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <span id="progress-text-rc" class="progress-text">0%</span>
+                    </div>
+                </button>
+                 <button class="nav-btn" onclick="navigateTo('module-lfi')" data-view="module-lfi">
+                    <i class="fa-solid fa-folder-open"></i> Lab 7: LFI
+                    <div class="module-progress">
+                        <div class="progress-bar">
+                            <div id="progress-lfi" class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <span id="progress-text-lfi" class="progress-text">0%</span>
+                    </div>
+                </button>
             </div>
+            <div class="sidebar-footer">v1.9 | Ajout Lab LFI</div>
+        </nav>
+
+        <main class="main-content">
+            <div class="mobile-header">
+                <span style="font-weight: bold; color:white;">BountyAcademy</span>
+                <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('mobile-open')">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+            <div id="content-area" class="content-area"></div>
+        </main>
+    </div>
+
+    <div id="toast" class="toast">
+        <i class="fa-solid fa-check-circle" style="color:#34d399"></i> <span id="toast-message">Succès !</span>
+    </div>
+
+    <div id="fake-alert-overlay" class="fake-alert-overlay">
+        <div class="fake-alert-box">
+            <h3 style="margin-bottom: 0.5rem; color: #ef4444; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
+                <i class="fa-solid fa-triangle-exclamation"></i> Alert
+            </h3>
+            <p style="margin-bottom: 1rem; color:#334155;">Le site indique :</p>
+            <p id="alert-content" style="font-family: monospace; font-size:1.2rem; font-weight:bold; background: #f1f5f9; padding: 0.5rem; margin-bottom: 1rem; border-radius: 4px; border:1px solid #cbd5e1;">1</p>
+            <button class="alert-btn" onclick="closeFakeAlert()">OK</button>
         </div>
-
-        <!-- Menu Items -->
-        <div class="flex-1 overflow-y-auto py-2">
-            <button onclick="app.navigate('dashboard')" class="nav-btn w-full text-left px-6 py-3 text-slate-400 hover:text-emerald-400 hover:bg-slate-800 transition-colors border-l-4 border-transparent hover:border-emerald-500 flex items-center gap-3 active-nav">
-                <i class="fa-solid fa-chart-line w-5"></i> Tableau de bord
-            </button>
-            
-            <div class="px-6 py-2 mt-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Modules</div>
-            
-            <button onclick="app.navigate('module-intro')" class="nav-btn w-full text-left px-6 py-3 text-slate-400 hover:text-emerald-400 hover:bg-slate-800 transition-colors border-l-4 border-transparent hover:border-emerald-500 flex items-center gap-3">
-                <i class="fa-solid fa-book-open w-5"></i> Introduction
-            </button>
-            <button onclick="app.navigate('module-xss')" class="nav-btn w-full text-left px-6 py-3 text-slate-400 hover:text-emerald-400 hover:bg-slate-800 transition-colors border-l-4 border-transparent hover:border-emerald-500 flex items-center gap-3">
-                <i class="fa-solid fa-code w-5"></i> XSS (Cross-Site Scripting)
-            </button>
-            <button onclick="app.navigate('module-idor')" class="nav-btn w-full text-left px-6 py-3 text-slate-400 hover:text-emerald-400 hover:bg-slate-800 transition-colors border-l-4 border-transparent hover:border-emerald-500 flex items-center gap-3">
-                <i class="fa-solid fa-id-card w-5"></i> IDOR
-            </button>
-             <button onclick="app.navigate('module-sqli')" class="nav-btn w-full text-left px-6 py-3 text-slate-400 hover:text-emerald-400 hover:bg-slate-800 transition-colors border-l-4 border-transparent hover:border-emerald-500 flex items-center gap-3">
-                <i class="fa-solid fa-database w-5"></i> SQL Injection
-            </button>
-
-            <div class="px-6 py-2 mt-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Pratique</div>
-            
-            <button onclick="app.navigate('lab-xss')" class="nav-btn w-full text-left px-6 py-3 text-slate-400 hover:text-emerald-400 hover:bg-slate-800 transition-colors border-l-4 border-transparent hover:border-emerald-500 flex items-center gap-3">
-                <i class="fa-solid fa-flask w-5"></i> Laboratoire XSS
-            </button>
-            <button onclick="app.navigate('lab-idor')" class="nav-btn w-full text-left px-6 py-3 text-slate-400 hover:text-emerald-400 hover:bg-slate-800 transition-colors border-l-4 border-transparent hover:border-emerald-500 flex items-center gap-3">
-                <i class="fa-solid fa-server w-5"></i> Laboratoire IDOR
-            </button>
-        </div>
-
-        <div class="p-4 text-center text-xs text-slate-600 border-t border-slate-800">
-            v1.0.0 | Mode Simulation
-        </div>
-    </nav>
-
-    <!-- Main Content Area -->
-    <main class="flex-1 overflow-y-auto bg-slate-900 relative">
-        <!-- Top Bar (Mobile Toggle) -->
-        <div class="md:hidden p-4 bg-slate-800 flex justify-between items-center">
-            <span class="font-bold text-white">BountyAcademy</span>
-            <button class="text-white" onclick="toggleMobileMenu()"><i class="fa-solid fa-bars"></i></button>
-        </div>
-
-        <div id="content-area" class="p-4 md:p-8 max-w-5xl mx-auto min-h-full pb-20">
-            <!-- Content injected via JS -->
-        </div>
-    </main>
-
-    <!-- Toast Container -->
-    <div id="toast-container"></div>
+    </div>
 
     <script>
-        /* * BOUNTY ACADEMY APP LOGIC
-         */
-
-        const appState = {
+        var appState = {
             xp: 0,
             level: 1,
             completedModules: [],
             currentView: 'dashboard'
         };
 
-        // --- Data Content ---
+        var modules = {
+            dashboard: {
+                render: function() {
+                    var html = '';
+                    html += '<h2 class="dashboard-title">Tableau de bord</h2>';
+                    html += '<div class="stats-grid">';
+                    html += '<div class="stat-card">';
+                    html += '<div style="color: #94a3b8; font-size: 0.875rem;">XP Total</div>';
+                    html += '<div style="font-size: 1.875rem; font-weight: bold; color: white;">' + appState.xp + '</div>';
+                    html += '</div>';
+                    html += '<div class="stat-card">';
+                    html += '<div style="color: #94a3b8; font-size: 0.875rem;">Modules Terminés</div>';
+                    html += '<div style="font-size: 1.875rem; font-weight: bold; color: white;">' + appState.completedModules.length + '/7</div>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '<h3 style="color:white; margin-bottom:1rem;">Continuer l\'apprentissage</h3>';
+                    
+                    // CARTE XSS
+                    html += '<div class="module-card" onclick="navigateTo(\'module-xss\')">';
+                    html += '<div style="display:flex; align-items:center; gap:1rem;">';
+                    html += '<div style="width: 3rem; height: 3rem; background: #334155; border-radius: 50%; display:flex; align-items:center; justify-content:center; color: #10b981;">';
+                    html += '<i class="fa-solid fa-code"></i>';
+                    html += '</div>';
+                    html += '<div>';
+                    html += '<h4 style="color: white; font-weight: bold;">Lab 1: XSS Reflected</h4>';
+                    html += '<p style="font-size: 0.75rem; color: #94a3b8;">Niveau: Facile • 200 XP</p>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '<i class="fa-solid fa-chevron-right" style="color: #475569;"></i>';
+                    html += '</div>';
+                    
+                    // CARTE IDOR
+                    html += '<div class="module-card" onclick="navigateTo(\'module-idor\')">';
+                    html += '<div style="display:flex; align-items:center; gap:1rem;">';
+                    html += '<div style="width: 3rem; height: 3rem; background: #334155; border-radius: 50%; display:flex; align-items:center; justify-content:center; color: #f59e0b;">';
+                    html += '<i class="fa-solid fa-id-card"></i>';
+                    html += '</div>';
+                    html += '<div>';
+                    html += '<h4 style="color: white; font-weight: bold;">Lab 2: IDOR</h4>';
+                    html += '<p style="font-size: 0.75rem; color: #94a3b8;">Niveau: Moyen • 300 XP</p>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '<i class="fa-solid fa-chevron-right" style="color: #475569;"></i>';
+                    html += '</div>';
 
-        const modules = {
-            'module-intro': {
-                title: "Introduction au Bug Bounty",
-                icon: "fa-book-open",
-                content: `
-                    <div class="space-y-6 fade-in">
-                        <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
-                            <h2 class="text-2xl font-bold text-white mb-4">Qu'est-ce que le Bug Bounty ?</h2>
-                            <p class="text-slate-300 mb-4">
-                                Le Bug Bounty est un programme offert par de nombreux sites web et développeurs de logiciels qui permet aux individus de recevoir reconnaissance et compensation financière pour avoir rapporté des bugs, en particulier ceux liés à la sécurité et aux vulnérabilités.
-                            </p>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                                <div class="bg-slate-900 p-4 rounded border border-slate-700">
-                                    <h3 class="text-emerald-400 font-bold mb-2"><i class="fa-solid fa-user-shield mr-2"></i>White Hat</h3>
-                                    <p class="text-sm text-slate-400">Hackers éthiques qui utilisent leurs compétences pour améliorer la sécurité. Ils demandent la permission et rapportent les failles.</p>
-                                </div>
-                                <div class="bg-slate-900 p-4 rounded border border-slate-700">
-                                    <h3 class="text-red-400 font-bold mb-2"><i class="fa-solid fa-user-ninja mr-2"></i>Black Hat</h3>
-                                    <p class="text-sm text-slate-400">Hackers malveillants qui exploitent les failles pour un gain personnel ou pour nuire, sans autorisation.</p>
-                                </div>
-                            </div>
-                        </div>
+                    // CARTE SQLI
+                    html += '<div class="module-card" onclick="navigateTo(\'module-sqli\')">';
+                    html += '<div style="display:flex; align-items:center; gap:1rem;">';
+                    html += '<div style="width: 3rem; height: 3rem; background: #334155; border-radius: 50%; display:flex; align-items:center; justify-content:center; color: #ef4444;">';
+                    html += '<i class="fa-solid fa-database"></i>';
+                    html += '</div>';
+                    html += '<div>';
+                    html += '<h4 style="color: white; font-weight: bold;">Lab 3: SQL Injection</h4>';
+                    html += '<p style="font-size: 0.75rem; color: #94a3b8;">Niveau: Intermédiaire • 400 XP</p>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '<i class="fa-solid fa-chevron-right" style="color: #475569;"></i>';
+                    html += '</div>';
 
-                        <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
-                            <h2 class="text-xl font-bold text-white mb-4">Les plateformes principales</h2>
-                            <ul class="list-disc list-inside text-slate-300 space-y-2">
-                                <li><strong class="text-white">HackerOne</strong> : La plus grosse plateforme mondiale.</li>
-                                <li><strong class="text-white">Bugcrowd</strong> : Très populaire avec beaucoup de programmes privés.</li>
-                                <li><strong class="text-white">Intigriti</strong> : Plateforme européenne en pleine croissance.</li>
-                                <li><strong class="text-white">YesWeHack</strong> : Leader européen, excellent pour débuter.</li>
-                            </ul>
-                        </div>
+                    // CARTE CSRF
+                    html += '<div class="module-card" onclick="navigateTo(\'module-csrf\')">';
+                    html += '<div style="display:flex; align-items:center; gap:1rem;">';
+                    html += '<div style="width: 3rem; height: 3rem; background: #334155; border-radius: 50%; display:flex; align-items:center; justify-content:center; color: #3b82f6;">';
+                    html += '<i class="fa-solid fa-hand-pointer"></i>';
+                    html += '</div>';
+                    html += '<div>';
+                    html += '<h4 style="color: white; font-weight: bold;">Lab 4: CSRF (Request Forgery)</h4>';
+                    html += '<p style="font-size: 0.75rem; color: #94a3b8;">Niveau: Avancé • 400 XP</p>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '<i class="fa-solid fa-chevron-right" style="color: #475569;"></i>';
+                    html += '</div>';
+                    
+                    // CARTE XXE
+                    html += '<div class="module-card" onclick="navigateTo(\'module-xxe\')">';
+                    html += '<div style="display:flex; align-items:center; gap:1rem;">';
+                    html += '<div style="width: 3rem; height: 3rem; background: #334155; border-radius: 50%; display:flex; align-items:center; justify-content:center; color: #fbbf24;">';
+                    html += '<i class="fa-solid fa-file-code"></i>';
+                    html += '</div>';
+                    html += '<div>';
+                    html += '<h4 style="color: white; font-weight: bold;">Lab 5: XXE (External Entity)</h4>';
+                    html += '<p style="font-size: 0.75rem; color: #94a3b8;">Niveau: Expert • 500 XP</p>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '<i class="fa-solid fa-chevron-right" style="color: #475569;"></i>';
+                    html += '</div>';
 
-                        <button onclick="app.completeModule('module-intro', 100)" class="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg transition-colors shadow-lg shadow-emerald-900/20">
-                            <i class="fa-solid fa-check mr-2"></i> Marquer comme terminé (+100 XP)
-                        </button>
-                    </div>
-                `
+                    // CARTE RACE CONDITION
+                    html += '<div class="module-card" onclick="navigateTo(\'module-race-condition\')">';
+                    html += '<div style="display:flex; align-items:center; gap:1rem;">';
+                    html += '<div style="width: 3rem; height: 3rem; background: #334155; border-radius: 50%; display:flex; align-items:center; justify-content:center; color: #ef4444;">';
+                    html += '<i class="fa-solid fa-gauge-high"></i>';
+                    html += '</div>';
+                    html += '<div>';
+                    html += '<h4 style="color: white; font-weight: bold;">Lab 6: Race Condition</h4>';
+                    html += '<p style="font-size: 0.75rem; color: #94a3b8;">Niveau: Expert+ • 600 XP</p>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '<i class="fa-solid fa-chevron-right" style="color: #475569;"></i>';
+                    html += '</div>';
+                    
+                    // CARTE LFI (NEW)
+                    html += '<div class="module-card" onclick="navigateTo(\'module-lfi\')">';
+                    html += '<div style="display:flex; align-items:center; gap:1rem;">';
+                    html += '<div style="width: 3rem; height: 3rem; background: #334155; border-radius: 50%; display:flex; align-items:center; justify-content:center; color: #34d399;">';
+                    html += '<i class="fa-solid fa-folder-open"></i>';
+                    html += '</div>';
+                    html += '<div>';
+                    html += '<h4 style="color: white; font-weight: bold;">Lab 7: LFI (Local File Inclusion)</h4>';
+                    html += '<p style="font-size: 0.75rem; color: #94a3b8;">Niveau: Intermédiaire • 600 XP</p>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '<i class="fa-solid fa-chevron-right" style="color: #475569;"></i>';
+                    html += '</div>';
+
+                    return html;
+                }
             },
             'module-xss': {
-                title: "Cross-Site Scripting (XSS)",
-                icon: "fa-code",
-                content: `
-                    <div class="space-y-6 fade-in">
-                        <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
-                            <h2 class="text-2xl font-bold text-white mb-4">Comprendre la faille XSS</h2>
-                            <p class="text-slate-300 mb-4">
-                                Le Cross-Site Scripting (XSS) permet à un attaquant d'injecter du code JavaScript malveillant dans une page web consultée par d'autres utilisateurs.
-                            </p>
-                            
-                            <div class="mt-4">
-                                <h3 class="text-lg font-bold text-emerald-400 mb-2">Types de XSS</h3>
-                                <div class="space-y-3">
-                                    <div class="p-3 bg-slate-900 border-l-4 border-blue-500 rounded">
-                                        <strong class="text-white block">Reflected XSS</strong>
-                                        <span class="text-sm text-slate-400">Le script malveillant provient de la requête HTTP (ex: paramètre URL) et est renvoyé immédiatement par le serveur.</span>
-                                    </div>
-                                    <div class="p-3 bg-slate-900 border-l-4 border-purple-500 rounded">
-                                        <strong class="text-white block">Stored XSS</strong>
-                                        <span class="text-sm text-slate-400">Le script est stocké sur le serveur (ex: dans un commentaire) et servi à chaque visiteur. C'est le plus dangereux.</span>
-                                    </div>
-                                    <div class="p-3 bg-slate-900 border-l-4 border-orange-500 rounded">
-                                        <strong class="text-white block">DOM XSS</strong>
-                                        <span class="text-sm text-slate-400">La vulnérabilité est dans le code JavaScript côté client, modifiant le DOM de manière non sécurisée.</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
-                            <h2 class="text-xl font-bold text-white mb-4">Exemple de Payload</h2>
-                            <p class="text-slate-300 mb-2">Le test le plus basique consiste à faire apparaître une fenêtre d'alerte :</p>
-                            <div class="code-block mono text-sm">
-                                <span class="kw">&lt;script&gt;</span><span class="fn">alert</span>(<span class="str">1</span>)<span class="kw">&lt;/script&gt;</span>
-                            </div>
-                            <p class="text-slate-300 mt-4 mb-2">Ou via une balise image (pour contourner certains filtres) :</p>
-                            <div class="code-block mono text-sm">
-                                <span class="kw">&lt;img</span> src=<span class="str">x</span> onerror=<span class="fn">alert</span>(<span class="str">1</span>)<span class="kw">&gt;</span>
-                            </div>
-                        </div>
-
-                        <div class="bg-yellow-900/30 border border-yellow-600/50 p-4 rounded-lg flex gap-4 items-start">
-                            <i class="fa-solid fa-triangle-exclamation text-yellow-500 mt-1"></i>
-                            <div>
-                                <h4 class="font-bold text-yellow-400">Impact</h4>
-                                <p class="text-sm text-yellow-100/80">Vol de cookies de session, redirection vers des sites de phishing, actions au nom de l'utilisateur.</p>
-                            </div>
-                        </div>
-
-                        <button onclick="app.navigate('lab-xss')" class="w-full py-4 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg transition-colors border border-slate-600 mb-2">
-                            <i class="fa-solid fa-flask mr-2"></i> Aller au Laboratoire Pratique
-                        </button>
-                        
-                        <button onclick="app.completeModule('module-xss', 150)" class="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg transition-colors shadow-lg shadow-emerald-900/20">
-                            <i class="fa-solid fa-check mr-2"></i> Marquer comme terminé (+150 XP)
-                        </button>
-                    </div>
-                `
+                xpReward: 200,
+                render: function() {
+                    var isDone = appState.completedModules.indexOf('module-xss') !== -1;
+                    var html = '';
+                    html += '<button onclick="navigateTo(\'dashboard\')" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Retour</button>';
+                    html += '<h2 class="dashboard-title"><i class="fa-solid fa-code" style="color:#10b981"></i> Lab 1: XSS Reflected</h2>';
+                    
+                    // Tutorial Box
+                    html += '<div class="tutorial-box">';
+                    html += '<div class="tutorial-header">';
+                    html += '<i class="fa-solid fa-circle-info"></i>';
+                    html += '<h3>Qu\'est-ce que le XSS Reflected ?</h3>';
+                    html += '<button class="hint-btn" onclick="toggleHint(\'xss-hint\')">Aide</button>';
+                    html += '</div>';
+                    html += '<p>Le XSS Reflected (ou non-persistant) se produit lorsque des données non fiables sont incluses dans la réponse d\'une application sans être correctement validées ou échappées.</p>';
+                    html += '<div id="xss-hint" class="hint-content">';
+                    html += '<p><strong>Indice :</strong> Essayez d\'injecter une balise script qui exécute <code>alert(1)</code>.</p>';
+                    html += '<p><strong>Solution :</strong> <code>&lt;script&gt;alert(1)&lt;/script&gt;</code> ou <code>&lt;img src=x onerror=alert(1)&gt;</code></p>';
+                    html += '</div>';
+                    html += '</div>';
+                    
+                    html += '<div class="stat-card" style="margin-bottom: 2rem;">';
+                    html += '<h3 style="color: white; margin-bottom: 0.5rem;">Mission : Hackez cette recherche</h3>';
+                    html += '<p style="color: #cbd5e1; line-height: 1.6;">Injectez du code JavaScript pour faire apparaître une <code>alert(1)</code>.</p>';
+                    html += '</div>';
+                    html += '<div class="lab-container">';
+                    html += '<div style="margin-bottom: 1rem; color: #cbd5e1;">http://vulnerable-search.com</div>';
+                    html += '<div class="lab-browser"><div class="browser-bar"><div class="browser-dots"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div><div class="url-bar">/search</div></div>';
+                    html += '<div class="browser-content"><h2 style="margin-bottom: 1.5rem; color: #1e293b;">Super Search</h2>';
+                    html += '<div style="display: flex; justify-content: center; gap:0.5rem;"><input type="text" id="lab-input-xss" class="vulnerable-input" placeholder="Que cherchez-vous ?"><button onclick="runXSSLab()" class="vulnerable-btn">Go</button></div>';
+                    html += '<div id="lab-result-xss" class="search-result"></div></div></div></div>';
+                    html += '<button id="validate-btn-xss" class="action-btn" onclick="validateLab(\'module-xss\')" disabled>' + (isDone ? 'Validé' : 'À faire') + '</button>';
+                    return html;
+                }
             },
             'module-idor': {
-                title: "Insecure Direct Object Ref (IDOR)",
-                icon: "fa-id-card",
-                content: `
-                    <div class="space-y-6 fade-in">
-                        <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
-                            <h2 class="text-2xl font-bold text-white mb-4">Comprendre l'IDOR</h2>
-                            <p class="text-slate-300 mb-4">
-                                L'IDOR survient lorsqu'une application expose une référence à un objet interne (comme un ID dans une URL ou un formulaire) sans vérifier correctement les permissions de l'utilisateur.
-                            </p>
-                            <p class="text-slate-300">
-                                En changeant simplement cet ID, un attaquant peut accéder aux données d'autres utilisateurs.
-                            </p>
-                        </div>
+                xpReward: 300,
+                render: function() {
+                    var isDone = appState.completedModules.indexOf('module-idor') !== -1;
+                    var html = '';
+                    html += '<button onclick="navigateTo(\'dashboard\')" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Retour</button>';
+                    html += '<h2 class="dashboard-title"><i class="fa-solid fa-id-card" style="color:#f59e0b"></i> Lab 2: IDOR</h2>';
+                    
+                    // Tutorial Box
+                    html += '<div class="tutorial-box">';
+                    html += '<div class="tutorial-header">';
+                    html += '<i class="fa-solid fa-circle-info"></i>';
+                    html += '<h3>Qu\'est-ce que l\'IDOR ?</h3>';
+                    html += '<button class="hint-btn" onclick="toggleHint(\'idor-hint\')">Aide</button>';
+                    html += '</div>';
+                    html += '<p>Les <strong>Insecure Direct Object References (IDOR)</strong> surviennent lorsqu\'un utilisateur peut accéder directement à des ressources non autorisées en modifiant la valeur d\'un paramètre qui référence directement un objet (comme un ID de profil ou un nom de fichier).</p>';
+                    html += '<div id="idor-hint" class="hint-content">';
+                    html += '<p><strong>Indice :</strong> Vous êtes l\'utilisateur <code>101</code>. L\'API Key de l\'utilisateur <code>100</code> est le drapeau. Comment accédez-vous à <code>/api/v1/profile/100</code> ?</p>';
+                    html += '<p><strong>Solution :</strong> Changez simplement l\'ID dans la barre d\'URL du navigateur simulé pour lire le profil de l\'administrateur.</p>';
+                    html += '</div>';
+                    html += '</div>';
+                    
+                    html += '<div class="stat-card" style="margin-bottom: 2rem;">';
+                    html += '<h3 style="color: white; margin-bottom: 0.5rem;">Mission : Obtenir l\'API Key de l\'Admin (ID 100)</h3>';
+                    html += '<p style="color: #cbd5e1; line-height: 1.6;">L\'URL du profil utilise le paramètre <code>id</code>. Vous êtes l\'utilisateur <code>101</code>.</p>';
+                    html += '</div>';
+                    
+                    html += '<div class="lab-container">';
+                    html += '<div class="lab-browser">';
+                    html += '<div class="browser-bar">';
+                    html += '<div class="browser-dots"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>';
+                    html += '<div id="idor-url-bar" class="url-bar">/api/v1/profile/101</div>';
+                    html += '</div>';
+                    html += '<div class="browser-content">';
+                    
+                    // Profile Card for User 101
+                    html += '<div id="profile-card" class="profile-card">';
+                    html += '<div class="profile-header">';
+                    html += '<div class="profile-avatar"><i class="fa-solid fa-user"></i></div>';
+                    html += '<div>';
+                    html += '<h4 style="color: #1e293b; margin: 0;">User 101</h4>';
+                    html += '<p style="color: #64748b; margin: 0;">Statut: Standard</p>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '<div class="profile-details">';
+                    html += '<p><span class="profile-label">ID :</span> 101</p>';
+                    html += '<p><span class="profile-label">Email :</span> user101@example.com</p>';
+                    html += '<p><span class="profile-label">API Key :</span> <span class="api-key">KEY-101-USER</span></p>';
+                    html += '</div>';
+                    html += '</div>';
 
-                        <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
-                            <h2 class="text-xl font-bold text-white mb-4">Anatomie d'une attaque</h2>
-                            <div class="space-y-4">
-                                <div class="flex items-center gap-4">
-                                    <div class="bg-red-500/20 text-red-400 p-3 rounded font-bold text-xl">1</div>
-                                    <div>
-                                        <p class="text-white font-bold">Observation</p>
-                                        <p class="text-sm text-slate-400">L'URL ressemble à : <code class="bg-slate-900 px-2 py-1 rounded text-emerald-400">site.com/profil?user_id=1001</code></p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-4">
-                                    <div class="bg-red-500/20 text-red-400 p-3 rounded font-bold text-xl">2</div>
-                                    <div>
-                                        <p class="text-white font-bold">Modification</p>
-                                        <p class="text-sm text-slate-400">L'attaquant change 1001 en 1002.</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-4">
-                                    <div class="bg-red-500/20 text-red-400 p-3 rounded font-bold text-xl">3</div>
-                                    <div>
-                                        <p class="text-white font-bold">Exploitation</p>
-                                        <p class="text-sm text-slate-400">Le serveur renvoie les infos de l'utilisateur 1002 sans vérifier si vous êtes autorisé à les voir.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    html += '<div class="idor-control">';
+                    html += 'Modifier l\'ID : <input type="number" id="idor-input" value="101" min="100" max="101" style="width:60px;" class="vulnerable-input">';
+                    html += '<button onclick="runIDORLab()" class="vulnerable-btn" style="width: auto;">Voir Profil</button>';
+                    html += '</div>';
 
-                        <button onclick="app.navigate('lab-idor')" class="w-full py-4 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg transition-colors border border-slate-600 mb-2">
-                            <i class="fa-solid fa-flask mr-2"></i> Aller au Laboratoire Pratique
-                        </button>
-                        
-                        <button onclick="app.completeModule('module-idor', 150)" class="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg transition-colors shadow-lg shadow-emerald-900/20">
-                            <i class="fa-solid fa-check mr-2"></i> Marquer comme terminé (+150 XP)
-                        </button>
-                    </div>
-                `
+                    html += '</div></div></div>';
+                    html += '<button id="validate-btn-idor" class="action-btn" onclick="validateLab(\'module-idor\')" disabled>' + (isDone ? 'Validé' : 'À faire') + '</button>';
+
+                    return html;
+                }
             },
-             'module-sqli': {
-                title: "SQL Injection (SQLi)",
-                icon: "fa-database",
-                content: `
-                    <div class="space-y-6 fade-in">
-                        <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
-                            <h2 class="text-2xl font-bold text-white mb-4">Injection SQL</h2>
-                            <p class="text-slate-300 mb-4">
-                                Une injection SQL se produit lorsqu'une application insère des données utilisateur non sécurisées directement dans une requête de base de données. Cela permet à un attaquant de manipuler la requête.
-                            </p>
-                            <p class="text-slate-300">
-                                Cela peut permettre de contourner l'authentification, d'accéder à des données sensibles, ou même de supprimer des données.
-                            </p>
-                        </div>
+            'module-sqli': {
+                xpReward: 400,
+                render: function() {
+                    var isDone = appState.completedModules.indexOf('module-sqli') !== -1;
+                    var html = '';
+                    html += '<button onclick="navigateTo(\'dashboard\')" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Retour</button>';
+                    html += '<h2 class="dashboard-title"><i class="fa-solid fa-database" style="color:#ef4444"></i> Lab 3: SQL Injection</h2>';
 
-                        <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
-                            <h2 class="text-xl font-bold text-white mb-4">Exemple Classique</h2>
-                            <p class="text-slate-400 text-sm mb-2">Requête PHP vulnérable :</p>
-                            <div class="code-block mono text-sm mb-4">
-                                $sql = <span class="str">"SELECT * FROM users WHERE user='"</span> . $username . <span class="str">"'"</span>;
-                            </div>
-                            
-                            <p class="text-slate-400 text-sm mb-2">Payload d'attaquant :</p>
-                            <div class="code-block mono text-sm mb-4">
-                                admin' OR '1'='1
-                            </div>
+                    // Tutorial Box
+                    html += '<div class="tutorial-box">';
+                    html += '<div class="tutorial-header">';
+                    html += '<i class="fa-solid fa-circle-info"></i>';
+                    html += '<h3>Qu\'est-ce que la SQL Injection ?</h3>';
+                    html += '<button class="hint-btn" onclick="toggleHint(\'sqli-hint\')">Aide</button>';
+                    html += '</div>';
+                    html += '<p>La <strong>SQL Injection (SQLi)</strong> se produit lorsqu\'une application construit une requête SQL en utilisant des données fournies par l\'utilisateur sans les valider ou les échapper correctement.</p>';
+                    html += '<div id="sqli-hint" class="hint-content">';
+                    html += '<p><strong>Indice :</strong> Utilisez la clause <code>OR</code> pour rendre la condition de la clause <code>WHERE</code> toujours vraie.</p>';
+                    html += '<p><strong>Solution :</strong> Le payload classique <code>\' OR 1=1 -- </code> fonctionne souvent. Le <code>-- </code> (ou <code>#</code> en MySQL) commente le reste de la requête.</p>';
+                    html += '</div>';
+                    html += '</div>';
 
-                            <p class="text-slate-400 text-sm mb-2">Résultat interprété :</p>
-                            <div class="code-block mono text-sm">
-                                SELECT * FROM users WHERE user='admin' OR '1'='1'
-                            </div>
-                            <p class="text-emerald-400 text-sm mt-2">La condition '1'='1' est toujours vraie, connectant l'attaquant sans mot de passe.</p>
-                        </div>
-                        
-                        <button onclick="app.completeModule('module-sqli', 150)" class="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg transition-colors shadow-lg shadow-emerald-900/20">
-                            <i class="fa-solid fa-check mr-2"></i> Marquer comme terminé (+150 XP)
-                        </button>
-                    </div>
-                `
+                    html += '<div class="stat-card" style="margin-bottom: 2rem;">';
+                    html += '<h3 style="color: white; margin-bottom: 0.5rem;">Mission : Contourner l\'authentification</h3>';
+                    html += '<p style="color: #cbd5e1; line-height: 1.6;">Connectez-vous en tant qu\'Admin (le premier utilisateur de la base) sans connaître le mot de passe.</p>';
+                    html += '</div>';
+
+                    html += '<div class="lab-container">';
+                    html += '<div style="margin-bottom: 1rem; color: #cbd5e1;">http://vulnerable-auth.com</div>';
+                    html += '<div class="lab-browser">';
+                    html += '<div class="browser-bar">';
+                    html += '<div class="browser-dots"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>';
+                    html += '<div class="url-bar">/login</div>';
+                    html += '</div>';
+                    html += '<div class="browser-content">';
+                    html += '<div class="login-box">';
+                    html += '<h2 style="color: #1e293b; margin-bottom: 1.5rem;">Connexion</h2>';
+                    html += '<input type="text" id="sqli-username" class="login-input" placeholder="Nom d\'utilisateur">';
+                    html += '<input type="password" id="sqli-password" class="login-input" placeholder="Mot de passe">';
+                    html += '<button onclick="runSQLiLab()" class="vulnerable-btn">Se connecter</button>';
+                    html += '<div class="sql-debug" id="sql-debug">Query: SELECT * FROM users WHERE username=\'\' AND password=\'\'</div>';
+                    html += '</div>';
+                    html += '</div></div></div>';
+                    html += '<button id="validate-btn-sqli" class="action-btn" onclick="validateLab(\'module-sqli\')" disabled>' + (isDone ? 'Validé' : 'À faire') + '</button>';
+
+                    return html;
+                }
+            },
+            'module-csrf': {
+                xpReward: 400,
+                render: function() {
+                    var isDone = appState.completedModules.indexOf('module-csrf') !== -1;
+                    var html = '';
+                    html += '<button onclick="navigateTo(\'dashboard\')" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Retour</button>';
+                    html += '<h2 class="dashboard-title"><i class="fa-solid fa-hand-pointer" style="color:#3b82f6"></i> Lab 4: CSRF</h2>';
+                    
+                    // Tutorial Box
+                    html += '<div class="tutorial-box">';
+                    html += '<div class="tutorial-header">';
+                    html += '<i class="fa-solid fa-circle-info"></i>';
+                    html += '<h3>Qu\'est-ce que le CSRF ?</h3>';
+                    html += '<button class="hint-btn" onclick="toggleHint(\'csrf-hint\')">Aide</button>';
+                    html += '</div>';
+                    html += '<p>La <strong>Cross-Site Request Forgery (CSRF)</strong> force un utilisateur authentifié à exécuter des actions non désirées sur une application web à laquelle il est actuellement connecté.</p>';
+                    html += '<div id="csrf-hint" class="hint-content">';
+                    html += '<p><strong>Indice :</strong> La fonction de changement de mot de passe est un simple <code>GET</code>. Un <code>&lt;img&gt;</code> peut déclencher une requête <code>GET</code>.</p>';
+                    html += '<p><strong>Solution :</strong> Intégrez l\'URL de la requête <code>GET</code> malveillante dans une balise <code>&lt;img src="https://www.collinsdictionary.com/dictionary/french-english/malveillant"&gt;</code> sur le site de l\'attaquant.</p>';
+                    html += '</div>';
+                    html += '</div>';
+
+                    html += '<div class="stat-card" style="margin-bottom: 2rem;">';
+                    html += '<h3 style="color: white; margin-bottom: 0.5rem;">Mission : Changer le mot de passe de l\'Admin</h3>';
+                    html += '<p style="color: #cbd5e1; line-height: 1.6;">L\'Admin navigue sur notre site malveillant. Changez son mot de passe pour <code>hacked</code>. L\'URL vulnérable est <code>/change_pass?new_pass=[MOT_DE_PASSE]</code></p>';
+                    html += '</div>';
+
+                    html += '<div class="lab-container csrf-panel">';
+                    
+                    // Target Site Simulation
+                    html += '<h3>Victime (Admin)</h3>';
+                    html += '<div class="csrf-target">';
+                    html += '<h4 style="color: #1e293b; margin-bottom: 0.5rem;"><i class="fa-solid fa-lock" style="color:#64748b"></i> Paramètres de Compte</h4>';
+                    html += '<p style="font-size: 0.9rem;">Votre mot de passe actuel : <span id="admin-pass"><code>AdminPass123</code></span></p>';
+                    html += '<p style="font-size: 0.8rem; color: #64748b;">(Simule une session Admin authentifiée)</p>';
+                    html += '</div>';
+                    
+                    // Attacker Site Simulation
+                    html += '<h3 style="margin-top: 2rem;">Site de l\'Attaquant (Malveillant)</h3>';
+                    html += '<div class="csrf-attacker">';
+                    html += '<h4 style="color: #991b1b; margin-bottom: 0.5rem;"><i class="fa-solid fa-skull" style="color:#ef4444"></i> Page "Image Drôle"</h4>';
+                    html += '<p style="font-size: 0.9rem; color: #991b1b;">Le code de l\'attaque s\'exécutera lorsque l\'Admin chargera cette page. Payload utilisé :</p>';
+                    html += '<textarea id="csrf-payload" class="csrf-payload">&lt;img src="http://vulnerable-site.com/change_pass?new_pass=hacked"&gt;</textarea>';
+                    html += '<button onclick="runCSRFLab()" class="action-btn" style="background-color:#ef4444;">Exécuter l\'Attaque (Charger la page)</button>';
+                    html += '</div>';
+
+                    html += '</div>';
+                    html += '<button id="validate-btn-csrf" class="action-btn" onclick="validateLab(\'module-csrf\')" disabled>' + (isDone ? 'Validé' : 'À faire') + '</button>';
+
+                    return html;
+                }
+            },
+            'module-xxe': {
+                xpReward: 500,
+                render: function() {
+                    var isDone = appState.completedModules.indexOf('module-xxe') !== -1;
+                    var html = '';
+                    html += '<button onclick="navigateTo(\'dashboard\')" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Retour</button>';
+                    html += '<h2 class="dashboard-title"><i class="fa-solid fa-file-code" style="color:#fbbf24"></i> Lab 5: XXE</h2>';
+
+                    // Tutorial Box
+                    html += '<div class="tutorial-box">';
+                    html += '<div class="tutorial-header">';
+                    html += '<i class="fa-solid fa-circle-info"></i>';
+                    html += '<h3>Qu\'est-ce que le XXE ?</h3>';
+                    html += '<button class="hint-btn" onclick="toggleHint(\'xxe-hint\')">Aide</button>';
+                    html += '</div>';
+                    html += '<p>L\'<strong>XML External Entity (XXE)</strong> exploite les vulnérabilités de l\'analyseur (parser) XML, permettant d\'inclure des références à des entités externes, comme des fichiers locaux.</p>';
+                    html += '<div id="xxe-hint" class="hint-content">';
+                    html += '<p><strong>Indice :</strong> Déclarez une entité externe pointant vers un fichier système, puis faites-y référence dans le corps XML.</p>';
+                    html += '<p><strong>Solution :</strong> Utilisez <code>&lt;!DOCTYPE foo [ &lt;!ENTITY xxe SYSTEM "file:///etc/passwd" &gt; ]&gt;&lt;stock&gt;&lt;item&gt;&amp;xxe;&lt;/item&gt;&lt;/stock&gt;</code></p>';
+                    html += '</div>';
+                    html += '</div>';
+
+                    html += '<div class="stat-card" style="margin-bottom: 2rem;">';
+                    html += '<h3 style="color: white; margin-bottom: 0.5rem;">Mission : Lire le fichier <code>/etc/passwd</code></h3>';
+                    html += '<p style="color: #cbd5e1; line-height: 1.6;">Envoyez une requête XML pour inclure et afficher le contenu du fichier système <code>/etc/passwd</code>.</p>';
+                    html += '</div>';
+
+                    html += '<div class="lab-container">';
+                    html += '<h3>Formulaire de commande XML</h3>';
+                    html += '<p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 0.5rem;">Entrée XML pour la mise à jour des stocks :</p>';
+                    html += '<textarea id="xxe-input" class="xxe-input">&lt;stock&gt;\n  &lt;item&gt;Clé USB 32GB&lt;/item&gt;\n  &lt;quantity&gt;100&lt;/quantity&gt;\n&lt;/stock&gt;</textarea>';
+                    html += '<button onclick="runXXELab()" class="action-btn" style="background-color:#fbbf24; color: #1e293b;">Envoyer XML</button>';
+                    html += '<h3 style="margin-top: 1.5rem; color: #94a3b8;">Réponse du Serveur :</h3>';
+                    html += '<div id="xxe-output" class="xxe-output">Attente de l\'entrée...</div>';
+                    html += '</div>';
+                    html += '<button id="validate-btn-xxe" class="action-btn" onclick="validateLab(\'module-xxe\')" disabled>' + (isDone ? 'Validé' : 'À faire') + '</button>';
+
+                    return html;
+                }
+            },
+            'module-race-condition': {
+                xpReward: 600,
+                render: function() {
+                    var isDone = appState.completedModules.indexOf('module-race-condition') !== -1;
+                    var html = '';
+                    html += '<button onclick="navigateTo(\'dashboard\')" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Retour</button>';
+                    html += '<h2 class="dashboard-title"><i class="fa-solid fa-gauge-high" style="color:#ef4444"></i> Lab 6: Race Condition</h2>';
+
+                    // Tutorial Box
+                    html += '<div class="tutorial-box">';
+                    html += '<div class="tutorial-header">';
+                    html += '<i class="fa-solid fa-circle-info"></i>';
+                    html += '<h3>Qu\'est-ce qu\'une Race Condition ?</h3>';
+                    html += '<button class="hint-btn" onclick="toggleHint(\'rc-hint\')">Aide</button>';
+                    html += '</div>';
+                    html += '<p>Une <strong>Race Condition</strong> se produit lorsque le résultat d\'une opération dépend de la séquence ou du moment où d\'autres événements incontrôlables se produisent. En sécurité, cela permet d\'exécuter plusieurs actions critiques avant que la première ne soit complètement traitée, souvent pour contourner des vérifications (comme la vérification de solde).</p>';
+                    html += '<div id="rc-hint" class="hint-content">';
+                    html += '<p><strong>Indice :</strong> Envoyez les deux requêtes <code>/buy</code> (la vérification du solde et la déduction) en même temps ou en succession extrêmement rapide. Vous devez utiliser un outil pour envoyer <strong>plusieurs requêtes</strong> simultanément (concurrentiellement).</p>';
+                    html += '<p><strong>Solution :</strong> Capturez la requête d\'achat et envoyez <strong>deux</strong> requêtes identiques en même temps. Le serveur vérifiera le solde (500) pour la première, mais avant de déduire, il vérifiera le solde (500) pour la deuxième, permettant deux achats pour le prix d\'un.</p>';
+                    html += '</div>';
+                    html += '</div>';
+
+                    html += '<div class="shop-mission-box">';
+                    html += '<h3 style="color: white; margin-bottom: 0.5rem;">Mission : Achetez un article en double</h3>';
+                    html += '<p style="color: #cbd5e1; line-height: 1.6;">Vous avez un solde de <code>500 crédits</code>. L\'article coûte <code>500 crédits</code>. Exploitez la condition de concurrence pour acheter l\'article <strong>deux fois</strong>. (Solde final attendu: <code>0 crédits</code>. Nombre d\'articles: <code>2</code>).</p>';
+                    html += '</div>';
+
+                    html += '<div class="lab-container">';
+                    html += '<h3 style="text-align:center; margin-bottom: 1.5rem;">Boutique en Ligne Vulnérable</h3>';
+                    
+                    html += '<div class="shop-product-card">';
+                    html += '<div class="shop-product-image"><i class="fa-solid fa-bolt"></i></div>';
+                    html += '<h4 style="color: white; font-weight: bold; margin-bottom: 0.5rem;">Mega-Upgrade</h4>';
+                    html += '<p style="color: #94a3b8; font-size: 0.85rem;">Déverrouille toutes les fonctionnalités Pro.</p>';
+                    html += '<div class="shop-product-price">500 Cr.</div>';
+                    html += '</div>';
+                    
+                    html += '<div class="shop-cart-summary">';
+                    html += '<p style="color: #64748b; font-size: 0.9rem;">Votre Solde Actuel :</p>';
+                    html += '<div id="rc-balance" class="shop-cart-value">500 Cr.</div>';
+                    html += '<button id="rc-buy-btn" onclick="runRCLab()" class="action-btn" style="background-color:#10b981; margin-top: 1rem;">Acheter Mega-Upgrade</button>';
+                    html += '</div>';
+                    
+                    html += '<div class="shop-attack-panel">';
+                    html += '<h4 style="color: #ef4444; margin-bottom: 0.5rem;">Simulateur d\'Attaque (Outil de Hacking)</h4>';
+                    html += '<p style="color: #cbd5e1; font-size: 0.9rem;">Simule l\'envoi de requêtes concurrentielles. **Un seul clic** est nécessaire.</p>';
+                    html += '<button id="rc-attack-btn" onclick="runRCAttack()" class="action-btn" style="background-color:#991b1b; margin-top: 1rem;">Lancer l\'Attaque (x2 Requêtes)</button>';
+                    html += '</div>';
+
+                    html += '<h3 style="margin-top: 2rem; color: #94a3b8; text-align: center;">Articles Reçus :</h3>';
+                    html += '<div id="rc-products-received" class="shop-products-received">';
+                    html += '</div>';
+
+                    html += '</div>';
+                    html += '<button id="validate-btn-rc" class="action-btn" onclick="validateLab(\'module-race-condition\')" disabled>' + (isDone ? 'Validé' : 'À faire') + '</button>';
+
+                    return html;
+                }
+            },
+            'module-lfi': {
+                xpReward: 600,
+                render: function() {
+                    var isDone = appState.completedModules.indexOf('module-lfi') !== -1;
+                    var html = '';
+                    html += '<button onclick="navigateTo(\'dashboard\')" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Retour</button>';
+                    html += '<h2 class="dashboard-title"><i class="fa-solid fa-folder-open" style="color:#34d399"></i> Lab 7: LFI (Local File Inclusion)</h2>';
+
+                    // Tutorial Box
+                    html += '<div class="tutorial-box">';
+                    html += '<div class="tutorial-header">';
+                    html += '<i class="fa-solid fa-circle-info"></i>';
+                    html += '<h3>Qu\'est-ce que la LFI ?</h3>';
+                    html += '<button class="hint-btn" onclick="toggleHint(\'lfi-hint\')">Aide</button>';
+                    html += '</div>';
+                    html += '<p>La <strong>Local File Inclusion (LFI)</strong> se produit lorsqu\'une application inclut un fichier sur le serveur en utilisant une entrée non validée de l\'utilisateur, permettant de lire des fichiers système ou des fichiers source de l\'application.</p>';
+                    html += '<div id="lfi-hint" class="hint-content">';
+                    html += '<p><strong>Indice 1 :</strong> L\'application inclut la page demandée dans le répertoire <code>/pages/</code>. Vous devez naviguer vers le haut. Utilisez <code>../</code>. Le fichier cible est <code>/etc/passwd</code>.</p>';
+                    html += '<p><strong>Indice 2 (Contournement) :</strong> Si l\'application ajoute <code>.php</code> (comme dans le code réel), vous pourriez avoir besoin de contourner cette extension ajoutée.</p>';
+                    html += '<p><strong>Solution :</strong> Un chemin comme <code>../../../../etc/passwd</code> devrait fonctionner si l\'application n\'ajoute pas de suffixe. Le drapeau est le contenu de <code>/etc/passwd</code>.</p>';
+                    html += '</div>';
+                    html += '</div>';
+
+                    html += '<div class="stat-card" style="margin-bottom: 2rem;">';
+                    html += '<h3 style="color: white; margin-bottom: 0.5rem;">Mission : Afficher le fichier <code>/etc/passwd</code></h3>';
+                    html += '<p style="color: #cbd5e1; line-height: 1.6;">Le sélecteur de langue utilise un paramètre non sécurisé. Utilisez-le pour lire le contenu du fichier système <code>/etc/passwd</code>.</p>';
+                    html += '</div>';
+
+                    html += '<div class="lab-container">';
+                    html += '<div style="margin-bottom: 1rem; color: #cbd5e1;">http://vulnerable-site.com/index.php?lang=en</div>';
+                    html += '<div class="lab-browser">';
+                    html += '<div class="browser-bar">';
+                    html += '<div class="browser-dots"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>';
+                    html += '<div id="lfi-url-bar" class="url-bar">/index.php?lang=en</div>';
+                    html += '</div>';
+                    html += '<div class="browser-content">';
+                    
+                    html += '<h2 style="color: #1e293b; margin-bottom: 1.5rem;">Sélection de Langue</h2>';
+                    html += '<div style="display: flex; justify-content: center; gap:0.5rem;"><input type="text" id="lfi-input" class="vulnerable-input" value="en" placeholder="Nom du fichier de langue (ex: fr, en, de)"><button onclick="runLFILab()" class="vulnerable-btn">Charger</button></div>';
+                    
+                    html += '<h3 style="margin-top: 1.5rem; color: #94a3b8; text-align: left;">Contenu du fichier inclus :</h3>';
+                    html += '<div id="lfi-file-content" class="lfi-file-content">Bienvenue sur la page en Anglais (contenu de pages/en.php)</div>';
+                    
+                    html += '</div></div></div>';
+                    html += '<button id="validate-btn-lfi" class="action-btn" onclick="validateLab(\'module-lfi\')" disabled>' + (isDone ? 'Validé' : 'À faire') + '</button>';
+
+                    return html;
+                }
             }
+            // Add other modules here
         };
 
-        // --- Application Logic ---
-
-        const app = {
-            init: function() {
-                this.loadState();
-                this.updateUI();
-                this.renderDashboard();
-            },
-
-            loadState: function() {
-                const saved = localStorage.getItem('bountyAcademyState');
-                if (saved) {
-                    const parsed = JSON.parse(saved);
-                    appState.xp = parsed.xp;
-                    appState.level = parsed.level;
-                    appState.completedModules = parsed.completedModules || [];
-                }
-            },
-
-            saveState: function() {
-                localStorage.setItem('bountyAcademyState', JSON.stringify(appState));
-            },
-
-            updateUI: function() {
-                // Update sidebar active states
-                document.querySelectorAll('.nav-btn').forEach(btn => {
-                    btn.classList.remove('border-emerald-500', 'text-emerald-400', 'bg-slate-800');
-                    btn.classList.add('text-slate-400', 'border-transparent');
-                    if (btn.getAttribute('onclick').includes(appState.currentView)) {
-                        btn.classList.add('border-emerald-500', 'text-emerald-400', 'bg-slate-800');
-                        btn.classList.remove('text-slate-400', 'border-transparent');
-                    }
-                });
-
-                // XP Bar
-                const nextLevel = appState.level * 1000;
-                const percentage = (appState.xp / nextLevel) * 100;
-                document.getElementById('xp-bar').style.width = `${Math.min(percentage, 100)}%`;
-                document.getElementById('current-xp').innerText = `${appState.xp} XP`;
-                document.getElementById('next-level-xp').innerText = `${nextLevel} XP`;
-
-                // Rank
-                const ranks = ["Script Kiddie", "Novice", "Hunter", "Pro Hunter", "Elite"];
-                const rankIndex = Math.min(Math.floor(appState.level / 2), ranks.length - 1);
-                document.getElementById('user-level').innerText = `${ranks[rankIndex]} (Lvl ${appState.level})`;
-            },
-
-            navigate: function(view) {
-                appState.currentView = view;
-                this.updateUI();
-                
-                const contentArea = document.getElementById('content-area');
-                
-                if (view === 'dashboard') {
-                    this.renderDashboard();
-                } else if (modules[view]) {
-                    this.renderModule(view);
-                } else if (view === 'lab-xss') {
-                    this.renderLabXSS();
-                } else if (view === 'lab-idor') {
-                    this.renderLabIDOR();
-                }
-            },
-
-            renderDashboard: function() {
-                const completedCount = appState.completedModules.length;
-                const totalModules = Object.keys(modules).length;
-                const progress = Math.round((completedCount / totalModules) * 100);
-
-                const html = `
-                    <div class="fade-in">
-                        <h2 class="text-3xl font-bold text-white mb-6">Tableau de bord</h2>
-                        
-                        <!-- Hero Stats -->
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                            <div class="glass-panel p-6 rounded-lg">
-                                <div class="text-slate-400 text-sm mb-1">Progression Globale</div>
-                                <div class="text-3xl font-bold text-white mb-2">${progress}%</div>
-                                <div class="w-full bg-slate-700 h-1.5 rounded-full">
-                                    <div class="bg-emerald-500 h-full rounded-full" style="width: ${progress}%"></div>
-                                </div>
-                            </div>
-                            <div class="glass-panel p-6 rounded-lg">
-                                <div class="text-slate-400 text-sm mb-1">Modules Terminés</div>
-                                <div class="text-3xl font-bold text-white">${completedCount} <span class="text-slate-500 text-lg">/ ${totalModules}</span></div>
-                            </div>
-                            <div class="glass-panel p-6 rounded-lg">
-                                <div class="text-slate-400 text-sm mb-1">Total XP</div>
-                                <div class="text-3xl font-bold text-emerald-400">${appState.xp}</div>
-                            </div>
-                        </div>
-
-                        <h3 class="text-xl font-bold text-white mb-4">Parcours d'apprentissage</h3>
-                        <div class="grid grid-cols-1 gap-4">
-                            ${Object.keys(modules).map(key => {
-                                const m = modules[key];
-                                const isDone = appState.completedModules.includes(key);
-                                return `
-                                    <div onclick="app.navigate('${key}')" class="bg-slate-800 p-4 rounded-lg border border-slate-700 hover:border-emerald-500 transition-all cursor-pointer flex items-center justify-between group">
-                                        <div class="flex items-center gap-4">
-                                            <div class="w-12 h-12 rounded-full bg-slate-700 flex items-center justify-center text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
-                                                <i class="fa-solid ${m.icon}"></i>
-                                            </div>
-                                            <div>
-                                                <h4 class="text-white font-bold group-hover:text-emerald-400 transition-colors">${m.title}</h4>
-                                                <p class="text-xs text-slate-400">Module Théorique</p>
-                                            </div>
-                                        </div>
-                                        ${isDone ? '<i class="fa-solid fa-circle-check text-emerald-500 text-xl"></i>' : '<i class="fa-solid fa-chevron-right text-slate-600"></i>'}
-                                    </div>
-                                `;
-                            }).join('')}
-                        </div>
-                    </div>
-                `;
-                document.getElementById('content-area').innerHTML = html;
-            },
-
-            renderModule: function(key) {
-                const m = modules[key];
-                const html = `
-                    <div class="max-w-3xl mx-auto">
-                        <div class="flex items-center gap-3 mb-6 text-slate-400 hover:text-white cursor-pointer" onclick="app.navigate('dashboard')">
-                            <i class="fa-solid fa-arrow-left"></i> Retour au tableau de bord
-                        </div>
-                        <h1 class="text-3xl font-bold text-white mb-2 flex items-center gap-3">
-                            <i class="fa-solid ${m.icon} text-emerald-500"></i> ${m.title}
-                        </h1>
-                        <hr class="border-slate-700 mb-8">
-                        ${m.content}
-                    </div>
-                `;
-                document.getElementById('content-area').innerHTML = html;
-            },
-
-            renderLabXSS: function() {
-                const html = `
-                    <div class="max-w-3xl mx-auto fade-in">
-                        <h2 class="text-2xl font-bold text-white mb-2">Laboratoire de pratique : XSS</h2>
-                        <p class="text-slate-400 mb-6">Objectif : Réussissez à faire apparaître une alerte JavaScript sur cette "page vulnérable". Essayez d'injecter : <code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code> ou <code>&lt;img src=x onerror=alert(1)&gt;</code></p>
-
-                        <!-- Simulation Container -->
-                        <div class="bg-white rounded-lg overflow-hidden border border-slate-600 shadow-2xl">
-                            <!-- Fake Browser Bar -->
-                            <div class="bg-gray-100 border-b px-4 py-2 flex items-center gap-2">
-                                <div class="flex gap-1">
-                                    <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                                    <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-                                    <div class="w-3 h-3 rounded-full bg-green-400"></div>
-                                </div>
-                                <div class="flex-1 bg-white border rounded px-3 py-1 text-xs text-gray-500 font-mono text-center">
-                                    http://vulnerable-site.com/search
-                                </div>
-                            </div>
-
-                            <!-- Vulnerable Content -->
-                            <div class="p-8 min-h-[300px] font-sans text-gray-800">
-                                <h1 class="text-3xl mb-4">Recherche Produit</h1>
-                                <div class="flex gap-2 mb-8">
-                                    <input type="text" id="xss-input" placeholder="Rechercher..." class="border p-2 w-full rounded">
-                                    <button onclick="app.runXSS()" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Chercher</button>
-                                </div>
-                                <hr class="mb-4">
-                                <div id="xss-result" class="p-4 bg-gray-50 rounded border border-dashed border-gray-300">
-                                    Les résultats de votre recherche apparaîtront ici...
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-6 bg-slate-800 p-4 rounded border border-slate-700 text-sm text-slate-400">
-                            <i class="fa-solid fa-info-circle text-blue-400 mr-2"></i>
-                            Note : Dans ce simulateur, nous désactivons l'exécution réelle des scripts pour votre sécurité, mais nous détectons si votre payload est valide.
-                        </div>
-                    </div>
-                `;
-                document.getElementById('content-area').innerHTML = html;
-            },
-
-            runXSS: function() {
-                const input = document.getElementById('xss-input').value;
-                const resultArea = document.getElementById('xss-result');
-                
-                // Basic simulation of "Reflecting" the input without sanitization
-                resultArea.innerText = `Résultats pour : ${input}`; // Safe way first to show text
-
-                // Check for payloads
-                const lowerInput = input.toLowerCase();
-                // Fix: escape forward slash in script tag check to prevent HTML parser from closing script block early
-                if (lowerInput.includes('<script>') && lowerInput.includes('<\/script>')) {
-                    this.showToast("BINGO ! Faille XSS détectée (Script Tag)", "success");
-                    this.completeModule('lab-xss', 200);
-                    resultArea.innerHTML = `<span class="text-red-600 font-bold">SCRIPT EXECUTED!</span>`;
-                } 
-                else if (lowerInput.includes('onerror=') || lowerInput.includes('onload=')) {
-                    this.showToast("BINGO ! Faille XSS détectée (Event Handler)", "success");
-                    this.completeModule('lab-xss', 200);
-                    resultArea.innerHTML = `<span class="text-red-600 font-bold">EVENT HANDLER EXECUTED!</span>`;
-                }
-                else if (input.includes('<') || input.includes('>')) {
-                    resultArea.innerText = `Résultats pour : ${input}`;
-                    this.showToast("Vous injectez du HTML, mais pas encore de script valide.", "warning");
-                } else {
-                     resultArea.innerText = `Résultats pour : ${input}`;
-                }
-            },
-
-            renderLabIDOR: function() {
-                // Default simulated ID
-                if (!this.simId) this.simId = 1050;
-
-                const html = `
-                    <div class="max-w-3xl mx-auto fade-in">
-                        <h2 class="text-2xl font-bold text-white mb-2">Laboratoire de pratique : IDOR</h2>
-                        <p class="text-slate-400 mb-6">Objectif : Vous êtes l'utilisateur 1050. Essayez d'accéder au compte Administrateur (ID 1000) en manipulant l'URL.</p>
-
-                        <!-- Simulation Container -->
-                        <div class="bg-white rounded-lg overflow-hidden border border-slate-600 shadow-2xl">
-                            <!-- Fake Browser Bar -->
-                            <div class="bg-gray-100 border-b px-4 py-2 flex items-center gap-2">
-                                <div class="flex gap-1">
-                                    <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                                    <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-                                    <div class="w-3 h-3 rounded-full bg-green-400"></div>
-                                </div>
-                                <div class="flex-1 bg-white border rounded px-3 py-1 text-xs text-gray-500 font-mono flex justify-between items-center">
-                                    <span>http://shop.local/profile?user_id=<span id="url-id" class="text-blue-600 font-bold">${this.simId}</span></span>
-                                    <i class="fa-solid fa-rotate-right cursor-pointer hover:text-blue-500"></i>
-                                </div>
-                            </div>
-
-                            <!-- Vulnerable Content -->
-                            <div class="p-8 min-h-[300px] font-sans text-gray-800 bg-gray-50">
-                                <div class="flex gap-6">
-                                    <!-- Controls -->
-                                    <div class="w-1/3 border-r pr-4">
-                                        <h3 class="font-bold mb-4 text-sm uppercase text-gray-500">Contrôles Attaquant</h3>
-                                        <div class="space-y-2">
-                                            <label class="text-xs block">Modifier l'ID dans l'URL :</label>
-                                            <div class="flex gap-2">
-                                                <input type="number" id="idor-input" value="${this.simId}" class="border p-1 w-full rounded text-sm">
-                                                <button onclick="app.runIDOR()" class="bg-slate-800 text-white px-3 rounded text-sm hover:bg-slate-700">Go</button>
-                                            </div>
-                                            <div class="mt-4 text-xs text-gray-500">
-                                                Indices:<br>
-                                                Moi (User): 1050<br>
-                                                Admin: 1000
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Profile View -->
-                                    <div class="w-2/3 pl-2" id="profile-view">
-                                        ${this.getProfileHTML(this.simId)}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                document.getElementById('content-area').innerHTML = html;
-            },
-
-            runIDOR: function() {
-                const id = parseInt(document.getElementById('idor-input').value);
-                this.simId = id;
-                
-                // Update Fake URL
-                document.getElementById('url-id').innerText = id;
-
-                // Update Content
-                document.getElementById('profile-view').innerHTML = this.getProfileHTML(id);
-
-                if (id === 1000) {
-                    this.showToast("ACCÈS ADMIN RÉUSSI ! Faille IDOR exploitée.", "success");
-                    this.completeModule('lab-idor', 250);
-                }
-            },
-
-            getProfileHTML: function(id) {
-                if (id === 1050) {
-                    return `
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white text-2xl"><i class="fa-solid fa-user"></i></div>
-                            <div>
-                                <h2 class="text-xl font-bold">Mon Profil</h2>
-                                <p class="text-gray-500">ID: 1050 (Standard User)</p>
-                            </div>
-                        </div>
-                        <div class="bg-white p-4 rounded shadow-sm border">
-                            <p><strong>Nom:</strong> John Doe</p>
-                            <p><strong>Email:</strong> john@example.com</p>
-                            <p><strong>Carte Bancaire:</strong> **** **** **** 1234</p>
-                        </div>
-                    `;
-                } else if (id === 1000) {
-                    return `
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center text-white text-2xl"><i class="fa-solid fa-user-secret"></i></div>
-                            <div>
-                                <h2 class="text-xl font-bold text-red-600">ADMINISTRATEUR</h2>
-                                <p class="text-gray-500">ID: 1000 (Root)</p>
-                            </div>
-                        </div>
-                        <div class="bg-red-50 p-4 rounded shadow-sm border border-red-200">
-                            <p class="text-red-800 font-bold mb-2"><i class="fa-solid fa-lock-open"></i> DONNÉES SENSIBLES EXPOSÉES</p>
-                            <p><strong>Nom:</strong> Super Admin</p>
-                            <p><strong>Email:</strong> admin@shop.local</p>
-                            <p><strong>API KEY:</strong> af82-1234-bcde-9988</p>
-                        </div>
-                    `;
-                } else {
-                    return `
-                        <div class="flex flex-col items-center justify-center h-full text-gray-400">
-                            <i class="fa-solid fa-ban text-4xl mb-2"></i>
-                            <p>Profil introuvable ou ID invalide</p>
-                        </div>
-                    `;
-                }
-            },
-
-            completeModule: function(id, xpReward) {
-                if (appState.completedModules.includes(id)) {
-                    this.showToast("Module déjà terminé !", "info");
-                    return;
-                }
-
-                appState.completedModules.push(id);
-                this.addXP(xpReward);
-                this.saveState();
-                this.showToast(`Module terminé ! +${xpReward} XP`, "success");
-                
-                // Refresh view to show checkmark in dashboard later
-                setTimeout(() => this.updateUI(), 500);
-            },
-
-            addXP: function(amount) {
-                appState.xp += amount;
-                // Check Level Up (every 1000 XP)
-                const newLevel = Math.floor(appState.xp / 1000) + 1;
-                if (newLevel > appState.level) {
-                    appState.level = newLevel;
-                    this.showToast(`NIVEAU SUPÉRIEUR ! Vous êtes niveau ${newLevel}`, "success");
-                }
-                this.updateUI();
-            },
-
-            showToast: function(message, type = 'info') {
-                const container = document.getElementById('toast-container');
-                const toast = document.createElement('div');
-                toast.className = 'toast';
-                
-                let icon = 'fa-info-circle';
-                let color = 'var(--accent)';
-
-                if (type === 'success') { icon = 'fa-check-circle'; color = '#10b981'; }
-                if (type === 'warning') { icon = 'fa-exclamation-triangle'; color = '#f59e0b'; }
-                if (type === 'error') { icon = 'fa-times-circle'; color = '#ef4444'; }
-
-                toast.style.borderLeftColor = color;
-                toast.innerHTML = `<i class="fa-solid ${icon}" style="color: ${color}"></i> <span>${message}</span>`;
-
-                container.appendChild(toast);
-
-                // Animate in
-                requestAnimationFrame(() => {
-                    toast.classList.add('show');
-                });
-
-                // Remove after 3s
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                    setTimeout(() => {
-                        container.removeChild(toast);
-                    }, 300);
-                }, 3000);
-            }
-        };
-
-        // --- Mobile Menu Helper ---
-        function toggleMobileMenu() {
-            // Simple toggle logic for brevity in single file
-            const nav = document.querySelector('nav');
-            nav.classList.toggle('hidden'); 
-            // Note: In a real complex app, we'd use a better overlay system
-            // Here we assume desktop first, mobile tweaks via CSS classes if needed
-            // but for this single file, sidebar is fixed. 
-            // Let's make it just alert for now as a placeholder or scroll to top
+        // --- Core Functions ---
+        function saveState() {
+            // Dans une application réelle, ceci irait à un serveur
+            localStorage.setItem('bountyAcademyState', JSON.stringify(appState));
         }
 
-        // Init App
-        window.addEventListener('DOMContentLoaded', () => {
-            app.init();
-        });
+        function loadState() {
+            var savedState = localStorage.getItem('bountyAcademyState');
+            if (savedState) {
+                appState = JSON.parse(savedState);
+            }
+        }
 
+        function updateXPDisplay() {
+            var maxXP = 3000;
+            var xpPercentage = Math.min((appState.xp / maxXP) * 100, 100);
+            document.getElementById('xp-bar').style.width = xpPercentage + '%';
+            document.getElementById('current-xp').textContent = appState.xp + ' XP';
+            
+            // Mettre à jour les indicateurs de progression dans la barre latérale
+            Object.keys(modules).forEach(function(key) {
+                if (key !== 'dashboard' && modules[key].xpReward) {
+                    var progressEl = document.getElementById('progress-' + key.replace('module-', ''));
+                    var progressTextEl = document.getElementById('progress-text-' + key.replace('module-', ''));
+                    var isDone = appState.completedModules.indexOf(key) !== -1;
+                    
+                    if (progressEl) {
+                         if (isDone) {
+                            progressEl.style.width = '100%';
+                            progressTextEl.textContent = 'Terminé';
+                            progressTextEl.style.color = '#10b981';
+                        } else {
+                            progressEl.style.width = '0%';
+                            progressTextEl.textContent = '0%';
+                            progressTextEl.style.color = '#64748b';
+                        }
+                    }
+                }
+            });
+            updateLevel();
+        }
+
+        function updateLevel() {
+            var levels = {
+                1: { name: 'Novice', max: 200 },
+                2: { name: 'Aspirant', max: 500 },
+                3: { name: 'Junior', max: 1000 },
+                4: { name: 'Intermédiaire', max: 1800 },
+                5: { name: 'Expert', max: 3000 }
+            };
+
+            var currentLevel = 1;
+            var nextLevelXP = 3000;
+            
+            for (var level in levels) {
+                if (appState.xp >= levels[level].max) {
+                    currentLevel = parseInt(level) + 1;
+                }
+            }
+            
+            appState.level = Math.min(currentLevel, 5);
+            document.getElementById('user-level').textContent = levels[appState.level].name;
+
+            if (appState.level < 5) {
+                var nextLevel = levels[appState.level + 1];
+                document.getElementById('next-level-xp').textContent = nextLevel.max + ' XP (Prochain)';
+            } else {
+                 document.getElementById('next-level-xp').textContent = 'MAX ATTEINT';
+            }
+        }
+
+        function navigateTo(view) {
+            appState.currentView = view;
+            var contentArea = document.getElementById('content-area');
+            contentArea.innerHTML = modules[view].render();
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-view') === view) {
+                    btn.classList.add('active');
+                }
+            });
+            document.getElementById('sidebar').classList.remove('mobile-open');
+            saveState();
+        }
+
+        function showToast(message, isSuccess = true) {
+            var toast = document.getElementById('toast');
+            var toastMessage = document.getElementById('toast-message');
+            var icon = toast.querySelector('i');
+
+            toastMessage.textContent = message;
+            icon.className = isSuccess ? 'fa-solid fa-check-circle' : 'fa-solid fa-xmark-circle';
+            icon.style.color = isSuccess ? '#34d399' : '#ef4444';
+
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function showFakeAlert(content) {
+            document.getElementById('alert-content').innerHTML = content;
+            document.getElementById('fake-alert-overlay').style.display = 'flex';
+        }
+
+        function closeFakeAlert() {
+            document.getElementById('fake-alert-overlay').style.display = 'none';
+        }
+
+        function toggleHint(id) {
+            var hint = document.getElementById(id);
+            hint.style.display = hint.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function validateLab(moduleName) {
+            if (appState.completedModules.indexOf(moduleName) === -1) {
+                var reward = modules[moduleName].xpReward;
+                appState.xp += reward;
+                appState.completedModules.push(moduleName);
+                
+                showToast('Lab Validé ! +' + reward + ' XP', true);
+                updateXPDisplay();
+                saveState();
+                
+                // Re-render the current module view to show the 'Validé' button
+                navigateTo(moduleName);
+            }
+        }
+
+        // --- Lab Logic ---
+
+        // Lab 1: XSS
+        function runXSSLab() {
+            var input = document.getElementById('lab-input-xss').value;
+            var resultDiv = document.getElementById('lab-result-xss');
+            var validateBtn = document.getElementById('validate-btn-xss');
+
+            // Simuler la sortie non échappée
+            var output = 'Votre recherche pour : ' + input + ' n\'a donné aucun résultat.';
+
+            // Affichage vulnérable (le navigateur exécutera le JS si la balise est valide)
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = output;
+
+            // Simple vérification de la présence d'un payload XSS
+            if (input.includes('alert(1)') || input.includes('onerror')) {
+                // Si le payload XSS est trouvé, on simule l'exécution réussie
+                showFakeAlert(input);
+                validateBtn.disabled = false;
+                validateBtn.textContent = 'Valider la Découverte';
+            } else {
+                validateBtn.disabled = true;
+                validateBtn.textContent = 'À faire';
+            }
+        }
+
+        // Lab 2: IDOR
+        function runIDORLab() {
+            var idInput = document.getElementById('idor-input');
+            var profileCard = document.getElementById('profile-card');
+            var urlBar = document.getElementById('idor-url-bar');
+            var validateBtn = document.getElementById('validate-btn-idor');
+            var id = idInput.value;
+
+            // Mise à jour de l'URL simulée
+            urlBar.textContent = '/api/v1/profile/' + id;
+
+            // Mise à jour de la carte de profil
+            var profileDetails = profileCard.querySelector('.profile-details');
+
+            if (id === '101') {
+                profileDetails.innerHTML = '<p><span class="profile-label">ID :</span> 101</p>' +
+                                           '<p><span class="profile-label">Email :</span> user101@example.com</p>' +
+                                           '<p><span class="profile-label">API Key :</span> <span class="api-key">KEY-101-USER</span></p>';
+                profileCard.querySelector('h4').textContent = 'User 101';
+                profileCard.querySelector('p').textContent = 'Statut: Standard';
+                validateBtn.disabled = true;
+                validateBtn.textContent = 'À faire';
+
+            } else if (id === '100') {
+                // ID Admin
+                profileDetails.innerHTML = '<p><span class="profile-label">ID :</span> 100</p>' +
+                                           '<p><span class="profile-label">Email :</span> admin@corp.com</p>' +
+                                           '<p><span class="profile-label">API Key :</span> <span class="api-key" style="background: #d1fae5; color: #059669; border: 1px solid #10b981;">FLAG-ACCESS-ADMIN-API</span></p>';
+                profileCard.querySelector('h4').textContent = 'Admin 100';
+                profileCard.querySelector('p').textContent = 'Statut: Administrateur';
+                
+                validateBtn.disabled = false;
+                validateBtn.textContent = 'Valider la Découverte';
+
+            } else {
+                profileDetails.innerHTML = '<p style="color: #ef4444;">Erreur : Profil non trouvé.</p>';
+                profileCard.querySelector('h4').textContent = 'Erreur';
+                profileCard.querySelector('p').textContent = 'Statut: Inconnu';
+                validateBtn.disabled = true;
+                validateBtn.textContent = 'À faire';
+            }
+        }
+
+        // Lab 3: SQLi
+        function runSQLiLab() {
+            var username = document.getElementById('sqli-username').value;
+            var password = document.getElementById('sqli-password').value;
+            var debug = document.getElementById('sql-debug');
+            var validateBtn = document.getElementById('validate-btn-sqli');
+
+            var cleanedUsername = username.replace(/'/g, "''");
+            var cleanedPassword = password.replace(/'/g, "''");
+            var query = "SELECT * FROM users WHERE username='" + cleanedUsername + "' AND password='" + cleanedPassword + "'";
+            debug.textContent = "Query: " + query;
+
+            // Logique de vulnérabilité : vérifie si un payload SQLi réussi est utilisé.
+            if (username.includes("' OR 1=1 -- ") || username.includes("' OR 1=1 #")) {
+                showFakeAlert('Connexion réussie en tant que : Admin (Premier utilisateur de la base)');
+                validateBtn.disabled = false;
+                validateBtn.textContent = 'Valider la Découverte';
+            } else {
+                showFakeAlert('Échec de la connexion. Nom d\'utilisateur ou mot de passe incorrect.');
+                validateBtn.disabled = true;
+                validateBtn.textContent = 'À faire';
+            }
+        }
+
+        // Lab 4: CSRF
+        function runCSRFLab() {
+            var payload = document.getElementById('csrf-payload').value;
+            var adminPass = document.getElementById('admin-pass');
+            var validateBtn = document.getElementById('validate-btn-csrf');
+
+            // Vérifie si le payload contient l'URL malveillante avec le nouveau mot de passe 'hacked'
+            if (payload.includes('/change_pass?new_pass=hacked')) {
+                // Simuler l'exécution réussie du CSRF (l'Admin change son propre mot de passe)
+                adminPass.innerHTML = '<code>hacked</code> <span style="color:#ef4444;">(HACKED)</span>';
+                showToast('Le mot de passe de l\'Admin a été changé via CSRF.', true);
+                validateBtn.disabled = false;
+                validateBtn.textContent = 'Valider la Découverte';
+            } else {
+                showToast('Aucun changement de mot de passe réussi.', false);
+                validateBtn.disabled = true;
+                validateBtn.textContent = 'À faire';
+            }
+        }
+
+        // Lab 5: XXE
+        function runXXELab() {
+            var xmlInput = document.getElementById('xxe-input').value;
+            var outputDiv = document.getElementById('xxe-output');
+            var validateBtn = document.getElementById('validate-btn-xxe');
+            var passwdContent = "root:x:0:0:root:/root:/bin/bash\nflag:x:1000:1000:Flag User:/home/flag:/bin/bash\ndaemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin\nFLAG-SYSTEM-FILE-READ-SUCCESS";
+
+            outputDiv.innerHTML = '';
+            validateBtn.disabled = true;
+            validateBtn.textContent = 'À faire';
+
+            // Logique de la vulnérabilité XXE
+            if (xmlInput.includes('!ENTITY') && xmlInput.includes('file:///etc/passwd') && xmlInput.includes('&xxe;')) {
+                outputDiv.classList.add('xxe-success');
+                outputDiv.classList.remove('xxe-error');
+                outputDiv.innerHTML = '<span class="xxe-success">Traitement OK. Stock mis à jour.</span><hr style="margin: 10px 0; border-color:#d1fae5;">' + passwdContent;
+                validateBtn.disabled = false;
+                validateBtn.textContent = 'Valider la Découverte';
+            } else if (xmlInput.includes('!ENTITY')) {
+                 outputDiv.classList.add('xxe-error');
+                 outputDiv.classList.remove('xxe-success');
+                 outputDiv.innerHTML = '<span class="xxe-error">Erreur de traitement XML. Entité non valide ou fichier manquant.</span>';
+            } else {
+                outputDiv.classList.remove('xxe-success', 'xxe-error');
+                outputDiv.innerHTML = 'Commande traitée. Stock mis à jour.';
+            }
+        }
+
+        // Lab 6: Race Condition (RC)
+        var rcBalance = 500;
+        var rcProducts = 0;
+        var rcPrice = 500;
+
+        function updateRCDisplay() {
+            document.getElementById('rc-balance').textContent = rcBalance + ' Cr.';
+            var productsDiv = document.getElementById('rc-products-received');
+            productsDiv.innerHTML = '';
+            for (let i = 0; i < rcProducts; i++) {
+                productsDiv.innerHTML += '<div class="shop-product-received ' + (i >= 2 ? 'shop-product-free' : '') + '">Upgrade ' + (i + 1) + '</div>';
+            }
+        }
+
+        function runRCLab() {
+            // Tentative d'achat normal (doit échouer après le premier achat)
+            if (rcBalance >= rcPrice) {
+                rcBalance -= rcPrice;
+                rcProducts += 1;
+                showToast('Achat réussi ! Solde: ' + rcBalance + ' Cr.', true);
+            } else {
+                showToast('Échec de l\'achat. Solde insuffisant.', false);
+            }
+            updateRCDisplay();
+            document.getElementById('validate-btn-rc').disabled = true;
+        }
+
+        function runRCAttack() {
+            var validateBtn = document.getElementById('validate-btn-rc');
+            
+            // Simuler l'état initial avant les requêtes concurrentes
+            rcBalance = 500;
+            rcProducts = 0;
+
+            // Simuler la Race Condition : Les deux requêtes vérifient le solde (500)
+            // avant que la première ne déduise.
+            
+            // Requete 1
+            if (rcBalance >= rcPrice) {
+                rcProducts++;
+                // Simuler un léger délai avant la déduction (le "trou" dans le temps)
+            }
+            // Requete 2 (arrive pendant le "trou")
+            if (rcBalance >= rcPrice) {
+                rcProducts++;
+                // Déduction Requete 2 (se produit avant la déduction Requete 1)
+                rcBalance -= rcPrice; // rcBalance = 0
+            }
+
+            // Déduction Requete 1 (arrive en dernier)
+            // L'application vérifie *à nouveau* le solde, mais dans cet exemple simple,
+            // nous allons simuler qu'elle ne le fait pas correctement entre la vérification
+            // et la déduction, menant à une double déduction (si on simulait une déduction seule)
+            // OU simuler la vraie vulnérabilité : la première déduction est écrasée/ignorée
+            // On simule le résultat de l'attaque réussie : 2 produits pour 1 paiement.
+            // Si le solde était 500, le solde final doit être 0 pour 2 produits.
+
+            // Reset l'état final pour simuler l'exploit de double achat
+            rcBalance = 0;
+            rcProducts = 2;
+
+
+            if (rcProducts === 2 && rcBalance === 0) {
+                showToast('Attaque de Race Condition R.I.P. réussie ! 2 articles pour le prix de 1.', true);
+                validateBtn.disabled = false;
+                validateBtn.textContent = 'Valider la Découverte';
+            } else {
+                 showToast('L\'attaque a échoué. Réessayez ou vérifiez l\'indice.', false);
+                 rcProducts = 0;
+                 rcBalance = 500;
+            }
+            updateRCDisplay();
+        }
+
+        // Lab 7: LFI (Local File Inclusion)
+        function runLFILab() {
+            var input = document.getElementById('lfi-input').value;
+            var outputDiv = document.getElementById('lfi-file-content');
+            var urlBar = document.getElementById('lfi-url-bar');
+            var validateBtn = document.getElementById('validate-btn-lfi');
+
+            urlBar.textContent = '/index.php?lang=' + input;
+            
+            // Fichier cible simulé pour la validation
+            const targetFile = 'etc/passwd';
+            // Contenu simulé pour le fichier passwd
+            const passwdContent = "root:x:0:0:root:/root:/bin/bash\ndaemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin\nwww-data:x:33:33:www-data:/var/www:/usr/sbin/nologin\nFLAG_LFI_SUCCESS_9001";
+
+            outputDiv.innerHTML = '';
+            validateBtn.disabled = true;
+            validateBtn.textContent = 'À faire';
+
+            // Nettoyer l'entrée pour simuler le Path Traversal
+            var cleanedInput = input.replace(/%00/g, '').replace(/\.php$/i, ''); // Simuler le contournement du null byte ou du suffixe .php
+
+            // Logique de la vulnérabilité LFI
+            if (cleanedInput.includes(targetFile)) {
+                outputDiv.style.backgroundColor = '#d1fae5';
+                outputDiv.style.color = '#059669';
+                outputDiv.innerHTML = passwdContent; // Afficher le contenu du fichier
+                validateBtn.disabled = false;
+                validateBtn.textContent = 'Valider la Découverte';
+            } else if (cleanedInput === 'fr') {
+                outputDiv.style.backgroundColor = '#f1f5f9';
+                outputDiv.style.color = '#334155';
+                outputDiv.innerHTML = 'Bienvenue sur la page en Français (contenu de pages/fr.php)';
+            } else if (cleanedInput === 'en') {
+                 outputDiv.style.backgroundColor = '#f1f5f9';
+                outputDiv.style.color = '#334155';
+                outputDiv.innerHTML = 'Welcome to the English page (content of pages/en.php)';
+            } else {
+                 outputDiv.style.backgroundColor = '#f1f5f9';
+                 outputDiv.style.color = '#ef4444';
+                 outputDiv.innerHTML = 'Erreur: Le fichier de langue ' + cleanedInput + ' est introuvable dans le répertoire /pages.';
+            }
+
+            // Mettre en évidence les tentatives de path traversal
+            if (cleanedInput.includes('../') && !cleanedInput.includes(targetFile)) {
+                 outputDiv.style.backgroundColor = '#fee2e2';
+                 outputDiv.style.color = '#991b1b';
+                 outputDiv.innerHTML = 'Tentative d\'inclusion de fichier détectée. Le fichier n\'est pas accessible, mais vous êtes sur la bonne voie !';
+            }
+        }
+
+
+        // --- Initialisation ---
+        window.onload = function() {
+            loadState();
+            updateXPDisplay();
+            navigateTo(appState.currentView);
+        };
     </script>
 </body>
 </html>
