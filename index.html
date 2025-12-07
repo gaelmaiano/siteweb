@@ -6,41 +6,68 @@
     <meta name="description" content="Portfolio Gael Maiano : Cybersécurité, développement (GO, RUST, Python) et informatique industrielle.">
     <title>Gael Maiano | Cybersécurité & Dev</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="keywords" content="cybersecurité, gael maiano, GO, RUST, projet, NMAP, Python">
+    <meta name="keywords" content="cybersecurité, gael maiano, GO, RUST, projet, NMAP, Python, développement, sécurité informatique">
+    
+    <!-- Open Graph / SEO amélioré -->
+    <meta property="og:title" content="Gael Maiano | Cybersécurité & Développement">
+    <meta property="og:description" content="Portfolio spécialisé cybersécurité, développement Go/Rust/Python et informatique industrielle">
+    <meta property="og:image" content="https://gaelmaiano.github.io/siteweb/gael.jpg">
+    <meta property="og:url" content="https://gaelmaiano.github.io/siteweb">
+    <meta name="twitter:card" content="summary_large_image">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
         /* ==================================== */
-        /* GÉNÉRAL & TYPOGRAPHIE */
+        /* VARIABLES & RESET */
         /* ==================================== */
-
         :root {
-            --color-dark: #0f172a; /* Bleu nuit très foncé */
-            --color-mid: #1e293b;  /* Gris foncé */
-            --color-accent: #38bdf8; /* Bleu ciel / Cyan pour l'accent */
-            --color-secondary-accent: #a7f3d0; /* Vert menthe */
-            --color-text: #e2e8f0; /* Gris clair */
-            --color-subtext: #94a3b8; /* Gris moyen */
+            --color-dark: #0f172a;
+            --color-mid: #1e293b;
+            --color-accent: #38bdf8;
+            --color-secondary-accent: #a7f3d0;
+            --color-text: #e2e8f0;
+            --color-subtext: #94a3b8;
+            --color-success: #10b981;
+            --color-error: #ef4444;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
             background-color: var(--color-dark);
             color: var(--color-text);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        h1, h2, h3 {
-            color: var(--color-text);
-            margin-top: 0;
+        /* ==================================== */
+        /* TYPOGRAPHIE & BASES */
+        /* ==================================== */
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
         }
 
         a {
             color: var(--color-accent);
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: var(--transition);
         }
 
         a:hover {
@@ -52,18 +79,42 @@
             margin: 0 auto;
             padding: 0 1.5rem;
         }
-        
-        /* ==================================== */
-        /* HEADER/NAVIGATION */
-        /* ==================================== */
 
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(to right, var(--color-accent), var(--color-secondary-accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--color-accent);
+        }
+
+        /* ==================================== */
+        /* HEADER & NAVIGATION MOBILE */
+        /* ==================================== */
         header {
-            background-color: var(--color-mid);
+            background-color: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
             padding: 1rem 0;
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
         }
 
         nav {
@@ -76,499 +127,942 @@
             font-size: 1.5rem;
             font-weight: bold;
             color: var(--color-accent);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            color: var(--color-secondary-accent);
+        }
+
+        /* Menu Desktop */
+        .nav-links {
+            display: flex;
+            gap: 2rem;
         }
 
         .nav-links a {
-            margin-left: 1.5rem;
+            color: var(--color-text);
             font-weight: 500;
-            color: var(--color-subtext);
-            text-transform: uppercase;
+            position: relative;
+            padding: 0.5rem 0;
         }
-        
-        .nav-links a:hover {
-            color: var(--color-accent);
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Menu Hamburger */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--color-text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+
+        .menu-toggle:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 2px;
         }
 
         /* ==================================== */
-        /* SECTION À PROPOS DE MOI */
+        /* HERO SECTION */
         /* ==================================== */
-
-        .about-me-section {
-            background-color: var(--color-dark);
-            padding: 6rem 0; /* Plus d'espace pour l'impact */
-        }
-        
-        .about-me-container {
+        #about {
+            padding: 8rem 0 6rem;
+            min-height: 100vh;
             display: flex;
-            flex-direction: row;
             align-items: center;
+        }
+
+        .about-me-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 4rem;
+            align-items: center;
         }
 
         .about-me-title {
-            font-size: 3rem; /* Plus grand pour l'impact */
+            font-size: 3.5rem;
             font-weight: 800;
-            text-align: left;
-            margin-bottom: 2rem;
-            color: transparent;
-            background-clip: text;
-            background-image: linear-gradient(to right, var(--color-accent), var(--color-secondary-accent));
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
         }
 
         .about-me-image-wrapper {
-            width: 350px;
-            min-width: 250px;
             position: relative;
-            border-radius: 50%;
-            overflow: hidden;
-            box-shadow: 0 0 0 8px var(--color-mid), 0 0 30px rgba(56, 189, 248, 0.5); /* Bordure et lueur accentuée */
-            transition: all 0.5s ease;
-        }
-
-        .about-me-image-wrapper:hover {
-             box-shadow: 0 0 0 8px var(--color-accent), 0 0 40px var(--color-accent);
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
         }
 
         .about-me-image {
-            display: block;
             width: 100%;
             height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.5s ease;
         }
 
-        .about-me-text {
-            flex-grow: 1;
+        .about-me-image:hover {
+            transform: scale(1.02);
+        }
+
+        .about-me-image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid var(--color-accent);
+            border-radius: 30px;
+            opacity: 0.3;
+            z-index: -1;
         }
 
         .about-me-intro {
-            font-size: 1.5rem; /* Plus grand */
+            font-size: 1.25rem;
+            color: var(--color-subtext);
             margin-bottom: 2rem;
-            line-height: 1.4;
-            color: var(--color-text);
         }
 
-        .about-me-intro strong {
-            font-weight: 700;
+        .highlight {
             color: var(--color-accent);
+            font-weight: 600;
+        }
+
+        /* ==================================== */
+        /* SECTION COMPÉTENCES */
+        /* ==================================== */
+        #skills {
+            padding: 6rem 0;
+            background: var(--color-mid);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            background: rgba(56, 189, 248, 0.1);
+        }
+
+        .skill-category h3 {
+            color: var(--color-secondary-accent);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .skill-category li:last-child {
+            border-bottom: none;
+        }
+
+        .skill-icon {
+            color: var(--color-accent);
+            font-size: 1.2rem;
         }
 
         /* ==================================== */
         /* SECTION PROJETS */
         /* ==================================== */
-
         #projects {
-            background-color: var(--color-mid);
-            padding: 4rem 0;
+            padding: 6rem 0;
+            background: var(--color-dark);
         }
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
-            gap: 2rem;
-            padding: 2rem 0;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            text-align: center;
-            color: var(--color-accent);
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
         }
 
         .project-card {
-            background-color: var(--color-dark);
-            border-radius: 8px;
+            background: var(--color-mid);
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            display: flex;
-            flex-direction: column;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .project-card.reveal {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .project-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3); /* Ombre avec accent */
+            box-shadow: 0 15px 30px rgba(56, 189, 248, 0.2);
         }
 
         .project-image-container {
             height: 200px;
             overflow: hidden;
         }
-        
-        .project-image-container img {
+
+        .project-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
 
-        .project-card:hover .project-image-container img {
+        .project-card:hover .project-image {
             transform: scale(1.1);
         }
 
         .project-content {
             padding: 1.5rem;
-            flex-grow: 1;
         }
 
         .project-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.75rem;
             color: var(--color-accent);
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
         }
 
-        .project-content p {
-            color: var(--color-subtext);
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
         }
-        
+
+        .project-tag {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--color-accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
         .project-link {
-            display: inline-block;
-            background-color: var(--color-accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--color-accent);
             color: var(--color-dark);
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: var(--transition);
         }
 
         .project-link:hover {
-            background-color: var(--color-secondary-accent);
+            background: var(--color-secondary-accent);
+            transform: translateX(5px);
         }
 
         /* ==================================== */
         /* SECTION CONTACT */
         /* ==================================== */
-
         #contact {
-            background-color: var(--color-dark);
-            padding: 4rem 0;
-            text-align: center;
+            padding: 6rem 0;
+            background: var(--color-mid);
         }
 
-        #contact h2 {
-            color: var(--color-secondary-accent);
-        }
-
-        #contact form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
+        .contact-container {
             max-width: 600px;
             margin: 0 auto;
-            padding: 2rem;
-            background-color: var(--color-mid);
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
-        #contact label {
-            align-self: flex-start;
-            font-weight: bold;
+        #contact-form {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
             color: var(--color-text);
-            margin-top: 0.5rem;
+            font-weight: 500;
         }
 
-        #contact input,
-        #contact textarea {
+        .form-control {
             width: 100%;
-            padding: 12px;
-            border: 1px solid var(--color-subtext);
-            border-radius: 4px;
-            background-color: var(--color-dark);
+            padding: 0.875rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            border-radius: 8px;
             color: var(--color-text);
             font-size: 1rem;
-            box-sizing: border-box; /* Inclure padding et border dans la largeur */
+            transition: var(--transition);
         }
-        
-        #contact textarea {
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            background: rgba(56, 189, 248, 0.05);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
             resize: vertical;
         }
 
-        #contact input[type="submit"] {
-            margin-top: 1.5rem;
-            background-color: var(--color-accent);
+        .submit-btn {
+            background: var(--color-accent);
             color: var(--color-dark);
             border: none;
-            cursor: pointer;
-            padding: 15px 30px;
+            padding: 1rem 2rem;
+            border-radius: 8px;
             font-size: 1rem;
-            font-weight: bold;
-            transition: background-color 0.3s, transform 0.2s;
-            width: auto;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0 auto;
         }
 
-        #contact input[type="submit"]:hover {
-            background-color: var(--color-secondary-accent);
+        .submit-btn:hover:not(:disabled) {
+            background: var(--color-secondary-accent);
             transform: translateY(-2px);
         }
-        
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
         #message-box {
             padding: 1rem;
-            margin-bottom: 1rem;
-            border-radius: 4px;
-            font-weight: bold;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            display: none;
         }
-        
+
         #message-box.success {
-            background-color: #a7f3d020;
-            color: var(--color-secondary-accent);
-            border: 1px solid var(--color-secondary-accent);
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--color-success);
+            border: 1px solid var(--color-success);
+            display: block;
         }
-        
+
         #message-box.error {
-            background-color: #f8717120;
-            color: #f87171;
-            border: 1px solid #f87171;
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--color-error);
+            border: 1px solid var(--color-error);
+            display: block;
         }
 
         /* ==================================== */
         /* FOOTER */
         /* ==================================== */
-
         footer {
-            background-color: #0c121e; /* Plus foncé que le reste */
-            color: var(--color-subtext);
+            background: #0a0e17;
+            padding: 3rem 0 2rem;
             text-align: center;
-            padding: 1.5rem 0;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-link {
+            color: var(--color-subtext);
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            color: var(--color-accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            color: var(--color-subtext);
             font-size: 0.9rem;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
         }
 
         /* ==================================== */
-        /* RESPONSIVE */
+        /* ANIMATIONS & UTILITAIRES */
         /* ==================================== */
-        @media (max-width: 900px) {
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* ==================================== */
+        /* RESPONSIVE DESIGN */
+        /* ==================================== */
+        @media (max-width: 992px) {
             .about-me-container {
-                flex-direction: column;
-                text-align: center;
+                grid-template-columns: 1fr;
+                gap: 3rem;
             }
             
             .about-me-title {
-                text-align: center;
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
             
             .about-me-image-wrapper {
-                width: 250px;
-                margin-bottom: 2rem;
-            }
-            
-            .nav-links a {
-                margin-left: 1rem;
+                max-width: 350px;
+                order: -1;
             }
         }
 
-        @media (max-width: 600px) {
-            .logo {
-                font-size: 1.25rem;
+        @media (max-width: 768px) {
+            /* Menu mobile */
+            .menu-toggle {
+                display: block;
             }
             
             .nav-links {
-                display: none; /* Simplifier la navigation sur très petits écrans, ou utiliser un menu hamburger (non implémenté ici) */
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--color-mid);
+                flex-direction: column;
+                padding: 5rem 2rem 2rem;
+                transition: right 0.3s ease-in-out;
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links a {
+                font-size: 1.1rem;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .nav-links a:last-child {
+                border-bottom: none;
+            }
+            
+            /* Sections */
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .about-me-title {
+                font-size: 2.3rem;
             }
             
             .projects-grid {
-                gap: 1rem;
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
+            
+            .skill-category {
+                padding: 1.5rem;
+            }
+        }
 
-            .section-title {
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .about-me-title {
                 font-size: 2rem;
+            }
+            
+            .about-me-intro {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            #contact-form {
+                padding: 1.5rem;
+            }
+            
+            .submit-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Support du dark mode système */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-dark: #0a0e17;
+                --color-text: #f8fafc;
             }
         }
     </style>
 </head>
 <body>
-    
+    <!-- Header -->
     <header>
         <div class="container">
             <nav>
-                <div class="logo">Gael Maiano <span style="color:var(--color-secondary-accent);">Cyber</span></div>
+                <div class="logo">
+                    <i class="fas fa-shield-alt logo-icon"></i>
+                    <span>Gael Maiano <span style="color:var(--color-secondary-accent);">Cyber</span></span>
+                </div>
+                
+                <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
                 <div class="nav-links">
-                    <a href="#about">À Propos</a>
-                    <a href="#projects">Projets</a>
-                    <a href="#contact">Contact</a>
+                    <a href="#about" aria-label="Aller à la section À propos">À Propos</a>
+                    <a href="#skills" aria-label="Aller à la section Compétences">Compétences</a>
+                    <a href="#projects" aria-label="Aller à la section Projets">Projets</a>
+                    <a href="#contact" aria-label="Aller à la section Contact">Contact</a>
                 </div>
             </nav>
         </div>
     </header>
 
-    <section id="about" class="about-me-section">
+    <!-- Section À propos -->
+    <section id="about" aria-labelledby="about-title">
         <div class="container about-me-container">
-            <div class="about-me-text">
-                <h2 class="about-me-title">Cybersécurité & Innovation</h2>
+            <div class="about-me-text reveal">
+                <h1 id="about-title" class="about-me-title">
+                    Cybersécurité &<br>
+                    <span style="color:var(--color-secondary-accent);">Innovation</span>
+                </h1>
                 <p class="about-me-intro">
-                    Intéressé par la **Cybersécurité**, avec une solide expérience en systèmes, réseaux, virtualisation et informatique industrielle.
+                    Passionné par la <span class="highlight">Cybersécurité</span>, avec une solide expérience en systèmes, réseaux, virtualisation et informatique industrielle.
                 </p>
                 <p class="about-me-description">
-                    Je suis constamment à la recherche de nouveaux défis et de connaissances. Ce portfolio met en lumière mon parcours et mes réalisations dans ces domaines en constante évolution, allant du développement bas niveau en **Rust** et **Go** à l'analyse de sécurité avec **Nmap** et **Python**.
+                    Je suis constamment à la recherche de nouveaux défis et de connaissances. Ce portfolio met en lumière mon parcours et mes réalisations dans ces domaines en constante évolution, allant du développement bas niveau en <span class="highlight">Rust</span> et <span class="highlight">Go</span> à l'analyse de sécurité avec <span class="highlight">Nmap</span> et <span class="highlight">Python</span>.
                 </p>
             </div>
-            <div class="about-me-image-wrapper">
-                <img
-                    src="gael.jpg"
-                    alt="Photo Gael Maiano - Spécialiste Cybersécurité"
+            <div class="about-me-image-wrapper reveal">
+                <img 
+                    src="gael.jpg" 
+                    alt="Portrait de Gael Maiano - Expert en Cybersécurité" 
                     class="about-me-image"
-                />
+                >
             </div>
         </div>
     </section>
 
-    <hr>
-    
-    <section id="projects" class="container">
-        <h2 class="section-title">Mes Projets Techniques 🚀</h2>
-        
-        <div class="projects-grid">
-            
-            <div class="project-card">
-                <div class="project-image-container">
-                    <img src="unnamed.jpg" alt="Bounty Academy - Simulateur Bug Bounty">
-                </div>
-                <div class="project-content">
-                    <h3>Bounty Academy</h3>
-                    <p>Application interactive pour l'apprentissage pratique du Bug Bounty (failles **XSS** et **IDOR**). Une approche ludique de la sécurité des applications web.</p>
-                    <a href="https://gaelmaiano.github.io/bounty.html/" target="_blank" class="project-link">
-                        <i class="fas fa-external-link-alt"></i> Lancer le simulateur
-                    </a>
-                </div>
-            </div>
-      
-            <div class="project-card">
-                <div class="project-image-container">
-                    <img src="sacada.jpg" alt="Projet SCADA - Sécurité Industrielle">
-                </div>
-                <div class="project-content">
-                    <h3>Projet SCADA (ICS)</h3>
-                    <p>Mise en place d'un système de supervision **SCADA** (informatique industrielle). Base essentielle pour l'étude et la sécurisation des systèmes de contrôle industriels (ICS).</p>
-                    <a href="https://www.linkedin.com/posts/gael-maiano-34867a32a_rapport-chaine-de-production-scada-activity-7247783594591490049-1reA?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFMJZGgB6DJLffIZPXEUqJn9lAdbGasOEnI" target="_blank" class="project-link">
-                        <i class="fas fa-file-download"></i> Télécharger le rapport
-                    </a>
-                </div>
-            </div>
-            
-            <div class="project-card">
-                <div class="project-image-container">
-                    <img src="scanner.jpeg" alt="Scanner de Port Python - Nmap">
-                </div>
-                <div class="project-content">
-                    <h3>Scanner de Port en Python</h3>
-                    <p>Développement d'un scanner de port basique en **Python** pour comprendre les mécaniques fondamentales derrière des outils comme **Nmap** (handshake TCP/UDP).</p>
-                    <a href="scannerPort.html" target="_blank" class="project-link">
-                        <i class="fas fa-code"></i> Voir le code
-                    </a>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-image-container">
-                    <img src="keyllogger.jpeg" alt="Keylogger Python">
-                </div>
-                <div class="project-content">
-                    <h3>Keylogger en Python</h3>
-                    <p>Implémentation d'un **keylogger** en **Python** pour l'étude des malwares et des techniques de persistance/exfiltration de données dans un cadre éthique et éducatif.</p>
-                    <a href="keylogger.html" target="_blank" class="project-link">
-                        <i class="fas fa-code"></i> Voir le code
-                    </a>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-image-container">
-                    <img src="rust.jpeg" alt="Décodeur de mot de passe Rust">
-                </div>
-                <div class="project-content">
-                    <h3>Décodeur de Hash/Mot de passe en Rust</h3>
-                    <p>Création d'un outil de décodage de mot de passe / cassage de hash en **Rust**. Exploitation de la performance du langage pour des opérations intensives en calcul.</p>
-                    <a href="passworddecoder.html" target="_blank" class="project-link">
-                        <i class="fas fa-code"></i> Voir le code
-                    </a>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-image-container">
-                    <img src="OIG1.jpg" alt="Scanner en Go">
-                </div>
-                <div class="project-content">
-                    <h3>Scanner de Port en Go (Performance)</h3>
-                    <p>Développement d'un scanner en **Go (Golang)**, plus rapide et efficace que la version Python, grâce à la gestion native des goroutines et de la concurrence.</p>
-                    <a href="passworddecoder.html" target="_blank" class="project-link">
-                        <i class="fas fa-code"></i> Voir le code
-                    </a>
-                </div>
-            </div>
-            
-        </div>
-    </section>
-
-    <hr>
-
-    <section id="contact">
+    <!-- Section Compétences -->
+    <section id="skills" aria-labelledby="skills-title">
         <div class="container">
-            <h2 class="section-title">Me Contacter</h2>
-            <div id="message-box" style="display:none;"></div>
-            <form action="https://formspree.io/f/xbljryyr" method="POST" onsubmit="return submitForm(event);">
-                <label for="name"><i class="fas fa-user"></i> Nom :</label>
-                <input type="text" id="name" name="name" required>
+            <h2 id="skills-title" class="section-title reveal">🛠️ Stack Technique</h2>
+            <div class="skills-grid">
+                <div class="skill-category reveal">
+                    <h3><i class="fas fa-shield-alt skill-icon"></i> Cybersécurité</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Nmap & Wireshark</li>
+                        <li><i class="fas fa-check"></i> Analyse de vulnérabilités</li>
+                        <li><i class="fas fa-check"></i> Pentesting basics</li>
+                        <li><i class="fas fa-check"></i> Forensic numérique</li>
+                        <li><i class="fas fa-check"></i> Sécurité réseau</li>
+                    </ul>
+                </div>
                 
-                <label for="email"><i class="fas fa-envelope"></i> Email :</label>
-                <input type="email" id="email" name="_replyto" required>
+                <div class="skill-category reveal">
+                    <h3><i class="fas fa-code skill-icon"></i> Développement</h3>
+                    <ul>
+                        <li><i class="fab fa-rust skill-icon"></i> Rust 🦀</li>
+                        <li><i class="fab fa-golang skill-icon"></i> Go 🐹</li>
+                        <li><i class="fab fa-python skill-icon"></i> Python 🐍</li>
+                        <li><i class="fas fa-server skill-icon"></i> Backend</li>
+                        <li><i class="fas fa-tools skill-icon"></i> Outils DevOps</li>
+                    </ul>
+                </div>
                 
-                <label for="message"><i class="fas fa-comment"></i> Message :</label>
-                <textarea id="message" name="message" rows="5" required></textarea>
-                
-                <input type="submit" value="Envoyer le message">
-            </form>
+                <div class="skill-category reveal">
+                    <h3><i class="fas fa-industry skill-icon"></i> Industriel</h3>
+                    <ul>
+                        <li><i class="fas fa-cogs"></i> Systèmes SCADA</li>
+                        <li><i class="fas fa-plug"></i> IoT Sécurité</li>
+                        <li><i class="fas fa-network-wired"></i> Réseaux industriels</li>
+                        <li><i class="fas fa-robot"></i> Automatisation</li>
+                        <li><i class="fas fa-chart-line"></i> Supervision</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </section>
-     
+
+    <!-- Section Projets -->
+    <section id="projects" aria-labelledby="projects-title">
+        <div class="container">
+            <h2 id="projects-title" class="section-title reveal">Mes Projets 🚀</h2>
+            
+            <div class="projects-grid">
+                <!-- Projet 1 -->
+                <div class="project-card reveal">
+                    <div class="project-image-container">
+                        <img src="unnamed.jpg" alt="Bounty Academy - Simulateur Bug Bounty" class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <h3>Bounty Academy</h3>
+                        <p>Application interactive pour l'apprentissage pratique du Bug Bounty (failles XSS et IDOR).</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Web Security</span>
+                            <span class="project-tag">XSS</span>
+                            <span class="project-tag">IDOR</span>
+                        </div>
+                        <a href="https://gaelmaiano.github.io/bounty.html/" target="_blank" rel="noopener" class="project-link">
+                            <i class="fas fa-external-link-alt"></i> Lancer le simulateur
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Projet 2 -->
+                <div class="project-card reveal">
+                    <div class="project-image-container">
+                        <img src="sacada.jpg" alt="Projet SCADA - Sécurité Industrielle" class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <h3>Projet SCADA (ICS)</h3>
+                        <p>Système de supervision SCADA pour l'étude et la sécurisation des systèmes industriels.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Industriel</span>
+                            <span class="project-tag">SCADA</span>
+                            <span class="project-tag">OT Security</span>
+                        </div>
+                        <a href="https://www.linkedin.com/posts/gael-maiano-34867a32a_rapport-chaine-de-production-scada-activity-7247783594591490049-1reA?utm_source=share&utm_medium=member_desktop" target="_blank" rel="noopener" class="project-link">
+                            <i class="fas fa-file-download"></i> Voir le rapport
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Projet 3 -->
+                <div class="project-card reveal">
+                    <div class="project-image-container">
+                        <img src="scanner.jpeg" alt="Scanner de Port Python" class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <h3>Scanner de Port Python</h3>
+                        <p>Scanner de port basique pour comprendre les mécaniques derrière Nmap (TCP/UDP).</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Networking</span>
+                            <span class="project-tag">Security</span>
+                        </div>
+                        <a href="scannerPort.html" class="project-link">
+                            <i class="fas fa-code"></i> Voir le code
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Projet 4 -->
+                <div class="project-card reveal">
+                    <div class="project-image-container">
+                        <img src="keyllogger.jpeg" alt="Keylogger Python" class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <h3>Keylogger Éducatif</h3>
+                        <p>Implémentation pour l'étude des malwares et techniques de persistance.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Malware Analysis</span>
+                            <span class="project-tag">Éducatif</span>
+                        </div>
+                        <a href="keylogger.html" class="project-link">
+                            <i class="fas fa-code"></i> Voir le code
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Projet 5 -->
+                <div class="project-card reveal">
+                    <div class="project-image-container">
+                        <img src="rust.jpeg" alt="Décodeur Rust" class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <h3>Décodeur Hash en Rust</h3>
+                        <p>Outil de cassage de hash exploitant la performance de Rust.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Rust</span>
+                            <span class="project-tag">Cryptographie</span>
+                            <span class="project-tag">Performance</span>
+                        </div>
+                        <a href="passworddecoder.html" class="project-link">
+                            <i class="fas fa-code"></i> Voir le code
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Projet 6 -->
+                <div class="project-card reveal">
+                    <div class="project-image-container">
+                        <img src="OIG1.jpg" alt="Scanner Go" class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <h3>Scanner de Port en Go</h3>
+                        <p>Scanner haute performance avec goroutines et concurrence native.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Go</span>
+                            <span class="project-tag">Concurrence</span>
+                            <span class="project-tag">Performance</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            <i class="fas fa-code"></i> Voir le code
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Contact -->
+    <section id="contact" aria-labelledby="contact-title">
+        <div class="container">
+            <h2 id="contact-title" class="section-title reveal">Me Contacter</h2>
+            
+            <div class="contact-container">
+                <div id="message-box" role="alert" aria-live="polite"></div>
+                
+                <form id="contact-form" action="https://formspree.io/f/xbljryyr" method="POST" class="reveal">
+                    <div class="form-group">
+                        <label for="name"><i class="fas fa-user"></i> Nom :</label>
+                        <input type="text" id="name" name="name" class="form-control" required aria-required="true">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> Email :</label>
+                        <input type="email" id="email" name="_replyto" class="form-control" required aria-required="true">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message"><i class="fas fa-comment"></i> Message :</label>
+                        <textarea id="message" name="message" class="form-control" required aria-required="true"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Envoyer le message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <p>© 2024 GaelMaiano | Conçu avec 💙 pour la Cybersécurité</p>
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="https://github.com/gaelmaiano" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/gael-maiano" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:contact@gaelmaiano.fr" class="social-link" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+                
+                <div class="copyright">
+                    <p>© 2024 Gael Maiano | Conçu avec <i class="fas fa-heart" style="color:#ef4444;"></i> pour la Cybersécurité</p>
+                    <p style="font-size:0.8rem; margin-top:0.5rem; color:#64748b;">
+                        <i class="fas fa-lock"></i> Ce site n'utilise pas de cookies et respecte votre vie privée
+                    </p>
+                </div>
+            </div>
         </div>
     </footer>
 
     <script>
-        function submitForm(event) {
-            event.preventDefault();
+        // Menu mobile toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        const body = document.body;
 
-            const form = event.target;
-            const data = new FormData(form);
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const isExpanded = navLinks.classList.contains('active');
+            menuToggle.setAttribute('aria-expanded', isExpanded);
+            menuToggle.innerHTML = isExpanded ? 
+                '<i class="fas fa-times"></i>' : 
+                '<i class="fas fa-bars"></i>';
+        });
 
-            fetch(form.action, {
-                method: form.method,
-                body: data,
-                headers: {
-                    'Accept': 'application/json'
+        // Fermer le menu au clic sur un lien
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Animation reveal au scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const revealPoint = 150;
+            
+            revealElements.forEach(element => {
+                const revealTop = element.getBoundingClientRect().top;
+                
+                if (revealTop < windowHeight - revealPoint) {
+                    element.classList.add('active');
                 }
-            }).then(response => {
-                const messageBox = document.getElementById('message-box');
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // Gestion du formulaire
+        const contactForm = document.getElementById('contact-form');
+        const messageBox = document.getElementById('message-box');
+        const submitBtn = document.getElementById('submit-btn');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+            submitBtn.disabled = true;
+            
+            try {
+                const formData = new FormData(contactForm);
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
                 if (response.ok) {
-                    messageBox.style.display = 'block';
                     messageBox.className = 'success';
-                    messageBox.innerText = 'Merci, votre message a été envoyé.';
-                    form.reset();
+                    messageBox.textContent = '✅ Message envoyé avec succès ! Je vous répondrai rapidement.';
+                    contactForm.reset();
+                    setTimeout(() => {
+                        messageBox.style.display = 'none';
+                    }, 5000);
                 } else {
-                    response.json().then(data => {
-                        messageBox.style.display = 'block';
-                        messageBox.className = 'error';
-                        if (data.errors) {
-                            messageBox.innerText = data.errors.map(error => error.message).join(", ");
-                        } else {
-                            messageBox.innerText = 'Une erreur est survenue lors de l\'envoi de votre message.';
-                        }
+                    throw new Error('Erreur lors de l\'envoi');
+                }
+            } catch (error) {
+                messageBox.className = 'error';
+                messageBox.textContent = '❌ Une erreur est survenue. Veuillez réessayer ou me contacter directement par email.';
+                messageBox.style.display = 'block';
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Smooth scroll pour les ancres
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
                     });
                 }
-            }).catch(error => {
-                const messageBox = document.getElementById('message-box');
-                messageBox.style.display = 'block';
-                messageBox.className = 'error';
-                messageBox.innerText = 'Une erreur est survenue lors de l\'envoi de votre message.';
             });
+        });
 
-            return false;
-        }
+        // Observer pour les animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        revealElements.forEach(element => {
+            observer.observe(element);
+        });
     </script>
 </body>
 </html>
