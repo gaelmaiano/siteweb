@@ -25,6 +25,7 @@
             --color-mid: #1e293b;
             --color-accent: #38bdf8;
             --color-secondary-accent: #a7f3d0;
+            --color-asso: #7c3aed; /* Nouvelle couleur pour l'association */
             --color-text: #e2e8f0;
             --color-subtext: #94a3b8;
             --color-success: #10b981;
@@ -99,80 +100,225 @@
             width: 60px;
             height: 3px;
             background: var(--color-accent);
-            opacity: 0.7; /* Légère modification pour harmonie */
+            opacity: 0.7;
         }
         
-        /* NOUVEAU STYLE : Bloc Activité Associative */
+        /* ==================================== */
+        /* NOUVELLE SECTION : ACTIVITÉ ASSOCIATIVE */
+        /* ==================================== */
         #asso-activity {
             padding: 6rem 0;
-            background: var(--color-mid);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(44, 29, 77, 0.9) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #asso-activity::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .asso-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .asso-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(to right, var(--color-asso), var(--color-accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+
+        .asso-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--color-asso), var(--color-accent));
+            border-radius: 2px;
         }
 
         .asso-content {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 3fr 2fr;
             gap: 3rem;
-            align-items: center;
-            background-color: rgba(56, 189, 248, 0.05); /* Arrière-plan légèrement teinté */
-            padding: 2.5rem;
-            border-radius: 12px;
-            border-left: 5px solid var(--color-accent);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            align-items: start;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 3rem;
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                0 0 50px rgba(124, 58, 237, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .asso-content:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-asso);
         }
 
         .asso-text h2 {
             color: var(--color-secondary-accent);
-            font-size: 2rem;
-            margin-bottom: 1rem;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .asso-text h2 i {
+            color: var(--color-asso);
         }
         
         .asso-list {
             list-style: none;
             padding-left: 0;
+            margin: 2rem 0;
         }
 
         .asso-list li {
-            padding: 0.5rem 0;
+            padding: 1rem 0;
             display: flex;
-            align-items: center;
-            gap: 10px;
+            align-items: flex-start;
+            gap: 1rem;
             color: var(--color-text);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: padding-left 0.3s ease;
+        }
+
+        .asso-list li:hover {
+            padding-left: 10px;
+            border-bottom-color: var(--color-asso);
+        }
+
+        .asso-list li:last-child {
+            border-bottom: none;
         }
 
         .asso-list-icon {
-            color: var(--color-accent);
-            font-size: 1.1em;
+            color: var(--color-asso);
+            font-size: 1.3em;
+            min-width: 24px;
+            margin-top: 2px;
+        }
+
+        .asso-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(124, 58, 237, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background: rgba(124, 58, 237, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--color-asso);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--color-subtext);
         }
 
         .cta-button {
-            display: inline-block;
-            background: var(--color-accent);
-            color: var(--color-dark);
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: linear-gradient(135deg, var(--color-asso), #8b5cf6);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
             font-weight: 600;
             margin-top: 1.5rem;
-            transition: var(--transition);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
         }
 
         .cta-button:hover {
-            background: var(--color-secondary-accent);
-            transform: translateY(-2px);
-            color: var(--color-dark);
+            background: linear-gradient(135deg, #6d28d9, var(--color-asso));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
+            color: white;
         }
         
         .logo-libre {
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
         }
         
         .logo-libre i {
-            font-size: 5rem;
-            color: var(--color-accent);
-            opacity: 0.7;
+            font-size: 6rem;
+            color: var(--color-asso);
+            opacity: 0.8;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .logo-libre p {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--color-subtext);
+            font-style: italic;
         }
 
         /* ==================================== */
-        /* HEADER & NAVIGATION MOBILE */
+        /* ANIMATION REVEAL */
+        /* ==================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==================================== */
+        /* HEADER & NAVIGATION */
         /* ==================================== */
         header {
             background-color: rgba(30, 41, 59, 0.95);
@@ -245,13 +391,8 @@
             z-index: 1001;
         }
 
-        .menu-toggle:focus {
-            outline: 2px solid var(--color-accent);
-            outline-offset: 2px;
-        }
-
         /* ==================================== */
-        /* HERO SECTION */
+        /* ABOUT SECTION */
         /* ==================================== */
         #about {
             padding: 8rem 0 6rem;
@@ -259,14 +400,224 @@
             display: flex;
             align-items: center;
         }
-        
-        /* Le reste du CSS (skills, projects, contact, footer...) n'a pas été modifié pour rester concis.
-           Il est inclus dans le code final ci-dessous. */
 
-        /* ... (CSS existant pour #about, .about-me-container, etc.) ... */
-        
+        .about-me-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-me-title {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-me-image-wrapper {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .about-me-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .about-me-image-wrapper:hover .about-me-image {
+            transform: scale(1.05);
+        }
+
         /* ==================================== */
-        /* RESPONSIVE DESIGN pour la nouvelle section */
+        /* SKILLS SECTION */
+        /* ==================================== */
+        #skills {
+            padding: 6rem 0;
+            background: var(--color-mid);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 2rem;
+            border-left: 4px solid var(--color-accent);
+        }
+
+        .skill-category h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--color-secondary-accent);
+        }
+
+        .skill-category ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .skill-category li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        /* ==================================== */
+        /* PROJECTS SECTION */
+        /* ==================================== */
+        #projects {
+            padding: 6rem 0;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-image-container {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.1);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .project-tag {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--color-accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* ==================================== */
+        /* CONTACT SECTION */
+        /* ==================================== */
+        #contact {
+            padding: 6rem 0;
+            background: var(--color-mid);
+        }
+
+        #contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: var(--color-text);
+            font-size: 1rem;
+        }
+
+        .submit-btn {
+            background: var(--color-accent);
+            color: var(--color-dark);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .submit-btn:hover {
+            background: var(--color-secondary-accent);
+        }
+
+        /* ==================================== */
+        /* FOOTER */
+        /* ==================================== */
+        footer {
+            padding: 3rem 0;
+            background: rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--color-accent);
+            transform: translateY(-3px);
+        }
+
+        /* ==================================== */
+        /* RESPONSIVE DESIGN */
         /* ==================================== */
         @media (max-width: 992px) {
             .about-me-container {
@@ -275,8 +626,8 @@
             }
             
             .about-me-image-wrapper {
-                max-width: 350px;
-                order: -1;
+                max-width: 400px;
+                margin: 0 auto;
             }
             
             .asso-content {
@@ -285,12 +636,12 @@
             }
             
             .logo-libre {
-                text-align: left;
+                order: -1;
             }
         }
-        /* ... (Le reste du Responsive Design existant) ... */
+
         @media (max-width: 768px) {
-             /* Menu mobile */
+            /* Menu mobile */
             .menu-toggle {
                 display: block;
             }
@@ -319,12 +670,8 @@
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             }
             
-            .nav-links a:last-child {
-                border-bottom: none;
-            }
-            
             /* Sections */
-            .section-title {
+            .section-title, .asso-title {
                 font-size: 2rem;
             }
             
@@ -340,6 +687,14 @@
             .skill-category {
                 padding: 1.5rem;
             }
+            
+            .asso-content {
+                padding: 2rem;
+            }
+            
+            .asso-stats {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 480px) {
@@ -351,11 +706,7 @@
                 font-size: 2rem;
             }
             
-            .about-me-intro {
-                font-size: 1.1rem;
-            }
-            
-            .section-title {
+            .section-title, .asso-title {
                 font-size: 1.8rem;
             }
             
@@ -366,6 +717,10 @@
             .submit-btn {
                 width: 100%;
                 justify-content: center;
+            }
+            
+            .asso-text h2 {
+                font-size: 1.8rem;
             }
         }
 
@@ -393,7 +748,7 @@
                 
                 <div class="nav-links">
                     <a href="#about" aria-label="Aller à la section À propos">À Propos</a>
-                    <a href="#asso-activity" aria-label="Aller à la section Activité Solidaire">Solidaire</a>
+                    <a href="#asso-activity" aria-label="Aller à la section Activité Associative">Solidaire</a>
                     <a href="#skills" aria-label="Aller à la section Compétences">Compétences</a>
                     <a href="#projects" aria-label="Aller à la section Projets">Projets</a>
                     <a href="#contact" aria-label="Aller à la section Contact">Contact</a>
@@ -426,30 +781,67 @@
         </div>
     </section>
 
+    <!-- NOUVELLE SECTION : ACTIVITÉ ASSOCIATIVE -->
     <section id="asso-activity" aria-labelledby="asso-title">
-        <div class="container">
-            <h2 id="asso-title" class="section-title reveal">Activité Solidaire & Open Source 💖</h2>
+        <div class="container asso-container">
+            <h2 id="asso-title" class="asso-title reveal">🏛️ Engagement Solidaire</h2>
             <div class="asso-content reveal">
                 <div class="asso-text">
-                    <h2>Cyber-Secours : La Sécurité pour tous</h2>
+                    <h2><i class="fas fa-hands-helping"></i> Cyber-Secours Brest</h2>
                     <p>
-                        Animé par l'esprit du **Libre** et l'engagement citoyen, j'ai initié un projet visant à apporter la **cybersécurité professionnelle** aux petites structures (PME, Associations) de Brest et de ses alentours.
+                        <strong>Association à but non lucratif</strong> que j'ai initiée pour rendre la cybersécurité professionnelle accessible aux PME et associations brestoises, grâce aux solutions libres.
                     </p>
+                    
+                    <div class="asso-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">0€</span>
+                            <span class="stat-label">Coût des licences</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Open Source</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">Surveillance SIEM</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">RGPD</span>
+                            <span class="stat-label">Conformité</span>
+                        </div>
+                    </div>
+
                     <ul class="asso-list">
-                        <li><i class="fas fa-handshake asso-list-icon"></i> **Mission :** Rendre la sécurité numérique accessible et gratuite, basée sur les solutions libres.</li>
-                        <li><i class="fas fa-tools asso-list-icon"></i> **Outils au Cœur du Projet :** Wazuh (SIEM/XDR), Linux (Ubuntu), et d'autres outils Open Source.</li>
-                        <li><i class="fas fa-graduation-cap asso-list-icon"></i> **Objectif :** Atteindre l'autonomie des utilisateurs grâce à des guides pas-à-pas et un accompagnement technique.</li>
+                        <li>
+                            <i class="fas fa-rocket asso-list-icon"></i>
+                            <strong>Mission :</strong> Déployer des solutions de sécurité professionnelle gratuites (Wazuh SIEM/XDR, Ubuntu, outils libres)
+                        </li>
+                        <li>
+                            <i class="fas fa-graduation-cap asso-list-icon"></i>
+                            <strong>Formation :</strong> Guides pratiques et accompagnement pour rendre les structures autonomes
+                        </li>
+                        <li>
+                            <i class="fas fa-users asso-list-icon"></i>
+                            <strong>Communauté :</strong> Initiative solidaire basée sur le partage et l'entraide
+                        </li>
+                        <li>
+                            <i class="fas fa-lock asso-list-icon"></i>
+                            <strong>Sécurité :</strong> Protection contre les cybermenaces avec surveillance en temps réel
+                        </li>
                     </ul>
-                    <a href="URL_VERS_VOTRE_BOITE_A_OUTILS_OU_UN_PDF" class="cta-button" target="_blank" rel="noopener">
+
+                    <a href="https://gaelmaiano.github.io/siteweb/cyber-secours-brest.html" class="cta-button" target="_blank" rel="noopener">
                         <i class="fas fa-external-link-alt"></i> Découvrir la Boîte à Outils Libre
                     </a>
                 </div>
                 <div class="logo-libre">
-                    <i class="fab fa-osi"></i> </div>
+                    <i class="fab fa-osi"></i>
+                    <p>"La sécurité numérique devrait être accessible à toutes les structures, quelle que soit leur taille ou leur budget."</p>
+                </div>
             </div>
         </div>
     </section>
-    
+
     <section id="skills" aria-labelledby="skills-title">
         <div class="container">
             <h2 id="skills-title" class="section-title reveal">🛠️ Stack Technique</h2>
@@ -672,7 +1064,6 @@
             const isExpanded = navLinks.classList.contains('active');
             menuToggle.setAttribute('aria-expanded', isExpanded);
             
-            // Changer l'icône du hamburger en croix
             const icon = menuToggle.querySelector('i');
             icon.classList.toggle('fa-bars');
             icon.classList.toggle('fa-times');
@@ -700,14 +1091,12 @@
 
                 if (elementTop < windowHeight - elementVisible) {
                     reveals[i].classList.add("active");
-                } else {
-                    reveals[i].classList.remove("active");
                 }
             }
         }
 
         window.addEventListener("scroll", reveal);
-        // Exécuter au chargement pour les éléments déjà visibles
+        // Exécuter au chargement
         reveal();
     </script>
 </body>
