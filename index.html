@@ -1,1103 +1,122 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio Gael Maiano : Cybersécurité, développement (GO, RUST, Python) et informatique industrielle.">
-    <title>Gael Maiano | Cybersécurité & Dev</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="keywords" content="cybersecurité, gael maiano, GO, RUST, projet, NMAP, Python, développement, sécurité informatique">
-    
-    <meta property="og:title" content="Gael Maiano | Cybersécurité & Développement">
-    <meta property="og:description" content="Portfolio spécialisé cybersécurité, développement Go/Rust/Python et informatique industrielle">
-    <meta property="og:image" content="https://gaelmaiano.github.io/siteweb/gael.jpg">
-    <meta property="og:url" content="https://gaelmaiano.github.io/siteweb">
-    <meta name="twitter:card" content="summary_large_image">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</div>
+                    <div class="project-content">
+                        <h3>Keylogger Éducatif</h3>
+                        <p>Implémentation pour l'étude des malwares et techniques de persistance.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Malware Analysis</span>
+                            <span class="project-tag">Blue Team</span>
+                        </div>
+                        <a href="keylogger.html" class="project-link">
+                            <i class="fas fa-code"></i> Voir le code
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-title">
+        <div class="container">
+            <h2 id="contact-title" class="section-title reveal">📧 Me Contacter</h2>
+            <form id="contact-form" action="votre_endpoint_de_formulaire" method="POST" class="reveal">
+                <div class="form-group">
+                    <label for="name">Votre Nom :</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Entrez votre nom" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Votre Email :</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Entrez votre adresse email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Votre Message :</label>
+                    <textarea id="message" name="message" rows="5" class="form-control" placeholder="Écrivez votre message ici..." required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">
+                    Envoyer le Message <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://github.com/gaelmaiano" target="_blank" rel="noopener" aria-label="Profil GitHub" class="social-link">
+                    <i class="fab fa-github fa-2x"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/gael-maiano-34867a32a" target="_blank" rel="noopener" aria-label="Profil LinkedIn" class="social-link">
+                    <i class="fab fa-linkedin-in fa-2x"></i>
+                </a>
+                <a href="mailto:votre.email@example.com" aria-label="Envoyer un email" class="social-link">
+                    <i class="fas fa-envelope fa-2x"></i>
+                </a>
+            </div>
+            <p>&copy; 2025 Gael Maiano. Développé avec passion pour la sécurité et l'Open Source.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ====================================
+        // GESTION DU MENU MOBILE (Hamburger)
+        // ====================================
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        const navToggleIcon = menuToggle.querySelector('i');
+
+        menuToggle.addEventListener('click', () => {
+            // Toggle la classe 'active' sur les liens de navigation
+            navLinks.classList.toggle('active');
+
+            // Met à jour l'icône du menu
+            if (navLinks.classList.contains('active')) {
+                navToggleIcon.classList.remove('fa-bars');
+                navToggleIcon.classList.add('fa-times'); // Icone croix
+                menuToggle.setAttribute('aria-expanded', 'true');
+            } else {
+                navToggleIcon.classList.remove('fa-times');
+                navToggleIcon.classList.add('fa-bars'); // Icone hamburger
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Fermer le menu lors du clic sur un lien (sur mobile)
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                navToggleIcon.classList.remove('fa-times');
+                navToggleIcon.classList.add('fa-bars');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // ====================================
+        // ANIMATION DE RÉVÉLATION (Reveal)
+        // ====================================
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150; // Déclenchement 150px avant l'affichage complet
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                } else {
+                    // Optionnel : Retirer la classe 'active' si l'élément sort de l'écran par le haut
+                    // Pour une animation qui se re-déclenche :
+                    // reveals[i].classList.remove("active"); 
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+
+        // Appeler la fonction une fois au chargement pour les éléments déjà visibles
+        reveal();
+    </script>
 
-    <style>
-        /* ==================================== */
-        /* VARIABLES & RESET */
-        /* ==================================== */
-        :root {
-            --color-dark: #0f172a;
-            --color-mid: #1e293b;
-            --color-accent: #38bdf8;
-            --color-secondary-accent: #a7f3d0;
-            --color-asso: #7c3aed; /* Nouvelle couleur pour l'association */
-            --color-text: #e2e8f0;
-            --color-subtext: #94a3b8;
-            --color-success: #10b981;
-            --color-error: #ef4444;
-            --transition: all 0.3s ease;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Segoe UI', 'Arial', sans-serif;
-            background-color: var(--color-dark);
-            color: var(--color-text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* ==================================== */
-        /* TYPOGRAPHIE & BASES */
-        /* ==================================== */
-        h1, h2, h3, h4 {
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-        }
-
-        p {
-            margin-bottom: 1.5rem;
-        }
-
-        a {
-            color: var(--color-accent);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        a:hover {
-            color: var(--color-secondary-accent);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            background: linear-gradient(to right, var(--color-accent), var(--color-secondary-accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: var(--color-accent);
-            opacity: 0.7;
-        }
-        
-        /* ==================================== */
-        /* NOUVELLE SECTION : ACTIVITÉ ASSOCIATIVE */
-        /* ==================================== */
-        #asso-activity {
-            padding: 6rem 0;
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(44, 29, 77, 0.9) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        #asso-activity::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
-            z-index: 0;
-        }
-
-        .asso-container {
-            position: relative;
-            z-index: 1;
-        }
-
-        .asso-title {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            background: linear-gradient(to right, var(--color-asso), var(--color-accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            position: relative;
-        }
-
-        .asso-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(to right, var(--color-asso), var(--color-accent));
-            border-radius: 2px;
-        }
-
-        .asso-content {
-            display: grid;
-            grid-template-columns: 3fr 2fr;
-            gap: 3rem;
-            align-items: start;
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 3rem;
-            border: 1px solid rgba(124, 58, 237, 0.3);
-            box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.3),
-                0 0 50px rgba(124, 58, 237, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .asso-content:hover {
-            transform: translateY(-5px);
-            border-color: var(--color-asso);
-        }
-
-        .asso-text h2 {
-            color: var(--color-secondary-accent);
-            font-size: 2.2rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .asso-text h2 i {
-            color: var(--color-asso);
-        }
-        
-        .asso-list {
-            list-style: none;
-            padding-left: 0;
-            margin: 2rem 0;
-        }
-
-        .asso-list li {
-            padding: 1rem 0;
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            color: var(--color-text);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: padding-left 0.3s ease;
-        }
-
-        .asso-list li:hover {
-            padding-left: 10px;
-            border-bottom-color: var(--color-asso);
-        }
-
-        .asso-list li:last-child {
-            border-bottom: none;
-        }
-
-        .asso-list-icon {
-            color: var(--color-asso);
-            font-size: 1.3em;
-            min-width: 24px;
-            margin-top: 2px;
-        }
-
-        .asso-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 1.5rem;
-            background: rgba(124, 58, 237, 0.1);
-            border-radius: 10px;
-            border: 1px solid rgba(124, 58, 237, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .stat-item:hover {
-            background: rgba(124, 58, 237, 0.2);
-            transform: translateY(-3px);
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--color-asso);
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--color-subtext);
-        }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            background: linear-gradient(135deg, var(--color-asso), #8b5cf6);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            font-weight: 600;
-            margin-top: 1.5rem;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
-        }
-
-        .cta-button:hover {
-            background: linear-gradient(135deg, #6d28d9, var(--color-asso));
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
-            color: white;
-        }
-        
-        .logo-libre {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-        }
-        
-        .logo-libre i {
-            font-size: 6rem;
-            color: var(--color-asso);
-            opacity: 0.8;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .logo-libre p {
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--color-subtext);
-            font-style: italic;
-        }
-
-        /* ==================================== */
-        /* ANIMATION REVEAL */
-        /* ==================================== */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ==================================== */
-        /* HEADER & NAVIGATION */
-        /* ==================================== */
-        header {
-            background-color: rgba(30, 41, 59, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--color-accent);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo-icon {
-            color: var(--color-secondary-accent);
-        }
-
-        /* Menu Desktop */
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--color-text);
-            font-weight: 500;
-            position: relative;
-            padding: 0.5rem 0;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--color-accent);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Menu Hamburger */
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--color-text);
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            z-index: 1001;
-        }
-
-        /* ==================================== */
-        /* ABOUT SECTION */
-        /* ==================================== */
-        #about {
-            padding: 8rem 0 6rem;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-        }
-
-        .about-me-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-me-title {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .about-me-image-wrapper {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .about-me-image {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .about-me-image-wrapper:hover .about-me-image {
-            transform: scale(1.05);
-        }
-
-        /* ==================================== */
-        /* SKILLS SECTION */
-        /* ==================================== */
-        #skills {
-            padding: 6rem 0;
-            background: var(--color-mid);
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .skill-category {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 2rem;
-            border-left: 4px solid var(--color-accent);
-        }
-
-        .skill-category h3 {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            color: var(--color-secondary-accent);
-        }
-
-        .skill-category ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .skill-category li {
-            padding: 0.5rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        /* ==================================== */
-        /* PROJECTS SECTION */
-        /* ==================================== */
-        #projects {
-            padding: 6rem 0;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .project-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .project-image-container {
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .project-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .project-card:hover .project-image {
-            transform: scale(1.1);
-        }
-
-        .project-content {
-            padding: 1.5rem;
-        }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1rem 0;
-        }
-
-        .project-tag {
-            background: rgba(56, 189, 248, 0.1);
-            color: var(--color-accent);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-        }
-
-        /* ==================================== */
-        /* CONTACT SECTION */
-        /* ==================================== */
-        #contact {
-            padding: 6rem 0;
-            background: var(--color-mid);
-        }
-
-        #contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 2rem;
-            border-radius: 12px;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--color-text);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 0.8rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            color: var(--color-text);
-            font-size: 1rem;
-        }
-
-        .submit-btn {
-            background: var(--color-accent);
-            color: var(--color-dark);
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: var(--transition);
-        }
-
-        .submit-btn:hover {
-            background: var(--color-secondary-accent);
-        }
-
-        /* ==================================== */
-        /* FOOTER */
-        /* ==================================== */
-        footer {
-            padding: 3rem 0;
-            background: rgba(0, 0, 0, 0.3);
-            text-align: center;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .social-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            transition: var(--transition);
-        }
-
-        .social-link:hover {
-            background: var(--color-accent);
-            transform: translateY(-3px);
-        }
-
-        /* ==================================== */
-        /* RESPONSIVE DESIGN */
-        /* ==================================== */
-        @media (max-width: 992px) {
-            .about-me-container {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-            
-            .about-me-image-wrapper {
-                max-width: 400px;
-                margin: 0 auto;
-            }
-            
-            .asso-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .logo-libre {
-                order: -1;
-            }
-        }
-
-        @media (max-width: 768px) {
-            /* Menu mobile */
-            .menu-toggle {
-                display: block;
-            }
-            
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 80%;
-                max-width: 300px;
-                height: 100vh;
-                background: var(--color-mid);
-                flex-direction: column;
-                padding: 5rem 2rem 2rem;
-                transition: right 0.3s ease-in-out;
-                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
-            }
-            
-            .nav-links.active {
-                right: 0;
-            }
-            
-            .nav-links a {
-                font-size: 1.1rem;
-                padding: 1rem 0;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            }
-            
-            /* Sections */
-            .section-title, .asso-title {
-                font-size: 2rem;
-            }
-            
-            .about-me-title {
-                font-size: 2.3rem;
-            }
-            
-            .projects-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .skill-category {
-                padding: 1.5rem;
-            }
-            
-            .asso-content {
-                padding: 2rem;
-            }
-            
-            .asso-stats {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 1rem;
-            }
-            
-            .about-me-title {
-                font-size: 2rem;
-            }
-            
-            .section-title, .asso-title {
-                font-size: 1.8rem;
-            }
-            
-            #contact-form {
-                padding: 1.5rem;
-            }
-            
-            .submit-btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .asso-text h2 {
-                font-size: 1.8rem;
-            }
-        }
-
-        /* Support du dark mode système */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --color-dark: #0a0e17;
-                --color-text: #f8fafc;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <i class="fas fa-shield-alt logo-icon"></i>
-                    <span>Gael Maiano <span style="color:var(--color-secondary-accent);">Cyber</span></span>
-                </div>
-                
-                <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
-                    <i class="fas fa-bars"></i>
-                </button>
-                
-                <div class="nav-links">
-                    <a href="#about" aria-label="Aller à la section À propos">À Propos</a>
-                    <a href="#asso-activity" aria-label="Aller à la section Activité Associative">Solidaire</a>
-                    <a href="#skills" aria-label="Aller à la section Compétences">Compétences</a>
-                    <a href="#projects" aria-label="Aller à la section Projets">Projets</a>
-                    <a href="#contact" aria-label="Aller à la section Contact">Contact</a>
-                </div>
-            </nav>
-        </div>
-    </header>
-
-    <section id="about" aria-labelledby="about-title">
-        <div class="container about-me-container">
-            <div class="about-me-text reveal">
-                <h1 id="about-title" class="about-me-title">
-                    Cybersécurité &<br>
-                    <span style="color:var(--color-secondary-accent);">Innovation</span>
-                </h1>
-                <p class="about-me-intro">
-                    Passionné par la <span class="highlight">Cybersécurité</span>, avec une solide expérience en systèmes, réseaux, virtualisation et informatique industrielle.
-                </p>
-                <p class="about-me-description">
-                    Je suis constamment à la recherche de nouveaux défis et de connaissances. Ce portfolio met en lumière mon parcours et mes réalisations dans ces domaines en constante évolution, allant du développement bas niveau en <span class="highlight">Rust</span> et <span class="highlight">Go</span> à l'analyse de sécurité avec <span class="highlight">Nmap</span> et <span class="highlight">Python</span>.
-                </p>
-            </div>
-            <div class="about-me-image-wrapper reveal">
-                <img 
-                    src="gael.jpg" 
-                    alt="Portrait de Gael Maiano - Technicien en Cybersécurité" 
-                    class="about-me-image"
-                >
-            </div>
-        </div>
-    </section>
-
-    <!-- NOUVELLE SECTION : ACTIVITÉ ASSOCIATIVE -->
-    <section id="asso-activity" aria-labelledby="asso-title">
-        <div class="container asso-container">
-            <h2 id="asso-title" class="asso-title reveal">🏛️ Engagement Solidaire</h2>
-            <div class="asso-content reveal">
-                <div class="asso-text">
-                    <h2><i class="fas fa-hands-helping"></i> Cyber-Secours Brest</h2>
-                    <p>
-                        <strong>Association à but non lucratif</strong> que j'ai initiée pour rendre la cybersécurité professionnelle accessible aux PME et associations brestoises, grâce aux solutions libres.
-                    </p>
-                    
-                    <div class="asso-stats">
-                        <div class="stat-item">
-                            <span class="stat-number">0€</span>
-                            <span class="stat-label">Coût des licences</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">100%</span>
-                            <span class="stat-label">Open Source</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">24/7</span>
-                            <span class="stat-label">Surveillance SIEM</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">RGPD</span>
-                            <span class="stat-label">Conformité</span>
-                        </div>
-                    </div>
-
-                    <ul class="asso-list">
-                        <li>
-                            <i class="fas fa-rocket asso-list-icon"></i>
-                            <strong>Mission :</strong> Déployer des solutions de sécurité professionnelle gratuites (Wazuh SIEM/XDR, Ubuntu, outils libres)
-                        </li>
-                        <li>
-                            <i class="fas fa-graduation-cap asso-list-icon"></i>
-                            <strong>Formation :</strong> Guides pratiques et accompagnement pour rendre les structures autonomes
-                        </li>
-                        <li>
-                            <i class="fas fa-users asso-list-icon"></i>
-                            <strong>Communauté :</strong> Initiative solidaire basée sur le partage et l'entraide
-                        </li>
-                        <li>
-                            <i class="fas fa-lock asso-list-icon"></i>
-                            <strong>Sécurité :</strong> Protection contre les cybermenaces avec surveillance en temps réel
-                        </li>
-                    </ul>
-
-                    <a href="https://gaelmaiano.github.io/siteweb/cyber-secours-brest.html" class="cta-button" target="_blank" rel="noopener">
-                        <i class="fas fa-external-link-alt"></i> Découvrir la Boîte à Outils Libre
-                    </a>
-                </div>
-                <div class="logo-libre">
-                    <i class="fab fa-osi"></i>
-                    <p>"La sécurité numérique devrait être accessible à toutes les structures, quelle que soit leur taille ou leur budget."</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="skills" aria-labelledby="skills-title">
-        <div class="container">
-            <h2 id="skills-title" class="section-title reveal">🛠️ Stack Technique</h2>
-            <div class="skills-grid">
-                <div class="skill-category reveal">
-                    <h3><i class="fas fa-shield-alt skill-icon"></i> Cybersécurité</h3>
-                    <ul>
-                        <li><i class="fas fa-check"></i> Nmap & Wireshark</li>
-                        <li><i class="fas fa-check"></i> Analyse de vulnérabilités</li>
-                        <li><i class="fas fa-check"></i> Pentesting basics</li>
-                        <li><i class="fas fa-check"></i> Forensic numérique</li>
-                        <li><i class="fas fa-check"></i> Sécurité réseau</li>
-                    </ul>
-                </div>
-                
-                <div class="skill-category reveal">
-                    <h3><i class="fas fa-code skill-icon"></i> Développement</h3>
-                    <ul>
-                        <li><i class="fab fa-rust skill-icon"></i> Rust 🦀</li>
-                        <li><i class="fab fa-golang skill-icon"></i> Go 🐹</li>
-                        <li><i class="fab fa-python skill-icon"></i> Python 🐍</li>
-                        <li><i class="fas fa-server skill-icon"></i> Backend</li>
-                        <li><i class="fas fa-tools skill-icon"></i> Outils DevOps</li>
-                    </ul>
-                </div>
-                
-                <div class="skill-category reveal">
-                    <h3><i class="fas fa-industry skill-icon"></i> Industriel</h3>
-                    <ul>
-                        <li><i class="fas fa-cogs"></i> Systèmes SCADA</li>
-                        <li><i class="fas fa-plug"></i> IoT Sécurité</li>
-                        <li><i class="fas fa-network-wired"></i> Réseaux industriels</li>
-                        <li><i class="fas fa-robot"></i> Automatisation</li>
-                        <li><i class="fas fa-chart-line"></i> Supervision</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" aria-labelledby="projects-title">
-        <div class="container">
-            <h2 id="projects-title" class="section-title reveal">Mes Projets 🚀</h2>
-            
-            <div class="projects-grid">
-                <div class="project-card reveal">
-                    <div class="project-image-container">
-                        <img src="unnamed.jpg" alt="Bounty Academy - Simulateur Bug Bounty" class="project-image">
-                    </div>
-                    <div class="project-content">
-                        <h3>Bounty Academy</h3>
-                        <p>Application interactive pour l'apprentissage pratique du Bug Bounty (failles XSS et IDOR).</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Web Security</span>
-                            <span class="project-tag">XSS</span>
-                            <span class="project-tag">IDOR</span>
-                        </div>
-                        <a href="https://gaelmaiano.github.io/bounty/#dashboard" target="_blank" rel="noopener" class="project-link">
-                            <i class="fas fa-external-link-alt"></i> Lancer le simulateur
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="project-card reveal">
-                    <div class="project-image-container">
-                        <img src="sacada.jpg" alt="Projet SCADA - Sécurité Industrielle" class="project-image">
-                    </div>
-                    <div class="project-content">
-                        <h3>Projet SCADA (ICS)</h3>
-                        <p>Système de supervision SCADA pour l'étude et la sécurisation des systèmes industriels.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Industriel</span>
-                            <span class="project-tag">SCADA</span>
-                            <span class="project-tag">OT Security</span>
-                        </div>
-                        <a href="https://www.linkedin.com/posts/gael-maiano-34867a32a_rapport-chaine-de-production-scada-activity-7247783594591490049-1reA?utm_source=share&utm_medium=member_desktop" target="_blank" rel="noopener" class="project-link">
-                            <i class="fas fa-file-download"></i> Voir le rapport
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="project-card reveal">
-                    <div class="project-image-container">
-                        <img src="scanner.jpeg" alt="Scanner de Port Python" class="project-image">
-                    </div>
-                    <div class="project-content">
-                        <h3>Scanner de Port Python</h3>
-                        <p>Scanner de port basique pour comprendre les mécaniques derrière Nmap (TCP/UDP).</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Networking</span>
-                            <span class="project-tag">Security</span>
-                        </div>
-                        <a href="scannerPort.html" class="project-link">
-                            <i class="fas fa-code"></i> Voir le code
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="project-card reveal">
-                    <div class="project-image-container">
-                        <img src="keyllogger.jpeg" alt="Keylogger Python" class="project-image">
-                    </div>
-                    <div class="project-content">
-                        <h3>Keylogger Éducatif</h3>
-                        <p>Implémentation pour l'étude des malwares et techniques de persistance.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Malware Analysis</span>
-                            <span class="project-tag">Éducatif</span>
-                        </div>
-                        <a href="keylogger.html" class="project-link">
-                            <i class="fas fa-code"></i> Voir le code
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="project-card reveal">
-                    <div class="project-image-container">
-                        <img src="rust.jpeg" alt="Décodeur Rust" class="project-image">
-                    </div>
-                    <div class="project-content">
-                        <h3>Décodeur Hash en Rust</h3>
-                        <p>Outil de cassage de hash exploitant la performance de Rust.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Rust</span>
-                            <span class="project-tag">Cryptographie</span>
-                            <span class="project-tag">Performance</span>
-                        </div>
-                        <a href="passworddecoder.html" class="project-link">
-                            <i class="fas fa-code"></i> Voir le code
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="project-card reveal">
-                    <div class="project-image-container">
-                        <img src="OIG1.jpg" alt="Scanner Go" class="project-image">
-                    </div>
-                    <div class="project-content">
-                        <h3>Scanner de Port en Go</h3>
-                        <p>Scanner haute performance avec goroutines et concurrence native.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Go</span>
-                            <span class="project-tag">Concurrence</span>
-                            <span class="project-tag">Performance</span>
-                        </div>
-                        <a href="#" class="project-link">
-                            <i class="fas fa-code"></i> Voir le code
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" aria-labelledby="contact-title">
-        <div class="container">
-            <h2 id="contact-title" class="section-title reveal">Me Contacter</h2>
-            
-            <div class="contact-container">
-                <div id="message-box" role="alert" aria-live="polite"></div>
-                
-                <form id="contact-form" action="https://formspree.io/f/xbljryyr" method="POST" class="reveal">
-                    <div class="form-group">
-                        <label for="name"><i class="fas fa-user"></i> Nom :</label>
-                        <input type="text" id="name" name="name" class="form-control" required aria-required="true">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email"><i class="fas fa-envelope"></i> Email :</label>
-                        <input type="email" id="email" name="_replyto" class="form-control" required aria-required="true">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message"><i class="fas fa-comment"></i> Message :</label>
-                        <textarea id="message" name="message" class="form-control" required aria-required="true"></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn" id="submit-btn">
-                        <i class="fas fa-paper-plane"></i> Envoyer le message
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="social-links">
-                    <a href="https://github.com/gaelmaiano" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://linkedin.com/in/gael-maiano" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="mailto:contact@gaelmaiano.fr" class="social-link" aria-label="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
-                
-                <div class="copyright">
-                    <p>© 2024 Gael Maiano | Conçu avec <i class="fas fa-heart" style="color:#ef4444;"></i> pour la Cybersécurité</p>
-                    <p style="font-size:0.8rem; margin-top:0.5rem; color:#64748b;">
-                        <i class="fas fa-lock"></i> Ce site n'utilise pas de cookies et respecte votre vie privée.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
-    
-    <script>
-        // Script pour le menu mobile
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            const isExpanded = navLinks.classList.contains('active');
-            menuToggle.setAttribute('aria-expanded', isExpanded);
-            
-            const icon = menuToggle.querySelector('i');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-times');
-        });
-
-        // Fermer le menu au clic sur un lien
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                menuToggle.setAttribute('aria-expanded', 'false');
-                const icon = menuToggle.querySelector('i');
-                icon.classList.add('fa-bars');
-                icon.classList.remove('fa-times');
-            });
-        });
-
-        // Script pour l'animation reveal
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150;
-
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
-            }
-        }
-
-        window.addEventListener("scroll", reveal);
-        // Exécuter au chargement
-        reveal();
-    </script>
 </body>
 </html>
