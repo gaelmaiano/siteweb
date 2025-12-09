@@ -1,36 +1,31 @@
-<!DOCTYPE html>
+
+        <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio Gael Maiano : Cybersécurité, développement (GO, RUST, Python) et informatique industrielle.">
-    <title>Gael Maiano | Cybersécurité & Dev</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="keywords" content="cybersecurité, gael maiano, GO, RUST, projet, NMAP, Python, développement, sécurité informatique">
+    <meta name="description" content="Portfolio Gael Maiano : Cybersécurité, développement (GO, RUST) et informatique industrielle.">
+    <title>Gael Maiano | Cyber & Dev</title>
     
-    <meta property="og:title" content="Gael Maiano | Cybersécurité & Développement">
-    <meta property="og:description" content="Portfolio spécialisé cybersécurité, développement Go/Rust/Python et informatique industrielle">
-    <meta property="og:image" content="https://gaelmaiano.github.io/siteweb/gael.jpg">
-    <meta property="og:url" content="https://gaelmaiano.github.io/siteweb">
-    <meta name="twitter:card" content="summary_large_image">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* ==================================== */
-        /* VARIABLES & RESET */
-        /* ==================================== */
+        /* =========================================
+           VARIABLES & RESET
+           ========================================= */
         :root {
-            --color-dark: #0f172a;
-            --color-mid: #1e293b;
-            --color-accent: #38bdf8;
-            --color-secondary-accent: #a7f3d0;
-            --color-asso: #7c3aed; /* Nouvelle couleur pour l'association */
-            --color-text: #e2e8f0;
-            --color-subtext: #94a3b8;
-            --color-success: #10b981;
-            --color-error: #ef4444;
-            --transition: all 0.3s ease;
+            --bg-dark: #0a192f;
+            --bg-card: rgba(17, 34, 64, 0.7);
+            --text-main: #ccd6f6;
+            --text-muted: #8892b0;
+            --accent-cyan: #64ffda;
+            --accent-purple: #bd34fe; /* Pour la partie Asso */
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+            --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
         }
 
         * {
@@ -44,1060 +39,783 @@
         }
 
         body {
-            font-family: 'Segoe UI', 'Arial', sans-serif;
-            background-color: var(--color-dark);
-            color: var(--color-text);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-main);
             line-height: 1.6;
             overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(100, 255, 218, 0.05), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(189, 52, 254, 0.05), transparent 25%);
         }
 
-        /* ==================================== */
-        /* TYPOGRAPHIE & BASES */
-        /* ==================================== */
-        h1, h2, h3, h4 {
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 1rem;
+        /* Scrollbar custom */
+        ::-webkit-scrollbar {
+            width: 10px;
         }
-
-        p {
-            margin-bottom: 1.5rem;
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #233554;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-cyan);
         }
 
         a {
-            color: var(--color-accent);
             text-decoration: none;
+            color: inherit;
             transition: var(--transition);
         }
 
-        a:hover {
-            color: var(--color-secondary-accent);
+        ul {
+            list-style: none;
         }
 
+        /* =========================================
+           TYPOGRAPHY & UTILS
+           ========================================= */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1.5rem;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-num {
+            font-family: var(--font-mono);
+            color: var(--accent-cyan);
+            font-size: 1.5rem;
+            margin-right: 1rem;
         }
 
         .section-title {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            background: linear-gradient(to right, var(--color-accent), var(--color-secondary-accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            font-size: 2rem;
+            color: var(--text-main);
+            font-weight: 700;
             position: relative;
+            white-space: nowrap;
         }
 
         .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: var(--color-accent);
-            opacity: 0.7;
-        }
-        
-        /* ==================================== */
-        /* NOUVELLE SECTION : ACTIVITÉ ASSOCIATIVE */
-        /* ==================================== */
-        #asso-activity {
-            padding: 6rem 0;
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(44, 29, 77, 0.9) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        #asso-activity::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
-            z-index: 0;
-        }
-
-        .asso-container {
-            position: relative;
-            z-index: 1;
-        }
-
-        .asso-title {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            background: linear-gradient(to right, var(--color-asso), var(--color-accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            position: relative;
-        }
-
-        .asso-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(to right, var(--color-asso), var(--color-accent));
-            border-radius: 2px;
-        }
-
-        .asso-content {
-            display: grid;
-            grid-template-columns: 3fr 2fr;
-            gap: 3rem;
-            align-items: start;
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 3rem;
-            border: 1px solid rgba(124, 58, 237, 0.3);
-            box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.3),
-                0 0 50px rgba(124, 58, 237, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .asso-content:hover {
-            transform: translateY(-5px);
-            border-color: var(--color-asso);
-        }
-
-        .asso-text h2 {
-            color: var(--color-secondary-accent);
-            font-size: 2.2rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .asso-text h2 i {
-            color: var(--color-asso);
-        }
-        
-        .asso-list {
-            list-style: none;
-            padding-left: 0;
-            margin: 2rem 0;
-        }
-
-        .asso-list li {
-            padding: 1rem 0;
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            color: var(--color-text);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: padding-left 0.3s ease;
-        }
-
-        .asso-list li:hover {
-            padding-left: 10px;
-            border-bottom-color: var(--color-asso);
-        }
-
-        .asso-list li:last-child {
-            border-bottom: none;
-        }
-
-        .asso-list-icon {
-            color: var(--color-asso);
-            font-size: 1.3em;
-            min-width: 24px;
-            margin-top: 2px;
-        }
-
-        .asso-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 1.5rem;
-            background: rgba(124, 58, 237, 0.1);
-            border-radius: 10px;
-            border: 1px solid rgba(124, 58, 237, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .stat-item:hover {
-            background: rgba(124, 58, 237, 0.2);
-            transform: translateY(-3px);
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--color-asso);
+            content: "";
             display: block;
-            margin-bottom: 0.5rem;
+            width: 300px;
+            height: 1px;
+            background: #233554;
+            margin-left: 20px;
+            position: relative;
+            top: 5px;
         }
 
-        .stat-label {
+        .highlight {
+            color: var(--accent-cyan);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 1.75rem;
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            border-radius: 4px;
+            font-family: var(--font-mono);
             font-size: 0.9rem;
-            color: var(--color-subtext);
-        }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            background: linear-gradient(135deg, var(--color-asso), #8b5cf6);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            font-weight: 600;
-            margin-top: 1.5rem;
-            transition: all 0.3s ease;
-            border: none;
+            background: transparent;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+            margin-top: 2rem;
         }
 
-        .cta-button:hover {
-            background: linear-gradient(135deg, #6d28d9, var(--color-asso));
+        .btn:hover {
+            background: rgba(100, 255, 218, 0.1);
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
-            color: white;
-        }
-        
-        .logo-libre {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-        }
-        
-        .logo-libre i {
-            font-size: 6rem;
-            color: var(--color-asso);
-            opacity: 0.8;
-            animation: pulse 2s ease-in-out infinite;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .logo-libre p {
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--color-subtext);
-            font-style: italic;
-        }
-
-        /* ==================================== */
-        /* ANIMATION REVEAL */
-        /* ==================================== */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ==================================== */
-        /* HEADER & NAVIGATION */
-        /* ==================================== */
+        /* =========================================
+           NAVBAR
+           ========================================= */
         header {
-            background-color: rgba(30, 41, 59, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0;
             position: fixed;
             top: 0;
-            left: 0;
-            right: 0;
+            width: 100%;
+            height: 80px;
+            background: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(10px);
             z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            box-shadow: 0 10px 30px -10px rgba(2,12,27,0.7);
         }
 
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 100%;
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-family: var(--font-mono);
             font-weight: bold;
-            color: var(--color-accent);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
+            border: 2px solid var(--accent-cyan);
+            padding: 5px 10px;
+            border-radius: 5px;
         }
 
-        .logo-icon {
-            color: var(--color-secondary-accent);
-        }
-
-        /* Menu Desktop */
         .nav-links {
             display: flex;
             gap: 2rem;
         }
 
         .nav-links a {
-            color: var(--color-text);
-            font-weight: 500;
-            position: relative;
-            padding: 0.5rem 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-main);
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--color-accent);
-            transition: width 0.3s ease;
+        .nav-links a:hover {
+            color: var(--accent-cyan);
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
+        .nav-num {
+            color: var(--accent-cyan);
         }
 
-        /* Menu Hamburger */
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--color-text);
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            z-index: 1001;
-        }
-
-        /* ==================================== */
-        /* ABOUT SECTION */
-        /* ==================================== */
-        #about {
-            padding: 8rem 0 6rem;
+        /* =========================================
+           HERO SECTION
+           ========================================= */
+        #hero {
             min-height: 100vh;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 0;
         }
 
-        .about-me-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
+        .hero-pre {
+            font-family: var(--font-mono);
+            color: var(--accent-cyan);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
         }
 
-        .about-me-title {
-            font-size: 3rem;
+        .hero-title {
+            font-size: clamp(40px, 8vw, 80px);
+            font-weight: 900;
+            color: #e6f1ff;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(30px, 6vw, 60px);
+            font-weight: 700;
+            color: var(--text-muted);
+            line-height: 1.1;
             margin-bottom: 1.5rem;
         }
 
-        .about-me-image-wrapper {
+        .hero-desc {
+            max-width: 540px;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+        }
+
+        /* =========================================
+           SECTION: ASSO (STYLE SPÉCIFIQUE)
+           ========================================= */
+        #asso-activity {
+            padding: 100px 0;
+        }
+
+        .asso-card {
+            background: rgba(17, 34, 64, 0.6);
+            border: 1px solid rgba(189, 52, 254, 0.3); /* Bordure Violette */
+            border-radius: 10px;
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            gap: 3rem;
+            align-items: center;
             position: relative;
-            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px -15px rgba(189, 52, 254, 0.2);
         }
 
-        .about-me-image {
-            width: 100%;
-            height: auto;
+        .asso-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+        }
+
+        .asso-text h3 {
+            color: #e6f1ff;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .asso-tag {
+            background: rgba(189, 52, 254, 0.1);
+            color: var(--accent-purple);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+
+        /* --- STATS GRID --- */
+        .asso-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-box {
+            background: rgba(2, 12, 27, 0.5);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid transparent;
+            transition: var(--transition);
+        }
+
+        .stat-box:hover {
+            border-color: var(--accent-purple);
+            transform: translateY(-5px);
+        }
+
+        .stat-val {
             display: block;
-            transition: transform 0.5s ease;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-purple); /* Couleur Violette */
+            font-family: var(--font-mono);
+            margin-bottom: 0.5rem;
         }
 
-        .about-me-image-wrapper:hover .about-me-image {
-            transform: scale(1.05);
+        .stat-lbl {
+            font-size: 0.85rem;
+            color: var(--text-muted);
         }
 
-        /* ==================================== */
-        /* SKILLS SECTION */
-        /* ==================================== */
+        .asso-logo-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .asso-logo-icon {
+            font-size: 8rem;
+            color: var(--accent-purple);
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 15px rgba(189, 52, 254, 0.4));
+        }
+
+        .btn-asso {
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+        }
+        .btn-asso:hover {
+            background: rgba(189, 52, 254, 0.1);
+        }
+
+        /* =========================================
+           SKILLS
+           ========================================= */
         #skills {
-            padding: 6rem 0;
-            background: var(--color-mid);
+            padding: 100px 0;
         }
 
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
         }
 
-        .skill-category {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
+        .skill-card {
+            background: var(--bg-card);
             padding: 2rem;
-            border-left: 4px solid var(--color-accent);
+            border-radius: 5px;
+            transition: var(--transition);
         }
 
-        .skill-category h3 {
+        .skill-card:hover {
+            transform: translateY(-7px);
+        }
+
+        .skill-header {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-            color: var(--color-secondary-accent);
+            margin-bottom: 1.5rem;
+            color: var(--accent-cyan);
+            font-size: 1.3rem;
         }
 
-        .skill-category ul {
-            list-style: none;
-            padding-left: 0;
+        .skill-header i {
+            margin-right: 10px;
         }
 
-        .skill-category li {
-            padding: 0.5rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
+        .skill-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
         }
 
-        /* ==================================== */
-        /* PROJECTS SECTION */
-        /* ==================================== */
+        .skill-list li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+        }
+
+        /* =========================================
+           PROJECTS
+           ========================================= */
         #projects {
-            padding: 6rem 0;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2.5rem;
+            padding: 100px 0;
         }
 
         .project-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
+            background: var(--bg-card);
+            border-radius: 10px;
             overflow: hidden;
-            transition: transform 0.3s ease;
+            margin-bottom: 4rem;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 2rem;
+            align-items: center;
         }
 
-        .project-card:hover {
-            transform: translateY(-10px);
+        /* Alternez la disposition pour le style */
+        .project-card:nth-child(even) {
+            direction: rtl; 
+            /* Astuce rapide, mais attention au texte. Mieux vaut gérer avec grid areas. 
+               Pour la simplicité ici, on garde le standard ou on utilise une classe .reversed */
+        }
+        .project-card.reversed {
+            grid-template-columns: 1fr 1.2fr;
+        }
+        .project-card.reversed .project-content {
+            text-align: left;
+            direction: ltr;
         }
 
-        .project-image-container {
-            height: 200px;
+        .project-img-wrapper {
+            position: relative;
+            height: 350px;
             overflow: hidden;
+            cursor: pointer;
         }
 
-        .project-image {
+        .project-img-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: var(--transition);
+            filter: grayscale(100%) contrast(1) brightness(90%);
         }
 
-        .project-card:hover .project-image {
-            transform: scale(1.1);
+        .project-img-wrapper:hover img {
+            filter: none;
+            transform: scale(1.05);
         }
 
         .project-content {
-            padding: 1.5rem;
+            padding: 2rem;
+            text-align: right;
+            position: relative;
+            z-index: 2;
         }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1rem 0;
-        }
-
-        .project-tag {
-            background: rgba(56, 189, 248, 0.1);
-            color: var(--color-accent);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
+        
+        /* Reset align for standard flow if needed */
+        .project-overline {
+            font-family: var(--font-mono);
+            color: var(--accent-cyan);
             font-size: 0.8rem;
+            margin-bottom: 10px;
         }
 
-        /* ==================================== */
-        /* CONTACT SECTION */
-        /* ==================================== */
+        .project-title {
+            color: #e6f1ff;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-desc-box {
+            background: #112240;
+            padding: 25px;
+            border-radius: 4px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7);
+            margin-bottom: 1.5rem;
+            width: 110%; /* Léger chevauchement */
+            margin-left: -10%;
+        }
+
+        .project-card.reversed .project-desc-box {
+            margin-left: 0;
+            margin-right: -10%;
+        }
+
+        .project-tech-list {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        .project-card.reversed .project-tech-list {
+            justify-content: flex-start;
+        }
+
+        .project-links a {
+            color: #e6f1ff;
+            font-size: 1.3rem;
+            margin-left: 15px;
+        }
+        .project-card.reversed .project-links a {
+            margin-left: 0;
+            margin-right: 15px;
+        }
+        .project-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* =========================================
+           CONTACT
+           ========================================= */
         #contact {
-            padding: 6rem 0;
-            background: var(--color-mid);
-        }
-
-        #contact-form {
+            padding: 100px 0;
+            text-align: center;
             max-width: 600px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 2rem;
-            border-radius: 12px;
         }
 
-        .form-group {
+        .contact-title {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #e6f1ff;
             margin-bottom: 1.5rem;
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--color-text);
+        .contact-desc {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
         }
 
-        .form-control {
-            width: 100%;
-            padding: 0.8rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            color: var(--color-text);
-            font-size: 1rem;
-        }
-
-        .submit-btn {
-            background: var(--color-accent);
-            color: var(--color-dark);
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: var(--transition);
-        }
-
-        .submit-btn:hover {
-            background: var(--color-secondary-accent);
-        }
-
-        /* ==================================== */
-        /* FOOTER */
-        /* ==================================== */
         footer {
-            padding: 3rem 0;
-            background: rgba(0, 0, 0, 0.3);
             text-align: center;
+            padding: 2rem;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
         }
 
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .social-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            transition: var(--transition);
-        }
-
-        .social-link:hover {
-            background: var(--color-accent);
-            transform: translateY(-3px);
-        }
-
-        /* ==================================== */
-        /* RESPONSIVE DESIGN */
-        /* ==================================== */
-        @media (max-width: 992px) {
-            .about-me-container {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-            
-            .about-me-image-wrapper {
-                max-width: 400px;
-                margin: 0 auto;
-            }
-            
-            .asso-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .logo-libre {
-                order: -1;
-            }
-        }
-
+        /* =========================================
+           RESPONSIVE
+           ========================================= */
         @media (max-width: 768px) {
-            /* Menu mobile */
-            .menu-toggle {
-                display: block;
-            }
+            .nav-links { display: none; } /* Hamburger à ajouter si besoin */
             
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 80%;
-                max-width: 300px;
-                height: 100vh;
-                background: var(--color-mid);
-                flex-direction: column;
-                padding: 5rem 2rem 2rem;
-                transition: right 0.3s ease-in-out;
-                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
-            }
-            
-            .nav-links.active {
-                right: 0;
-            }
-            
-            .nav-links a {
-                font-size: 1.1rem;
-                padding: 1rem 0;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            }
-            
-            /* Sections */
-            .section-title, .asso-title {
-                font-size: 2rem;
-            }
-            
-            .about-me-title {
-                font-size: 2.3rem;
-            }
-            
-            .projects-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .skill-category {
-                padding: 1.5rem;
-            }
-            
-            .asso-content {
-                padding: 2rem;
-            }
-            
-            .asso-stats {
+            .asso-card {
                 grid-template-columns: 1fr;
             }
-        }
+            
+            .asso-stats-grid {
+                grid-template-columns: 1fr;
+            }
 
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 1rem;
+            .project-card, .project-card.reversed {
+                grid-template-columns: 1fr;
+                margin-bottom: 3rem;
             }
-            
-            .about-me-title {
-                font-size: 2rem;
+
+            .project-img-wrapper {
+                height: 250px;
             }
-            
-            .section-title, .asso-title {
-                font-size: 1.8rem;
-            }
-            
-            #contact-form {
+
+            .project-content, .project-card.reversed .project-content {
                 padding: 1.5rem;
+                text-align: left;
+                direction: ltr;
             }
-            
-            .submit-btn {
+
+            .project-desc-box, .project-card.reversed .project-desc-box {
                 width: 100%;
-                justify-content: center;
+                margin: 0;
+                box-shadow: none;
+                background: transparent;
+                padding: 1rem 0;
             }
-            
-            .asso-text h2 {
-                font-size: 1.8rem;
+
+            .project-tech-list, .project-card.reversed .project-tech-list {
+                justify-content: flex-start;
             }
+        }
+        
+        /* Animation Fade Up Simple */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* Support du dark mode système */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --color-dark: #0a0e17;
-                --color-text: #f8fafc;
-            }
-        }
     </style>
 </head>
 <body>
+
     <header>
         <div class="container">
             <nav>
-                <div class="logo">
-                    <i class="fas fa-shield-alt logo-icon"></i>
-                    <span>Gael Maiano <span style="color:var(--color-secondary-accent);">Cyber</span></span>
-                </div>
-                
-                <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
-                    <i class="fas fa-bars"></i>
-                </button>
-                
+                <div class="logo">GM<span style="color:#fff;">.</span>CYBER</div>
                 <div class="nav-links">
-                    <a href="#about" aria-label="Aller à la section À propos">À Propos</a>
-                    <a href="#asso-activity" aria-label="Aller à la section Activité Associative">Solidaire</a>
-                    <a href="#skills" aria-label="Aller à la section Compétences">Compétences</a>
-                    <a href="#projects" aria-label="Aller à la section Projets">Projets</a>
-                    <a href="#contact" aria-label="Aller à la section Contact">Contact</a>
+                    <a href="#about"><span class="nav-num">01.</span> À Propos</a>
+                    <a href="#asso-activity"><span class="nav-num">02.</span> Solidaire</a>
+                    <a href="#skills"><span class="nav-num">03.</span> Compétences</a>
+                    <a href="#projects"><span class="nav-num">04.</span> Projets</a>
+                    <a href="#contact"><span class="nav-num">05.</span> Contact</a>
                 </div>
             </nav>
         </div>
     </header>
 
-    <section id="about" aria-labelledby="about-title">
-        <div class="container about-me-container">
-            <div class="about-me-text reveal">
-                <h1 id="about-title" class="about-me-title">
-                    Cybersécurité &<br>
-                    <span style="color:var(--color-secondary-accent);">Innovation</span>
-                </h1>
-                <p class="about-me-intro">
-                    Passionné par la <span class="highlight">Cybersécurité</span>, avec une solide expérience en systèmes, réseaux, virtualisation et informatique industrielle.
-                </p>
-                <p class="about-me-description">
-                    Je suis constamment à la recherche de nouveaux défis et de connaissances. Ce portfolio met en lumière mon parcours et mes réalisations dans ces domaines en constante évolution, allant du développement bas niveau en <span class="highlight">Rust</span> et <span class="highlight">Go</span> à l'analyse de sécurité avec <span class="highlight">Nmap</span> et <span class="highlight">Python</span>.
-                </p>
-            </div>
-            <div class="about-me-image-wrapper reveal">
-                <img 
-                    src="gael.jpg" 
-                    alt="Portrait de Gael Maiano - Technicien en Cybersécurité" 
-                    class="about-me-image"
-                >
-            </div>
-        </div>
-    </section>
+    <main>
+        <section id="hero" class="container">
+            <p class="hero-pre">Salut, je m'appelle</p>
+            <h1 class="hero-title">Gael Maiano.</h1>
+            <h2 class="hero-subtitle">Je sécurise les infrastructures critiques.</h2>
+            <p class="hero-desc">
+                Étudiant en cybersécurité spécialisé en systèmes industriels (SCADA) et développement bas niveau (Rust/Go). 
+                Je combine expertise technique et analyse géopolitique.
+            </p>
+            <a href="#projects" class="btn">Voir mes travaux</a>
+        </section>
 
-    <!-- NOUVELLE SECTION : ACTIVITÉ ASSOCIATIVE -->
-    <section id="asso-activity" aria-labelledby="asso-title">
-        <div class="container asso-container">
-            <h2 id="asso-title" class="asso-title reveal">🏛️ Engagement Solidaire</h2>
-            <div class="asso-content reveal">
+        <section id="asso-activity" class="container reveal">
+            <div class="section-header">
+                <span class="section-num">02.</span>
+                <h2 class="section-title">Engagement Solidaire</h2>
+            </div>
+
+            <div class="asso-card">
                 <div class="asso-text">
-                    <h2><i class="fas fa-hands-helping"></i> Cyber-Secours Brest SECTION EN CONSTRUCTION</h2>
-                    <p>
-                        <strong>Association à but non lucratif ATTENTION PAS ENCORE DECLARE EN MAIRIE </strong> que j'ai initiée pour rendre la cybersécurité professionnelle accessible aux PME et associations brestoises, grâce aux solutions libres.
+                    <h3>
+                        Cyber-Secours Brest
+                        <span class="asso-tag">En Construction</span>
+                    </h3>
+                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+                        Une initiative locale pour démocratiser la cybersécurité professionnelle. Nous aidons les PME et associations brestoises à se protéger sans frais de licence.
                     </p>
-                    
-                    <div class="asso-stats">
-                        <div class="stat-item">
-                            <span class="stat-number">0€</span>
-                            <span class="stat-label">Coût des licences</span>
+
+                    <div class="asso-stats-grid">
+                        <div class="stat-box">
+                            <span class="stat-val">100%</span>
+                            <span class="stat-lbl">Open Source</span>
                         </div>
-                        <div class="stat-item">
-                            <span class="stat-number">100%</span>
-                            <span class="stat-label">Open Source</span>
+                        <div class="stat-box">
+                            <span class="stat-val">0€</span>
+                            <span class="stat-lbl">Coût Licences</span>
                         </div>
-                        <div class="stat-item">
-                            <span class="stat-number">24/7</span>
-                            <span class="stat-label">Surveillance SIEM</span>
+                        <div class="stat-box">
+                            <span class="stat-val">24/7</span>
+                            <span class="stat-lbl">Surveillance (Wazuh)</span>
                         </div>
-                        <div class="stat-item">
-                            <span class="stat-number">RGPD</span>
-                            <span class="stat-label">Conformité</span>
+                        <div class="stat-box">
+                            <span class="stat-val">Liberté</span>
+                            <span class="stat-lbl">Indépendance Technique</span>
                         </div>
                     </div>
 
-                    <ul class="asso-list">
-                        <li>
-                            <i class="fas fa-rocket asso-list-icon"></i>
-                            <strong>Mission :</strong> Déployer des solutions de sécurité professionnelle gratuites (Wazuh SIEM/XDR, Ubuntu, outils libres)
-                        </li>
-                        <li>
-                            <i class="fas fa-graduation-cap asso-list-icon"></i>
-                            <strong>Formation :</strong> Guides pratiques et accompagnement pour rendre les structures autonomes
-                        </li>
-                        <li>
-                            <i class="fas fa-users asso-list-icon"></i>
-                            <strong>Communauté :</strong> Initiative solidaire basée sur le partage et l'entraide
-                        </li>
-                        <li>
-                            <i class="fas fa-lock asso-list-icon"></i>
-                            <strong>Sécurité :</strong> Protection contre les cybermenaces avec surveillance en temps réel
-                        </li>
-                    </ul>
-
-                    <!-- CORRECTION DU LIEN ICI -->
-                    <a href="https://gaelmaiano.github.io/asso/" class="cta-button" target="_blank" rel="noopener">
-                        <i class="fas fa-external-link-alt"></i> Découvrir la Boîte à Outils Libre
+                    <a href="https://gaelmaiano.github.io/asso/" target="_blank" class="btn btn-asso">
+                        <i class="fas fa-box-open"></i> Accéder à la Boîte à Outils
                     </a>
                 </div>
-                <div class="logo-libre">
-                    <i class="fab fa-osi"></i>
-                    <p>"La sécurité numérique devrait être accessible à toutes les structures, quelle que soit leur taille ou leur budget."</p>
+
+                <div class="asso-logo-area">
+                    <i class="fab fa-osi asso-logo-icon"></i>
+                    <p>"La sécurité par la transparence."</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="skills" aria-labelledby="skills-title">
-        <div class="container">
-            <h2 id="skills-title" class="section-title reveal">🛠️ Stack Technique</h2>
+        <section id="skills" class="container reveal">
+            <div class="section-header">
+                <span class="section-num">03.</span>
+                <h2 class="section-title">Stack Technique</h2>
+            </div>
+            
             <div class="skills-grid">
-                <div class="skill-category reveal">
-                    <h3><i class="fas fa-shield-alt skill-icon"></i> Cybersécurité</h3>
-                    <ul>
-                        <li><i class="fas fa-check"></i> Nmap & Wireshark</li>
-                        <li><i class="fas fa-check"></i> Analyse de vulnérabilités</li>
-                        <li><i class="fas fa-check"></i> Pentesting basics</li>
-                        <li><i class="fas fa-check"></i> Forensic numérique</li>
-                        <li><i class="fas fa-check"></i> Sécurité réseau</li>
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <i class="fas fa-shield-halved"></i> Cybersécurité
+                    </div>
+                    <ul class="skill-list">
+                        <li>Nmap & Wireshark</li>
+                        <li>Analyse Vulnérabilité (CVE)</li>
+                        <li>Wazuh SIEM / XDR</li>
+                        <li>Forensic Numérique</li>
                     </ul>
                 </div>
                 
-                <div class="skill-category reveal">
-                    <h3><i class="fas fa-code skill-icon"></i> Développement</h3>
-                    <ul>
-                        <li><i class="fab fa-rust skill-icon"></i> Rust 🦀</li>
-                        <li><i class="fab fa-golang skill-icon"></i> Go 🐹</li>
-                        <li><i class="fab fa-python skill-icon"></i> Python 🐍</li>
-                        <li><i class="fas fa-server skill-icon"></i> Backend</li>
-                        <li><i class="fas fa-tools skill-icon"></i> Outils DevOps</li>
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <i class="fas fa-code"></i> Développement
+                    </div>
+                    <ul class="skill-list">
+                        <li>Rust 🦀 (Sécurité Mémoire)</li>
+                        <li>Go 🐹 (Réseau & Tools)</li>
+                        <li>Python 🐍 (Scripting)</li>
+                        <li>C / C++ (Bas niveau)</li>
                     </ul>
                 </div>
-                
-                <div class="skill-category reveal">
-                    <h3><i class="fas fa-industry skill-icon"></i> Industriel</h3>
-                    <ul>
-                        <li><i class="fas fa-cogs"></i> Systèmes SCADA</li>
-                        <li><i class="fas fa-plug"></i> IoT Sécurité</li>
-                        <li><i class="fas fa-network-wired"></i> Réseaux industriels</li>
-                        <li><i class="fas fa-robot"></i> Automatisation</li>
-                        <li><i class="fas fa-chart-line"></i> Supervision</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="projects" aria-labelledby="projects-title">
-        <div class="container">
-            <h2 id="projects-title" class="section-title reveal">Mes Projets 🚀</h2>
-            
-            <div class="projects-grid">
-                <div class="project-card reveal">
-                    <div class="project-image-container">
-                        <img src="unnamed.jpg" alt="Bounty Academy - Simulateur Bug Bounty" class="project-image">
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <i class="fas fa-industry"></i> Industriel (OT)
                     </div>
-                    <div class="project-content">
-                        <h3>Bounty Academy</h3>
-                        <p>Application interactive pour l'apprentissage pratique du Bug Bounty (failles XSS et IDOR).</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Web Security</span>
-                            <span class="project-tag">XSS</span>
-                            <span class="project-tag">IDOR</span>
-                        </div>
-                        <a href="https://gaelmaiano.github.io/bounty/#dashboard" target="_blank" rel="noopener" class="project-link">
-                            <i class="fas fa-external-link-alt"></i> Lancer le simulateur
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="project-card reveal">
-                    <div class="project-image-container">
-                        <img src="sacada.jpg" alt="Projet SCADA - Sécurité Industrielle" class="project-image">
-                    </div>
-                    <div class="project-content">
-                        <h3>Projet SCADA (ICS)</h3>
-                        <p>Système de supervision SCADA pour l'étude et la sécurisation des systèmes industriels.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Industriel</span>
-                            <span class="project-tag">SCADA</span>
-                            <span class="project-tag">OT Security</span>
-                        </div>
-                        <a href="https://www.linkedin.com/posts/gael-maiano-34867a32a_rapport-chaine-de-production-scada-activity-7247783594591490049-1reA?utm_source=share&utm_medium=member_desktop" target="_blank" rel="noopener" class="project-link">
-                            <i class="fas fa-file-download"></i> Voir le rapport
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="project-card reveal">
-                    <div class="project-image-container">
-                        <img src="scanner.jpeg" alt="Scanner de Port Python" class="project-image">
-                    </div>
-                    <div class="project-content">
-                        <h3>Scanner de Port Python</h3>
-                        <p>Scanner de port basique pour comprendre les mécaniques derrière Nmap (TCP/UDP).</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Networking</span>
-                            <span class="project-tag">Security</span>
-                        </div>
-                        <a href="scannerPort.html" class="project-link">
-                            <i class="fas fa-code"></i> Voir le code
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="project-card reveal">
-                    <div class="project-image-container">
-                        <img src="keyllogger.jpeg" alt="Keylogger Python" class="project-image">
-                    </div>
-                    <div class="project-content">
-                        <h3>Keylogger Éducatif</h3>
-                        <p>Implémentation pour l'étude des malwares et techniques de persistance.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Malware Analysis</span>
-                            <span class="project-tag">Éducatif</span>
-                        </div>
-                        <a href="keylogger.html" class="project-link">
-                            <i class="fas fa-code"></i> Voir le code
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="project-card reveal">
-                    <div class="project-image-container">
-                        <img src="rust.jpeg" alt="Décodeur Rust" class="project-image">
-                    </div>
-                    <div class="project-content">
-                        <h3>Décodeur Hash en Rust</h3>
-                        <p>Outil de cassage de hash exploitant la performance de Rust.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Rust</span>
-                            <span class="project-tag">Cryptographie</span>
-                            <span class="project-tag">Performance</span>
-                        </div>
-                        <a href="passworddecoder.html" class="project-link">
-                            <i class="fas fa-code"></i> Voir le code
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="project-card reveal">
-                    <div class="project-image-container">
-                        <img src="OIG1.jpg" alt="Scanner Go" class="project-image">
-                    </div>
-                    <div class="project-content">
-                        <h3>Scanner de Port en Go</h3>
-                        <p>Scanner haute performance avec goroutines et concurrence native.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Go</span>
-                            <span class="project-tag">Concurrence</span>
-                            <span class="project-tag">Performance</span>
-                        </div>
-                        <a href="#" class="project-link">
-                            <i class="fas fa-code"></i> Voir le code
-                        </a>
-                    </div>
+                    <ul class="skill-list">
+                        <li>Sécurité SCADA / ICS</li>
+                        <li>Protocoles (Modbus, S7)</li>
+                        <li>IoT Security</li>
+                        <li>Automates Programmables</li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="contact" aria-labelledby="contact-title">
-        <div class="container">
-            <h2 id="contact-title" class="section-title reveal">Me Contacter</h2>
-            
-            <div class="contact-container">
-                <div id="message-box" role="alert" aria-live="polite"></div>
-                
-                <form id="contact-form" action="https://formspree.io/f/xbljryyr" method="POST" class="reveal">
-                    <div class="form-group">
-                        <label for="name"><i class="fas fa-user"></i> Nom :</label>
-                        <input type="text" id="name" name="name" class="form-control" required aria-required="true">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email"><i class="fas fa-envelope"></i> Email :</label>
-                        <input type="email" id="email" name="_replyto" class="form-control" required aria-required="true">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message"><i class="fas fa-comment"></i> Message :</label>
-                        <textarea id="message" name="message" class="form-control" required aria-required="true"></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn" id="submit-btn">
-                        <i class="fas fa-paper-plane"></i> Envoyer le message
-                    </button>
-                </form>
+        <section id="projects" class="container reveal">
+            <div class="section-header">
+                <span class="section-num">04.</span>
+                <h2 class="section-title">Projets Réalisés</h2>
             </div>
-        </div>
-    </section>
+
+            <div class="project-card">
+                <div class="project-img-wrapper">
+                    <img src="sacada.jpg" alt="Projet SCADA">
+                </div>
+                <div class="project-content">
+                    <p class="project-overline">Infrastructures Critiques</p>
+                    <h3 class="project-title">Supervision SCADA (ICS)</h3>
+                    <div class="project-desc-box">
+                        <p>Conception et sécurisation d'une chaîne de supervision industrielle. Analyse des vulnérabilités OT et implémentation de sondes de détection sur protocoles Modbus.</p>
+                    </div>
+                    <ul class="project-tech-list">
+                        <li>SCADA</li>
+                        <li>Modbus</li>
+                        <li>Wireshark</li>
+                        <li>Python</li>
+                    </ul>
+                    <div class="project-links">
+                        <a href="#"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reversed">
+                <div class="project-img-wrapper">
+                    <img src="unnamed.jpg" alt="Bounty Academy">
+                </div>
+                <div class="project-content">
+                    <p class="project-overline">Web Security</p>
+                    <h3 class="project-title">Bounty Academy</h3>
+                    <div class="project-desc-box">
+                        <p>Plateforme éducative simulant des vulnérabilités réelles (XSS, IDOR, SQLi) pour l'entraînement au Bug Bounty. Environnement sécurisé et sandboxé.</p>
+                    </div>
+                    <ul class="project-tech-list">
+                        <li>PHP</li>
+                        <li>MySQL</li>
+                        <li>Docker</li>
+                        <li>OWASP</li>
+                    </ul>
+                    <div class="project-links">
+                        <a href="https://gaelmaiano.github.io/bounty/#dashboard" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-img-wrapper">
+                    <img src="scanner.jpeg" alt="Port Scanner Rust">
+                </div>
+                <div class="project-content">
+                    <p class="project-overline">Tooling</p>
+                    <h3 class="project-title">High-Speed Port Scanner</h3>
+                    <div class="project-desc-box">
+                        <p>Développement d'un scanner de ports asynchrone ultra-rapide en Rust/Python. Analyse du comportement TCP handshake et contournement basique de firewall.</p>
+                    </div>
+                    <ul class="project-tech-list">
+                        <li>Rust</li>
+                        <li>Python</li>
+                        <li>TCP/IP</li>
+                        <li>Async I/O</li>
+                    </ul>
+                    <div class="project-links">
+                        <a href="scannerPort.html"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="reveal">
+            <p class="hero-pre">05. La suite ?</p>
+            <h2 class="contact-title">Me Contacter</h2>
+            <p class="contact-desc">
+                Je suis actuellement à l'écoute de nouvelles opportunités en alternance ou collaborations sur des projets open source.
+            </p>
+            <a href="mailto:votre-email@example.com" class="btn">Dire Bonjour</a>
+        </section>
+
+    </main>
 
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="social-links">
-                    <a href="https://github.com/gaelmaiano" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://linkedin.com/in/gael-maiano" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="mailto:contact@gaelmaiano.fr" class="social-link" aria-label="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
-                
-                <div class="copyright">
-                    <p>© 2024 Gael Maiano | Conçu avec <i class="fas fa-heart" style="color:#ef4444;"></i> pour la Cybersécurité</p>
-                    <p style="font-size:0.8rem; margin-top:0.5rem; color:#64748b;">
-                        <i class="fas fa-lock"></i> Ce site n'utilise pas de cookies et respecte votre vie privée.
-                    </p>
-                </div>
-            </div>
-        </div>
+        <p>Conçu & Développé par Gael Maiano</p>
+        <p style="margin-top: 5px; opacity: 0.5;">HTML5 • CSS3 • 0% JS Framework</p>
     </footer>
-    
+
     <script>
-        // Script pour le menu mobile
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            const isExpanded = navLinks.classList.contains('active');
-            menuToggle.setAttribute('aria-expanded', isExpanded);
-            
-            const icon = menuToggle.querySelector('i');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-times');
-        });
-
-        // Fermer le menu au clic sur un lien
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                menuToggle.setAttribute('aria-expanded', 'false');
-                const icon = menuToggle.querySelector('i');
-                icon.classList.add('fa-bars');
-                icon.classList.remove('fa-times');
-            });
-        });
-
-        // Script pour l'animation reveal
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150;
-
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
+        window.addEventListener('scroll', reveal);
+        function reveal(){
+            var reveals = document.querySelectorAll('.reveal');
+            for(var i = 0; i < reveals.length; i++){
+                var windowheight = window.innerHeight;
+                var revealtop = reveals[i].getBoundingClientRect().top;
+                var revealpoint = 150;
+                if(revealtop < windowheight - revealpoint){
+                    reveals[i].classList.add('active');
                 }
             }
         }
-
-        window.addEventListener("scroll", reveal);
-        // Exécuter au chargement
+        // Trigger once on load
         reveal();
     </script>
 </body>
