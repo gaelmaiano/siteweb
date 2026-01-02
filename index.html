@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,13 +7,15 @@
     <title>CyberAcadémie | Cours 1: Introduction à la Cybersécurité</title>
     <style>
         :root {
-            --bg: #0d1117;
-            --text: #c9d1d9;
-            --accent: #238636;
-            --red: #da3633;
-            --blue: #1f6feb;
-            --yellow: #e3b341;
-            --purple: #8957e5;
+            --bg: #0a0a0f;
+            --text: #e0e0ff;
+            --accent: #00f0ff;
+            --red: #ff0066;
+            --blue: #0066ff;
+            --purple: #b967ff;
+            --neon-green: #39ff14;
+            --glow: rgba(0, 240, 255, 0.3);
+            --grid-color: rgba(0, 240, 255, 0.05);
         }
         
         * {
@@ -23,22 +25,51 @@
         }
         
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg);
+            font-family: 'Orbitron', 'Exo 2', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #0d0d1a 100%);
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(rgba(10, 10, 15, 0.9), rgba(10, 10, 15, 0.9)),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 1px,
+                    var(--grid-color) 1px,
+                    var(--grid-color) 2px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 1px,
+                    var(--grid-color) 1px,
+                    var(--grid-color) 2px
+                );
+            background-size: 100% 100%, 30px 30px, 30px 30px;
+            z-index: -1;
         }
         
         /* Navigation */
         .navbar {
-            background: rgba(13, 17, 23, 0.95);
+            background: rgba(10, 10, 15, 0.95);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid #30363d;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
         }
         
         .nav-container {
@@ -53,15 +84,29 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .logo::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+            opacity: 0.7;
         }
         
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
             align-items: center;
         }
         
@@ -69,14 +114,18 @@
             color: var(--text);
             text-decoration: none;
             font-size: 0.9rem;
-            transition: color 0.3s;
+            transition: all 0.3s;
             padding: 0.5rem 1rem;
             border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
         }
         
         .nav-links a:hover {
             color: var(--accent);
-            background: rgba(35, 134, 54, 0.1);
+            text-shadow: 0 0 10px var(--accent);
+            background: rgba(0, 240, 255, 0.05);
         }
         
         .auth-buttons {
@@ -85,42 +134,48 @@
         }
         
         .btn {
-            padding: 0.5rem 1.5rem;
-            border-radius: 6px;
+            padding: 0.6rem 1.8rem;
+            border-radius: 8px;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             transition: all 0.3s;
             border: 1px solid transparent;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
         }
         
         .btn-login {
             background: transparent;
-            border-color: #30363d;
+            border-color: rgba(0, 240, 255, 0.3);
             color: var(--text);
         }
         
         .btn-signup {
-            background: var(--accent);
-            color: white;
+            background: linear-gradient(45deg, var(--accent), var(--purple));
+            color: #0a0a0f;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
         }
         
         .btn-login:hover {
             border-color: var(--accent);
             color: var(--accent);
+            text-shadow: 0 0 10px var(--accent);
         }
         
         .btn-signup:hover {
-            background: #2ea043;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 25px rgba(0, 240, 255, 0.6);
         }
         
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
-            padding: 8rem 2rem 4rem;
+            background: linear-gradient(135deg, rgba(10, 10, 15, 0.8) 0%, rgba(13, 13, 26, 0.9) 100%);
+            padding: 10rem 2rem 6rem;
             text-align: center;
             position: relative;
             overflow: hidden;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
         }
         
         .hero::before {
@@ -131,8 +186,8 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(35, 134, 54, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(106, 179, 255, 0.1) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(0, 240, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(185, 103, 255, 0.1) 0%, transparent 50%);
         }
         
         .hero-content {
@@ -143,25 +198,35 @@
         }
         
         .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(90deg, var(--accent), var(--blue));
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--accent), var(--purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 800;
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
         }
         
         .hero-subtitle {
-            font-size: 1.2rem;
-            color: #8b949e;
-            margin-bottom: 2rem;
+            font-size: 1.3rem;
+            color: #a0a0ff;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 1px;
         }
         
         .course-meta {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 2.5rem;
             flex-wrap: wrap;
-            margin-top: 2rem;
+            margin-top: 2.5rem;
+            padding: 1.5rem;
+            background: rgba(0, 240, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 240, 255, 0.1);
         }
         
         .meta-item {
@@ -171,10 +236,18 @@
             gap: 0.5rem;
         }
         
+        .meta-label {
+            font-size: 0.9rem;
+            color: #8080cc;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
         .meta-value {
-            font-size: 1.5rem;
-            font-weight: bold;
+            font-size: 1.8rem;
+            font-weight: 700;
             color: var(--accent);
+            text-shadow: 0 0 10px var(--accent);
         }
         
         /* Main Content */
@@ -185,67 +258,85 @@
         }
         
         .course-content {
-            background: rgba(22, 27, 34, 0.5);
-            border-radius: 12px;
-            padding: 3rem;
+            background: rgba(15, 15, 25, 0.7);
+            border-radius: 16px;
+            padding: 3.5rem;
             margin: 2rem auto;
-            border: 1px solid #30363d;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
         }
         
         h2 {
-            font-size: 2rem;
-            margin: 2rem 0 1rem;
-            color: #f0f6fc;
-            padding-bottom: 0.5rem;
+            font-size: 2.2rem;
+            margin: 2.5rem 0 1.2rem;
+            color: #ffffff;
+            padding-bottom: 0.8rem;
             border-bottom: 2px solid var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
         }
         
         h3 {
-            font-size: 1.5rem;
-            margin: 1.5rem 0 1rem;
-            color: #f0f6fc;
+            font-size: 1.6rem;
+            margin: 1.8rem 0 1.2rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
         }
         
         /* Video Section */
         .video-container {
             position: relative;
             width: 100%;
-            margin: 2rem 0;
-            border-radius: 12px;
+            margin: 2.5rem 0;
+            border-radius: 16px;
             overflow: hidden;
-            border: 2px solid #30363d;
+            border: 2px solid rgba(0, 240, 255, 0.3);
+            background: rgba(10, 10, 20, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 450px;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.1);
         }
         
-        .video-container::before {
-            content: "";
+        .video-placeholder {
+            text-align: center;
+            color: var(--accent);
+        }
+        
+        .video-placeholder span {
+            font-size: 4rem;
+            margin-bottom: 1rem;
             display: block;
-            padding-top: 56.25%;
+            text-shadow: 0 0 15px var(--accent);
         }
         
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        .video-placeholder p {
+            margin-top: 1rem;
+            color: #a0a0ff;
         }
         
         /* Cards Grid */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
+            gap: 2rem;
+            margin: 2.5rem 0;
         }
         
         .card {
-            background: linear-gradient(145deg, #161b22, #0d1117);
-            border-radius: 10px;
-            padding: 2rem;
-            border: 1px solid #30363d;
-            transition: all 0.3s ease;
+            background: linear-gradient(145deg, rgba(20, 20, 35, 0.8), rgba(10, 10, 20, 0.9));
+            border-radius: 14px;
+            padding: 2.2rem;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
         
         .card::before {
@@ -259,59 +350,90 @@
         
         .card.red::before {
             background: var(--red);
+            box-shadow: 0 0 15px var(--red);
         }
         
         .card.blue::before {
             background: var(--blue);
+            box-shadow: 0 0 15px var(--blue);
         }
         
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(0, 240, 255, 0.3);
             border-color: var(--accent);
+        }
+        
+        .card h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
         }
         
         /* Stats Section */
         .stats-container {
-            background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 2rem 0;
-            border: 1px solid #30363d;
+            background: linear-gradient(135deg, rgba(20, 20, 35, 0.8) 0%, rgba(10, 10, 20, 0.9) 100%);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 2.5rem 0;
+            border: 1px solid rgba(255, 0, 102, 0.3);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 0 25px rgba(255, 0, 102, 0.1);
         }
         
         .stats-container::before {
             content: "⚠️";
             position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 2rem;
-            opacity: 0.1;
+            top: 15px;
+            right: 15px;
+            font-size: 2.5rem;
+            opacity: 0.2;
+        }
+        
+        .stats-container h3 {
+            color: var(--red);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(255, 0, 102, 0.5);
+        }
+        
+        .stats-container p {
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+        
+        .stats-container p strong {
+            color: var(--neon-green);
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
         }
         
         /* Case Studies */
         .case-study {
-            background: rgba(22, 27, 34, 0.7);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
+            background: rgba(25, 25, 40, 0.7);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin: 1.8rem 0;
             border-left: 4px solid var(--yellow);
+            border: 1px solid rgba(227, 179, 65, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .case-study h4 {
             color: var(--yellow);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         /* Learning Objectives */
         .learning-objectives {
-            background: rgba(35, 134, 54, 0.1);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border: 1px solid rgba(35, 134, 54, 0.3);
+            background: rgba(0, 240, 255, 0.08);
+            border-radius: 14px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            box-shadow: 0 0 20px var(--glow);
         }
         
         .objective-list {
@@ -320,9 +442,14 @@
         }
         
         .objective-list li {
-            padding: 0.5rem 0;
-            padding-left: 2rem;
+            padding: 0.8rem 0;
+            padding-left: 2.5rem;
             position: relative;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+        }
+        
+        .objective-list li:last-child {
+            border-bottom: none;
         }
         
         .objective-list li::before {
@@ -331,73 +458,90 @@
             left: 0;
             color: var(--accent);
             font-weight: bold;
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px var(--accent);
         }
         
         /* Quiz Section */
         .quiz-container {
-            background: rgba(22, 27, 34, 0.8);
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 3rem 0;
-            border: 1px solid #30363d;
+            background: rgba(20, 20, 35, 0.8);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 3.5rem 0;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
         
         .quiz-question {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
         
         .quiz-options {
             display: grid;
-            gap: 1rem;
-            margin: 1.5rem 0;
+            gap: 1.2rem;
+            margin: 2rem 0;
         }
         
         .quiz-option {
-            background: rgba(48, 54, 61, 0.5);
-            padding: 1rem;
-            border-radius: 6px;
+            background: rgba(30, 30, 50, 0.6);
+            padding: 1.2rem;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s;
-            border: 1px solid transparent;
+            border: 1px solid rgba(0, 240, 255, 0.1);
+            font-size: 1.05rem;
         }
         
         .quiz-option:hover {
-            background: rgba(48, 54, 61, 0.8);
+            background: rgba(0, 240, 255, 0.1);
             border-color: var(--accent);
+            transform: translateX(5px);
+            box-shadow: 0 0 15px var(--glow);
         }
         
         .quiz-option.selected {
-            background: rgba(35, 134, 54, 0.2);
+            background: rgba(0, 240, 255, 0.15);
             border-color: var(--accent);
+            box-shadow: 0 0 20px var(--glow);
         }
         
         /* Resources */
         .resources-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin: 2rem 0;
+            gap: 1.5rem;
+            margin: 2.5rem 0;
         }
         
         .resource-card {
-            background: rgba(22, 27, 34, 0.7);
-            border-radius: 8px;
-            padding: 1.5rem;
-            border: 1px solid #30363d;
-            transition: all 0.3s;
+            background: rgba(25, 25, 45, 0.7);
+            border-radius: 12px;
+            padding: 1.8rem;
+            border: 1px solid rgba(185, 103, 255, 0.2);
+            transition: all 0.4s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .resource-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent);
+            transform: translateY(-5px);
+            border-color: var(--purple);
+            box-shadow: 0 10px 25px rgba(185, 103, 255, 0.3);
+        }
+        
+        .resource-card h4 {
+            color: var(--purple);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         /* Footer */
         .footer {
-            background: #161b22;
+            background: rgba(10, 10, 20, 0.95);
             padding: 4rem 2rem 2rem;
             margin-top: 4rem;
-            border-top: 1px solid #30363d;
+            border-top: 1px solid rgba(0, 240, 255, 0.2);
+            position: relative;
         }
         
         .footer-content {
@@ -409,8 +553,11 @@
         }
         
         .footer-section h4 {
-            color: #f0f6fc;
-            margin-bottom: 1rem;
+            color: #ffffff;
+            margin-bottom: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
         }
         
         .footer-links {
@@ -419,25 +566,27 @@
         }
         
         .footer-links li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.7rem;
         }
         
         .footer-links a {
-            color: #8b949e;
+            color: #a0a0ff;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            font-size: 0.95rem;
         }
         
         .footer-links a:hover {
             color: var(--accent);
+            text-shadow: 0 0 10px var(--accent);
         }
         
         .copyright {
             text-align: center;
             padding-top: 2rem;
             margin-top: 2rem;
-            border-top: 1px solid #30363d;
-            color: #8b949e;
+            border-top: 1px solid rgba(0, 240, 255, 0.1);
+            color: #8080cc;
             font-size: 0.9rem;
         }
         
@@ -447,45 +596,60 @@
             top: 70px;
             left: 0;
             right: 0;
-            height: 3px;
-            background: #30363d;
+            height: 4px;
+            background: rgba(0, 240, 255, 0.1);
             z-index: 999;
         }
         
         .progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, var(--accent), var(--blue));
+            background: linear-gradient(90deg, var(--accent), var(--purple));
             width: 0%;
             transition: width 0.3s;
+            box-shadow: 0 0 10px var(--accent);
         }
         
         /* Responsive */
         @media (max-width: 768px) {
             .nav-container {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 1.2rem;
                 padding: 1rem;
             }
             
             .nav-links {
                 flex-wrap: wrap;
                 justify-content: center;
+                gap: 0.8rem;
             }
             
             .hero {
-                padding: 6rem 1rem 3rem;
+                padding: 7rem 1rem 4rem;
             }
             
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .course-content {
-                padding: 1.5rem;
+                padding: 1.8rem;
             }
             
             .container {
                 padding: 1rem;
+            }
+            
+            .video-container {
+                height: 280px;
+            }
+            
+            .course-meta {
+                gap: 1.5rem;
+                padding: 1rem;
+            }
+            
+            .meta-value {
+                font-size: 1.4rem;
             }
         }
         
@@ -493,7 +657,7 @@
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -501,82 +665,176 @@
             }
         }
         
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 240, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0); }
+        }
+        
         .fade-in {
-            animation: fadeIn 0.6s ease-out;
+            animation: fadeIn 0.8s ease-out;
         }
         
-        /* Course Navigation */
-        .course-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 3rem 0;
-            padding: 1rem 0;
-            border-top: 1px solid #30363d;
-            border-bottom: 1px solid #30363d;
-        }
-        
-        .nav-btn {
-            padding: 0.8rem 1.5rem;
-            border-radius: 6px;
-            text-decoration: none;
-            color: var(--text);
-            border: 1px solid #30363d;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .nav-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            transform: translateX(-5px);
-        }
-        
-        .nav-btn.next:hover {
-            transform: translateX(5px);
+        .pulse {
+            animation: pulse 2s infinite;
         }
         
         .btn-primary {
-            background: var(--accent);
-            color: white;
+            background: linear-gradient(45deg, var(--accent), var(--purple));
+            color: #0a0a0f;
             border: none;
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            border-radius: 8px;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.15rem;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.4s;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            box-shadow: 0 0 20px var(--glow);
         }
         
         .btn-primary:hover {
-            background: #2ea043;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(35, 134, 54, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.7);
+        }
+
+        /* New CTA Banner */
+        .bounty-cta {
+            background: linear-gradient(135deg, rgba(25, 25, 40, 0.8), rgba(15, 15, 30, 0.9));
+            border: 2px solid var(--purple);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(185, 103, 255, 0.2);
+        }
+
+        .bounty-cta h3 {
+            color: var(--purple);
+            margin-bottom: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1.8rem;
+            text-shadow: 0 0 15px rgba(185, 103, 255, 0.5);
+        }
+
+        .bounty-cta p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: #c0c0ff;
+        }
+
+        .btn-bounty {
+            background: linear-gradient(45deg, var(--purple), #ff00aa);
+            color: white;
+            padding: 1rem 2.2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.4s;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            box-shadow: 0 0 25px rgba(185, 103, 255, 0.4);
+            font-size: 1.1rem;
+            margin: 0 10px;
+        }
+
+        .btn-bounty:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 35px rgba(185, 103, 255, 0.7);
+        }
+
+        /* Superprof CTA */
+        .superprof-cta {
+            background: linear-gradient(135deg, rgba(25, 25, 40, 0.8), rgba(15, 15, 30, 0.9));
+            border: 2px solid #ff6b35;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255, 107, 53, 0.2);
+        }
+
+        .superprof-cta h3 {
+            color: #ff6b35;
+            margin-bottom: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1.8rem;
+            text-shadow: 0 0 15px rgba(255, 107, 53, 0.5);
+        }
+
+        .superprof-cta p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: #ffc0a0;
+        }
+
+        .btn-superprof {
+            background: linear-gradient(45deg, #ff6b35, #ff8c00);
+            color: white;
+            padding: 1rem 2.2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.4s;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            box-shadow: 0 0 25px rgba(255, 107, 53, 0.4);
+            font-size: 1.1rem;
+            margin: 0 10px;
+        }
+
+        .btn-superprof:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 35px rgba(255, 107, 53, 0.7);
+        }
+
+        /* Scanning effect */
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: rgba(0, 240, 255, 0.3);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+            animation: scan 4s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Scanning effect -->
+    <div class="scan-line"></div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <span style="font-size: 1.5rem;">🛡️</span>
-                CyberAcadémie
+                <span style="font-size: 1.8rem;">🛡️</span>
+                CYBERACADÉMIE
             </div>
             <div class="nav-links">
-                <a href="#cours">Cours</a>
-                <a href="#exercices">Exercices</a>
-                <a href="#ressources">Ressources</a>
-                <a href="#communauté">Communauté</a>
-                <a href="#certifications">Certifications</a>
+                <a href="#cours">COURS</a>
+                <a href="#exercices">EXERCICES</a>
+                <a href="#ressources">RESSOURCES</a>
+                <a href="#communauté">COMMUNAUTÉ</a>
+                <a href="#certifications">CERTIFICATIONS</a>
             </div>
             <div class="auth-buttons">
-                <a href="#" class="btn btn-login">Connexion</a>
-                <a href="#" class="btn btn-signup">Inscription Gratuite</a>
+                <a href="#" class="btn btn-login">CONNEXION</a>
             </div>
         </div>
     </nav>
@@ -589,17 +847,17 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Introduction à la Cybersécurité</h1>
-            <p class="hero-subtitle">Cours n°1 • Maîtrisez les fondamentaux pour protéger les systèmes d'information</p>
+            <h1>INTRODUCTION À LA CYBERSÉCURITÉ</h1>
+            <p class="hero-subtitle">COURS N°1 • MAÎTRISEZ LES FONDAMENTAUX POUR PROTÉGER LES SYSTÈMES D'INFORMATION</p>
             
             <div class="course-meta">
                 <div class="meta-item">
                     <span class="meta-label">Durée</span>
-                    <span class="meta-value">2h 30min</span>
+                    <span class="meta-value">2H 30MIN</span>
                 </div>
                 <div class="meta-item">
                     <span class="meta-label">Niveau</span>
-                    <span class="meta-value">Débutant</span>
+                    <span class="meta-value">DÉBUTANT</span>
                 </div>
                 <div class="meta-item">
                     <span class="meta-label">Exercices</span>
@@ -607,7 +865,7 @@
                 </div>
                 <div class="meta-item">
                     <span class="meta-label">Certificat</span>
-                    <span class="meta-value">✓ Inclus</span>
+                    <span class="meta-value">✓ INCLUS</span>
                 </div>
             </div>
         </div>
@@ -616,20 +874,10 @@
     <!-- Main Content -->
     <div class="container">
         <div class="course-content fade-in">
-            <!-- Course Navigation -->
-            <div class="course-nav">
-                <a href="#" class="nav-btn">
-                    ← Cours précédent
-                </a>
-                <span>Cours 1 sur 10</span>
-                <a href="#" class="nav-btn next">
-                    Cours suivant →
-                </a>
-            </div>
 
             <!-- Learning Objectives -->
             <div class="learning-objectives">
-                <h3>🎯 Objectifs d'apprentissage</h3>
+                <h3>🎯 OBJECTIFS D'APPRENTISSAGE</h3>
                 <ul class="objective-list">
                     <li>Comprendre la différence entre fiction et réalité en cybersécurité</li>
                     <li>Identifier les principaux acteurs et leurs rôles</li>
@@ -641,30 +889,34 @@
 
             <!-- Section 1: Fiction vs Réalité -->
             <section id="section1">
-                <h2>1. La fiction face à la réalité</h2>
+                <h2>1. LA FICTION FACE À LA RÉALITÉ</h2>
                 <p>Le cinéma et les séries TV nous présentent souvent une vision glamour et exagérée du hacking. Dans <strong>Mr. Robot</strong>, bien que techniquement précis sur certains points, la vitesse et la facilité des attaques sont souvent dramatiques.</p>
                 
                 <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/TFl8_xOuqA8" frameborder="0" allowfullscreen></iframe>
+                    <div class="video-placeholder">
+                        <span>🎥</span>
+                        <p>CONTENU VIDÉO NON DISPONIBLE</p>
+                        <p>ERREUR DE CHARGEMENT DE LA VIDÉO YOUTUBE</p>
+                    </div>
                 </div>
                 
                 <div class="note">
-                    <p><strong>💡 Point clé :</strong> Dans la réalité, une attaque DDoS comme celle montrée nécessite des semaines de préparation et une infrastructure importante. La réponse d'une équipe de sécurité réelle serait bien plus organisée et moins paniquée.</p>
+                    <p><strong>💡 POINT CLÉ :</strong> Dans la réalité, une attaque DDoS comme celle montrée nécessite des semaines de préparation et une infrastructure importante. La réponse d'une équipe de sécurité réelle serait bien plus organisée et moins paniquée.</p>
                 </div>
             </section>
 
             <!-- Section 2: Les acteurs -->
             <section id="section2">
-                <h2>2. Les acteurs du jeu</h2>
+                <h2>2. LES ACTEURS DU JEU</h2>
                 <p>La cybersécurité est un écosystème complexe où différents acteurs interagissent. Voici les deux principales équipes :</p>
                 
                 <div class="grid">
                     <div class="card red">
-                        <h3>🔴 Red Team</h3>
-                        <p><strong>L'Attaque offensive</strong></p>
+                        <h3>🔴 RED TEAM</h3>
+                        <p><strong>L'ATTAQUE OFFENSIVE</strong></p>
                         <p>Simulation d'intrusions, tests de pénétration (pentest) et exploitation de failles pour identifier les vulnérabilités avant les vrais attaquants.</p>
                         <div class="card-details">
-                            <p><strong>Missions :</strong></p>
+                            <p><strong>MISSIONS :</strong></p>
                             <ul>
                                 <li>Tests d'intrusion</li>
                                 <li>Social engineering</li>
@@ -674,11 +926,11 @@
                     </div>
                     
                     <div class="card blue">
-                        <h3>🔵 Blue Team</h3>
-                        <p><strong>La Défense proactive</strong></p>
+                        <h3>🔵 BLUE TEAM</h3>
+                        <p><strong>LA DÉFENSE PROACTIVE</strong></p>
                         <p>Surveillance des réseaux, détection d'anomalies, réponse aux incidents et durcissement des systèmes pour prévenir les attaques.</p>
                         <div class="card-details">
-                            <p><strong>Missions :</strong></p>
+                            <p><strong>MISSIONS :</strong></p>
                             <ul>
                                 <li>Monitoring 24/7</li>
                                 <li>Analyse des logs</li>
@@ -691,29 +943,29 @@
 
             <!-- Section 3: Importance -->
             <section id="section3">
-                <h2>3. Pourquoi la cybersécurité est-elle vitale ?</h2>
+                <h2>3. POURQUOI LA CYBERSÉCURITÉ EST-ELLE VITALE ?</h2>
                 
                 <div class="stats-container">
-                    <h3>📊 Statistiques alarmantes</h3>
-                    <p><strong>60% des PME</strong> déposent le bilan dans les 6 mois suivant une cyberattaque majeure.</p>
-                    <p><strong>Coût moyen</strong> d'une violation de données : 4.24 millions de dollars (2021).</p>
-                    <p><strong>Temps moyen</strong> pour identifier une violation : 212 jours.</p>
+                    <h3>📊 STATISTIQUES ALARMANTES</h3>
+                    <p><strong>60% DES PME</strong> déposent le bilan dans les 6 mois suivant une cyberattaque majeure.</p>
+                    <p><strong>COÛT MOYEN</strong> d'une violation de données : 4.24 millions de dollars (2021).</p>
+                    <p><strong>TEMPS MOYEN</strong> pour identifier une violation : 212 jours.</p>
                 </div>
                 
-                <h3>Impacts sectoriels</h3>
+                <h3>IMPACTS SECTORIELS</h3>
                 <div class="grid">
                     <div class="card">
-                        <h4>🏥 Santé</h4>
+                        <h4>🏥 SANTÉ</h4>
                         <p>Les hôpitaux sont des cibles prioritaires. En 2021, un ransomware a paralysé un hôpital français pendant 3 jours, retardant des opérations chirurgicales vitales.</p>
                     </div>
                     
                     <div class="card">
-                        <h4>⚡ Énergie</h4>
+                        <h4>⚡ ÉNERGIE</h4>
                         <p>Les infrastructures critiques comme les centrales nucléaires et réseaux électriques sont sous haute surveillance. L'attaque Sandworm contre le réseau électrique ukrainien en 2015 a privé 230,000 personnes d'électricité.</p>
                     </div>
                     
                     <div class="card">
-                        <h4>🏭 Industrie</h4>
+                        <h4>🏭 INDUSTRIE</h4>
                         <p>Les usines intelligentes sont vulnérables. En 2014, une attaque contre une aciérie allemande a causé des dommages physiques à un haut-fourneau.</p>
                     </div>
                 </div>
@@ -721,77 +973,99 @@
 
             <!-- Section 4: Études de cas -->
             <section id="section4">
-                <h2>4. Études de cas célèbres</h2>
+                <h2>4. ÉTUDES DE CAS CÉLÈBRES</h2>
                 
                 <div class="case-study">
-                    <h4>🦠 NotPetya (2017)</h4>
-                    <p><strong>Impact :</strong> Plus de 10 milliards de dollars de pertes mondiales</p>
-                    <p><strong>Cible :</strong> Initialement l'Ukraine, puis propagation mondiale</p>
-                    <p><strong>Particularité :</strong> Présenté comme un ransomware mais fonctionnant comme un wiper (destruction de données)</p>
-                    <p><strong>Leçon :</strong> L'importance des sauvegardes hors ligne et des mises à jour critiques</p>
+                    <h4>🦠 NOTPETYA (2017)</h4>
+                    <p><strong>IMPACT :</strong> Plus de 10 milliards de dollars de pertes mondiales</p>
+                    <p><strong>CIBLE :</strong> Initialement l'Ukraine, puis propagation mondiale</p>
+                    <p><strong>PARTICULARITÉ :</strong> Présenté comme un ransomware mais fonctionnant comme un wiper (destruction de données)</p>
+                    <p><strong>LEÇON :</strong> L'importance des sauvegardes hors ligne et des mises à jour critiques</p>
                 </div>
                 
                 <div class="case-study">
-                    <h4>😢 WannaCry (2017)</h4>
-                    <p><strong>Impact :</strong> 300,000 ordinateurs dans 150 pays</p>
-                    <p><strong>Cible principale :</strong> Systèmes Windows non mis à jour</p>
-                    <p><strong>Particularité :</strong> Exploitait une vulnérabilité Windows connue (EternalBlue)</p>
-                    <p><strong>Leçon :</strong> L'absolue nécessité des mises à jour de sécurité</p>
+                    <h4>😢 WANNACRY (2017)</h4>
+                    <p><strong>IMPACT :</strong> 300,000 ordinateurs dans 150 pays</p>
+                    <p><strong>CIBLE PRINCIPALE :</strong> Systèmes Windows non mis à jour</p>
+                    <p><strong>PARTICULARITÉ :</strong> Exploitait une vulnérabilité Windows connue (EternalBlue)</p>
+                    <p><strong>LEÇON :</strong> L'absolue nécessité des mises à jour de sécurité</p>
+                </div>
+            </section>
+
+            <!-- Superprof CTA Section -->
+            <section id="superprof-cta">
+                <div class="superprof-cta">
+                    <h3>🎓 BESOIN D'UN TUTORAT PERSONNALISÉ ?</h3>
+                    <p>RÉSERVEZ VOS SÉANCES DE COACHING EN CYBERSÉCURITÉ SUR SUPERPROF !</p>
+                    <a href="https://www.superprof.fr/" target="_blank" class="btn-superprof">
+                        ACCÉDER À MON PROFIL SUPERPROF
+                    </a>
+                </div>
+            </section>
+
+            <!-- New CTA Section -->
+            <section id="bounty-cta">
+                <div class="bounty-cta">
+                    <h3>🚀 PRÊT À PASSER À LA PRATIQUE ?</h3>
+                    <p>APPLIQUEZ VOS CONNAISSANCES EN CYBERSÉCURITÉ AVEC MON COURS PRATIQUE DE BUG BOUNTY !</p>
+                    <a href="https://gaelmaiano.github.io/bounty/#dashboard" target="_blank" class="btn-bounty">
+                        ACCÉDER AU COURS DE BUG BOUNTY
+                    </a>
                 </div>
             </section>
 
             <!-- Quiz Section -->
             <section id="quiz">
-                <h2>🎯 Quiz de vérification</h2>
+                <h2>🎯 QUIZ DE VÉRIFICATION</h2>
                 <div class="quiz-container">
                     <div class="quiz-question">
-                        <h3>Question 1 : Quelle est la principale différence entre Red Team et Blue Team ?</h3>
+                        <h3>QUESTION 1 : QUELLE EST LA PRINCIPALE DIFFÉRENCE ENTRE RED TEAM ET BLUE TEAM ?</h3>
                     </div>
                     
                     <div class="quiz-options" id="quiz1">
                         <div class="quiz-option" data-correct="true">
-                            Red Team simule les attaques, Blue Team défend
+                            RED TEAM SIMULE LES ATTAQUES, BLUE TEAM DÉFEND
                         </div>
                         <div class="quiz-option">
-                            Red Team défend, Blue Team attaque
+                            RED TEAM DÉFEND, BLUE TEAM ATTAQUE
                         </div>
                         <div class="quiz-option">
-                            Les deux font la même chose
+                            LES DEUX FONT LA MÊME CHOSE
                         </div>
                         <div class="quiz-option">
-                            Red Team est légal, Blue Team ne l'est pas
+                            RED TEAM EST LÉGAL, BLUE TEAM NE L'EST PAS
                         </div>
                     </div>
                     
                     <button class="btn-primary" onclick="checkAnswer()">
-                        Vérifier ma réponse
+                        VÉRIFIER MA RÉPONSE
                     </button>
                     
-                    <div id="quiz-feedback" style="display: none; margin-top: 1rem; padding: 1rem; background: rgba(35, 134, 54, 0.2); border-radius: 6px;">
-                        <p id="feedback-text"></p>
+                    <div id="quiz-feedback" style="display: none; margin-top: 1.5rem; padding: 1.2rem; background: rgba(0, 240, 255, 0.1); border-radius: 10px; border: 1px solid var(--accent);">
+                        <p id="feedback-text" style="font-weight: 600;"></p>
                     </div>
                 </div>
             </section>
 
             <!-- Resources -->
             <section id="resources">
-                <h2>📚 Ressources complémentaires</h2>
+                <h2>📚 RESSOURCES COMPLÉMENTAIRES</h2>
                 <div class="resources-grid">
                     <div class="resource-card">
-                        <h4>📖 Lecture recommandée</h4>
+                        <h4>📖 LECTURE RECOMMANDÉE</h4>
                         <p><strong>"Cybersecurity for Beginners"</strong> par Raef Meeuwisse</p>
                         <p>Un excellent point de départ pour comprendre les concepts fondamentaux.</p>
                     </div>
                     
                     <div class="resource-card">
-                        <h4>🛠️ Outils à essayer</h4>
+                        <h4>🛠️ OUTILS À ESSAYER</h4>
                         <p><strong>Wireshark :</strong> Analyseur de réseau</p>
                         <p><strong>Nmap :</strong> Scanner de ports</p>
                         <p><strong>Burp Suite :</strong> Tests de sécurité web</p>
                     </div>
                     
                     <div class="resource-card">
-                        <h4>🎬 Documentaires</h4>
+                        <h4>🎬 DOCUMENTAIRES</h4>
                         <p><strong>"The Great Hack"</strong> sur Netflix</p>
                         <p><strong>"Zero Days"</strong> sur Stuxnet</p>
                         <p><strong>"Cybersécurité : la guerre invisible"</strong> sur Arte</p>
@@ -801,8 +1075,8 @@
 
             <!-- Next Steps -->
             <section id="next-steps">
-                <h2>🚀 Prochaines étapes</h2>
-                <p>Dans le prochain cours, nous aborderons :</p>
+                <h2>🚀 PROCHAINES ÉTAPES</h2>
+                <p>DANS LE PROCHAIN COURS, NOUS ABORDERONS :</p>
                 <ul class="objective-list">
                     <li>Analyse de paquets réseau avec Wireshark</li>
                     <li>Comprendre le modèle OSI et TCP/IP</li>
@@ -810,29 +1084,16 @@
                     <li>Premiers pas en analyse forensique</li>
                 </ul>
                 
-                <div style="text-align: center; margin: 3rem 0;">
+                <div style="text-align: center; margin: 3.5rem 0;">
                     <button class="btn-primary">
-                        <span>Commencer l'exercice pratique</span>
+                        <span>COMMENCER L'EXERCICE PRATIQUE</span>
                         <span>→</span>
                     </button>
-                    <p style="margin-top: 1rem; color: #8b949e;">
-                        <a href="#" style="color: var(--accent);">Télécharger les supports du cours (PDF)</a>
+                    <p style="margin-top: 1.2rem; color: #a0a0ff;">
+                        <a href="#" style="color: var(--accent); text-shadow: 0 0 10px var(--accent);">TÉLÉCHARGER LES SUPPORTS DU COURS (PDF)</a>
                     </p>
                 </div>
             </section>
-
-            <!-- Course Navigation Footer -->
-            <div class="course-nav">
-                <a href="#" class="nav-btn">
-                    ← Cours précédent
-                </a>
-                <a href="#" class="btn btn-signup">
-                    S'inscrire pour le cours suivant
-                </a>
-                <a href="#" class="nav-btn next">
-                    Cours suivant →
-                </a>
-            </div>
         </div>
     </div>
 
@@ -840,43 +1101,43 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
-                <h4>CyberAcadémie</h4>
+                <h4>CYBERACADÉMIE</h4>
                 <p>Formez-vous aux métiers de la cybersécurité avec des experts du terrain.</p>
             </div>
             
             <div class="footer-section">
-                <h4>Cours</h4>
+                <h4>COURS</h4>
                 <ul class="footer-links">
-                    <li><a href="#">Débutant</a></li>
-                    <li><a href="#">Intermédiaire</a></li>
-                    <li><a href="#">Avancé</a></li>
-                    <li><a href="#">Certifications</a></li>
+                    <li><a href="#">DÉBUTANT</a></li>
+                    <li><a href="#">INTERMÉDIAIRE</a></li>
+                    <li><a href="#">AVANCÉ</a></li>
+                    <li><a href="#">CERTIFICATIONS</a></li>
                 </ul>
             </div>
             
             <div class="footer-section">
-                <h4>Ressources</h4>
+                <h4>RESSOURCES</h4>
                 <ul class="footer-links">
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Exercices</a></li>
-                    <li><a href="#">Outils</a></li>
-                    <li><a href="#">Communauté</a></li>
+                    <li><a href="#">BLOG</a></li>
+                    <li><a href="#">EXERCICES</a></li>
+                    <li><a href="#">OUTILS</a></li>
+                    <li><a href="#">COMMUNAUTÉ</a></li>
                 </ul>
             </div>
             
             <div class="footer-section">
-                <h4>Contact</h4>
+                <h4>CONTACT</h4>
                 <ul class="footer-links">
-                    <li><a href="#">Support</a></li>
-                    <li><a href="#">Partenariats</a></li>
-                    <li><a href="#">Carrières</a></li>
-                    <li><a href="#">Presse</a></li>
+                    <li><a href="#">SUPPORT</a></li>
+                    <li><a href="#">PARTENARIATS</a></li>
+                    <li><a href="#">CARRIÈRES</a></li>
+                    <li><a href="#">PRESSE</a></li>
                 </ul>
             </div>
         </div>
         
         <div class="copyright">
-            <p>© 2024 CyberAcadémie. Tous droits réservés. | <a href="#">Mentions légales</a> | <a href="#">Politique de confidentialité</a></p>
+            <p>© 2024 CYBERACADÉMIE. TOUS DROITS RÉSERVÉS. | <a href="#">MENTIONS LÉGALES</a> | <a href="#">POLITIQUE DE CONFIDENTIALITÉ</a></p>
         </div>
     </footer>
 
@@ -909,18 +1170,18 @@
             const feedbackText = document.getElementById('feedback-text');
             
             if (!selected) {
-                feedbackText.textContent = "Veuillez sélectionner une réponse avant de vérifier.";
-                feedback.style.background = "rgba(218, 54, 51, 0.2)";
+                feedbackText.textContent = "VEUILLEZ SÉLECTIONNER UNE RÉPONSE AVANT DE VÉRIFIER.";
+                feedback.style.background = "rgba(255, 0, 102, 0.15)";
                 feedback.style.display = "block";
                 return;
             }
             
             if (selected.dataset.correct === "true") {
-                feedbackText.textContent = "✅ Excellent ! Vous avez bien compris la différence fondamentale entre Red Team (attaque simulée) et Blue Team (défense).";
-                feedback.style.background = "rgba(35, 134, 54, 0.2)";
+                feedbackText.textContent = "✅ EXCELLENT ! VOUS AVEZ BIEN COMPRIS LA DIFFÉRENCE FONDAMENTALE ENTRE RED TEAM (ATTAQUE SIMULÉE) ET BLUE TEAM (DÉFENSE).";
+                feedback.style.background = "rgba(0, 240, 255, 0.15)";
             } else {
-                feedbackText.textContent = "❌ Presque ! Rappelez-vous : la Red Team simule les attaques pour tester les défenses, tandis que la Blue Team est chargée de la défense active des systèmes.";
-                feedback.style.background = "rgba(218, 54, 51, 0.2)";
+                feedbackText.textContent = "❌ PRESQUE ! RAPPELEZ-VOUS : LA RED TEAM SIMULE LES ATTAQUES POUR TESTER LES DÉFENSES, TANDIS QUE LA BLUE TEAM EST CHARGÉE DE LA DÉFENSE ACTIVE DES SYSTÈMES.";
+                feedback.style.background = "rgba(255, 0, 102, 0.15)";
             }
             
             feedback.style.display = "block";
@@ -938,7 +1199,7 @@
                 
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
-                    const offset = 80;
+                    const offset = 100;
                     const elementPosition = targetElement.getBoundingClientRect().top;
                     const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -971,3 +1232,4 @@
     </script>
 </body>
 </html>
+```
