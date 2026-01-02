@@ -1,19 +1,19 @@
-```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberAcadémie | Cours 1: Introduction à la Cybersécurité</title>
+    <title>Cours 1: Introduction à la Cybersécurité | Gratuit en 1h</title>
     <style>
         :root {
-            --bg: #0a0a0f;
+            --bg: #0f0f1a;
             --text: #e0e0ff;
             --accent: #00f0ff;
             --red: #ff0066;
             --blue: #0066ff;
-            --purple: #b967ff;
-            --neon-green: #39ff14;
+            --purple: #8a2be2;
+            --green: #39ff14;
+            --yellow: #ffcc00;
             --glow: rgba(0, 240, 255, 0.3);
             --grid-color: rgba(0, 240, 255, 0.05);
         }
@@ -26,11 +26,12 @@
         
         body {
             font-family: 'Orbitron', 'Exo 2', system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #0a0a0f 0%, #0d0d1a 100%);
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
+            padding-top: 100px;
         }
         
         body::before {
@@ -41,28 +42,15 @@
             right: 0;
             bottom: 0;
             background: 
-                linear-gradient(rgba(10, 10, 15, 0.9), rgba(10, 10, 15, 0.9)),
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 1px,
-                    var(--grid-color) 1px,
-                    var(--grid-color) 2px
-                ),
-                repeating-linear-gradient(
-                    90deg,
-                    transparent,
-                    transparent 1px,
-                    var(--grid-color) 1px,
-                    var(--grid-color) 2px
-                );
-            background-size: 100% 100%, 30px 30px, 30px 30px;
+                linear-gradient(rgba(15, 15, 26, 0.9), rgba(15, 15, 26, 0.9)),
+                radial-gradient(circle at 20% 80%, rgba(0, 240, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(138, 43, 226, 0.05) 0%, transparent 50%);
             z-index: -1;
         }
         
         /* Navigation */
         .navbar {
-            background: rgba(10, 10, 15, 0.95);
+            background: rgba(15, 15, 26, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(0, 240, 255, 0.2);
             position: fixed;
@@ -90,18 +78,7 @@
             color: var(--accent);
             text-transform: uppercase;
             letter-spacing: 1px;
-        }
-        
-        .logo::after {
-            content: "";
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--accent);
-            box-shadow: 0 0 10px var(--accent);
-            opacity: 0.7;
+            text-decoration: none;
         }
         
         .nav-links {
@@ -151,43 +128,20 @@
             color: var(--text);
         }
         
-        .btn-signup {
-            background: linear-gradient(45deg, var(--accent), var(--purple));
-            color: #0a0a0f;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
-        }
-        
         .btn-login:hover {
             border-color: var(--accent);
             color: var(--accent);
             text-shadow: 0 0 10px var(--accent);
         }
         
-        .btn-signup:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 25px rgba(0, 240, 255, 0.6);
-        }
-        
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, rgba(10, 10, 15, 0.8) 0%, rgba(13, 13, 26, 0.9) 100%);
-            padding: 10rem 2rem 6rem;
+            background: linear-gradient(135deg, rgba(15, 15, 26, 0.8) 0%, rgba(26, 26, 46, 0.9) 100%);
+            padding: 6rem 2rem 4rem;
             text-align: center;
             position: relative;
             overflow: hidden;
             border-bottom: 1px solid rgba(0, 240, 255, 0.2);
-        }
-        
-        .hero::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(0, 240, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(185, 103, 255, 0.1) 0%, transparent 50%);
         }
         
         .hero-content {
@@ -198,56 +152,44 @@
         }
         
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             margin-bottom: 1.5rem;
             background: linear-gradient(90deg, var(--accent), var(--purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             font-weight: 800;
             text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
         }
         
         .hero-subtitle {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: #a0a0ff;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             font-weight: 300;
             letter-spacing: 1px;
         }
         
-        .course-meta {
-            display: flex;
-            justify-content: center;
-            gap: 2.5rem;
-            flex-wrap: wrap;
-            margin-top: 2.5rem;
-            padding: 1.5rem;
-            background: rgba(0, 240, 255, 0.05);
-            border-radius: 12px;
-            border: 1px solid rgba(0, 240, 255, 0.1);
+        .free-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--green), #00ff88);
+            color: #0a0a0f;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);
         }
         
-        .meta-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .meta-label {
-            font-size: 0.9rem;
-            color: #8080cc;
+        .duration {
+            font-size: 1.2rem;
+            color: var(--yellow);
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-        }
-        
-        .meta-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--accent);
-            text-shadow: 0 0 10px var(--accent);
         }
         
         /* Main Content */
@@ -258,7 +200,7 @@
         }
         
         .course-content {
-            background: rgba(15, 15, 25, 0.7);
+            background: rgba(20, 20, 35, 0.7);
             border-radius: 16px;
             padding: 3.5rem;
             margin: 2rem auto;
@@ -281,57 +223,24 @@
         h3 {
             font-size: 1.6rem;
             margin: 1.8rem 0 1.2rem;
-            color: #ffffff;
+            color: var(--accent);
             text-transform: uppercase;
             letter-spacing: 1px;
             font-weight: 600;
         }
         
-        /* Video Section */
-        .video-container {
-            position: relative;
-            width: 100%;
-            margin: 2.5rem 0;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 2px solid rgba(0, 240, 255, 0.3);
-            background: rgba(10, 10, 20, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 450px;
-            box-shadow: 0 0 25px rgba(0, 240, 255, 0.1);
-        }
-        
-        .video-placeholder {
-            text-align: center;
-            color: var(--accent);
-        }
-        
-        .video-placeholder span {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            display: block;
-            text-shadow: 0 0 15px var(--accent);
-        }
-        
-        .video-placeholder p {
-            margin-top: 1rem;
-            color: #a0a0ff;
-        }
-        
-        /* Cards Grid */
-        .grid {
+        /* Module Cards */
+        .modules-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin: 2.5rem 0;
         }
         
-        .card {
-            background: linear-gradient(145deg, rgba(20, 20, 35, 0.8), rgba(10, 10, 20, 0.9));
+        .module-card {
+            background: linear-gradient(145deg, rgba(25, 25, 45, 0.8), rgba(15, 15, 30, 0.9));
             border-radius: 14px;
-            padding: 2.2rem;
+            padding: 2rem;
             border: 1px solid rgba(0, 240, 255, 0.2);
             transition: all 0.4s ease;
             position: relative;
@@ -339,206 +248,108 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
         
-        .card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-        }
-        
-        .card.red::before {
-            background: var(--red);
-            box-shadow: 0 0 15px var(--red);
-        }
-        
-        .card.blue::before {
-            background: var(--blue);
-            box-shadow: 0 0 15px var(--blue);
-        }
-        
-        .card:hover {
+        .module-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(0, 240, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 25px var(--glow);
             border-color: var(--accent);
         }
         
-        .card h3 {
-            margin-top: 0;
+        .module-card h4 {
+            color: var(--accent);
             margin-bottom: 1rem;
-            font-size: 1.4rem;
-        }
-        
-        /* Stats Section */
-        .stats-container {
-            background: linear-gradient(135deg, rgba(20, 20, 35, 0.8) 0%, rgba(10, 10, 20, 0.9) 100%);
-            border-radius: 16px;
-            padding: 2.5rem;
-            margin: 2.5rem 0;
-            border: 1px solid rgba(255, 0, 102, 0.3);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 25px rgba(255, 0, 102, 0.1);
-        }
-        
-        .stats-container::before {
-            content: "⚠️";
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 2.5rem;
-            opacity: 0.2;
-        }
-        
-        .stats-container h3 {
-            color: var(--red);
-            margin-bottom: 1.5rem;
-            text-shadow: 0 0 10px rgba(255, 0, 102, 0.5);
-        }
-        
-        .stats-container p {
-            margin-bottom: 0.8rem;
-            font-size: 1.1rem;
-        }
-        
-        .stats-container p strong {
-            color: var(--neon-green);
-            text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
-        }
-        
-        /* Case Studies */
-        .case-study {
-            background: rgba(25, 25, 40, 0.7);
-            border-radius: 12px;
-            padding: 1.8rem;
-            margin: 1.8rem 0;
-            border-left: 4px solid var(--yellow);
-            border: 1px solid rgba(227, 179, 65, 0.2);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .case-study h4 {
-            color: var(--yellow);
-            margin-bottom: 0.8rem;
             font-size: 1.3rem;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         
-        /* Learning Objectives */
-        .learning-objectives {
-            background: rgba(0, 240, 255, 0.08);
-            border-radius: 14px;
-            padding: 2rem;
-            margin: 2.5rem 0;
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            box-shadow: 0 0 20px var(--glow);
+        .module-card p {
+            color: #b0b0ff;
+            line-height: 1.5;
         }
         
-        .objective-list {
-            list-style: none;
-            padding: 0;
+        .module-time {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 240, 255, 0.1);
+            color: var(--yellow);
+            font-weight: 600;
         }
         
-        .objective-list li {
-            padding: 0.8rem 0;
-            padding-left: 2.5rem;
-            position: relative;
-            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
-        }
-        
-        .objective-list li:last-child {
-            border-bottom: none;
-        }
-        
-        .objective-list li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-            font-weight: bold;
-            font-size: 1.2rem;
-            text-shadow: 0 0 10px var(--accent);
-        }
-        
-        /* Quiz Section */
-        .quiz-container {
-            background: rgba(20, 20, 35, 0.8);
+        /* Lab Section */
+        .lab-section {
+            background: linear-gradient(135deg, rgba(25, 15, 45, 0.8), rgba(15, 10, 30, 0.9));
+            border: 2px solid var(--purple);
             border-radius: 16px;
             padding: 2.5rem;
-            margin: 3.5rem 0;
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin: 3rem 0;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.2);
         }
         
-        .quiz-question {
-            margin-bottom: 2rem;
+        .lab-section h3 {
+            color: var(--purple);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
         }
         
-        .quiz-options {
+        .lab-steps {
             display: grid;
-            gap: 1.2rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
             margin: 2rem 0;
         }
         
-        .quiz-option {
-            background: rgba(30, 30, 50, 0.6);
-            padding: 1.2rem;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 1px solid rgba(0, 240, 255, 0.1);
-            font-size: 1.05rem;
-        }
-        
-        .quiz-option:hover {
-            background: rgba(0, 240, 255, 0.1);
-            border-color: var(--accent);
-            transform: translateX(5px);
-            box-shadow: 0 0 15px var(--glow);
-        }
-        
-        .quiz-option.selected {
-            background: rgba(0, 240, 255, 0.15);
-            border-color: var(--accent);
-            box-shadow: 0 0 20px var(--glow);
-        }
-        
-        /* Resources */
-        .resources-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2.5rem 0;
-        }
-        
-        .resource-card {
-            background: rgba(25, 25, 45, 0.7);
+        .lab-step {
+            background: rgba(30, 20, 50, 0.6);
+            padding: 1.5rem;
             border-radius: 12px;
-            padding: 1.8rem;
-            border: 1px solid rgba(185, 103, 255, 0.2);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+        }
+        
+        .lab-step h4 {
+            color: var(--accent);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+        
+        /* CTA Buttons */
+        .cta-section {
+            text-align: center;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(0, 240, 255, 0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 240, 255, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--accent), var(--purple));
+            color: #0a0a0f;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.2rem;
+            border-radius: 12px;
+            cursor: pointer;
             transition: all 0.4s;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .resource-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--purple);
-            box-shadow: 0 10px 25px rgba(185, 103, 255, 0.3);
-        }
-        
-        .resource-card h4 {
-            color: var(--purple);
-            margin-bottom: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            box-shadow: 0 0 20px var(--glow);
+            margin: 1rem;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.7);
         }
         
         /* Footer */
         .footer {
-            background: rgba(10, 10, 20, 0.95);
-            padding: 4rem 2rem 2rem;
+            background: rgba(15, 15, 26, 0.95);
+            padding: 3rem 2rem 2rem;
             margin-top: 4rem;
             border-top: 1px solid rgba(0, 240, 255, 0.2);
             position: relative;
@@ -547,9 +358,7 @@
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
+            text-align: center;
         }
         
         .footer-section h4 {
@@ -560,27 +369,6 @@
             font-size: 1.1rem;
         }
         
-        .footer-links {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .footer-links li {
-            margin-bottom: 0.7rem;
-        }
-        
-        .footer-links a {
-            color: #a0a0ff;
-            text-decoration: none;
-            transition: all 0.3s;
-            font-size: 0.95rem;
-        }
-        
-        .footer-links a:hover {
-            color: var(--accent);
-            text-shadow: 0 0 10px var(--accent);
-        }
-        
         .copyright {
             text-align: center;
             padding-top: 2rem;
@@ -588,6 +376,63 @@
             border-top: 1px solid rgba(0, 240, 255, 0.1);
             color: #8080cc;
             font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 140px;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 1.2rem;
+                padding: 1rem;
+            }
+            
+            .hero {
+                padding: 4rem 1rem 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .course-content {
+                padding: 1.8rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .lab-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
         }
         
         /* Progress Bar */
@@ -609,194 +454,6 @@
             box-shadow: 0 0 10px var(--accent);
         }
         
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 1.2rem;
-                padding: 1rem;
-            }
-            
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 0.8rem;
-            }
-            
-            .hero {
-                padding: 7rem 1rem 4rem;
-            }
-            
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .course-content {
-                padding: 1.8rem;
-            }
-            
-            .container {
-                padding: 1rem;
-            }
-            
-            .video-container {
-                height: 280px;
-            }
-            
-            .course-meta {
-                gap: 1.5rem;
-                padding: 1rem;
-            }
-            
-            .meta-value {
-                font-size: 1.4rem;
-            }
-        }
-        
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(0, 240, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0); }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.8s ease-out;
-        }
-        
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(45deg, var(--accent), var(--purple));
-            color: #0a0a0f;
-            border: none;
-            padding: 1.2rem 2.5rem;
-            font-size: 1.15rem;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.4s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            box-shadow: 0 0 20px var(--glow);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.7);
-        }
-
-        /* New CTA Banner */
-        .bounty-cta {
-            background: linear-gradient(135deg, rgba(25, 25, 40, 0.8), rgba(15, 15, 30, 0.9));
-            border: 2px solid var(--purple);
-            border-radius: 16px;
-            padding: 2rem;
-            margin: 2.5rem 0;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(185, 103, 255, 0.2);
-        }
-
-        .bounty-cta h3 {
-            color: var(--purple);
-            margin-bottom: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 1.8rem;
-            text-shadow: 0 0 15px rgba(185, 103, 255, 0.5);
-        }
-
-        .bounty-cta p {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            color: #c0c0ff;
-        }
-
-        .btn-bounty {
-            background: linear-gradient(45deg, var(--purple), #ff00aa);
-            color: white;
-            padding: 1rem 2.2rem;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.4s;
-            display: inline-block;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            box-shadow: 0 0 25px rgba(185, 103, 255, 0.4);
-            font-size: 1.1rem;
-            margin: 0 10px;
-        }
-
-        .btn-bounty:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 10px 35px rgba(185, 103, 255, 0.7);
-        }
-
-        /* Superprof CTA */
-        .superprof-cta {
-            background: linear-gradient(135deg, rgba(25, 25, 40, 0.8), rgba(15, 15, 30, 0.9));
-            border: 2px solid #ff6b35;
-            border-radius: 16px;
-            padding: 2rem;
-            margin: 2.5rem 0;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(255, 107, 53, 0.2);
-        }
-
-        .superprof-cta h3 {
-            color: #ff6b35;
-            margin-bottom: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 1.8rem;
-            text-shadow: 0 0 15px rgba(255, 107, 53, 0.5);
-        }
-
-        .superprof-cta p {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            color: #ffc0a0;
-        }
-
-        .btn-superprof {
-            background: linear-gradient(45deg, #ff6b35, #ff8c00);
-            color: white;
-            padding: 1rem 2.2rem;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.4s;
-            display: inline-block;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            box-shadow: 0 0 25px rgba(255, 107, 53, 0.4);
-            font-size: 1.1rem;
-            margin: 0 10px;
-        }
-
-        .btn-superprof:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 10px 35px rgba(255, 107, 53, 0.7);
-        }
-
-        /* Scanning effect */
         .scan-line {
             position: absolute;
             top: 0;
@@ -805,7 +462,7 @@
             height: 2px;
             background: rgba(0, 240, 255, 0.3);
             box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
-            animation: scan 4s linear infinite;
+            animation: scan 6s linear infinite;
         }
 
         @keyframes scan {
@@ -822,16 +479,15 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">
+            <a href="#" class="logo">
                 <span style="font-size: 1.8rem;">🛡️</span>
                 CYBERACADÉMIE
-            </div>
+            </a>
             <div class="nav-links">
                 <a href="#cours">COURS</a>
-                <a href="#exercices">EXERCICES</a>
+                <a href="#lab">LAB</a>
                 <a href="#ressources">RESSOURCES</a>
-                <a href="#communauté">COMMUNAUTÉ</a>
-                <a href="#certifications">CERTIFICATIONS</a>
+                <a href="#contact">CONTACT</a>
             </div>
             <div class="auth-buttons">
                 <a href="#" class="btn btn-login">CONNEXION</a>
@@ -847,251 +503,99 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
+            <div class="free-badge">COURS GRATUIT</div>
             <h1>INTRODUCTION À LA CYBERSÉCURITÉ</h1>
-            <p class="hero-subtitle">COURS N°1 • MAÎTRISEZ LES FONDAMENTAUX POUR PROTÉGER LES SYSTÈMES D'INFORMATION</p>
-            
-            <div class="course-meta">
-                <div class="meta-item">
-                    <span class="meta-label">Durée</span>
-                    <span class="meta-value">2H 30MIN</span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-label">Niveau</span>
-                    <span class="meta-value">DÉBUTANT</span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-label">Exercices</span>
-                    <span class="meta-value">12</span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-label">Certificat</span>
-                    <span class="meta-value">✓ INCLUS</span>
-                </div>
-            </div>
+            <p class="hero-subtitle">MAÎTRISEZ LES FONDAMENTAUX EN 1 HEURE SEULEMENT</p>
+            <div class="duration">⏰ DURÉE: 1 HEURE • NIVEAU: DÉBUTANT • CERTIFICAT INCLUS</div>
         </div>
     </section>
 
     <!-- Main Content -->
     <div class="container">
         <div class="course-content fade-in">
-
-            <!-- Learning Objectives -->
-            <div class="learning-objectives">
-                <h3>🎯 OBJECTIFS D'APPRENTISSAGE</h3>
-                <ul class="objective-list">
-                    <li>Comprendre la différence entre fiction et réalité en cybersécurité</li>
-                    <li>Identifier les principaux acteurs et leurs rôles</li>
-                    <li>Analyser les impacts réels des cyberattaques</li>
-                    <li>Reconnaître les principales menaces et vulnérabilités</li>
-                    <li>Comprendre l'importance de la défense en profondeur</li>
-                </ul>
+            <h2>🎯 CE QUE VOUS ALLEZ APPRENDRE</h2>
+            
+            <div class="modules-grid">
+                <div class="module-card">
+                    <h4>QU'EST-CE QUE LA CYBERSÉCURITÉ ?</h4>
+                    <p>Découvrez les fondamentaux de la cybersécurité, ses enjeux et son importance dans le monde numérique d'aujourd'hui.</p>
+                    <div class="module-time">⏱️ 10 minutes</div>
+                </div>
+                
+                <div class="module-card">
+                    <h4>QU'EST-CE QUE LE BLUE TEAM ?</h4>
+                    <p>Apprenez le rôle des défenseurs : surveillance, détection d'anomalies, réponse aux incidents et protection des systèmes.</p>
+                    <div class="module-time">⏱️ 8 minutes</div>
+                </div>
+                
+                <div class="module-card">
+                    <h4>QU'EST-CE QUE LE RED TEAM ?</h4>
+                    <p>Comprenez l'approche offensive : tests de pénétration, simulation d'attaques et identification des vulnérabilités.</p>
+                    <div class="module-time">⏱️ 8 minutes</div>
+                </div>
+                
+                <div class="module-card">
+                    <h4>QU'EST-CE QUE LE PHISHING ?</h4>
+                    <p>Identifiez les techniques de phishing, apprenez à les reconnaître et à vous en protéger efficacement.</p>
+                    <div class="module-time">⏱️ 10 minutes</div>
+                </div>
+                
+                <div class="module-card">
+                    <h4>QU'EST-CE QUE LE SOCIAL ENGINEERING ?</h4>
+                    <p>Découvrez comment les attaquants manipulent les humains pour obtenir des informations sensibles.</p>
+                    <div class="module-time">⏱️ 8 minutes</div>
+                </div>
+                
+                <div class="module-card">
+                    <h4>QU'EST-CE QUE L'OSINT ?</h4>
+                    <p>Maîtrisez l'intelligence d'origine ouverte : collecte d'informations publiques à des fins de sécurité ou d'investigation.</p>
+                    <div class="module-time">⏱️ 8 minutes</div>
+                </div>
+                
+                <div class="module-card">
+                    <h4>QU'EST-CE QU'UN APT ?</h4>
+                    <p>Comprenez les menaces persistantes avancées : attaques ciblées, sophistiquées et de longue durée.</p>
+                    <div class="module-time">⏱️ 8 minutes</div>
+                </div>
             </div>
 
-            <!-- Section 1: Fiction vs Réalité -->
-            <section id="section1">
-                <h2>1. LA FICTION FACE À LA RÉALITÉ</h2>
-                <p>Le cinéma et les séries TV nous présentent souvent une vision glamour et exagérée du hacking. Dans <strong>Mr. Robot</strong>, bien que techniquement précis sur certains points, la vitesse et la facilité des attaques sont souvent dramatiques.</p>
+            <!-- Lab Section -->
+            <section id="lab" class="lab-section">
+                <h3>💻 LAB PRATIQUE: VOTRE PREMIER ENVIRONNEMENT DE TEST</h3>
+                <p>Créez votre propre laboratoire de cybersécurité avec Kali Linux et une machine cible sur VirtualBox</p>
                 
-                <div class="video-container">
-                    <div class="video-placeholder">
-                        <span>🎥</span>
-                        <p>CONTENU VIDÉO NON DISPONIBLE</p>
-                        <p>ERREUR DE CHARGEMENT DE LA VIDÉO YOUTUBE</p>
+                <div class="lab-steps">
+                    <div class="lab-step">
+                        <h4>ÉTAPE 1</h4>
+                        <p>Téléchargez et installez VirtualBox</p>
                     </div>
-                </div>
-                
-                <div class="note">
-                    <p><strong>💡 POINT CLÉ :</strong> Dans la réalité, une attaque DDoS comme celle montrée nécessite des semaines de préparation et une infrastructure importante. La réponse d'une équipe de sécurité réelle serait bien plus organisée et moins paniquée.</p>
-                </div>
-            </section>
-
-            <!-- Section 2: Les acteurs -->
-            <section id="section2">
-                <h2>2. LES ACTEURS DU JEU</h2>
-                <p>La cybersécurité est un écosystème complexe où différents acteurs interagissent. Voici les deux principales équipes :</p>
-                
-                <div class="grid">
-                    <div class="card red">
-                        <h3>🔴 RED TEAM</h3>
-                        <p><strong>L'ATTAQUE OFFENSIVE</strong></p>
-                        <p>Simulation d'intrusions, tests de pénétration (pentest) et exploitation de failles pour identifier les vulnérabilités avant les vrais attaquants.</p>
-                        <div class="card-details">
-                            <p><strong>MISSIONS :</strong></p>
-                            <ul>
-                                <li>Tests d'intrusion</li>
-                                <li>Social engineering</li>
-                                <li>Évaluation des vulnérabilités</li>
-                            </ul>
-                        </div>
+                    <div class="lab-step">
+                        <h4>ÉTAPE 2</h4>
+                        <p>Installez Kali Linux comme machine virtuelle</p>
                     </div>
-                    
-                    <div class="card blue">
-                        <h3>🔵 BLUE TEAM</h3>
-                        <p><strong>LA DÉFENSE PROACTIVE</strong></p>
-                        <p>Surveillance des réseaux, détection d'anomalies, réponse aux incidents et durcissement des systèmes pour prévenir les attaques.</p>
-                        <div class="card-details">
-                            <p><strong>MISSIONS :</strong></p>
-                            <ul>
-                                <li>Monitoring 24/7</li>
-                                <li>Analyse des logs</li>
-                                <li>Gestion des incidents</li>
-                            </ul>
-                        </div>
+                    <div class="lab-step">
+                        <h4>ÉTAPE 3</h4>
+                        <p>Configurez une machine cible (Metasploitable ou Windows)</p>
                     </div>
-                </div>
-            </section>
-
-            <!-- Section 3: Importance -->
-            <section id="section3">
-                <h2>3. POURQUOI LA CYBERSÉCURITÉ EST-ELLE VITALE ?</h2>
-                
-                <div class="stats-container">
-                    <h3>📊 STATISTIQUES ALARMANTES</h3>
-                    <p><strong>60% DES PME</strong> déposent le bilan dans les 6 mois suivant une cyberattaque majeure.</p>
-                    <p><strong>COÛT MOYEN</strong> d'une violation de données : 4.24 millions de dollars (2021).</p>
-                    <p><strong>TEMPS MOYEN</strong> pour identifier une violation : 212 jours.</p>
+                    <div class="lab-step">
+                        <h4>ÉTAPE 4</h4>
+                        <p>Testez votre premier scan réseau avec Nmap</p>
+                    </div>
                 </div>
                 
-                <h3>IMPACTS SECTORIELS</h3>
-                <div class="grid">
-                    <div class="card">
-                        <h4>🏥 SANTÉ</h4>
-                        <p>Les hôpitaux sont des cibles prioritaires. En 2021, un ransomware a paralysé un hôpital français pendant 3 jours, retardant des opérations chirurgicales vitales.</p>
-                    </div>
-                    
-                    <div class="card">
-                        <h4>⚡ ÉNERGIE</h4>
-                        <p>Les infrastructures critiques comme les centrales nucléaires et réseaux électriques sont sous haute surveillance. L'attaque Sandworm contre le réseau électrique ukrainien en 2015 a privé 230,000 personnes d'électricité.</p>
-                    </div>
-                    
-                    <div class="card">
-                        <h4>🏭 INDUSTRIE</h4>
-                        <p>Les usines intelligentes sont vulnérables. En 2014, une attaque contre une aciérie allemande a causé des dommages physiques à un haut-fourneau.</p>
-                    </div>
-                </div>
+                <p style="margin-top: 2rem; color: #c0c0ff;">Tous les guides de configuration sont fournis dans le cours</p>
             </section>
 
-            <!-- Section 4: Études de cas -->
-            <section id="section4">
-                <h2>4. ÉTUDES DE CAS CÉLÈBRES</h2>
+            <!-- CTA Section -->
+            <section class="cta-section">
+                <h2>🚀 PRÊT À COMMENCER VOTRE AVENTURE EN CYBERSÉCURITÉ ?</h2>
+                <p>Ce cours gratuit est votre première étape vers une carrière passionnante dans la cybersécurité.</p>
                 
-                <div class="case-study">
-                    <h4>🦠 NOTPETYA (2017)</h4>
-                    <p><strong>IMPACT :</strong> Plus de 10 milliards de dollars de pertes mondiales</p>
-                    <p><strong>CIBLE :</strong> Initialement l'Ukraine, puis propagation mondiale</p>
-                    <p><strong>PARTICULARITÉ :</strong> Présenté comme un ransomware mais fonctionnant comme un wiper (destruction de données)</p>
-                    <p><strong>LEÇON :</strong> L'importance des sauvegardes hors ligne et des mises à jour critiques</p>
-                </div>
-                
-                <div class="case-study">
-                    <h4>😢 WANNACRY (2017)</h4>
-                    <p><strong>IMPACT :</strong> 300,000 ordinateurs dans 150 pays</p>
-                    <p><strong>CIBLE PRINCIPALE :</strong> Systèmes Windows non mis à jour</p>
-                    <p><strong>PARTICULARITÉ :</strong> Exploitait une vulnérabilité Windows connue (EternalBlue)</p>
-                    <p><strong>LEÇON :</strong> L'absolue nécessité des mises à jour de sécurité</p>
-                </div>
-            </section>
-
-            <!-- Superprof CTA Section -->
-            <section id="superprof-cta">
-                <div class="superprof-cta">
-                    <h3>🎓 BESOIN D'UN TUTORAT PERSONNALISÉ ?</h3>
-                    <p>RÉSERVEZ VOS SÉANCES DE COACHING EN CYBERSÉCURITÉ SUR SUPERPROF !</p>
-                    <a href="https://www.superprof.fr/" target="_blank" class="btn-superprof">
-                        ACCÉDER À MON PROFIL SUPERPROF
-                    </a>
-                </div>
-            </section>
-
-            <!-- New CTA Section -->
-            <section id="bounty-cta">
-                <div class="bounty-cta">
-                    <h3>🚀 PRÊT À PASSER À LA PRATIQUE ?</h3>
-                    <p>APPLIQUEZ VOS CONNAISSANCES EN CYBERSÉCURITÉ AVEC MON COURS PRATIQUE DE BUG BOUNTY !</p>
-                    <a href="https://gaelmaiano.github.io/bounty/#dashboard" target="_blank" class="btn-bounty">
-                        ACCÉDER AU COURS DE BUG BOUNTY
-                    </a>
-                </div>
-            </section>
-
-            <!-- Quiz Section -->
-            <section id="quiz">
-                <h2>🎯 QUIZ DE VÉRIFICATION</h2>
-                <div class="quiz-container">
-                    <div class="quiz-question">
-                        <h3>QUESTION 1 : QUELLE EST LA PRINCIPALE DIFFÉRENCE ENTRE RED TEAM ET BLUE TEAM ?</h3>
-                    </div>
-                    
-                    <div class="quiz-options" id="quiz1">
-                        <div class="quiz-option" data-correct="true">
-                            RED TEAM SIMULE LES ATTAQUES, BLUE TEAM DÉFEND
-                        </div>
-                        <div class="quiz-option">
-                            RED TEAM DÉFEND, BLUE TEAM ATTAQUE
-                        </div>
-                        <div class="quiz-option">
-                            LES DEUX FONT LA MÊME CHOSE
-                        </div>
-                        <div class="quiz-option">
-                            RED TEAM EST LÉGAL, BLUE TEAM NE L'EST PAS
-                        </div>
-                    </div>
-                    
-                    <button class="btn-primary" onclick="checkAnswer()">
-                        VÉRIFIER MA RÉPONSE
-                    </button>
-                    
-                    <div id="quiz-feedback" style="display: none; margin-top: 1.5rem; padding: 1.2rem; background: rgba(0, 240, 255, 0.1); border-radius: 10px; border: 1px solid var(--accent);">
-                        <p id="feedback-text" style="font-weight: 600;"></p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Resources -->
-            <section id="resources">
-                <h2>📚 RESSOURCES COMPLÉMENTAIRES</h2>
-                <div class="resources-grid">
-                    <div class="resource-card">
-                        <h4>📖 LECTURE RECOMMANDÉE</h4>
-                        <p><strong>"Cybersecurity for Beginners"</strong> par Raef Meeuwisse</p>
-                        <p>Un excellent point de départ pour comprendre les concepts fondamentaux.</p>
-                    </div>
-                    
-                    <div class="resource-card">
-                        <h4>🛠️ OUTILS À ESSAYER</h4>
-                        <p><strong>Wireshark :</strong> Analyseur de réseau</p>
-                        <p><strong>Nmap :</strong> Scanner de ports</p>
-                        <p><strong>Burp Suite :</strong> Tests de sécurité web</p>
-                    </div>
-                    
-                    <div class="resource-card">
-                        <h4>🎬 DOCUMENTAIRES</h4>
-                        <p><strong>"The Great Hack"</strong> sur Netflix</p>
-                        <p><strong>"Zero Days"</strong> sur Stuxnet</p>
-                        <p><strong>"Cybersécurité : la guerre invisible"</strong> sur Arte</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Next Steps -->
-            <section id="next-steps">
-                <h2>🚀 PROCHAINES ÉTAPES</h2>
-                <p>DANS LE PROCHAIN COURS, NOUS ABORDERONS :</p>
-                <ul class="objective-list">
-                    <li>Analyse de paquets réseau avec Wireshark</li>
-                    <li>Comprendre le modèle OSI et TCP/IP</li>
-                    <li>Identifier du trafic réseau suspect</li>
-                    <li>Premiers pas en analyse forensique</li>
-                </ul>
-                
-                <div style="text-align: center; margin: 3.5rem 0;">
+                <div style="margin-top: 2rem;">
                     <button class="btn-primary">
-                        <span>COMMENCER L'EXERCICE PRATIQUE</span>
+                        <span>ACCÉDER AU COURS GRATUIT</span>
                         <span>→</span>
                     </button>
-                    <p style="margin-top: 1.2rem; color: #a0a0ff;">
-                        <a href="#" style="color: var(--accent); text-shadow: 0 0 10px var(--accent);">TÉLÉCHARGER LES SUPPORTS DU COURS (PDF)</a>
-                    </p>
                 </div>
             </section>
         </div>
@@ -1104,40 +608,10 @@
                 <h4>CYBERACADÉMIE</h4>
                 <p>Formez-vous aux métiers de la cybersécurité avec des experts du terrain.</p>
             </div>
-            
-            <div class="footer-section">
-                <h4>COURS</h4>
-                <ul class="footer-links">
-                    <li><a href="#">DÉBUTANT</a></li>
-                    <li><a href="#">INTERMÉDIAIRE</a></li>
-                    <li><a href="#">AVANCÉ</a></li>
-                    <li><a href="#">CERTIFICATIONS</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-section">
-                <h4>RESSOURCES</h4>
-                <ul class="footer-links">
-                    <li><a href="#">BLOG</a></li>
-                    <li><a href="#">EXERCICES</a></li>
-                    <li><a href="#">OUTILS</a></li>
-                    <li><a href="#">COMMUNAUTÉ</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-section">
-                <h4>CONTACT</h4>
-                <ul class="footer-links">
-                    <li><a href="#">SUPPORT</a></li>
-                    <li><a href="#">PARTENARIATS</a></li>
-                    <li><a href="#">CARRIÈRES</a></li>
-                    <li><a href="#">PRESSE</a></li>
-                </ul>
-            </div>
         </div>
         
         <div class="copyright">
-            <p>© 2024 CYBERACADÉMIE. TOUS DROITS RÉSERVÉS. | <a href="#">MENTIONS LÉGALES</a> | <a href="#">POLITIQUE DE CONFIDENTIALITÉ</a></p>
+            <p>© 2026 CYBERACADÉMIE. TOUS DROITS RÉSERVÉS.</p>
         </div>
     </footer>
 
@@ -1151,44 +625,6 @@
             const scrolled = (scrollTop / (docHeight - winHeight)) * 100;
             document.getElementById('progressBar').style.width = scrolled + '%';
         });
-
-        // Quiz Interaction
-        const quizOptions = document.querySelectorAll('.quiz-option');
-        
-        quizOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                // Remove selected class from all options
-                quizOptions.forEach(opt => opt.classList.remove('selected'));
-                // Add selected class to clicked option
-                this.classList.add('selected');
-            });
-        });
-
-        function checkAnswer() {
-            const selected = document.querySelector('.quiz-option.selected');
-            const feedback = document.getElementById('quiz-feedback');
-            const feedbackText = document.getElementById('feedback-text');
-            
-            if (!selected) {
-                feedbackText.textContent = "VEUILLEZ SÉLECTIONNER UNE RÉPONSE AVANT DE VÉRIFIER.";
-                feedback.style.background = "rgba(255, 0, 102, 0.15)";
-                feedback.style.display = "block";
-                return;
-            }
-            
-            if (selected.dataset.correct === "true") {
-                feedbackText.textContent = "✅ EXCELLENT ! VOUS AVEZ BIEN COMPRIS LA DIFFÉRENCE FONDAMENTALE ENTRE RED TEAM (ATTAQUE SIMULÉE) ET BLUE TEAM (DÉFENSE).";
-                feedback.style.background = "rgba(0, 240, 255, 0.15)";
-            } else {
-                feedbackText.textContent = "❌ PRESQUE ! RAPPELEZ-VOUS : LA RED TEAM SIMULE LES ATTAQUES POUR TESTER LES DÉFENSES, TANDIS QUE LA BLUE TEAM EST CHARGÉE DE LA DÉFENSE ACTIVE DES SYSTÈMES.";
-                feedback.style.background = "rgba(255, 0, 102, 0.15)";
-            }
-            
-            feedback.style.display = "block";
-            
-            // Scroll to feedback
-            feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
 
         // Smooth scrolling for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1210,26 +646,7 @@
                 }
             });
         });
-
-        // Animate elements on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                }
-            });
-        }, observerOptions);
-
-        // Observe all sections
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
     </script>
 </body>
 </html>
-```
+
