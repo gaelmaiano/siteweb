@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intro Cybersécurité | Cours n°1</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --text: #c9d1d9;
+            --accent: #238636; /* Vert GitHub / Cyber */
+            --red: #da3633;
+            --blue: #1f6feb;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #161b22;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid #30363d;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        h1, h2 { color: #f0f6fc; }
+        .accent { color: var(--accent); font-weight: bold; }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            margin: 2rem 0;
+            border: 2px solid #30363d;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .card {
+            background: #161b22;
+            padding: 1.5rem;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+        }
+        .card.red { border-top: 4px solid var(--red); }
+        .card.blue { border-top: 4px solid var(--blue); }
+
+        .stats {
+            background: #da363322;
+            border-left: 4px solid var(--red);
+            padding: 1rem;
+            margin: 2rem 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            font-size: 0.9rem;
+            color: #8b949e;
+        }
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Cours 01 : <span class="accent">Introduction à la Cybersécurité</span></h1>
+    <p>Comprendre les enjeux, les acteurs et la réalité du terrain.</p>
+</header>
+
+<div class="container">
+    
+    <h2>1. La fiction face à la réalité</h2>
+    <p>On commence avec un extrait de <strong>Mr. Robot</strong>. Observez bien la panique lors de l'attaque DDoS et la mention du "Rootkit" qui empêche le redémarrage des serveurs.</p>
+    
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/TFl8_xOuqA8" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <h2>2. Les acteurs du jeu</h2>
+    <div class="grid">
+        <div class="card red">
+            <h3>Red Team</h3>
+            <p><strong>L'Attaque.</strong> Simulation d'intrusion, tests de pénétration (pentest) et exploitation de failles pour tester les défenses.</p>
+        </div>
+        <div class="card blue">
+            <h3>Blue Team</h3>
+            <p><strong>La Défense.</strong> Surveillance des réseaux, détection d'anomalies, réponse sur incident et durcissement des systèmes.</p>
+        </div>
+    </div>
+
+    <h2>3. Pourquoi c'est vital ?</h2>
+    <div class="stats">
+        <strong>⚠️ Chiffre Clé :</strong> Environ <strong>60% des PME</strong> déposent le bilan dans les 6 mois suivant une cyberattaque majeure.
+    </div>
+    <p>L'impact dépasse le simple vol de données. On parle de survie pour :</p>
+    <ul>
+        <li><strong>Santé :</strong> Hôpitaux paralysés (Ransomwares).</li>
+        <li><strong>Énergie :</strong> Centrales nucléaires et réseaux électriques (Sandworm).</li>
+        <li><strong>Industrie :</strong> Sabotage d'automates programmables.</li>
+    </ul>
+
+    <h2>4. Études de cas célèbres</h2>
+    <p><strong>NotPetya (2017) :</strong> Ce n'était pas un simple virus, mais une arme de destruction numérique qui a causé plus de 10 milliards de dollars de pertes mondiales.</p>
+
+    <hr style="border: 0; border-top: 1px solid #30363d; margin: 3rem 0;">
+
+    <footer>
+        <p>Prêt pour la suite ? On passe à la pratique sur Wireshark.</p>
+        <a href="#" class="cta-button">Réserver le cours suivant sur Superprof</a>
+    </footer>
+</div>
+
+</body>
+</html>
