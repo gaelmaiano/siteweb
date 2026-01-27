@@ -17,150 +17,126 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; }
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
-
-        /* Header / Terminal Style */
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; }
+        
         header { padding: 4rem 2rem; background: linear-gradient(180deg, #000 0%, var(--bg-color) 100%); text-align: center; border-bottom: 1px solid var(--border); }
         .hero h1 { font-size: 2.5rem; color: #fff; margin-bottom: 0.5rem; }
         .hero .badge { display: inline-block; background: var(--terminal-green); color: white; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.9rem; margin-bottom: 1rem; }
         .hero p { color: var(--accent-color); font-weight: bold; font-family: 'Courier New', monospace; }
 
-        /* Layout */
         .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
-        section { margin-bottom: 3rem; }
-        h2 { font-size: 1.5rem; border-left: 4px solid var(--accent-color); padding-left: 1rem; margin-bottom: 1.5rem; color: #fff; }
+        section { margin-bottom: 4rem; }
+        h2 { font-size: 1.5rem; border-left: 4px solid var(--accent-color); padding-left: 1rem; margin-bottom: 1.5rem; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* Grid */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
-        .card { background: var(--card-bg); border: 1px solid var(--border); padding: 1.5rem; border-radius: 8px; transition: transform 0.2s; }
-        .card:hover { transform: translateY(-5px); border-color: var(--accent-color); }
-
-        /* Timeline Experience */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .card { background: var(--card-bg); border: 1px solid var(--border); padding: 1.5rem; border-radius: 8px; }
+        
         .timeline-item { position: relative; padding-left: 2rem; border-left: 1px solid var(--border); margin-bottom: 2rem; }
         .timeline-item::before { content: ""; position: absolute; left: -5px; top: 0; width: 9px; height: 9px; background: var(--accent-color); border-radius: 50%; }
-        .date { font-size: 0.85rem; color: var(--text-dim); }
-        .job-title { font-weight: bold; color: var(--accent-color); }
-        .company { font-style: italic; margin-bottom: 0.5rem; display: block; }
+        
+        .date { font-size: 0.85rem; color: var(--accent-color); font-weight: bold; }
+        .job-title { font-size: 1.1rem; font-weight: bold; color: #fff; display: block; }
+        .company { color: var(--text-dim); margin-bottom: 0.5rem; display: block; }
 
-        /* Skills Tags */
-        .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-        .tag { background: #21262d; border: 1px solid var(--border); padding: 0.3rem 0.7rem; border-radius: 4px; font-size: 0.85rem; }
+        .education-list { list-style: none; }
+        .education-item { margin-bottom: 1.5rem; padding: 1rem; background: rgba(88, 166, 255, 0.05); border-radius: 6px; border: 1px dashed var(--border); }
 
-        footer { text-align: center; padding: 3rem; color: var(--text-dim); border-top: 1px solid var(--border); }
+        .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 10px; }
+        .tag { background: #21262d; border: 1px solid var(--border); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; color: var(--accent-color); }
+
+        footer { text-align: center; padding: 3rem; border-top: 1px solid var(--border); background: #000; }
+        .social-links a { font-size: 1.5rem; margin: 0 10px; color: var(--text-dim); }
+        .social-links a:hover { color: var(--accent-color); }
     </style>
 </head>
 <body>
 
 <header>
     <div class="hero">
-        <div class="badge"><i class="fas fa-shield-alt"></i> Disponible pour SOC L1 / SecOps</div>
+        <div class="badge"><i class="fas fa-search"></i> En recherche d'opportunités SOC L1 / SecOps</div>
         <h1>Gael Maiano</h1>
-        <p>> Analyste Sécurité Junior | Systèmes & Réseaux</p>
+        <p>> Analyste Sécurité Jr | Hybrid IT-OT Expert</p>
         <div style="margin-top: 1rem; color: var(--text-dim);">
-            <i class="fas fa-map-marker-alt"></i> Brest, Bretagne, France
+            <i class="fas fa-map-marker-alt"></i> Brest, Bretagne
         </div>
     </div>
 </header>
 
 <div class="container">
     
-    <section id="about">
-        <h2>Résumé</h2>
-        <p>Administrateur Systèmes et Réseaux en spécialisation Cybersécurité, je combine une expertise technique en informatique industrielle (TSAII) et une approche proactive de la défense. Mon objectif : intégrer un SOC Niveau 1 ou une équipe de sécurité opérationnelle.</p>
+    <section>
+        <h2>Profil</h2>
+        <p>Administrateur Systèmes et Réseaux en spécialisation Cybersécurité, je combine une expertise technique en informatique industrielle (TSAII) et une approche proactive de la défense. Mon parcours hybride me permet d'appréhender aussi bien la sécurité des SI classiques que les enjeux critiques des systèmes industriels (OT).</p>
     </section>
 
-    <section id="skills">
-        <h2>Expertises</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>🛡️ Défense</h3>
-                <div class="tags">
-                    <span class="tag">Framework NIST</span>
-                    <span class="tag">Wazuh SIEM</span>
-                    <span class="tag">Hardening OS</span>
-                    <span class="tag">Patch Management</span>
-                </div>
-            </div>
-            <div class="card">
-                <h3>⚔️ Offensive</h3>
-                <div class="tags">
-                    <span class="tag">Junior Pen Tester (THM)</span>
-                    <span class="tag">Bug Bounty</span>
-                    <span class="tag">Recon / Énumération</span>
-                    <span class="tag">Burp Suite</span>
-                </div>
-            </div>
-            <div class="card">
-                <h3>⚙️ Infrastructure</h3>
-                <div class="tags">
-                    <span class="tag">IT/OT Hybridation</span>
-                    <span class="tag">Docker / DevOps</span>
-                    <span class="tag">Automatisme</span>
-                    <span class="tag">TCP/IP</span>
-                </div>
+    <section>
+        <h2>Projet Récent : Lab SIEM Wazuh</h2>
+        <div class="card" style="border-left: 4px solid var(--terminal-green);">
+            <strong>Déploiement d'une architecture de supervision (Manager/Agent)</strong>
+            <p style="font-size: 0.9rem; margin-top: 10px;">Mise en place d'un serveur Wazuh sur Kali Linux, configuration réseau isolée (Internal Network) et déploiement d'agents. Hardening de la configuration et gestion des politiques d'enrôlement.</p>
+            <div class="tags">
+                <span class="tag">Wazuh</span> <span class="tag">Kali Linux</span> <span class="tag">VirtualBox</span> <span class="tag">Networking</span>
             </div>
         </div>
     </section>
 
-    <section id="experience">
-        <h2>Expérience Professionnelle</h2>
-        
+    <section>
+        <h2>Expérience Cyber & IT</h2>
         <div class="timeline-item">
-            <span class="date">Décembre 2025 - Présent</span>
-            <span class="job-title">Chercheur de vulnérabilités indépendant (Bug Bounty)</span>
-            <span class="company">Indépendant</span>
-            <p>Recherche active de vulnérabilités sur plateformes, focus sur l'analyse de surface d'attaque.</p>
+            <span class="date">2025 - Présent</span>
+            <span class="job-title">Bug Bounty Hunter (Indépendant)</span>
+            <p>Recherche de vulnérabilités et analyse de surface d'attaque.</p>
         </div>
 
         <div class="timeline-item">
-            <span class="date">Juin 2022 - Août 2022</span>
+            <span class="date">2022</span>
             <span class="job-title">Technicien Informatique</span>
-            <span class="company">CHRnumerique - Brest</span>
-            <p>Gestion d'incidents N1/N2, Patch Management et réduction de la surface d'attaque des postes de travail.</p>
+            <span class="company">CHRnumerique</span>
+            <p>Support N1/N2, Patch Management et sécurisation des postes de travail.</p>
         </div>
 
         <div class="timeline-item">
             <span class="date">2018</span>
-            <span class="job-title">Technicien Informatique</span>
+            <span class="job-title">Technicien Systèmes et Réseaux</span>
             <span class="company">Vehco</span>
-            <p>Asset Management, déploiement sécurisé d'images systèmes et configuration réseau TCP/IP.</p>
-        </div>
-
-        <div class="timeline-item">
-            <span class="date">2013 - 2014</span>
-            <span class="job-title">Chargé de projet logement social</span>
-            <span class="company">Haut-Commissariat de la République (Nouméa)</span>
-            <p>Investigation de terrain rigoureuse et synthèse critique de sources institutionnelles dans un contexte sensible.</p>
+            <p>Déploiement d'images systèmes sécurisées et Asset Management.</p>
         </div>
     </section>
 
-    <section id="education">
-        <h2>Formation</h2>
-        <ul style="list-style: none;">
-            <li style="margin-bottom: 1rem;">
-                <strong>Développeur Intelligence Artificielle</strong> (Microsoft AI School - ISEN) <br>
-                <small class="date">2025</small>
-            </li>
-            <li style="margin-bottom: 1rem;">
-                <strong>TP Automatisme et Informatique Industrielle (TSAII)</strong> (IUMM) <br>
-                <small class="date">2021</small>
-            </li>
-            <li style="margin-bottom: 1rem;">
-                <strong>BTS SIO (Système et Réseau)</strong> (Greta de Morlaix) <br>
-                <small class="date">2017</small>
-            </li>
-        </ul>
+    <section>
+        <h2>Formation & Diplômes</h2>
+        <div class="education-list">
+            <div class="education-item">
+                <span class="date">2025</span>
+                <strong>Microsoft AI School / ISEN</strong><br>
+                <span>Développeur Intelligence Artificielle</span>
+            </div>
+            <div class="education-item">
+                <span class="date">2021</span>
+                <strong>IUMM</strong><br>
+                <span>TP TSAII (Automatisme et Informatique Industrielle) - Niveau 5</span>
+            </div>
+            <div class="education-item">
+                <span class="date">2013 - 2014</span>
+                <strong>Université de Nantes</strong><br>
+                <span>Master 2 AGT (SAGT) - Géographie et Aménagement des Territoires</span>
+            </div>
+            <div class="education-item">
+                <span class="date">2017</span>
+                <strong>Greta de Morlaix</strong><br>
+                <span>BTS SIO option SISR (Systèmes et Réseaux)</span>
+            </div>
+        </div>
     </section>
 
 </div>
 
 <footer>
-    <p>Gael Maiano &copy; 2026 | Portfolio Sécurité</p>
-    <div style="margin-top: 1rem; font-size: 1.5rem;">
-        <a href="#"><i class="fab fa-linkedin"></i></a> &nbsp;
-        <a href="#"><i class="fab fa-github"></i></a>
+    <div class="social-links">
+        <a href="https://linkedin.com/in/gaelmaiano" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/votre-user" target="_blank"><i class="fab fa-github"></i></a>
     </div>
+    <p style="margin-top: 10px; font-size: 0.8rem;">Gael Maiano - 2026</p>
 </footer>
 
 </body>
