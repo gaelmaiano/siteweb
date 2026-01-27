@@ -3,270 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberAcadémie | Introduction à la Cybersécurité</title>
+    <title>Gael Maiano | Analyste Sécurité Junior</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg: #0f0f1a;
-            --text: #e0e0ff;
-            --accent: #00f0ff;
-            --red: #ff0066;
-            --blue: #0066ff;
-            --purple: #8a2be2;
-            --green: #39ff14;
-            --yellow: #ffcc00;
-            --glow: rgba(0, 240, 255, 0.3);
-            --grid-color: rgba(0, 240, 255, 0.05);
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --accent-color: #58a6ff;
+            --text-main: #c9d1d9;
+            --text-dim: #8b949e;
+            --border: #30363d;
+            --terminal-green: #238636;
         }
-        
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Orbitron', 'Exo 2', sans-serif;
-            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-            padding-top: 80px;
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
 
-        /* Effet de grille en arrière-plan */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-                              linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -1;
-        }
+        /* Header / Terminal Style */
+        header { padding: 4rem 2rem; background: linear-gradient(180deg, #000 0%, var(--bg-color) 100%); text-align: center; border-bottom: 1px solid var(--border); }
+        .hero h1 { font-size: 2.5rem; color: #fff; margin-bottom: 0.5rem; }
+        .hero .badge { display: inline-block; background: var(--terminal-green); color: white; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.9rem; margin-bottom: 1rem; }
+        .hero p { color: var(--accent-color); font-weight: bold; font-family: 'Courier New', monospace; }
 
-        /* Navbar */
-        .navbar {
-            background: rgba(15, 15, 26, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--accent);
-            position: fixed;
-            top: 0; width: 100%; z-index: 1000;
-            padding: 1rem 2rem;
-        }
-        .nav-container {
-            max-width: 1200px; margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .logo {
-            color: var(--accent); text-decoration: none; font-weight: bold;
-            display: flex; align-items: center; gap: 10px; font-size: 1.2rem;
-        }
+        /* Layout */
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        section { margin-bottom: 3rem; }
+        h2 { font-size: 1.5rem; border-left: 4px solid var(--accent-color); padding-left: 1rem; margin-bottom: 1.5rem; color: #fff; }
 
-        /* Hero Section */
-        .hero {
-            text-align: center; padding: 4rem 1rem;
-            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
-        }
-        .free-badge {
-            display: inline-block; background: var(--green); color: black;
-            padding: 0.3rem 1rem; border-radius: 20px; font-weight: bold;
-            margin-bottom: 1rem; box-shadow: 0 0 15px var(--green);
-        }
-        h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            background: linear-gradient(90deg, var(--accent), var(--purple));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-        }
+        /* Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+        .card { background: var(--card-bg); border: 1px solid var(--border); padding: 1.5rem; border-radius: 8px; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent-color); }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+        /* Timeline Experience */
+        .timeline-item { position: relative; padding-left: 2rem; border-left: 1px solid var(--border); margin-bottom: 2rem; }
+        .timeline-item::before { content: ""; position: absolute; left: -5px; top: 0; width: 9px; height: 9px; background: var(--accent-color); border-radius: 50%; }
+        .date { font-size: 0.85rem; color: var(--text-dim); }
+        .job-title { font-weight: bold; color: var(--accent-color); }
+        .company { font-style: italic; margin-bottom: 0.5rem; display: block; }
 
-        /* Vidéo */
-        .video-wrapper {
-            background: rgba(20, 20, 35, 0.8);
-            border: 2px solid var(--accent);
-            border-radius: 16px; padding: 1rem;
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
-            margin-bottom: 3rem;
-        }
-        .video-container {
-            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
-            border-radius: 8px;
-        }
-        .video-container iframe {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        }
+        /* Skills Tags */
+        .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .tag { background: #21262d; border: 1px solid var(--border); padding: 0.3rem 0.7rem; border-radius: 4px; font-size: 0.85rem; }
 
-        /* Section Brainstorming : Scénario d'Attaque */
-        .scenario-box {
-            background: rgba(255, 0, 102, 0.05);
-            border: 1px solid var(--red);
-            border-radius: 16px; padding: 2rem; margin: 3rem 0;
-            position: relative;
-        }
-        .scenario-box h2 { color: var(--red); border-bottom: 1px solid var(--red); margin-bottom: 1.5rem; padding-bottom: 0.5rem; }
-        
-        .timeline { display: flex; flex-direction: column; gap: 1.5rem; }
-        .step { display: flex; gap: 1rem; }
-        .step-icon { 
-            background: var(--red); color: white; width: 40px; height: 40px; 
-            display: flex; align-items: center; justify-content: center; 
-            border-radius: 50%; flex-shrink: 0; font-weight: bold;
-        }
-
-        /* Modules de cours */
-        .modules-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem; margin: 2rem 0;
-        }
-        .module-card {
-            background: rgba(25, 25, 45, 0.6);
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            padding: 1.5rem; border-radius: 12px;
-            transition: 0.3s;
-        }
-        .module-card:hover { 
-            border-color: var(--accent); transform: translateY(-5px); 
-            box-shadow: 0 0 20px var(--glow);
-        }
-        .module-card h4 { color: var(--accent); margin-bottom: 0.5rem; }
-
-        /* Lab & CTA */
-        .lab-section {
-            background: rgba(138, 43, 226, 0.1);
-            border: 2px solid var(--purple);
-            border-radius: 16px; padding: 2rem; text-align: center;
-        }
-        .cta-box {
-            background: linear-gradient(45deg, #ff6b3522, #ff8c0022);
-            border: 2px solid #ff6b35;
-            border-radius: 16px; padding: 2rem; text-align: center; margin-top: 3rem;
-        }
-        .btn-superprof {
-            display: inline-block; background: #ff6b35; color: white;
-            padding: 1rem 2rem; border-radius: 8px; text-decoration: none;
-            font-weight: bold; margin-top: 1rem; transition: 0.3s;
-        }
-        .btn-superprof:hover { transform: scale(1.05); box-shadow: 0 0 20px #ff6b35; }
-
-        footer { text-align: center; padding: 3rem; border-top: 1px solid rgba(0,240,255,0.1); color: #666; }
-
-        .highlight { color: var(--yellow); font-weight: bold; }
-        
-        @media (max-width: 768px) {
-            .container { padding: 1rem; }
-        }
+        footer { text-align: center; padding: 3rem; color: var(--text-dim); border-top: 1px solid var(--border); }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">🛡️ CYBERACADÉMIE</a>
-            <div style="font-size: 0.8rem; color: var(--accent);">STATUS: SYSTEM ONLINE</div>
+<header>
+    <div class="hero">
+        <div class="badge"><i class="fas fa-shield-alt"></i> Disponible pour SOC L1 / SecOps</div>
+        <h1>Gael Maiano</h1>
+        <p>> Analyste Sécurité Junior | Systèmes & Réseaux</p>
+        <div style="margin-top: 1rem; color: var(--text-dim);">
+            <i class="fas fa-map-marker-alt"></i> Brest, Bretagne, France
         </div>
-    </nav>
-
-    <header class="hero">
-        <div class="free-badge">COURS GRATUIT</div>
-        <h1>DEVENIR PENTESTER</h1>
-        <p style="color: #a0a0ff; font-size: 1.2rem;">Maîtrisez l'attaque et la défense en 1 heure</p>
-    </header>
-
-    <div class="container">
-        <div class="video-wrapper">
-            <h2 style="margin-bottom: 1rem;">🎬 MODULE 0 : INTRODUCTION</h2>
-            <p style="margin-bottom: 1rem; font-size: 0.9rem; color: #b0b0ff;">
-                Concepts clés abordés : <span class="highlight">Red Team, Blue Team, DDoS, SIEM et Rootkits.</span>
-            </p>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/TFl8_xOuqA8" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <section class="scenario-box">
-            <h2>🕵️ ANATOMIE D'UNE INTRUSION (RED TEAM)</h2>
-            <div class="timeline">
-                <div class="step">
-                    <div class="step-icon">1</div>
-                    <div>
-                        <p><strong>Reconnaissance Active & OSINT :</strong> Utilisation de <span class="highlight">Nmap</span> ou <span class="highlight">RustScan</span> pour identifier les ports ouverts. Recherche d'informations publiques pour cibler le futur brute-force.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-icon">2</div>
-                    <div>
-                        <p><strong>Exploitation Web :</strong> Recherche de failles critiques comme les <span class="highlight">BOLA, Race Conditions, SQLi ou XSS</span> pour obtenir un premier accès au serveur.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-icon">3</div>
-                    <div>
-                        <p><strong>Compromission Active Directory :</strong> Une fois dans le réseau Windows, l'attaquant exploite les erreurs de configuration AD pour générer un <span class="highlight">Golden Ticket</span> et devenir administrateur total.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-icon">4</div>
-                    <div>
-                        <p><strong>Post-Exploitation :</strong> Utilisation de <span class="highlight">Metasploit</span> (attention aux payloads détectés par les antivirus !) pour maintenir l'accès.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section style="margin-bottom: 4rem;">
-            <h2 style="color: var(--blue); border-bottom: 1px solid var(--blue); margin-bottom: 1.5rem;">🛡️ LA RÉPONSE DÉFENSIVE (BLUE TEAM)</h2>
-            <div class="modules-grid">
-                <div class="module-card">
-                    <h4>SURVEILLANCE SIEM</h4>
-                    <p>Utilisation de <span class="highlight">Splunk</span> ou <span class="highlight">ELK</span> pour centraliser les logs et détecter les connexions suspectes sur l'AD.</p>
-                </div>
-                <div class="module-card">
-                    <h4>ANALYSE RÉSEAU</h4>
-                    <p>Détection d'intrusions avec <span class="highlight">Snort</span> et analyse profonde des paquets suspects via <span class="highlight">Wireshark</span>.</p>
-                </div>
-                <div class="module-card">
-                    <h4>EDR & ANTIVIRUS</h4>
-                    <p>Blocage des payloads Metasploit connus et analyse comportementale des processus sur les serveurs.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="lab-section" id="lab">
-            <h2 style="color: var(--purple); margin-bottom: 1rem;">💻 VOTRE LAB DE TEST</h2>
-            <p>Montez votre environnement de hacking éthique :</p>
-            <div class="modules-grid" style="text-align: left;">
-                <div class="module-card" style="background: rgba(0,0,0,0.3);">
-                    <p><strong>1. Hyperviseur :</strong> Installez VirtualBox ou VMware.</p>
-                </div>
-                <div class="module-card" style="background: rgba(0,0,0,0.3);">
-                    <p><strong>2. Attaque :</strong> Importez une VM Kali Linux.</p>
-                </div>
-                <div class="module-card" style="background: rgba(0,0,0,0.3);">
-                    <p><strong>3. Cible :</strong> Installez Metasploitable ou un Windows Server mal configuré.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="cta-box">
-            <h3>🎓 ALLER PLUS LOIN AVEC UN COACH</h3>
-            <p>Besoin d'aide pour configurer votre lab ou comprendre les failles AD ?</p>
-            <a href="https://www.superprof.fr/coach-cyber-systeme-reseaux-pratique-labs-defenses-pentest.html" class="btn-superprof" target="_blank">RÉSERVER UN COURS SUR SUPERPROF</a>
-        </section>
-
-        <section class="cta-box" style="border-color: var(--accent);">
-            <h3>💰 LAB BUG BOUNTY</h3>
-            <p>Pratiquez la recherche de vulnérabilités web sur mon lab dédié.</p>
-            <a href="https://gaelmaiano.github.io/bounty/#dashboard" class="btn-superprof" style="background: var(--accent); color: black;" target="_blank">ACCÉDER AU LAB BOUNTY</a>
-        </section>
-
     </div>
+</header>
 
-    <footer>
-        <p>© 2026 CYBERACADÉMIE - Formation autodidacte en Cybersécurité</p>
-        <p style="font-size: 0.7rem; margin-top: 10px;">Systèmes | Réseaux | Pentest | Active Directory</p>
-    </footer>
+<div class="container">
+    
+    <section id="about">
+        <h2>Résumé</h2>
+        <p>Administrateur Systèmes et Réseaux en spécialisation Cybersécurité, je combine une expertise technique en informatique industrielle (TSAII) et une approche proactive de la défense. Mon objectif : intégrer un SOC Niveau 1 ou une équipe de sécurité opérationnelle.</p>
+    </section>
 
-    <script>
-        // Effet de scanline ou autres intéractions si besoin
-        console.log("CyberAcadémie System Loaded...");
-    </script>
+    <section id="skills">
+        <h2>Expertises</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>🛡️ Défense</h3>
+                <div class="tags">
+                    <span class="tag">Framework NIST</span>
+                    <span class="tag">Wazuh SIEM</span>
+                    <span class="tag">Hardening OS</span>
+                    <span class="tag">Patch Management</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3>⚔️ Offensive</h3>
+                <div class="tags">
+                    <span class="tag">Junior Pen Tester (THM)</span>
+                    <span class="tag">Bug Bounty</span>
+                    <span class="tag">Recon / Énumération</span>
+                    <span class="tag">Burp Suite</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3>⚙️ Infrastructure</h3>
+                <div class="tags">
+                    <span class="tag">IT/OT Hybridation</span>
+                    <span class="tag">Docker / DevOps</span>
+                    <span class="tag">Automatisme</span>
+                    <span class="tag">TCP/IP</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2>Expérience Professionnelle</h2>
+        
+        <div class="timeline-item">
+            <span class="date">Décembre 2025 - Présent</span>
+            <span class="job-title">Chercheur de vulnérabilités indépendant (Bug Bounty)</span>
+            <span class="company">Indépendant</span>
+            <p>Recherche active de vulnérabilités sur plateformes, focus sur l'analyse de surface d'attaque.</p>
+        </div>
+
+        <div class="timeline-item">
+            <span class="date">Juin 2022 - Août 2022</span>
+            <span class="job-title">Technicien Informatique</span>
+            <span class="company">CHRnumerique - Brest</span>
+            <p>Gestion d'incidents N1/N2, Patch Management et réduction de la surface d'attaque des postes de travail.</p>
+        </div>
+
+        <div class="timeline-item">
+            <span class="date">2018</span>
+            <span class="job-title">Technicien Informatique</span>
+            <span class="company">Vehco</span>
+            <p>Asset Management, déploiement sécurisé d'images systèmes et configuration réseau TCP/IP.</p>
+        </div>
+
+        <div class="timeline-item">
+            <span class="date">2013 - 2014</span>
+            <span class="job-title">Chargé de projet logement social</span>
+            <span class="company">Haut-Commissariat de la République (Nouméa)</span>
+            <p>Investigation de terrain rigoureuse et synthèse critique de sources institutionnelles dans un contexte sensible.</p>
+        </div>
+    </section>
+
+    <section id="education">
+        <h2>Formation</h2>
+        <ul style="list-style: none;">
+            <li style="margin-bottom: 1rem;">
+                <strong>Développeur Intelligence Artificielle</strong> (Microsoft AI School - ISEN) <br>
+                <small class="date">2025</small>
+            </li>
+            <li style="margin-bottom: 1rem;">
+                <strong>TP Automatisme et Informatique Industrielle (TSAII)</strong> (IUMM) <br>
+                <small class="date">2021</small>
+            </li>
+            <li style="margin-bottom: 1rem;">
+                <strong>BTS SIO (Système et Réseau)</strong> (Greta de Morlaix) <br>
+                <small class="date">2017</small>
+            </li>
+        </ul>
+    </section>
+
+</div>
+
+<footer>
+    <p>Gael Maiano &copy; 2026 | Portfolio Sécurité</p>
+    <div style="margin-top: 1rem; font-size: 1.5rem;">
+        <a href="#"><i class="fab fa-linkedin"></i></a> &nbsp;
+        <a href="#"><i class="fab fa-github"></i></a>
+    </div>
+</footer>
+
 </body>
 </html>
