@@ -1,0 +1,160 @@
+:root {
+    --bg-color: #0a0a0c;
+    --neon-pink: #ff0055;
+    --neon-blue: #00f7ff;
+    --soviet-red: #ff2a00;
+    --concrete: #2c2c2e;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: white;
+    font-family: 'JetBrains Mono', monospace;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- Effet Scanlines (Vieux Moniteur) --- */
+.scanlines {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.25) 50%
+    ), linear-gradient(
+        90deg, 
+        rgba(255, 0, 0, 0.06), 
+        rgba(0, 255, 0, 0.02), 
+        rgba(0, 0, 255, 0.06)
+    );
+    background-size: 100% 4px, 3px 100%;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.container {
+    text-align: center;
+    z-index: 5;
+    width: 90%;
+    max-width: 600px;
+}
+
+/* --- Titre Glitch --- */
+h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem;
+    letter-spacing: 10px;
+    color: white;
+    text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+    position: relative;
+}
+
+.glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--bg-color);
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--neon-pink);
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 var(--neon-blue);
+    clip: rect(10px, 450px, 30px, 0);
+    animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% { clip: rect(31px, 9999px, 94px, 0); }
+    20% { clip: rect(62px, 9999px, 42px, 0); }
+    /* ... ajouter d'autres étapes pour plus de réalisme ... */
+    100% { clip: rect(10px, 9999px, 85px, 0); }
+}
+
+.subtitle {
+    color: var(--neon-pink);
+    font-weight: bold;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
+/* --- Carte Brutaliste --- */
+.cyber-card {
+    background: rgba(44, 44, 46, 0.8);
+    border: 2px solid var(--soviet-red);
+    padding: 20px;
+    text-align: left;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 90% 100%, 0 100%);
+    box-shadow: 10px 10px 0 var(--soviet-red);
+    margin-bottom: 40px;
+}
+
+.card-header {
+    font-weight: bold;
+    color: var(--soviet-red);
+    border-bottom: 1px solid var(--soviet-red);
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+
+.neon-blue {
+    color: var(--neon-blue);
+    text-shadow: 0 0 5px var(--neon-blue);
+}
+
+/* --- Bouton Cyber --- */
+.cyber-button {
+    background: transparent;
+    color: var(--neon-blue);
+    border: 2px solid var(--neon-blue);
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: relative;
+    font-family: 'Bebas Neue', sans-serif;
+    transition: all 0.3s;
+}
+
+.cyber-button:hover {
+    background: var(--neon-blue);
+    color: black;
+    box-shadow: 0 0 30px var(--neon-blue);
+}
+
+/* --- Ticker (Défilant) --- */
+.ticker {
+    margin-top: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    border-top: 1px solid #333;
+    padding-top: 10px;
+    font-size: 0.8rem;
+    color: #555;
+}
+
+.ticker span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: ticker-move 15s linear infinite;
+}
+
+@keyframes ticker-move {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-100%, 0, 0); }
+}
