@@ -3,10 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOSKVA 2077 // SECTOR-4</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Police pour un look techno/brutaliste -->
+    <title>НЕОРУССИЯ // SECTOR-4</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0a0a0c;
+            --neon-pink: #ff0055;
+            --neon-blue: #00f7ff;
+            --soviet-red: #ff2a00;
+            --concrete: #2c2c2e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- Effet Scanlines (Vieux Moniteur) --- */
+        .scanlines {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.25) 50%
+            ), linear-gradient(
+                90deg, 
+                rgba(255, 0, 0, 0.06), 
+                rgba(0, 255, 0, 0.02), 
+                rgba(0, 0, 255, 0.06)
+            );
+            background-size: 100% 4px, 3px 100%;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 5;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        /* --- Titre Glitch --- */
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5rem;
+            letter-spacing: 10px;
+            color: white;
+            text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+            position: relative;
+        }
+
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-color);
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--neon-pink);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--neon-blue);
+            clip: rect(10px, 450px, 30px, 0);
+            animation: glitch-anim2 2s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0%   { clip: rect(31px, 9999px, 94px, 0); transform: skew(0.3deg); }
+            10%  { clip: rect(7px,  9999px, 50px, 0); }
+            20%  { clip: rect(62px, 9999px, 42px, 0); transform: skew(-0.5deg); }
+            30%  { clip: rect(19px, 9999px, 78px, 0); }
+            40%  { clip: rect(55px, 9999px, 20px, 0); transform: skew(0.8deg); }
+            50%  { clip: rect(3px,  9999px, 65px, 0); }
+            60%  { clip: rect(40px, 9999px, 10px, 0); transform: skew(-0.2deg); }
+            70%  { clip: rect(25px, 9999px, 90px, 0); }
+            80%  { clip: rect(70px, 9999px, 35px, 0); transform: skew(0.6deg); }
+            90%  { clip: rect(15px, 9999px, 55px, 0); }
+            100% { clip: rect(10px, 9999px, 85px, 0); transform: skew(-0.1deg); }
+        }
+
+        @keyframes glitch-anim2 {
+            0%   { clip: rect(65px, 9999px, 100px, 0); transform: skew(-0.5deg); }
+            15%  { clip: rect(20px, 9999px, 60px,  0); }
+            30%  { clip: rect(80px, 9999px, 30px,  0); transform: skew(0.4deg); }
+            50%  { clip: rect(45px, 9999px, 75px,  0); transform: skew(-0.7deg); }
+            70%  { clip: rect(10px, 9999px, 50px,  0); }
+            85%  { clip: rect(55px, 9999px, 15px,  0); transform: skew(0.2deg); }
+            100% { clip: rect(30px, 9999px, 90px,  0); transform: skew(-0.3deg); }
+        }
+
+        .subtitle {
+            color: var(--neon-pink);
+            font-weight: bold;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+        }
+
+        /* --- Carte Brutaliste --- */
+        .cyber-card {
+            background: rgba(44, 44, 46, 0.8);
+            border: 2px solid var(--soviet-red);
+            padding: 20px;
+            text-align: left;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 90% 100%, 0 100%);
+            box-shadow: 10px 10px 0 var(--soviet-red);
+            margin-bottom: 40px;
+        }
+
+        .card-header {
+            font-weight: bold;
+            color: var(--soviet-red);
+            border-bottom: 1px solid var(--soviet-red);
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+        }
+
+        .card-body p {
+            margin: 4px 0;
+            font-size: 0.9rem;
+        }
+
+        .neon-blue {
+            color: var(--neon-blue);
+            text-shadow: 0 0 5px var(--neon-blue);
+        }
+
+        /* --- Bouton Cyber --- */
+        .cyber-button {
+            background: transparent;
+            color: var(--neon-blue);
+            border: 2px solid var(--neon-blue);
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            position: relative;
+            font-family: 'Bebas Neue', sans-serif;
+            transition: all 0.3s;
+            letter-spacing: 4px;
+        }
+
+        .cyber-button:hover {
+            background: var(--neon-blue);
+            color: black;
+            box-shadow: 0 0 30px var(--neon-blue);
+        }
+
+        .glitch-fixed {
+            font-size: 0.6rem;
+            color: var(--neon-pink);
+            display: block;
+            letter-spacing: 2px;
+            margin-top: -4px;
+            font-family: 'JetBrains Mono', monospace;
+            animation: blink 1.2s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* --- Ticker (Défilant) --- */
+        .ticker {
+            margin-top: 50px;
+            white-space: nowrap;
+            overflow: hidden;
+            border-top: 1px solid #333;
+            padding-top: 10px;
+            font-size: 0.8rem;
+            color: #555;
+        }
+
+        .ticker span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: ticker-move 15s linear infinite;
+        }
+
+        @keyframes ticker-move {
+            0%   { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+    </style>
 </head>
 <body>
 
@@ -16,7 +217,7 @@
     <div class="container">
         <header>
             <div class="glitch-wrapper">
-                <h1 class="glitch" data-text="МОСКВА 2077">МОСКВА 2077</h1>
+                <h1 class="glitch" data-text="НЕОРУССИЯ">НЕОРУССИЯ</h1>
             </div>
             <p class="subtitle">СЕКТОР 4 • DISTANCE: NORMALE</p>
         </header>
@@ -25,9 +226,9 @@
             <div class="cyber-card">
                 <div class="card-header">СТАТУС СИСТЕМЫ (ÉTAT SYSTÈME)</div>
                 <div class="card-body">
-                    <p>> PROTOCOLE : <span class="neon-blue">ACTIF</span></p>
-                    <p>> TEMP : -42°C (STABLE)</p>
-                    <p>> RÉSEAU : CRYPTÉ</p>
+                    <p>&gt; PROTOCOLE : <span class="neon-blue">ACTIF</span></p>
+                    <p>&gt; TEMP : -42°C (STABLE)</p>
+                    <p>&gt; RÉSEAU : CRYPTÉ</p>
                 </div>
             </div>
 
@@ -39,7 +240,7 @@
 
         <footer>
             <div class="ticker">
-                <span>// ALERTE : SURCHARGE DANS LE NOYAU URBAIN // ПОДТВЕРЖДЕНИЕ ЛИЧНОСТИ //</span>
+                <span>// ALERTE : SURCHARGE DANS LE NOYAU URBAIN // ПОДТВЕРЖДЕНИЕ ЛИЧНОСТИ // SECTEUR 4 EN LIGNE // TEMPÉRATURE CRITIQUE DÉTECTÉE //</span>
             </div>
         </footer>
     </div>
