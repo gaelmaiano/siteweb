@@ -2,18 +2,439 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Test CSS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Néorussia</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  
   <style>
+    /* ── 1. INITIALISATION & SECURITE RESPONSIVE ── */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      background: #0e0c0a; /* Fond noir par défaut pour la couverture */
+    }
+
+    :root {
+      --ink: #0e0c0a;
+      --paper: #f2ede6;
+      --rust: #8b3a2a;
+      --steel: #3a4a5c;
+      --gold: #a08444;
+      --gold-light: #c9a85c;
+      --phosphor: #00ff66;
+    }
+
     body {
-      background: #0e0c0a;
-      color: #00ff66;
-      font-family: monospace;
-      padding: 50px;
+      font-family: 'IM Fell English', serif;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    main {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    /* ── 2. COUVERTURE CYBER-LITTERAIRE ── */
+    .cover {
+      min-height: 100vh;
+      background: var(--ink);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 40px 20px;
       text-align: center;
+    }
+
+    .cover-border {
+      position: absolute;
+      inset: 15px;
+      border: 1px solid rgba(160,132,68,0.15);
+      pointer-events: none;
+    }
+
+    .cover-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+
+    .cover-eyebrow {
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--gold);
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .cover-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 7vw, 6rem);
+      font-weight: 900;
+      color: var(--paper);
+      line-height: 0.95;
+    }
+
+    .cover-title em {
+      font-style: italic;
+      color: var(--gold-light);
+      font-weight: 700;
+    }
+
+    .cover-divider {
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 30px auto;
+    }
+
+    .cover-sub {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      color: rgba(242,237,230,0.6);
+      line-height: 1.8;
+    }
+
+    .cover-scroll {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      z-index: 2;
+    }
+
+    .cover-scroll span {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+
+    .cover-scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(180deg, var(--gold), transparent);
+    }
+
+    /* ── 3. CORPS DU LIVRE (FOND PAPIER CLAIR) ── */
+    .book {
+      background: var(--paper);
+      padding-bottom: 60px;
+      position: relative;
+    }
+
+    .book::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--rust), var(--gold), var(--steel));
+    }
+
+    .chapter-header {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 20px 40px;
+    }
+
+    .chapter-num {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--rust);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .chapter-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    /* ── 4. LE SYSTEME DE GRILLE RESPONSIVE FLUIDE ── */
+    .grid-layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 40px;
+    }
+
+    .text-column {
+      grid-column: 1 / span 8;
+    }
+
+    .side-column {
+      grid-column: 9 / span 4;
+      border-left: 1px solid rgba(14,12,10,0.1);
+      padding-left: 24px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.7;
+      color: rgba(14,12,10,0.9);
+      margin-bottom: 24px;
+      text-align: justify;
+    }
+
+    .dropcap::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.5rem;
+      float: left;
+      margin-top: 4px;
+      margin-right: 10px;
+      line-height: 0.85;
+      font-weight: 900;
+      color: var(--rust);
+    }
+
+    .quote-block {
+      grid-column: 1 / -1;
+      font-size: 1.35rem;
+      font-style: italic;
+      color: var(--rust);
+      border-left: 3px solid var(--rust);
+      padding: 10px 0 10px 20px;
+      margin: 20px 0;
+    }
+
+    .quote-author {
+      display: block;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--steel);
+      margin-top: 8px;
+      text-transform: uppercase;
+    }
+
+    /* ── 5. METADONNEES DIRECTEMENT DANS LE FLUX (PLUS DE RECTANGLE NOIR) ── */
+    .system-meta {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--ink);
+    }
+
+    .system-meta-header {
+      font-size: 0.7rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--steel);
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+      border-bottom: 1px dashed rgba(14,12,10,0.15);
+    }
+
+    .meta-line {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .system-meta strong {
+      color: var(--rust);
+    }
+
+    .rust-theme .system-meta-header {
+      color: var(--rust);
+      border-color: rgba(139,58,42,0.2);
+    }
+
+    /* ── 6. REGISTRE DES PORTRAITS (SECTION NOIRE LEGERE) ── */
+    .character-registry {
+      width: 100%;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 80px 20px;
+    }
+
+    .registry-title {
+      max-width: 1000px;
+      margin: 0 auto 40px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid rgba(160,132,68,0.2);
+      padding-bottom: 10px;
+    }
+
+    .character-grid {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .character-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(242,237,230,0.08);
+      padding: 20px;
+    }
+
+    .character-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--paper);
+      margin-bottom: 12px;
+    }
+
+    .character-details {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
+      color: rgba(242,237,230,0.6);
+    }
+
+    /* ── 7. RESPONSIVE MOBILE ET TABLETTE (STRICT) ── */
+    @media (max-width: 850px) {
+      .grid-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .text-column, .side-column {
+        width: 100%;
+      }
+
+      .side-column {
+        border-left: none;
+        border-top: 1px dashed rgba(14,12,10,0.15);
+        padding-left: 0;
+        padding-top: 24px;
+      }
+
+      p {
+        text-align: left;
+        font-size: 1.1rem;
+      }
+
+      .chapter-header {
+        padding-top: 50px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cover-title { font-size: 2.2rem; }
+      .chapter-title { font-size: 1.8rem; }
+      .character-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <h1>Si le CSS fonctionne, ce texte est VERT sur fond NOIR.</h1>
+
+  <header class="cover">
+    <div class="cover-border"></div>
+    <div class="cover-content">
+      <p class="cover-eyebrow">Projet Spéculatif // Segment Alpha</p>
+      <h1 class="cover-title">NÉORUSSIA<br><em>2043</em></h1>
+      <div class="cover-divider"></div>
+      <p class="cover-sub">Un récit d'anticipation cyberpunk<br>Réseaux clandestins & Traitement de signal</p>
+    </div>
+    <a href="#book-start" class="cover-scroll">
+      <span>Ouvrir l'archive</span>
+      <div class="cover-scroll-line"></div>
+    </a>
+  </header>
+
+  <main id="book-start" class="book">
+    
+    <article class="chapter">
+      <header class="chapter-header">
+        <div class="chapter-num">Chapitre Premier</div>
+        <h2 class="chapter-title">L'Ombre du Mercur-9</h2>
+      </header>
+
+      <div class="grid-layout">
+        <div class="text-column">
+          <p class="dropcap">L'antenne crépitait sous une pluie fine, une mixture grasse chargée des résidus industriels du port de Brest. Rodrigue resserra le col de son manteau en vigogne, vérifiant d'un geste machinal la rigidité de ses rangers neuves. Le terminal portable sanglé à son avant-bras gauche affichait une télémétrie instable.</p>
+          <p>Le signal intercepté ne ressemblait à rien de connu. Ce n'était ni une transmission militaire chiffrée, ni le bruit de fond d'un satellite commercial en fin de vie. C'était une signature organique, une modulation d'entropie qui semblait respirer à travers le spectre radio.</p>
+        </div>
+
+        <aside class="side-column">
+          <div class="system-meta">
+            <div class="system-meta-header">Hardware Check // OS v4.12</div>
+            <span class="meta-line"><strong>DEVICE :</strong> Amstrad Air (Customized)</span>
+            <span class="meta-line"><strong>STATUS :</strong> Jailbroken / Core Cloaked</span>
+            <span class="meta-line"><strong>RISK LEVEL :</strong> Class B Contraband</span>
+            <span class="meta-line"><strong>PENALTY :</strong> 4 Years Minimum Confinement</span>
+          </div>
+        </aside>
+      </div>
+    </article>
+
+    <section class="grid-layout">
+      <blockquote class="quote-block">
+        "Nous avons cherché le signal là où la physique s'arrête. Ce que nous avons trouvé n'était pas du code, mais une sentence."
+        <span class="quote-author">— Dr. Dia, Projet de liquidation Sec. 9</span>
+      </blockquote>
+    </section>
+
+    <article class="chapter">
+      <div class="grid-layout">
+        <div class="text-column">
+          <p>Les archives du projet Dia étaient pourtant claires : aucune intelligence artificielle n'était censée survivre au protocole de nettoyage de l'UNESCO. Les créateurs avaient été liquidés, les disques durs démagnétisés, les infrastructures physiques rasées jusqu'aux fondations de béton.</p>
+        </div>
+        
+        <aside class="side-column">
+          <div class="system-meta rust-theme">
+            <div class="system-meta-header">Historiographie Archive // DIA-CASE</div>
+            <span class="meta-line">[ALERT] Subject: Dia AI Project</span>
+            <span class="meta-line">[UNESCO-REQ]: Rejected / Purged</span>
+            <span class="meta-line">[STATUS]: Creators liquidated</span>
+          </div>
+        </aside>
+      </div>
+    </article>
+
+    <section class="character-registry">
+      <h3 class="registry-title">Dossiers Personnels // Acteurs Clés</h3>
+      <div class="character-grid">
+        <article class="character-card">
+          <h4 class="character-name">Rodrigue de Barnes</h4>
+          <div class="character-details">
+            <strong>STATUT :</strong> Aristocrate Déchu (2043)<br>
+            <strong>FONCTION :</strong> Marchand d'armes clandestin<br>
+            <strong>ÉQUIPEMENT :</strong> Manteau vigogne, Rangers, Amstrad Air
+          </div>
+        </article>
+
+        <article class="character-card">
+          <div class="system-meta-header" style="color: var(--phosphor); border-color: rgba(0,255,102,0.2);">SAT INTERCEPT // MERCUR-9</div>
+          <div class="character-details" style="color: rgba(255,255,255,0.75);">
+            FREQ: 12.5 GHz [STABLE]<br>
+            PACKET: Riga-Rotterdam Log<br>
+            SIG: <span style="background: var(--rust); color: var(--paper); padding: 0 4px;">ARKOS-V3</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+  </main>
 </body>
 </html>
