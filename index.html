@@ -1,8 +1,8 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <!-- Le viewport est crucial pour que le responsive fonctionne sur Android/iOS -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Néorussia</title>
   
@@ -11,7 +11,421 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ==========================================================================
+       1. INITIALISATION & SÉCURITÉ RESPONSIVE STRUCTURELLE
+       ========================================================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Protection absolue contre le défilement horizontal parasite */
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    :root {
+      --ink: #0e0c0a;
+      --paper: #f2ede6;
+      --paper-dark: #e8e0d4;
+      --rust: #8b3a2a;
+      --rust-light: #c4513b;
+      --steel: #3a4a5c;
+      --steel-light: #5b7492;
+      --gold: #a08444;
+      --gold-light: #c9a85c;
+      --phosphor: #00ff66;
+      --phosphor-dim: #003311;
+    }
+
+    body {
+      background: var(--ink);
+      font-family: 'IM Fell English', serif;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    /* Isolation sémantique du conteneur principal */
+    main {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    /* ==========================================================================
+       2. COUVERTURE CYBER-LITTÉRAIRE
+       ========================================================================== */
+    .cover {
+      min-height: 100vh;
+      background: var(--ink);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .cover-noise {
+      position: absolute;
+      inset: 0;
+      opacity: 0.02;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .cover-border {
+      position: absolute;
+      inset: 15px;
+      border: 1px solid rgba(160,132,68,0.15);
+      pointer-events: none;
+    }
+
+    .cover-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+
+    .cover-eyebrow {
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--gold);
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .cover-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 7vw, 6rem);
+      font-weight: 900;
+      color: var(--paper);
+      line-height: 0.95;
+    }
+
+    .cover-title em {
+      font-style: italic;
+      color: var(--gold-light);
+      font-weight: 700;
+    }
+
+    .cover-divider {
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 30px auto;
+    }
+
+    .cover-sub {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      color: rgba(242,237,230,0.6);
+      line-height: 1.8;
+    }
+
+    .cover-scroll {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      z-index: 2;
+    }
+
+    .cover-scroll span {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+
+    .cover-scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(180deg, var(--gold), transparent);
+    }
+
+    /* ==========================================================================
+       3. CORPS ÉDITORIAL DU LIVRE (STRATUM CLAIR)
+       ========================================================================== */
+    .book {
+      background: var(--paper);
+      padding-bottom: 60px;
+      position: relative;
+    }
+
+    .book::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--rust), var(--gold), var(--steel));
+    }
+
+    .chapter {
+      width: 100%;
+    }
+
+    .chapter-header {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 20px 40px;
+    }
+
+    .chapter-num {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--rust);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .chapter-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    /* ==========================================================================
+       4. LE SYSTÈME DE GRILLE (DESKTOP PAR DÉFAUT)
+       ========================================================================== */
+    .grid-layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 40px;
+    }
+
+    .text-column {
+      grid-column: 1 / span 8;
+    }
+
+    .side-column {
+      grid-column: 9 / span 4;
+      border-left: 1px solid rgba(14,12,10,0.1);
+      padding-left: 24px;
+      background: transparent !important;
+    }
+
+    /* Typographie textuelle */
+    p {
+      font-size: 1.2rem;
+      line-height: 1.7;
+      color: rgba(14,12,10,0.9);
+      margin-bottom: 24px;
+      text-align: justify;
+    }
+
+    .dropcap::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.5rem;
+      float: left;
+      margin-top: 4px;
+      margin-right: 10px;
+      line-height: 0.85;
+      font-weight: 900;
+      color: var(--rust);
+    }
+
+    .quote-block {
+      grid-column: 1 / -1;
+      font-size: 1.35rem;
+      font-style: italic;
+      color: var(--rust);
+      border-left: 3px solid var(--rust);
+      padding: 10px 0 10px 20px;
+      margin: 20px 0;
+    }
+
+    .quote-author {
+      display: block;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--steel);
+      margin-top: 8px;
+      text-transform: uppercase;
+    }
+
+    /* ==========================================================================
+       5. MÉTADONNÉES TECHNIQUES ÉPURÉES (EX-TERMINAUX)
+       ========================================================================== */
+    .system-meta {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--ink);
+    }
+
+    .system-meta-header {
+      font-size: 0.7rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--steel);
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+      border-bottom: 1px dashed rgba(14,12,10,0.15);
+    }
+
+    .meta-line {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .system-meta strong {
+      color: var(--rust);
+    }
+
+    /* Thématique alternative pour les archives historiques */
+    .rust-theme .system-meta-header {
+      color: var(--rust);
+      border-color: rgba(139,58,42,0.2);
+    }
+    .rust-theme strong {
+      color: var(--steel);
+    }
+
+    /* ==========================================================================
+       6. REGISTRE DES PORTRAITS (STRATUM NOIR SÉCURISÉ)
+       ========================================================================== */
+    .character-registry {
+      width: 100%;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 80px 20px;
+    }
+
+    .registry-title {
+      max-width: 1000px;
+      margin: 0 auto 40px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid rgba(160,132,68,0.2);
+      padding-bottom: 10px;
+    }
+
+    .character-grid {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .character-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(242,237,230,0.08);
+      border-radius: 2px;
+      overflow: hidden;
+      transition: border-color 0.3s ease;
+    }
+
+    .character-card:hover {
+      border-color: var(--gold);
+    }
+
+    .character-image-wrapper {
+      width: 100%;
+      height: 200px;
+    }
+
+    .placeholder-img {
+      width: 100%;
+      height: 100%;
+      opacity: 0.15;
+    }
+
+    .character-meta {
+      padding: 20px;
+    }
+
+    .character-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--paper);
+      margin-bottom: 12px;
+    }
+
+    .character-details {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
+      color: rgba(242,237,230,0.6);
+      line-height: 1.6;
+    }
+
+    .character-details strong {
+      color: var(--gold);
+    }
+
+    /* Carte à typographie purement console */
+    .tech-card {
+      display: flex;
+      align-items: center;
+    }
+
+    /* ==========================================================================
+       7. CODE RESPONSIVE COMPLÉMENTAIRE (BREAKPOINTS FLUIDES)
+       ========================================================================== */
+    @media (max-width: 850px) {
+      .grid-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding-bottom: 40px;
+      }
+
+      .text-column, .side-column {
+        width: 100%;
+      }
+
+      .side-column {
+        border-left: none;
+        border-top: 1px dashed rgba(14,12,10,0.15);
+        padding-left: 0;
+        padding-top: 24px;
+      }
+
+      p {
+        text-align: left;
+        font-size: 1.1rem;
+      }
+
+      .chapter-header {
+        padding-top: 50px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cover-title {
+        font-size: 2.2rem;
+      }
+      
+      .chapter-title {
+        font-size: 1.8rem;
+      }
+
+      .character-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -50,7 +464,7 @@
           <p>Le signal intercepté ne ressemblait à rien de connu. Ce n'était ni une transmission militaire chiffrée, ni le bruit de fond d'un satellite commercial en fin de vie. C'était une signature organique, une modulation d'entropie qui semblait respirer à travers le spectre radio.</p>
         </div>
 
-        <!-- Colonne Latérale (Métadonnées fluides, ex-rectangle noir) -->
+        <!-- Colonne Latérale (Métadonnées fluides, sans conteneur rigide) -->
         <aside class="side-column">
           <div class="system-meta">
             <div class="system-meta-header">Hardware Check // OS v4.12</div>
@@ -89,7 +503,7 @@
       </div>
     </article>
 
-    <!-- 3. REGISTRE DES PORTRAITS (SECTION NOIRE) -->
+    <!-- 3. REGISTRE DES PORTRAITS (SECTION NOIRE AUTONOME) -->
     <section class="character-registry">
       <h3 class="registry-title">Dossiers Personnels // Acteurs Clés</h3>
       
@@ -97,7 +511,6 @@
         <!-- Fiche Personnage 1 -->
         <article class="character-card">
           <div class="character-image-wrapper">
-            <!-- Remplacer par vos images réelles -->
             <div class="placeholder-img" style="background: var(--rust);"></div>
           </div>
           <div class="character-meta">
@@ -110,11 +523,11 @@
           </div>
         </article>
 
-        <!-- Fiche Personnage 2 (Exemple d'interception intégrée dans le noir) -->
+        <!-- Fiche Personnage 2 (Interception dans la grille de portraits) -->
         <article class="character-card tech-card">
           <div class="character-meta">
             <div class="system-meta-header" style="color: var(--phosphor); border-color: rgba(0,255,102,0.2);">SAT INTERCEPT // MERCUR-9</div>
-            <div class="character-details" style="font-family: 'Share Tech Mono', monospace;">
+            <div class="character-details" style="font-family: 'Share Tech Mono', monospace; color: rgba(255,255,255,0.75);">
               FREQ: 12.5 GHz [STABLE]<br>
               PACKET: Riga-Rotterdam Log<br>
               STEG_DETECTION: High Entropy<br>
@@ -129,279 +542,3 @@
 
 </body>
 </html>
-/* ── 1. INITIALISATION & SÉCURITÉ RESPONSIVE ── */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Ces deux règles empêchent mathématiquement tout élément de forcer un scroll à droite */
-html, body {
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-:root {
-  --ink: #0e0c0a;
-  --paper: #f2ede6;
-  --paper-dark: #e8e0d4;
-  --rust: #8b3a2a;
-  --rust-light: #c4513b;
-  --steel: #3a4a5c;
-  --steel-light: #5b7492;
-  --gold: #a08444;
-  --gold-light: #c9a85c;
-  --phosphor: #00ff66;
-  --phosphor-dim: #003311;
-}
-
-body {
-  background: var(--ink);
-  font-family: 'IM Fell English', serif;
-  color: var(--ink);
-  line-height: 1.6;
-}
-
-/* ── 2. COUVERTURE CYBER-LITTÉRAIRE ── */
-.cover {
-  min-height: 100vh;
-  background: var(--ink);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  padding: 40px 20px;
-  text-align: center;
-}
-
-/* Effet de grain de film analogique ultra-léger */
-.cover-noise {
-  position: absolute;
-  inset: 0;
-  opacity: 0.02;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-.cover-border {
-  position: absolute;
-  inset: 15px;
-  border: 1px solid rgba(160,132,68,0.15);
-  pointer-events: none;
-}
-
-.cover-content {
-  position: relative;
-  z-index: 2;
-  max-width: 800px;
-}
-
-.cover-eyebrow {
-  font-family: 'Share Tech Mono', monospace;
-  color: var(--gold);
-  font-size: 0.75rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-
-.cover-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.5rem, 7vw, 6rem);
-  font-weight: 900;
-  color: var(--paper);
-  line-height: 0.95;
-}
-
-.cover-title em {
-  font-style: italic;
-  color: var(--gold-light);
-  font-weight: 700;
-}
-
-.cover-divider {
-  width: 120px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  margin: 30px auto;
-}
-
-.cover-sub {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.8rem;
-  letter-spacing: 0.15em;
-  color: rgba(242,237,230,0.6);
-  line-height: 1.8;
-}
-
-/* Flèche de défilement */
-.cover-scroll {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  z-index: 2;
-}
-
-.cover-scroll span {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.65rem;
-  color: var(--gold);
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-}
-
-.cover-scroll-line {
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(180deg, var(--gold), transparent);
-}
-
-/* ── 3. CORPS ÉDITORIAL DU LIVRE ── */
-.book {
-  background: var(--paper);
-  padding-bottom: 60px;
-}
-
-/* Ligne supérieure décorative rappelant les trois trames du récit */
-.book::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--rust), var(--gold), var(--steel));
-}
-
-.chapter-header {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 80px 20px 40px;
-}
-
-.chapter-num {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.8rem;
-  color: var(--rust);
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-
-.chapter-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
-  color: var(--ink);
-}
-
-/* ── 4. LE SYSTÈME DE GRILLE PAR DÉFAUT (DESKTOP) ── */
-.grid-layout {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 20px 60px;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 40px;
-}
-
-.text-column {
-  grid-column: 1 / span 8; /* Prend 8 colonnes sur 12 */
-}
-
-.side-column {
-  grid-column: 9 / span 4; /* Prend les 4 colonnes restantes à droite */
-  border-left: 1px solid rgba(14,12,10,0.1);
-  padding-left: 24px;
-}
-
-/* Typographie du texte */
-p {
-  font-size: 1.2rem;
-  line-height: 1.7;
-  color: rgba(14,12,10,0.9);
-  margin-bottom: 24px;
-  text-align: justify;
-}
-
-.dropcap::first-letter {
-  font-family: 'Playfair Display', serif;
-  font-size: 4.5rem;
-  float: left;
-  margin-top: 4px;
-  margin-right: 10px;
-  line-height: 0.85;
-  font-weight: 900;
-  color: var(--rust);
-}
-
-/* Bloc de citation pleine largeur */
-.quote-block {
-  grid-column: 1 / -1; /* Occupe les 12 colonnes */
-  font-size: 1.35rem;
-  font-style: italic;
-  color: var(--rust);
-  border-left: 3px solid var(--rust);
-  padding: 10px 0 10px 20px;
-  margin: 20px 0;
-}
-
-.quote-author {
-  display: block;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.8rem;
-  color: var(--steel);
-  margin-top: 8px;
-  text-transform: uppercase;
-}
-/* ── 7. LE CODE RESPONSIVE COMPLÉMENTAIRE (MOBILE & TABLETTE) ── */
-@media (max-width: 850px) {
-  
-  /* On désactive la grille complexe pour passer en flux vertical simple */
-  .grid-layout {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    padding-bottom: 40px;
-  }
-
-  .text-column, .side-column {
-    width: 100%;
-  }
-
-  /* La colonne latérale s'intègre comme une note de fin de paragraphe */
-  .side-column {
-    border-left: none;
-    border-top: 1px dashed rgba(14,12,10,0.15);
-    padding-left: 0;
-    padding-top: 20px;
-  }
-
-  p {
-    text-align: left; /* Plus agréable à lire sur petit écran que le texte justifié */
-    font-size: 1.1rem;
-  }
-
-  .chapter-header {
-    padding-top: 50px;
-  }
-}
-
-@media (max-width: 480px) {
-  .cover-title {
-    font-size: 2.2rem;
-  }
-  
-  .chapter-title {
-    font-size: 1.8rem;
-  }
-
-  .character-grid {
-    grid-template-columns: 1fr; /* Une seule colonne de cartes sur très petit téléphone */
-  }
-}
