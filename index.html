@@ -8,6 +8,83 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Share+Tech+Mono&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
 <style>
+  /* ── REGISTRE DES PORTRAITS DE PERSONNAGES ── */
+  .character-registry {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    background: var(--ink);
+  }
+
+  .registry-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 40px;
+    border-bottom: 1px solid rgba(160,132,68,0.2);
+    padding-bottom: 10px;
+  }
+
+  .character-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+  }
+
+  .character-card {
+    background: #121110;
+    border: 1px solid rgba(91, 116, 146, 0.2); /* Bordure couleur Steel */
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+    transition: border-color 0.3s ease;
+  }
+
+  .character-card:hover {
+    border-color: var(--gold);
+  }
+
+  .character-image-wrapper {
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+    position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .character-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(20%) contrast(110%);
+  }
+
+  .character-meta {
+    padding: 20px;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .character-name {
+    font-size: 1rem;
+    color: var(--paper);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px dashed rgba(252, 237, 230, 0.1);
+    padding-bottom: 6px;
+  }
+
+  .character-details {
+    font-size: 0.75rem;
+    color: rgba(252, 237, 230, 0.7);
+    line-height: 1.6;
+  }
+
+  .character-details strong {
+    color: var(--gold-light);
+  }
   :root {
     --ink: #0e0c0a;
     --paper: #f2ede6;
@@ -266,7 +343,55 @@
 </style>
 </head>
 <body>
+<section class="character-registry">
+    <h3 class="registry-title">Dossiers Profils // Opérateurs Clés</h3>
+    
+    <div class="character-grid">
+      
+      <article class="character-card">
+        <div class="character-image-wrapper">
+          <img src="chemin_vers_image_gwenn.png" alt="Portrait de Gwenn">
+        </div>
+        <div class="character-meta">
+          <div class="character-name">Opérateur G-40 // GWENN</div>
+          <div class="character-details">
+            <strong>STATUT :</strong> Actif<br>
+            <strong>RÔLE :</strong> 'Tech Cowboy' / Cyber-Revitalisé<br>
+            <strong>ACCÈS :</strong> Classe C (Contrebande Amstrad)
+          </div>
+        </div>
+      </article>
 
+      <article class="character-card">
+        <div class="character-image-wrapper">
+          <img src="chemin_vers_image_vera.png" alt="Portrait de Vera">
+        </div>
+        <div class="character-meta">
+          <div class="character-name">Technicienne A-11 // VERA</div>
+          <div class="character-details">
+            <strong>STATUT :</strong> Actif<br>
+            <strong>RÔLE :</strong> Revitalisation Hardware & Cartographie<br>
+            <strong>ACCÈS :</strong> Classe A (Atelier N°9)
+          </div>
+        </div>
+      </article>
+
+      <article class="character-card">
+        <div class="character-image-wrapper">
+          <img src="chemin_vers_image_moira.png" alt="Portrait de MOIRA">
+        </div>
+        <div class="character-meta">
+          <div class="character-name">Unité Infomédiaire // MOIRA</div>
+          <div class="character-details">
+            <strong>STATUT :</strong> Chiffré / Rétention Volontaire<br>
+            <strong>RÔLE :</strong> Navigation de Données & Routage<br>
+            <strong>ORIGINE :</strong> Noyau Impérial OIKOS-NET
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
   <section class="cover">
     <div class="cover-noise"></div>
     <div class="cover-border"></div>
