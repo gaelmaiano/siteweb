@@ -16,13 +16,7 @@
   overflow-wrap: break-word;
   word-break: break-word;
 }
-  @media (max-width: 600px) {
-  /* ... */
-
-  .terminal-header {
-    font-size: 0.55rem; /* Diminue légèrement la taille de la police pour que tout entre */
-    letter-spacing: 0.05em; /* Resserre un peu le grand espacement des lettres (0.1em à l'origine) */
-  }
+ 
 }
   .terminal-log {
     font-size: 0.75rem;
@@ -356,12 +350,35 @@
     grid-column: 1 / -1;
   }
 
-  /* Responsive Général */
-  @media (max-width: 900px) {
-    .text-column, .side-column { grid-column: 1 / -1; }
-    .side-column { border-left: none; padding-left: 0; border-top: 1px solid rgba(14,12,10,0.1); padding-top: 40px; }
-    p { text-align: left; font-size: 1.15rem; }
+  //* Responsive Général */
+@media (max-width: 900px) {
+  .grid-layout {
+    display: flex; /* On casse la grille rigide pour passer en flux vertical flexible */
+    flex-direction: column;
+    padding: 0 20px 60px; /* Alignement des paddings avec la MQ 600px */
   }
+
+  .text-column, .side-column { 
+    width: 100%; /* Occupation totale de l'espace disponible */
+    max-width: 100%;
+    grid-column: auto; 
+  }
+
+  .side-column { 
+    border-left: none; 
+    padding-left: 0; 
+    border-top: 1px solid rgba(14,12,10,0.1); 
+    padding-top: 40px; 
+  }
+  
+  .terminal-card {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box; /* Assure que les paddings internes ne font pas grossir la boîte */
+  }
+
+  p { text-align: left; font-size: 1.15rem; }
+}
 </style>
 </head>
 <body>
