@@ -8,6 +8,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Share+Tech+Mono&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
 <style>
+  * { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+  /* Sécurité anti-débordement textuel */
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
   @media (max-width: 600px) {
   .cover-title { font-size: clamp(2rem, 12vw, 3.5rem); }
   .chapter-header { padding: 80px 20px 40px; }
