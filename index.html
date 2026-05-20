@@ -17,14 +17,19 @@
   word-break: break-word;
 }
   @media (max-width: 600px) {
-  .cover-title { font-size: clamp(2rem, 12vw, 3.5rem); }
-  .chapter-header { padding: 80px 20px 40px; }
-  .grid-layout { padding: 0 20px 60px; gap: 30px; }
-  .character-registry { padding: 40px 20px; }
-  p { font-size: 1rem; }
-  .quote-block { font-size: 1.1rem; padding-left: 16px; }
-  .terminal-card { padding: 14px; }
-  .terminal-log { font-size: 0.7rem; }
+  /* ... vos règles existantes (cover-title, padding, etc.) ... */
+
+  .terminal-header {
+    flex-direction: column; /* Aligne les deux textes l'un au-dessus de l'autre */
+    align-items: flex-start; /* Les aligne tous les deux à gauche */
+    gap: 4px; /* Ajoute un léger espace vertical entre les deux mentions */
+  }
+  
+  .terminal-log {
+    font-size: 0.75rem;
+    overflow-wrap: break-word; /* Sécurité si un identifiant technique est trop long */
+    word-break: break-all;
+  }
 }
   /* ── REGISTRE DES PORTRAITS DE PERSONNAGES ── */
   .character-registry {
