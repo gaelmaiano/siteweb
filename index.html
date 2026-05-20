@@ -17,14 +17,13 @@
   word-break: break-word;
 }
   @media (max-width: 600px) {
-  /* ... vos règles existantes (cover-title, padding, etc.) ... */
+  /* ... */
 
   .terminal-header {
-    flex-direction: column; /* Aligne les deux textes l'un au-dessus de l'autre */
-    align-items: flex-start; /* Les aligne tous les deux à gauche */
-    gap: 4px; /* Ajoute un léger espace vertical entre les deux mentions */
+    font-size: 0.55rem; /* Diminue légèrement la taille de la police pour que tout entre */
+    letter-spacing: 0.05em; /* Resserre un peu le grand espacement des lettres (0.1em à l'origine) */
   }
-  
+}
   .terminal-log {
     font-size: 0.75rem;
     overflow-wrap: break-word; /* Sécurité si un identifiant technique est trop long */
