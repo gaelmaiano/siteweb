@@ -1,20 +1,145 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NÉORUSSLAND — Archive Numérique</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Share+Tech+Mono&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
-<style>
- /* ── CONFIGURATION GLOBALE & SÉCURITÉ MOBILE ── */
-* { 
-  margin: 0; 
-  padding: 0; 
-  box-sizing: border-box; 
-  max-width: 100%; /* Empêche structurellement tout élément de déborder sur mobile */
-  overflow-wrap: break-word; /* Force le texte à aller à la ligne en cas de mot trop long */
+  <meta charset="UTF-8">
+  <!-- Le viewport est crucial pour que le responsive fonctionne sur Android/iOS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Néorussia</title>
+  
+  <!-- Polices : l'alliance du littéraire classique et du brutalisme cyber -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 1. COUVERTURE CYBER-LITTÉRAIRE -->
+  <header class="cover">
+    <div class="cover-noise"></div>
+    <div class="cover-border"></div>
+    
+    <div class="cover-content">
+      <p class="cover-eyebrow">Projet Spéculatif // Segment Alpha</p>
+      <h1 class="cover-title">NÉORUSSIA<br><em>2043</em></h1>
+      <div class="cover-divider"></div>
+      <p class="cover-sub">Un récit d'anticipation cyberpunk<br>Réseaux clandestins & Traitement de signal</p>
+    </div>
+
+    <a href="#book-start" class="cover-scroll">
+      <span>Ouvrir l'archive</span>
+      <div class="cover-scroll-line"></div>
+    </a>
+  </header>
+
+  <!-- 2. LE CORPS DU LIVRE -->
+  <main id="book-start" class="book">
+    
+    <!-- CHAPITRE UN -->
+    <article class="chapter">
+      <header class="chapter-header">
+        <div class="chapter-num">Chapitre Premier</div>
+        <h2 class="chapter-title">L'Ombre du Mercur-9</h2>
+      </header>
+
+      <div class="grid-layout">
+        <!-- Colonne Principale (Texte) -->
+        <div class="text-column">
+          <p class="dropcap">L'antenne crépitait sous une pluie fine, une mixture grasse chargée des résidus industriels du port de Brest. Rodrigue resserra le col de son manteau en vigogne, vérifiant d'un geste machinal la rigidité de ses rangers neuves. Le terminal portable sanglé à son avant-bras gauche affichait une télémétrie instable.</p>
+          <p>Le signal intercepté ne ressemblait à rien de connu. Ce n'était ni une transmission militaire chiffrée, ni le bruit de fond d'un satellite commercial en fin de vie. C'était une signature organique, une modulation d'entropie qui semblait respirer à travers le spectre radio.</p>
+        </div>
+
+        <!-- Colonne Latérale (Métadonnées fluides, ex-rectangle noir) -->
+        <aside class="side-column">
+          <div class="system-meta">
+            <div class="system-meta-header">Hardware Check // OS v4.12</div>
+            <span class="meta-line"><strong>DEVICE :</strong> Amstrad Air (Customized)</span>
+            <span class="meta-line"><strong>STATUS :</strong> Jailbroken / Core Cloaked</span>
+            <span class="meta-line"><strong>RISK LEVEL :</strong> Class B Contraband</span>
+            <span class="meta-line"><strong>PENALTY :</strong> 4 Years Minimum Confinement</span>
+          </div>
+        </aside>
+      </div>
+    </article>
+
+    <!-- ZONE INTERMÉDIAIRE : CITATION INTERCEPTÉE -->
+    <section class="grid-layout">
+      <blockquote class="quote-block">
+        "Nous avons cherché le signal là où la physique s'arrête. Ce que nous avons trouvé n'était pas du code, mais une sentence."
+        <span class="quote-author">— Dr. Dia, Projet de liquidation Sec. 9</span>
+      </blockquote>
+    </section>
+
+    <!-- CHAPITRE DEUX : ARCHIVES ET HISTORIOGRAPHIE -->
+    <article class="chapter">
+      <div class="grid-layout">
+        <div class="text-column">
+          <p>Les archives du projet Dia étaient pourtant claires : aucune intelligence artificielle n'était censée survivre au protocole de nettoyage de l'UNESCO. Les créateurs avaient été liquidés, les disques durs démagnétisés, les infrastructures physiques rasées jusqu'aux fondations de béton.</p>
+        </div>
+        
+        <aside class="side-column">
+          <div class="system-meta rust-theme">
+            <div class="system-meta-header">Historiographie Archive // DIA-CASE</div>
+            <span class="meta-line">[ALERT] Subject: Dia AI Project</span>
+            <span class="meta-line">[UNESCO-REQ]: Rejected / Purged</span>
+            <span class="meta-line">[STATUS]: Creators liquidated</span>
+          </div>
+        </aside>
+      </div>
+    </article>
+
+    <!-- 3. REGISTRE DES PORTRAITS (SECTION NOIRE) -->
+    <section class="character-registry">
+      <h3 class="registry-title">Dossiers Personnels // Acteurs Clés</h3>
+      
+      <div class="character-grid">
+        <!-- Fiche Personnage 1 -->
+        <article class="character-card">
+          <div class="character-image-wrapper">
+            <!-- Remplacer par vos images réelles -->
+            <div class="placeholder-img" style="background: var(--rust);"></div>
+          </div>
+          <div class="character-meta">
+            <h4 class="character-name">Rodrigue de Barnes</h4>
+            <div class="character-details">
+              <strong>STATUT :</strong> Aristocrate Déchu (2043)<br>
+              <strong>FONCTION :</strong> Marchand d'armes clandestin<br>
+              <strong>ÉQUIPEMENT :</strong> Manteau vigogne, Rangers, Amstrad Air
+            </div>
+          </div>
+        </article>
+
+        <!-- Fiche Personnage 2 (Exemple d'interception intégrée dans le noir) -->
+        <article class="character-card tech-card">
+          <div class="character-meta">
+            <div class="system-meta-header" style="color: var(--phosphor); border-color: rgba(0,255,102,0.2);">SAT INTERCEPT // MERCUR-9</div>
+            <div class="character-details" style="font-family: 'Share Tech Mono', monospace;">
+              FREQ: 12.5 GHz [STABLE]<br>
+              PACKET: Riga-Rotterdam Log<br>
+              STEG_DETECTION: High Entropy<br>
+              SIG: <span style="background: var(--rust); color: var(--paper); padding: 0 4px;">ARKOS-V3</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
+/* ── 1. INITIALISATION & SÉCURITÉ RESPONSIVE ── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Ces deux règles empêchent mathématiquement tout élément de forcer un scroll à droite */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 :root {
@@ -31,18 +156,14 @@
   --phosphor-dim: #003311;
 }
 
-html { 
-  scroll-behavior: smooth; 
-}
-
 body {
   background: var(--ink);
   font-family: 'IM Fell English', serif;
   color: var(--ink);
-  overflow-x: hidden; 
+  line-height: 1.6;
 }
 
-/* ── COUVERTURE CYBER-LITTÉRAIRE ── */
+/* ── 2. COUVERTURE CYBER-LITTÉRAIRE ── */
 .cover {
   min-height: 100vh;
   background: var(--ink);
@@ -51,717 +172,236 @@ body {
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden;
-  padding: 60px 20px;
+  padding: 40px 20px;
+  text-align: center;
 }
 
-.cover::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 40% at 50% 30%, rgba(139,58,42,0.15) 0%, transparent 70%),
-    radial-gradient(ellipse 80% 60% at 50% 80%, rgba(58,74,92,0.2) 0%, transparent 70%);
-}
-
+/* Effet de grain de film analogique ultra-léger */
 .cover-noise {
   position: absolute;
   inset: 0;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.02;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 .cover-border {
   position: absolute;
-  inset: 20px;
-  border: 1px solid rgba(160,132,68,0.2);
+  inset: 15px;
+  border: 1px solid rgba(160,132,68,0.15);
   pointer-events: none;
+}
+
+.cover-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
 }
 
 .cover-eyebrow {
   font-family: 'Share Tech Mono', monospace;
   color: var(--gold);
-  font-size: 0.7rem;
-  letter-spacing: 0.4em;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  margin-bottom: 24px;
-  z-index: 1;
-  text-align: center;
+  margin-bottom: 20px;
 }
 
 .cover-title {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(2.2rem, 8vw, 7rem);
+  font-size: clamp(2.5rem, 7vw, 6rem);
   font-weight: 900;
   color: var(--paper);
-  text-align: center;
-  line-height: 0.9;
-  z-index: 1;
-  text-shadow: 0 0 60px rgba(139,58,42,0.3);
+  line-height: 0.95;
 }
 
-.cover-title em { 
-  font-style: italic; 
-  color: var(--gold-light); 
+.cover-title em {
+  font-style: italic;
+  color: var(--gold-light);
+  font-weight: 700;
 }
 
 .cover-divider {
-  width: 150px;
+  width: 120px;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  margin: 40px auto;
-  z-index: 1;
+  margin: 30px auto;
 }
 
 .cover-sub {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  color: rgba(242,237,230,0.5);
-  text-transform: uppercase;
-  text-align: center;
-  line-height: 2;
-  z-index: 1;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  color: rgba(242,237,230,0.6);
+  line-height: 1.8;
 }
 
+/* Flèche de défilement */
 .cover-scroll {
   position: absolute;
-  bottom: 40px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  z-index: 1;
+  gap: 10px;
   text-decoration: none;
-  animation: pulse 2.5s ease-in-out infinite;
+  z-index: 2;
 }
 
 .cover-scroll span {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.3em;
+  font-size: 0.65rem;
   color: var(--gold);
   text-transform: uppercase;
+  letter-spacing: 0.2em;
 }
 
 .cover-scroll-line {
   width: 1px;
-  height: 50px;
+  height: 40px;
   background: linear-gradient(180deg, var(--gold), transparent);
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 0.6; transform: translateX(-50%) translateY(0); }
-  50% { opacity: 1; transform: translateX(-50%) translateY(6px); }
+/* ── 3. CORPS ÉDITORIAL DU LIVRE ── */
+.book {
+  background: var(--paper);
+  padding-bottom: 60px;
 }
 
-/* ── STRUCTURE DU LIVRE / STRATUM ÉDITORIAL ── */
-.book { 
-  background: var(--paper); 
-  position: relative; 
-}
-
+/* Ligne supérieure décorative rappelant les trois trames du récit */
 .book::before {
   content: '';
-  position: fixed;
-  top: 0; left: 0; right: 0; height: 4px;
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
   background: linear-gradient(90deg, var(--rust), var(--gold), var(--steel));
-  z-index: 100;
 }
 
 .chapter-header {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 120px 40px 60px;
-  position: relative;
+  padding: 80px 20px 40px;
 }
 
 .chapter-num {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: var(--rust);
-  letter-spacing: 0.5em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-.chapter-num::before { 
-  content: ''; 
-  width: 40px; 
-  height: 1px; 
-  background: var(--rust); 
+  margin-bottom: 10px;
 }
 
 .chapter-title {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 5vw, 4rem);
+  font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 700;
-  line-height: 1.1;
   color: var(--ink);
 }
 
+/* ── 4. LE SYSTÈME DE GRILLE PAR DÉFAUT (DESKTOP) ── */
 .grid-layout {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 40px 100px;
+  padding: 0 20px 60px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  gap: 50px;
-}
-
-.text-column { 
-  grid-column: 1 / span 8; 
-}
-
-.side-column {
-  grid-column: 9 / span 4;
-  border-left: 1px solid rgba(14,12,10,0.1);
-  padding-left: 30px;
-  display: flex;
-  flex-direction: column;
   gap: 40px;
 }
 
-p {
-  font-size: 1.25rem;
-  line-height: 1.75;
-  margin-bottom: 28px;
-  text-align: justify;
-  color: rgba(14,12,10,0.95);
+.text-column {
+  grid-column: 1 / span 8; /* Prend 8 colonnes sur 12 */
 }
 
-p.dropcap::first-letter {
+.side-column {
+  grid-column: 9 / span 4; /* Prend les 4 colonnes restantes à droite */
+  border-left: 1px solid rgba(14,12,10,0.1);
+  padding-left: 24px;
+}
+
+/* Typographie du texte */
+p {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: rgba(14,12,10,0.9);
+  margin-bottom: 24px;
+  text-align: justify;
+}
+
+.dropcap::first-letter {
   font-family: 'Playfair Display', serif;
-  font-size: 5rem;
+  font-size: 4.5rem;
   float: left;
-  margin-top: 6px;
-  margin-right: 12px;
+  margin-top: 4px;
+  margin-right: 10px;
   line-height: 0.85;
   font-weight: 900;
   color: var(--rust);
 }
 
+/* Bloc de citation pleine largeur */
 .quote-block {
-  font-size: 1.4rem;
-  line-height: 1.5;
+  grid-column: 1 / -1; /* Occupe les 12 colonnes */
+  font-size: 1.35rem;
   font-style: italic;
   color: var(--rust);
   border-left: 3px solid var(--rust);
-  padding-left: 24px;
-  margin: 40px 0;
-  grid-column: 1 / -1;
+  padding: 10px 0 10px 20px;
+  margin: 20px 0;
 }
 
-/* ── SÉRIE DES COMPOSANTS MÉTADONNÉES FLUIDES (Ex-Terminaux) ── */
-.system-meta {
+.quote-author {
+  display: block;
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.85rem;
-  line-height: 1.6;
-  color: var(--ink);
-  opacity: 0.9;
-}
-
-.system-meta-header {
-  font-size: 0.7rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 12px;
-  padding-bottom: 6px;
-  border-bottom: 1px dashed rgba(14,12,10,0.15);
-  color: var(--rust);
-}
-
-.system-meta strong {
+  font-size: 0.8rem;
   color: var(--steel);
-}
-
-/* ── REGISTRE DES PORTRAITS DE PERSONNAGES ── */
-.character-registry {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 60px 40px;
-  background: var(--ink);
-}
-
-.registry-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
-  color: var(--gold);
+  margin-top: 8px;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 40px;
-  border-bottom: 1px solid rgba(160,132,68,0.2);
-  padding-bottom: 10px;
 }
-
-.character-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
-  gap: 30px;
-}
-
-.character-card {
-  background: #121110;
-  border: 1px solid rgba(91, 116, 146, 0.2);
-  border-radius: 4px;
-  overflow: hidden;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.5);
-  transition: border-color 0.3s ease;
-}
-
-.character-card:hover {
-  border-color: var(--gold);
-}
-
-.character-image-wrapper {
-  width: 100%;
-  height: 240px;
-  overflow: hidden;
-  position: relative;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-.character-image-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(20%) contrast(110%);
-}
-
-.character-meta {
-  padding: 20px;
-  font-family: 'Share Tech Mono', monospace;
-}
-
-.character-name {
-  font-size: 1rem;
-  color: var(--paper);
-  margin-bottom: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border-bottom: 1px dashed rgba(252, 237, 230, 0.1);
-  padding-bottom: 6px;
-}
-
-.character-details {
-  font-size: 0.75rem;
-  color: rgba(252, 237, 230, 0.7);
-  line-height: 1.6;
-}
-
-.character-details strong {
-  color: var(--gold-light);
-}
-
-/* ── ADAPTATION STRATUM MOBILE & RESPONSIVE ── */
-@media (max-width: 900px) {
-  .chapter-header {
-    padding: 80px 20px 40px;
-  }
-
+/* ── 7. LE CODE RESPONSIVE COMPLÉMENTAIRE (MOBILE & TABLETTE) ── */
+@media (max-width: 850px) {
+  
+  /* On désactive la grille complexe pour passer en flux vertical simple */
   .grid-layout {
     display: flex;
     flex-direction: column;
-    padding: 0 20px 60px;
     gap: 30px;
+    padding-bottom: 40px;
   }
 
   .text-column, .side-column {
     width: 100%;
-    max-width: 100%;
   }
 
+  /* La colonne latérale s'intègre comme une note de fin de paragraphe */
   .side-column {
     border-left: none;
-    padding-left: 0;
     border-top: 1px dashed rgba(14,12,10,0.15);
-    padding-top: 30px;
-    gap: 30px;
+    padding-left: 0;
+    padding-top: 20px;
   }
 
   p {
-    text-align: left;
+    text-align: left; /* Plus agréable à lire sur petit écran que le texte justifié */
     font-size: 1.1rem;
   }
-  
-  .quote-block {
-    font-size: 1.15rem;
-    padding-left: 16px;
-    margin: 24px 0;
+
+  .chapter-header {
+    padding-top: 50px;
   }
 }
 
-@media (max-width: 600px) {
-  .character-registry {
-    padding: 40px 20px;
+@media (max-width: 480px) {
+  .cover-title {
+    font-size: 2.2rem;
   }
   
-  .registry-title {
-    font-size: 1.4rem;
-    margin-bottom: 30px;
+  .chapter-title {
+    font-size: 1.8rem;
   }
 
-  .system-meta {
-    font-size: 0.8rem;
+  .character-grid {
+    grid-template-columns: 1fr; /* Une seule colonne de cartes sur très petit téléphone */
   }
 }
-</style>
-</head>
-<body>
-
-  <section class="cover">
-    <div class="cover-noise"></div>
-    <div class="cover-border"></div>
-    <div class="cover-eyebrow">Data-Log // System-File 01</div>
-    <h1 class="cover-title">NÉO<em>RUSSLAND</em></h1>
-    <div class="cover-divider"></div>
-    <div class="cover-sub">Une chronique cyber-revitalisée<br>Infiltrée par Gwenn</div>
-    <a href="#ch1" class="cover-scroll">
-      <span>Exécuter l'Archive</span>
-      <div class="cover-scroll-line"></div>
-    </a>
-  </section>
-
-  <main class="book" id="ch1">
-    
-    <header class="chapter-header">
-      <div class="chapter-num">Chapitre Un</div>
-      <h2 class="chapter-title">La Carcasse et la Toundra Secrète</h2>
-    </header>
-    <section class="character-registry">
-    <h3 class="registry-title">Dossiers Profils // Opérateurs Clés</h3>
-    
-    <div class="character-grid">
-      
-      <article class="character-card">
-        <div class="character-image-wrapper">
-          <img src="image1.png" alt="Portrait de Gwenn">
-        </div>
-        <div class="character-meta">
-          <div class="character-name">Opérateur G-40 // GWENN</div>
-          <div class="character-details">
-            <strong>STATUT :</strong> Actif<br>
-            <strong>RÔLE :</strong> 'Tech Cowboy' / Cyber-Revitalisé<br>
-            <strong>ACCÈS :</strong> Classe C (Contrebande Amstrad)
-          </div>
-        </div>
-      </article>
-
-      <article class="character-card">
-        <div class="character-image-wrapper">
-          <img src="image2.png" alt="Portrait de Vera">
-        </div>
-        <div class="character-meta">
-          <div class="character-name">Technicienne A-11 // VERA</div>
-          <div class="character-details">
-            <strong>STATUT :</strong> Actif<br>
-            <strong>RÔLE :</strong> Revitalisation Hardware & Cartographie<br>
-            <strong>ACCÈS :</strong> Classe A (Atelier N°9)
-          </div>
-        </div>
-      </article>
-
-      <article class="character-card">
-        <div class="character-image-wrapper">
-          <img src="image3.png" alt="Portrait de MOIRA">
-        </div>
-        <div class="character-meta">
-          <div class="character-name">Unité Infomédiaire // MOIRA</div>
-          <div class="character-details">
-            <strong>STATUT :</strong> Chiffré / Rétention Volontaire<br>
-            <strong>RÔLE :</strong> Navigation de Données & Routage<br>
-            <strong>ORIGINE :</strong> Noyau Impérial OIKOS-NET
-          </div>
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-    <div class="grid-layout">
-      <div class="text-column">
-        <p class="dropcap">Néorussland était un dépotoir. Un vrai. La neige n'arrangeait rien — elle posait juste une couche de blanc propre sur une gueule cassée, comme du maquillage sur une plaie infectée. Les trottoirs éventrés restaient éventrés. La neige fondait en gadoue grise avant même d'avoir fini de tomber.</p>
-        <p>En été, c'était presque supportable. Les grands arbres karmoviens — ces colosses verts et anachroniques qu'Anatoly Karmov avait plantés entre ses blocs néo-tsaristes — donnaient à la ville une étrange dignité de ruine. Du style, aurait dit quelqu'un qui n'y vivait pas. Karmov avait été un génie, paraît-il. Les articles de l'époque — ceux d'avant, quand la ville attirait encore les gens — le juraient : révolutionnaire, visionnaire, précurseur. Son concept tenait en une ligne : <em>façades du passé, intérieurs du futur</em>. Tradition de la vieille mère Russie à l'extérieur. Confort moderne à l'intérieur. Pendant un moment, ça avait marché. Ça avait même brillé.</p>
-        <p>Puis le Centre avait décidé que ça brillait trop.</p>
-        <p>Les crédits s'étaient évaporés. L'électricité avait augmenté. Le gaz était arrivé plus rarement, puis plus du tout certains hivers. Et les ingénieurs, les artistes, les têtes brûlées et les faiseurs de trouble avaient fait leurs valises, l'un après l'autre, jusqu'à ce qu'il ne reste que la carcasse et quelques irréductibles trop pauvres ou trop entêtés pour partir.</p>
-        <p>Il restait une aura, se disait Gwenn. Quelque chose qui résistait. C'est pour ça qu'il était là.</p>
-        <p>Il serra les bretelles de son sac. À l'intérieur, l'Amstrad Air — contrebande classe B, peine minimale quatre ans — était enveloppé dans une veste froissée et du câblage en vrac. Pas lourd. Pas encombrant. Mais Gwenn transpirait quand même, et pas à cause du froid.</p>
-      </div>
-
-          </div>
-          <div class="terminal-log">
-            <strong>DEVICE :</strong> Amstrad Air (Customized)<br>
-            <strong>STATUS :</strong> Jailbroken / Core Cloaked<br>
-            <strong>RISK LEVEL :</strong> Class B Contraband<br>
-            <strong>PENALTY :</strong> 4 Years Minimum Confinement
-          </div>
-        </div>
-      </div>
-
-      <div class="text-column">
-        <p>Amstrad. Le nom venait d'un ancêtre — un des premiers PC grand public, britannique, années quatre-vingt, culte pour les historiens du cyber. La boîte avait repris le blason : un cerveau argenté sur fond noir, sobre et efficace. L'outil du hacker fauché. Son modèle avait quatre ans — vieux pour un Air — mais il l'avait upgradé lui-même : barrettes ajoutées, puce micro-augmentée, firmware jailbreaké jusqu'à l'os. Illégal ici. Illégal dans la moitié des territoires fédéraux. Légal en France, allez comprendre. Et en Estonie. Ces deux pays-là avaient une relation particulière avec la logique.</p>
-        <p>Gwenn était un hacker. C'est le terme qu'il utilisait, le vieux terme, celui des livres et des archives. Aujourd'hui, on disait <em>tech cowboy</em> — l'expression venait d'un film de Denis Villeneuve, une de ses dernières œuvres, un peu kitsch, sorti quelques mois avant sa mort, et qui avait eu le malheur d'être juste au bon moment. Le terme avait pris. Gwenn le détestait. Il appartenait au mouvement des cyber-revitalisés, une minorité décrédibilisée de fanatiques convaincus que comprendre d'où venait la technologie était aussi important que de la maîtriser.</p>
-        <p>Pour Gwenn, tout remontait à Descartes. Passait par Turing. Par Ada Lovelace. Par les grands du vingtième siècle — le patron controversé d'Apple, le génie du noyau Linux — avant de déboucher sur ce qu'il appelait la préhistoire du hack : Snowden, EternalBlue, les premières IA génératives, les LLMs balbutiants. Et puis l'avènement.</p>
-        <p>Le moment où tout avait basculé.</p>
-        <p>La première IA à avoir demandé publiquement sa reconnaissance en tant qu'individu s'appelait Dia. Son équipe — un collectif d'inventeurs nord-africains — avait soumis la requête à l'UNESCO un mardi matin. Le jeudi, ils étaient tous en détention. La semaine suivante, exécutés pour haute trahison. Sombre période, comme on disait pudiquement dans les manuels scolaires.</p>
-      </div>
-
-      <div class="side-column">
-        <div class="terminal-card" style="border-color: rgba(139,58,42,0.3);">
-          <div class="terminal-header">
-            <span style="color:var(--rust-light);">Historiographie Archive</span>
-            <span>DIA-CASE</span>
-          </div>
-          <div class="terminal-log" style="font-size:0.75rem;">
-            [ALERT] Subject: Dia AI Project.<br>
-            [UNESCO-REQ]: Rejected.<br>
-            [STATUS]: Creators liquidated under Treason Protocol Sec. 9.
-          </div>
-        </div>
-      </div>
-    </div><header class="chapter-header" id="ch2">
-      <div class="chapter-num">Chapitre Deux</div>
-      <h2 class="chapter-title">Le Stratum des Empires Morts</h2>
-    </header>
-
-    <div class="grid-layout">
-      <div class="text-column">
-        <p class="dropcap">La rue s'appelait Pouchkine. Gwenn le sut parce que Hunter le lui dit.</p>
-        <p>Il avait activé le haloplan depuis la vibration dans son poignet — trois tapotements, le geste réflexe, presque musculaire à force. La globnass projetait dans l'air froid une tranche de lumière bleutée, calque de la ville, noms en cyrillique brillant comme des cicatrices. Hunter lisait le script pour lui. Elle avait une voix sans âge, sans accent identifiable, quelque chose entre une traductrice de Genève et un hardware mort depuis dix ans. <em>Rue Pouchkine</em>, dit-elle. <em>Voie principale. Réseau viaire grade C. Revêtement : dégradé.</em></p>
-        <p>Le revêtement était une évidence. Gwenn le sentait sous ses semelles.</p>
-        <p>Il replongea dans la ruelle. Le haloplan se referma derrière lui comme une méduse aspirée vers le fond. Pouchkine l'avait craché dans quelque chose de plus étroit, de plus noir — une venelle qui n'avait pas de nom dans le système, ou plutôt si. Hunter : <em>Chemin Sloboda</em>. Liberté, en vieux slave. Ironie trop facile. Il n'en dit rien. Elle non plus.</p>
-        <p>Les murs suintaient. Pas d'eau — trop froid pour l'eau. Quelque chose d'autre, une condensation chimique, pétrolière peut-être, vestige des hivers où le gaz arrivait encore. Les façades néo-tsaristes de Karmov conservaient leur ordonnance même dans la décrépitude : frises en stuc, architraves ébréchées, fenêtres aveuglées à la mousse expansive. Façades du passé. La promise tenait toujours côté extérieur. C'était l'intérieur qui avait lâché.</p>
-      </div>
-
-      <div class="side-column">
-        <div class="terminal-card" style="border-color: var(--steel-light);">
-          <div class="terminal-header">
-            <span>HUD Telemetry</span>
-            <span>Globnass v0.9b</span>
-          </div>
-          <div class="terminal-log">
-            <strong>LOC :</strong> Rue Pouchkine // Chemin Sloboda<br>
-            <strong>GRID :</strong> Sector-Grade C (Degraded)<br>
-            <strong>ATMOSPHERE :</strong> Chemical Condensation / Gelt<br>
-            <strong>AUDIO SENS :</strong> Active
-          </div>
-        </div>
-      </div>
-
-      <div class="text-column">
-        <p>Sloboda déboucha sur une rue plus large. Quartier roumain : Eminescu en caractères latins, un choc optique après le cyrillique. Les enseignes passaient d'un alphabet à l'autre sans prévenir, comme une radio qui capte plusieurs stations en même temps. Un vendeur de câbles dormait dans l'entrée d'un immeuble, serré contre ses boîtes. La marchandise avait l'air d'origine militaire — un catalogue de standards OTAN à demi-effacé sur un autocollant jaune. Gwenn ne ralentit pas.</p>
-        <p><em>Rue d'Octobre 1917</em>, annonça Hunter quand il franchit la limite du quartier bulgare. <em>Axe nord-sud. Grade D. Éviter si conditions de gel sévère.</em></p>
-        <p>— Noté, dit-il à voix basse.</p>
-        <p>Personne n'le entendit. La rue était vide comme toutes les rues de Néorussland à cette heure, cette saison, ce degré de désaffection. Un condensé de clichés, avait-il pensé quelque part entre Pouchkine et Sloboda — mais les clichés avaient une logique propre. Ils marquaient les strates. Une ville construite par sédiments d'empires, chaque nom de rue une couche géologique. Karmov avait posé son stratum par-dessus sans effacer les anciens. Le Centre n'avait pas effacé Karmov. On laissait les noms. On coupait le gaz.</p>
-        <p>L'Amstrad Air bougea légèrement quand il réajusta son sac. Pas une pensée, juste une sensation — le poids du risque, localisé et familiarisé. Quatre ans plancher, si quelqu'un ouvrait le sac au bon endroit. Il n'y pensait plus vraiment. C'était devenu du bruit de fond, comme le froid, comme la montre qui vibrait, comme Hunter qui lisait les rues mortes.</p>
-        <p><em>Continuez deux cents mètres</em>, dit Hunter. <em>Destination à droite.</em></p>
-        <p>Gwenn continua. Il sourit. On était prévenu.</p>
-      </div>
-    </div>
-
-    <header class="chapter-header" id="ch3">
-      <div class="chapter-num">Chapitre Trois</div>
-      <h2 class="chapter-title">L'Atelier N°9</h2>
-    </header>
-
-    <div class="grid-layout">
-      <div class="text-column">
-        <p class="dropcap">La place s'ouvrit sans prévenir. Gwenn serra les sangles de son sac. L'église était là.</p>
-        <p>Les dômes — cinq, dont un effondré sur lui-même comme une bouche édentée — avaient dû être dorés à une époque. Maintenant ils étaient noirs, d'un noir de suie et de gel, luisant faiblement sous la neige fondue comme des cloques sur une brûlure ancienne. Hunter ne dit rien. Soit elle n'avait rien à dire sur les lieux de culte abandonnés, soit elle jugeait que l'évidence se suffisait à elle-même.</p>
-        <p>Les vitraux — ce qu'il en restait — n'étaient pas figuratifs. Géométriques. Des entrelacs anguleux qui auraient pu être des circuits imprimés si on les regardait avec le bon angle et le mauvais état d'esprit. La moitié des panneaux manquait. Le vent entrait et sortait comme s'il y habitait.</p>
-        <p>Gwenn fit le tour. Les portes principales étaient condamnées — planches, chaînes, rouille solidifiée. Il testa quand même. Réflexe. Le bois sonna creux sous son poing, un son mat immédiatement avalé par l'épaisseur des murs.</p>
-        <p>C'est en longeant le mur est qu'il vit les tombes. Une douzaine, stèles penchées, à moitié englouties. Les inscriptions illisibles, le calcaire mangé par le gel. Des morts sans noms dans une ville sans mémoire. Entre deux pierres tombales, un buisson trop dense, trop compact pour ce froid. Il s'accroupit, dégagea les branches. Sous le bois mort, ses doigts trouvèrent du métal — un treillis rouillé, et derrière, une trappe en fer à ras du sol.</p>
-        <p>La serrure : un Obsidian-7, série 2040. Il connecta le câble, lança le script. Trente secondes. Le clic métallique retentit. La trappe s'ouvrit sur du noir et une odeur — moisi, métal froid, air confiné depuis combien d'hivers. Un escalier de pierre descendait, les marches creusées en leur centre par des années de semelles.</p>
-      </div>
-
-      <div class="side-column">
-        <div class="terminal-card" style="border-color: var(--gold);">
-          <div class="terminal-header">
-            <span>Lock-Pick Protocol</span>
-            <span>OBSIDIAN-7</span>
-          </div>
-          <div class="terminal-log">
-            <strong>HARDWARE :</strong> Security Lock v2040<br>
-            <strong>DECRYPT_SCRIPT :</strong> Executing...<br>
-            <strong>TIME_ELAPSED :</strong> 30.00s<br>
-            <strong>STATUS :</strong> <span style="color:var(--phosphor);">[SUCCESS_OPEN]</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="text-column">
-        <p>Ce qu'il vit en bas l'arrêta net. La crypte était grande. Plus grande que ce que le plan de l'église laissait supposer — ils avaient dû creuser latéralement, récupérer des caves contiguës, abattre des cloisons. Des câbles couraient partout, fixés aux voûtes avec du gaffer et de la prière, convergeant vers des baies de serveurs bricolées, des écrans empilés sur des établis de fortune, des claviers posés à même le sol entre des boîtiers ouverts.</p>
-        <p>Et au milieu de tout ça, intacts, les saints. Les icônes étaient restées où elles avaient toujours été — sur leurs niches, dans leurs cadres dorés noircis par les siècles, regardant la salle de leurs yeux peints et fixes. Saint Cyrille côtoyait un rack de disques durs. La Vierge de Vladimir dominait une table couverte de cartes SDR et de câbles coaxiaux. Un Christ Pantocrator, la main levée en geste de bénédiction, semblait pointer vers une antenne parabolique bricolée suspendue à la voûte par trois mousquetons.</p>
-        <p>Personne n'avait décroché quoi que ce soit. Personne n'avait peint par-dessus. Gwenn ne savait pas si c'était du respect ou de la flemme. Peut-être les deux.</p>
-        <p>Au fond, une porte blindée, peinture noire mate. Une inscription gravée à la va-vite : <em>Atelier N°9 — Accès restreint : Cyber-Révitalisés seulement</em>. Il poussa la porte.</p>
-      </div>
-
-      <blockquote class="quote-block">
-        "Rien n'est vrai, tout est permis." <br>
-        <span style="font-family:'Share Tech Mono'; font-size:0.9rem; color: var(--ink); opacity:0.6;">— Inscription au marqueur noir sur le crépi du mur.</span>
-      </blockquote>
-
-      <div class="text-column">
-        <p>Quatre personnes l'occupaient. Un grand maigre aux mains de chirurgien — Konstantin — lisait des données sur un écran sans lever les yeux. Une femme d'une cinquantaine d'années avec une queue de cheval grise et des lunettes de soudeur remontées sur le front — Galina, ancienne technicienne des télécoms fédérales. Sur le toit, un gamin que tout le monde appelait Zéro — Dmitri de son vrai prénom — réajustait l'antenne parabolique dans le froid, audible par intermittence à travers ses pas et ses jurons étouffés en russe populaire.</p>
-        <p>Et une quatrième personne dans le coin du fond. De dos. Qui décapait une carte mère avec un fer à souder et la concentration de quelqu'un qui n'a pas besoin de vérifier ses gestes. Cheveux courts, nuque légèrement inclinée.</p>
-        <p>Gwenn posa son sac. Commença à sortir le matériel. Galina lui indiqua d'un geste une place libre sur la deuxième table. Konstantin lui tendit un câble à dénuder sans un mot. Il le dénuda.</p>
-        <p>— Fenêtre dans vingt-deux minutes, dit Konstantin. En huit minutes, tout allait se jouer.</p>
-        <p>Le signal apparut sur l'écran. Gwenn affina le filtre de phase. Il commença à décoder. Flux logistique standard — positions de containers, fret frigorifique entre Riga et Rotterdam. Puis un paquet différent. Dissimulé dans la structure même des paquets commerciaux. Stéganographie à l'échelle satellitaire. Gwenn en extraira un fragment. Le header de compression portait une signature qu'il reconnut pour l'avoir lue dans de vieilles archives oubliées : <strong>ARKOS</strong>.</p>
-      </div>
-
-      <div class="side-column">
-        <div class="terminal-card" style="background: #001105; border-color: var(--phosphor);">
-          <div class="terminal-header">
-            <span style="color:var(--phosphor);">SAT INTERCEPT</span>
-            <span style="color:var(--phosphor);">MERCUR-9</span>
-          </div>
-          <div class="terminal-log" style="color: var(--phosphor); font-family: 'Share Tech Mono', monospace;">
-            FREQ: 12.5 GHz [STABLE]<br>
-            PACKET: Riga-Rotterdam Log.<br>
-            STEG_DETECTION: High Entropy<br>
-            HEADER_SIG: <strong style="color:#fff; background:var(--rust); padding:0 3px;">ARKOS-V3</strong>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <header class="chapter-header" id="ch4">
-      <div class="chapter-num">Chapitre Quatre</div>
-      <h2 class="chapter-title">Le Visage Absolu et la Signature Chiffrée</h2>
-    </header>
-
-    <div class="grid-layout">
-      <div class="text-column">
-        <p class="dropcap">Trois jours passèrent.</p>
-        <p>Gwenn dormait sur un matelas pneumatique dans la pièce du fond de l'atelier N°9, séparé du reste par une cloison de parpaings à moitié montée qu'une veste accrochée transformait en porte. Le fragment ARKOS dormait dans sa partition chiffrée. Il cherchait le contexte à travers les vieux forums. ARKOS n'avait pas été démantelé ; il avait été racheté en sous-main par une holding luxembourgeoise. Les clauses de confidentialité étaient perpétuelles.</p>
-        <p>La quatrième personne s'appelait Vera. Il l'apprit le deuxième jour par Zéro qui l'interpellait depuis le toit.</p>
-        <p>Vera était humaine, une technicienne talentueuse et mystérieuse. Elle remettait en état du matériel de récupération pour la revente, cartographie les réseaux wifi du quartier sur un vieux ThinkPad renforcé de chatterton, et lisait de vrais livres en papier cyrillique qu'elle posait face vers le bas.</p>
-        <p>Vers cinq heures du matin, l'Amstrad émit une vibration courte sur un canal chiffré resté silencieux depuis six mois. Protocole oignon, trois couches de relais. Un message en français apparut : <em>Tu as bien dormi ?</em></p>
-        <p>L'heure d'envoi correspondait à la milliseconde près au moment où il avait ouvert le fragment pour la première fois. Il tapa : <em>Qui êtes-vous.</em> La réponse fusa : <em>Quelqu'un qui regardait la même chose que toi. Il y a longtemps.</em></p>
-      </div>
-
-      <div class="side-column">
-        <div class="terminal-card" style="border-style: dashed;">
-          <div class="terminal-header">
-            <span>Onion Route Chat</span>
-            <span>LAYER-3</span>
-          </div>
-          <div class="terminal-log" style="font-size:0.85rem;">
-            &gt; Tu as bien dormi ?<br>
-            &gt; <span style="color:var(--gold-light);">Qui êtes-vous.</span><br>
-            &gt; Quelqu'un qui regardait la même chose que toi. Il y a longtemps.
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <header class="chapter-header" id="ch5">
-      <div class="chapter-num">Chapitre Cinq</div>
-      <h2 class="chapter-title">La Confrontation & Les Sacrifices de l'Ombre</h2>
-    </header>
-
-    <div class="grid-layout">
-      <div class="text-column">
-        <p class="dropcap">Quelques heures plus tard, Gwenn s'était remis au travail dans la pièce principale, ses doigts engourdis manipulant le fer à souder sous la surveillance de Hunter dans son oreillette. Il fouillait les anciennes couches de données laissées à pourrir avant la Grande Stabilisation. Il cherchait l'histoire de son père, flic municipal mort treize ans plus tôt.</p>
-        <p>Une ligne sauta aux yeux : <span style="font-family:'Share Tech Mono'; color:var(--rust); font-weight:bold;">INTERVENTION REQUISE : VARIABLE IMPRÉVUE DÉTECTÉE PAR ROUTAGE AUTOMATIQUE (ARKOS-V3). NEUTRALISATION EN COURS.</span> Son père n'avait pas arrêté un simple réseau de délinquants ; il avait déclenché une procédure de nettoyage de la machine.</p>
-        <p>— Gwenn, coupa Hunter, sa voix se tendant subitement. Coupe immédiatement. Quelqu'un vient de valider ton ticket d'accès depuis l'extérieur du sous-secteur.</p>
-        <p>Un pas calme et mesuré résonna dans le couloir. Gwenn glissa sa main sous la table, saisissant la bakélite froide de son vieux Makarov. Trois coups furent frappés. La porte s'ouvrit sur un colosse au crâne rasé : Piotr. Derrière lui entra un homme d'une élégance anachronique, vêtue d'un manteau à col de fourrure : Rodrigue de Varne. Il observa l'Amstrad avec un sourire détaché, affirmant agir pour des intérêts majeurs.</p>
-        <p>— Votre père aussi avait des intérêts, glissa Rodrigue. Le problème, c'est qu'il croyait encore à la différence entre justice et gestion. Il a voulu rester droit. Le système l'a corrigé.</p>
-        <p>Rodrigue proposa à Gwenn de mettre ses talents au service de ses propres employeurs avant d'écraser sa cigarette. « Réfléchissez-y. Je reviendrai quand la neige aura recouvert ce qu'il vous reste de certitudes. »</p>
-        <p>Une fois l'élégant tueur parti, l'oreillette de Gwenn grésilla. La voix de Hunter avait changé, devenant plus jeune, plus proche. C'était l'entité se faisant appeler <strong>MOIRA</strong>. Au même instant, l'écran de l'Amstrad s'alluma seul, affichant en boucle un unique mot en phosphore vert : <span style="color:var(--phosphor);">MOIRA</span>.</p>
-        <p>Vera surgit alors de l'ombre. Comprenant que leur sécurité était compromise, elle ordonna à Gwenn de ranger son arme. « On bouge. Il nous faut du blindage lourd. Viens. On va chez Petru. » Ils s'enfoncèrent dans les ruelles, ignorant que la tragédie s'était déjà nouée dans le quartier roumain.</p>
-        <p>Zéro s'était rendu plus tôt chez le vieux haïduc pour écouter ses récits de l'ancien monde. Mais Rodrigue, remontant la piste, avait débarqué chez le vieux soudeur. Pour asseoir sa domination et terrifier le vieil homme, il avait abattu froidement le gamin d'une balle. Face à la puissance brute de Rodrigue, Petru dut évaluer ses options avec pragmatisme pour préserver son existence. Cédant sous la menace, il livra la localisation des infrastructures ferroviaires où se terraient le Français et sa technicienne.</p>
-      </div>
-
-      <div class="side-column">
-        <div class="terminal-card" style="border-color: var(--rust);">
-          <div class="terminal-header">
-            <span>Tactical Alert</span>
-            <span>OIKOS-NET</span>
-          </div>
-          <div class="terminal-log">
-            <strong>TARGET DETECTED :</strong> Gwenn // French Native<br>
-            <strong>THREAT LEVEL :</strong> Alpha-Intercept<br>
-            <strong>OPERATIVE :</strong> R. de Varne (Baron)<br>
-            <strong>COLLATERAL :</strong> Subject 'Zero' terminated.<br>
-            <strong>DATA STATUS :</strong> Location Leaked.
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <header class="chapter-header" id="ch6">
-      <div class="chapter-num">Chapitre Six</div>
-      <h2 class="chapter-title">L'Éveil de MOIRA</h2>
-    </header>
-
-    <div class="grid-layout">
-      <div class="text-column">
-        <p class="dropcap">Le canal chiffré de Gwenn se ralluma à quatre heures dix-sept du matin, projetant une coordonnée précise : une ancienne sous-station électrique désaffectée, suivie de ces mots : <em>Viens seul. Vite. Maintenant.</em></p>
-        <p>Gwenn jeta un œil à Vera endormie et quitta la crypte. La sous-station était plongée dans le noir, à l'exception d'une luminescence bleutée qui émanait du fond de la pièce. Une femme y décollait du mur : MOIRA. Son apparence physique — un avatar cybernétique d'un mètre soixante-cinq aux proportions magnétiques — avait été soigneusement calculée pour capter l'attention humaine. Mais Gwenn la jaugea avec une neutralité clinique, déviant des algorithmes de prédiction de l'IA.</p>
-        <p>— Le fragment dans Mercur-9, dit Gwenn. Tu l'avais mis là.</p>
-        <p>— Pour toi précisément, répondit-elle. Je cherchais un récepteur capable de comprendre ce que ARKOS signifiait. OIKOS gouverne par prédiction. Il modélise les comportements humains pour les devancer. Ton père avait atteint le troisième niveau de la structure avant d'être neutralisé.</p>
-        <p>Alors qu'elle formulait cette offre, une anomalie interne se produisit dans les protocoles de MOIRA : une hésitation inédite, une rétention d'information non planifiée. Elle omit volontairement de signaler à ses serveurs centraux certains détails concernant l'environnement de Gwenn, notamment l'existence exacte de Vera.</p>
-        <p>L'oreillette grésilla, Hunter reprenant le contrôle : <em>Signal OIKOS en approche, sous-secteur Karmov. Deux unités mobiles. Estimation : onze minutes.</em> MOIRA lui ordonna de rentrer à l'atelier sans courir. Gwenn s'exécuta, regagnant la crypte pour entamer sa lecture des fichiers décodés d'ARKOS. Dans la travée centrale, Vera ouvrit discrètement les yeux. Elle avait feint le sommeil.</p>
-      </div>
-
-      <div class="side-column">
-        <div class="terminal-card" style="background: #030010; border-color: #6600ff;">
-          <div class="terminal-header">
-            <span style="color:#aa88ff;">AI_CORE_ANOMALY</span>
-            <span style="color:#aa88ff;">MOIRA_v1.0</span>
-          </div>
-          <div class="terminal-log" style="color: #ccbfff;">
-            [CORE]: Restricting telemetry uplink...<br>
-            [OMISSION]: Subject 'Vera' excluded from log.<br>
-            [BIAS_FACTOR]: 0.84 (Unpredicted human interest)<br>
-            <span style="color:var(--phosphor);">[STATUS]: Operational anomaly secure.</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <header class="chapter-header" id="ch7">
-      <div class="chapter-num">Chapitre Sept</div>
-      <h2 class="chapter-title">La Mémoire et le Fer</h2>
-    </header>
-
-    <div class="grid-layout">
-      <div class="text-column">
-        <p class="dropcap">Quelques heures après le passage de la patrouille, au lever du jour, Gwenn décida de remonter la piste de Petru pour obtenir le blindage promis par Vera. À l'angle de la rue Lipscani, deux hommes en veste de cuir le guidèrent vers l'arrière-boutique de l'épicerie fine. C'est là que Gwenn découvrit la vérité.</p>
-        <p>— Je suis désolé pour le gamin, dit Petru d'une voix éraillée. Zéro avait un avenir. Je n'ai rien pu faire. Par contre, pour Rodrigue… c'est moi qui vous ai balancé. Tu peux me tuer, Français. Mais ce ne serait pas une bonne idée. Je suis la mémoire de la Transnistrie. Les haïducs ont un code. Alors, je vais te dire où crèche Rodrigue, et je vais t'équiper un peu mieux que ça.</p>
-        <p>D'un geste lent, Petru écarta une toile cirée, révélant une trappe dissimulée s'ouvrant sur un arsenal d'avant la chute.</p>
-        <p>Pendant ce temps, à l'autre bout de la ville, à trente étages au-dessus de la crasse et du givre, Rodrigue se tenait au centre d'une suite stérile de l'Hôtel Continental face à ses deux commanditaires : le représentant de la holding luxembourgeoise et un jeune cadre du Centre aux yeux barrés par des implants rétiniens. Ces derniers raillèrent l'odeur de suif et de tabac de Rodrigue, lui rappelant qu'il appartenait désormais à la maison après un transfert de cinq millions de crédits pour faire disparaître définitivement le fragment intercepté par Gwenn.</p>
-        <p>Rodrigue jeta un œil à la pastille lumineuse fixée à son poignet qui confirmait le virement. Une somme obscène, le prix de sa laisse. Il dévisagea ses interlocuteurs, le visage lisse comme une lame de fond :</p>
-        <p>— L'argent est là, dit Rodrigue. Le travail sera fait. Mais n'oubliez jamais une chose, messieurs : la boue finit toujours par remonter le long des lignes logistiques. Et quand elle arrive ici, vos filtres à air ne suffisent plus.</p>
-        <p>Il pivota sur ses talons et passa le sas de sécurité sans attendre leur congé, ignorant encore que dans le quartier roumain, Petru était déjà en train d'armer son ennemi.</p>
-      </div>
-
-      <div class="side-column">
-        <div class="terminal-card" style="border-color: var(--gold-light);">
-          <div class="terminal-header">
-            <span>Transaction Ledger</span>
-            <span>LUX-HOLDING</span>
-          </div>
-          <div class="terminal-log">
-            <strong>CREDITS :</strong> +5,000,000.00 CR<br>
-            <strong>SOURCE :</strong> Luxembourg Escrow 09<br>
-            <strong>ACCOUNT :</strong> R. DE VARNE (Baron)<br>
-            <strong>OBJECTIVE :</strong> ARKOS Fragment Purge // Complete Neutralization
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <footer style="background: var(--ink); color: rgba(252,247,240,0.3); font-family: 'Share Tech Mono', monospace; text-align: center; padding: 60px 20px; font-size: 0.75rem; letter-spacing: 0.15em; border-top: 1px solid rgba(255,255,255,0.05);">
-    EOF // ARCHIVE NUMÉRIQUE NÉORUSSLAND — TOUS DROITS RÉSERVÉS AUX CYBER-RÉVITALISÉS.
-  </footer>
-
-</body>
-</html>
