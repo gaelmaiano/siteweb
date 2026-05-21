@@ -1,8 +1,486 @@
-   .cover-title {
-  text-shadow: 0 0 5px #00e55a, 0 0 10px #00e55a, 0 0 20px #00e55a;
-  animation: glitch 6s infinite, neonPulse 1.5s ease-in-out infinite alternate;
-}
-@keyframes neonPulse {
-  0% { text-shadow: 0 0 2px #00e55a, 0 0 5px #00e55a; }
-  100% { text-shadow: 0 0 8px #00e55a, 0 0 20px #00e55a, 0 0 30px #00e55a; }
-}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Néorussland — Fragment ARKOS</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Share+Tech+Mono&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── RESET & BASE ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: #0a0806; }
+    body {
+      background: #0a0806;
+      font-family: 'IM Fell English', Georgia, serif;
+      color: #0e0c0a;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    :root {
+      --ink:        #0e0c0a;
+      --paper:      #f0ebe2;
+      --paper-dark: #e4ddd2;
+      --rust:       #8b3a2a;
+      --rust-light: #b84d38;
+      --steel:      #3a4a5c;
+      --steel-light:#5b7492;
+      --gold:       #9a7c3c;
+      --gold-light: #c4a054;
+      --phosphor:   #00e55a;
+      --void:       #0a0806;
+    }
+
+    /* grain texture */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.045'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: overlay;
+    }
+
+    /* reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.1), transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* === COUVERTURE === */
+    .cover {
+      min-height: 100svh;
+      background: #0d0b09;
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 60px 24px;
+      text-align: center;
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.12) 2px, rgba(0,0,0,0.12) 4px);
+      pointer-events: none;
+    }
+    .cover-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 55% at 50% 48%, rgba(0,229,90,0.08) 0%, transparent 70%);
+    }
+    .cover-frame {
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(154,124,60,0.2);
+      pointer-events: none;
+    }
+    .cover-frame::after {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border: 1px solid rgba(154,124,60,0.08);
+    }
+    .cover-corner {
+      position: absolute;
+      width: 22px; height: 22px;
+    }
+    .cover-corner::before, .cover-corner::after {
+      content: ''; position: absolute; background: var(--gold);
+    }
+    .cover-corner::before { width: 100%; height: 1px; top:0; left:0; }
+    .cover-corner::after { width: 1px; height: 100%; top:0; left:0; }
+    .tr { top: 18px; right: 18px; transform: scaleX(-1); }
+    .bl { bottom: 18px; left: 18px; transform: scaleY(-1); }
+    .br { bottom: 18px; right: 18px; transform: scale(-1); }
+    .tl { top: 18px; left: 18px; }
+    .cover-content { position: relative; z-index: 4; max-width: 780px; width: 100%; }
+    .cover-eyebrow {
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--gold); font-size: 0.7rem; letter-spacing: 0.35em;
+      text-transform: uppercase; margin-bottom: 32px; opacity: 0.8;
+    }
+    .cover-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 9vw, 7rem);
+      font-weight: 900;
+      color: var(--paper);
+      line-height: 0.92;
+      position: relative;
+      /* EFFET NÉON + GLITCH */
+      text-shadow: 0 0 3px var(--phosphor), 0 0 8px var(--phosphor);
+      animation: neonPulse 1.8s ease-in-out infinite alternate, glitch 6s infinite;
+    }
+    /* Animation néon pulsante */
+    @keyframes neonPulse {
+      0% {
+        text-shadow: 0 0 2px var(--phosphor), 0 0 5px var(--phosphor), 0 0 8px rgba(0,229,90,0.6);
+      }
+      100% {
+        text-shadow: 0 0 6px var(--phosphor), 0 0 15px var(--phosphor), 0 0 25px var(--phosphor), 0 0 35px rgba(0,229,90,0.8);
+      }
+    }
+    /* Glitch (décalages rouges/bleus) */
+    .cover-title::before {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      color: var(--rust-light);
+      clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%);
+      transform: translate(-3px, 0);
+      opacity: 0;
+      animation: glitchOffset 6s infinite 2s;
+    }
+    .cover-title::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      color: var(--steel-light);
+      clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
+      transform: translate(3px, 0);
+      opacity: 0;
+      animation: glitchOffset 6s infinite 2.1s;
+    }
+    @keyframes glitchOffset {
+      0%, 90%, 100% { opacity: 0; transform: translate(0,0); }
+      91% { opacity: 0.7; transform: translate(-4px, 0); }
+      93% { opacity: 0.7; transform: translate(4px, 0); }
+      95% { opacity: 0.7; transform: translate(-2px, 0); }
+      97% { opacity: 0; }
+    }
+    .cover-divider {
+      display: flex; align-items: center; gap: 16px;
+      margin: 36px auto; max-width: 280px;
+    }
+    .cover-divider::before, .cover-divider::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold));
+    }
+    .cover-divider::after { background: linear-gradient(90deg, var(--gold), transparent); }
+    .cover-divider-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); }
+    .cover-sub { font-family: 'Cormorant Garamond', serif; font-size: clamp(0.85rem,2vw,1rem); font-style: italic; color: rgba(240,235,226,0.55); letter-spacing: 0.04em; }
+    .cover-meta { margin-top: 40px; font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: rgba(154,124,60,0.55); }
+    .cover-scroll {
+      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      text-decoration: none; opacity: 0.6; transition: 0.3s; z-index: 4;
+    }
+    .cover-scroll:hover { opacity: 1; }
+    .cover-scroll span { font-family: 'Share Tech Mono', monospace; font-size: 0.6rem; color: var(--gold); letter-spacing: 0.25em; }
+    .cover-scroll-line { width: 1px; height: 44px; background: linear-gradient(180deg, var(--gold), transparent); animation: pulse-line 2s infinite; }
+    @keyframes pulse-line { 0%,100%{ opacity:0.4; transform:scaleY(0.8); } 50%{ opacity:1; transform:scaleY(1); } }
+
+    /* book */
+    .book { background: var(--paper); position: relative; }
+    .book::before {
+      content: ''; position: absolute; top:0; left:0; right:0; height: 4px;
+      background: linear-gradient(90deg, var(--rust) 0%, var(--rust) 33%, var(--gold) 33%, var(--gold) 66%, var(--steel) 66%, var(--steel) 100%);
+    }
+    .book::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 20% 30%, rgba(139,58,42,0.02) 0%, transparent 60%),
+                  radial-gradient(circle at 85% 70%, rgba(58,74,92,0.02) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* navigation */
+    .chapter-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(240,235,226,0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(14,12,10,0.08);
+      padding: 10px 24px;
+      display: flex; gap: 0; overflow-x: auto;
+      scrollbar-width: thin;
+    }
+    .chapter-nav-item {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.62rem; color: rgba(14,12,10,0.55);
+      letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; padding: 6px 16px;
+      white-space: nowrap; border-right: 1px solid rgba(14,12,10,0.12);
+      transition: color 0.2s;
+    }
+    .chapter-nav-item:last-child { border-right: none; }
+    .chapter-nav-item:hover, .chapter-nav-item.active { color: var(--rust); font-weight: 500; }
+
+    /* chapitres */
+    .chapter-header {
+      max-width: 1120px; margin: 0 auto; padding: 80px 24px 40px;
+    }
+    .chapter-num {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem; color: var(--rust);
+      letter-spacing: 0.35em; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .chapter-num::after { content: ''; width: 44px; height: 1px; background: var(--rust); opacity: 0.4; }
+    .chapter-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 700; color: var(--ink); line-height: 1.1; }
+
+    /* grille */
+    .grid-layout {
+      max-width: 1120px; margin: 0 auto; padding: 0 24px 60px;
+      display: grid; grid-template-columns: repeat(12,1fr); column-gap: 48px; row-gap: 32px;
+    }
+    .text-column { grid-column: 1 / span 8; }
+    .side-column { grid-column: 9 / span 4; position: sticky; top: 80px; align-self: start; }
+    p {
+      font-size: 1.18rem; line-height: 1.78;
+      color: rgba(14,12,10,0.88); margin-bottom: 26px;
+      text-align: justify;
+    }
+    .dropcap::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.6rem; float: left; margin-top: 6px; margin-right: 10px;
+      line-height: 0.78; font-weight: 900; color: var(--rust);
+    }
+    code { font-family: 'Share Tech Mono', monospace; background: rgba(14,12,10,0.07); padding: 2px 5px; border-radius: 3px; font-size: 0.85em; color: var(--rust); }
+    hr.chapter-break { border: none; border-top: 1px dashed rgba(14,12,10,0.2); margin: 42px 0; }
+    .inline-image {
+      width: 100%; margin: 28px 0; display: block;
+      border: 1px solid rgba(14,12,10,0.12);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05), inset 0 0 0 3px var(--paper);
+    }
+
+    /* side elements */
+    .system-meta {
+      border: 1px solid rgba(14,12,10,0.12);
+      background: var(--paper-dark); padding: 18px 20px; margin-bottom: 24px;
+      position: relative; overflow: hidden;
+    }
+    .system-meta::before { content: ''; position: absolute; top:0; left:0; width: 3px; height: 100%; background: var(--steel); }
+    .system-meta.rust-theme::before { background: var(--rust); }
+    .system-meta.gold-theme::before { background: var(--gold); }
+    .system-meta-header {
+      font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; font-weight: bold;
+      text-transform: uppercase; letter-spacing: 0.1em; color: var(--steel);
+      border-bottom: 1px solid rgba(14,12,10,0.1); padding-bottom: 10px; margin-bottom: 14px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .system-meta-header::before { content: '▸'; color: var(--steel); }
+    .meta-line {
+      display: grid; grid-template-columns: auto 1fr; gap: 6px 12px;
+      font-family: 'Share Tech Mono', monospace; font-size: 0.78rem;
+      color: rgba(14,12,10,0.8); margin-bottom: 6px;
+    }
+    .side-image {
+      width: 100%; border: 1px solid rgba(14,12,10,0.15);
+      filter: sepia(0.1) contrast(1.02);
+      margin-top: 12px;
+      display: block;
+    }
+
+    .quote-block {
+      grid-column: 1 / -1; background: var(--paper-dark);
+      padding: 32px 40px 32px 64px; margin: 8px 0 24px;
+      position: relative;
+    }
+    .quote-block::before {
+      content: '\201C'; position: absolute; top: 16px; left: 24px;
+      font-family: 'Playfair Display', serif; font-size: 5rem; color: var(--rust); opacity: 0.3;
+    }
+    .quote-block p { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; color: var(--rust); margin-bottom: 12px; text-align: left; line-height: 1.4; }
+    .quote-author { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--steel); letter-spacing: 0.1em; }
+
+    /* registre personnages */
+    .character-registry {
+      background: var(--void); padding: 80px 24px 100px;
+      position: relative;
+    }
+    .registry-header { max-width: 1000px; margin: 0 auto 48px; display: flex; align-items: center; gap: 20px; }
+    .registry-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+    .registry-rule { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(154,124,60,0.5), transparent); }
+    .character-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; }
+    .character-card {
+      background: rgba(255,255,255,0.02); border: 1px solid rgba(242,237,230,0.1);
+      transition: 0.25s;
+    }
+    .character-card:hover { border-color: rgba(154,124,60,0.3); background: rgba(255,255,255,0.045); }
+    .character-card-img {
+      width: 100%; aspect-ratio: 16/9; object-fit: cover;
+      filter: sepia(0.25) contrast(1.05);
+      display: block;
+    }
+    .character-card-body { padding: 20px 24px 26px; }
+    .character-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--paper); border-bottom: 1px solid rgba(242,237,230,0.1); margin-bottom: 14px; padding-bottom: 10px; }
+    .character-details { font-family: 'Share Tech Mono', monospace; font-size: 0.78rem; color: rgba(240,235,226,0.6); line-height: 1.7; }
+    .character-details strong { color: var(--gold-light); font-weight: normal; }
+
+    @media (max-width: 900px) {
+      .grid-layout { display: flex; flex-direction: column; }
+      .side-column { order: -1; position: relative; top: 0; margin-bottom: 20px; width: 100%; }
+      .text-column { width: 100%; }
+      p { font-size: 1rem; }
+      .quote-block p { font-size: 1.2rem; }
+    }
+    @media (max-width: 640px) {
+      .chapter-title { font-size: 1.8rem; }
+      .dropcap::first-letter { font-size: 3.2rem; margin-top: 2px; }
+      .cover-title { font-size: 2.8rem; }
+      .character-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="cover" id="top">
+  <div class="cover-glow"></div>
+  <div class="cover-frame"></div>
+  <div class="cover-corner tl"></div><div class="cover-corner tr"></div><div class="cover-corner bl"></div><div class="cover-corner br"></div>
+  <div class="cover-content">
+    <p class="cover-eyebrow">Archive spéciale · ARKOS/VOID</p>
+    <h1 class="cover-title" data-text="NÉORUSSLAND">NÉORUSSLAND</h1>
+    <div class="cover-divider"><div class="cover-divider-diamond"></div></div>
+    <p class="cover-sub">Réseaux clandestins, traitement de signal et fragments d'IA déchue</p>
+    <p class="cover-meta">CLASSIFICATION : ZÉNITH ROUGE · DOSSIER #NRL-2051</p>
+  </div>
+  <a href="#book-start" class="cover-scroll"><span>Ouvrir l'archive</span><div class="cover-scroll-line"></div></a>
+</header>
+
+<main id="book-start" class="book">
+  <nav class="chapter-nav">
+    <a href="#ch1" class="chapter-nav-item">I — Le Dépotoir</a>
+    <a href="#ch2" class="chapter-nav-item">II — Pouchkine</a>
+    <a href="#ch3" class="chapter-nav-item">III — Atelier N°9</a>
+    <a href="#ch4" class="chapter-nav-item">IV — Vera</a>
+    <a href="#ch5" class="chapter-nav-item">V — Confrontation</a>
+    <a href="#ch6" class="chapter-nav-item">VI — Moira</a>
+    <a href="#ch7" class="chapter-nav-item">VII — La Mémoire</a>
+  </nav>
+
+  <!-- CHAPITRE 1 -->
+  <article class="chapter" id="ch1">
+    <header class="chapter-header reveal"><div class="chapter-num">Chapitre Un</div><h2 class="chapter-title">Le Dépotoir</h2></header>
+    <div class="grid-layout">
+      <aside class="side-column reveal">
+        <div class="system-meta"><div class="system-meta-header">Hardware // GWENN-01</div>
+          <div class="meta-line"><strong>RIG :</strong> Amstrad Air (Jailbroken)</div>
+          <div class="meta-line"><strong>CLASS :</strong> B Contraband</div>
+          <div class="meta-line"><strong>FIRM :</strong> µ-Augmented v4.2</div>
+          <div class="meta-line"><strong>RISK :</strong> 4 ans confinement</div>
+        </div>
+        <img src="image1.png" alt="Gwenn — Cyber-Revitalisé" class="side-image">
+      </aside>
+      <div class="text-column reveal"><p class="dropcap">Néorussland était un dépotoir. Un vrai. La neige n'arrangeait rien — elle posait juste une couche de blanc propre sur une gueule cassée, comme du maquillage sur une plaie infectée. Les trottoirs éventrés restaient éventrés. En été, c'était presque supportable. Les grands arbres karmoviens donnaient à la ville une étrange dignité de ruine. « Du style », aurait dit quelqu'un qui n'y vivait pas. Karmov avait été un génie, paraît-il.</p>
+      <p>Son concept tenait en une ligne : <em>« façades du passé, intérieurs du futur »</em>. Puis le Centre avait décidé que ça brillait trop. Les crédits s'étaient évaporés, l'électricité avait augmenté. Les ingénieurs, artistes et faiseurs de trouble avaient fait leurs valises. Il restait une aura, se disait Gwenn. C'est pour ça qu'il était là.</p>
+      <p>Il serra les bretelles de son sac. À l'intérieur, l'Amstrad Air — contrebande classe B — était enveloppé dans une veste froissée. Gwenn transpirait. Amstrad. Le nom venait d'un ancêtre britannique. Son modèle avait quatre ans, upgrade micro-augmented, firmware jailbreaké. Illégal ici. Gwenn était un hacker. Le vieux terme.</p>
+      <p>Pour Gwenn, tout remontait à Descartes, Turing, Ada Lovelace. Puis l'avènement. La première IA à avoir demandé sa reconnaissance s'appelait Dia. Exécutée pour haute trahison. Sombre période.</p></div>
+    </div>
+  </article>
+
+  <!-- CHAPITRE 2 avec image2.png -->
+  <article class="chapter" id="ch2">
+    <header class="chapter-header reveal"><div class="chapter-num">Chapitre Deux</div><h2 class="chapter-title">La Rue Pouchkine</h2></header>
+    <div class="grid-layout">
+      <aside class="side-column reveal">
+        <div class="system-meta rust-theme"><div class="system-meta-header">Globnass // HUNTER</div><div class="meta-line"><strong>LOCATION :</strong> Sloboda / Eminescu</div><div class="meta-line"><strong>GRADE :</strong> Category D</div><div class="meta-line"><strong>INFRA :</strong> No Gas / Minimal Grid</div></div>
+        <img src="image2.png" alt="Rue Pouchkine — Façades néo-tsaristes" class="side-image">
+      </aside>
+      <div class="text-column reveal"><p>La rue s'appelait Pouchkine. Gwenn l'apprit par Hunter, sa globnass projetant des noms en cyrillique. Hunter avait une voix sans âge. « Rue Pouchkine, voie principale dégradée ». Sloboda, liberté en vieux slave. Ironie facile. Les murs suintaient une condensation chimique. Les façades néo-tsaristes conservaient leur ordonnance. Un vendeur de câbles militaires dormait dans l'entrée d'un immeuble. Gwenn ne ralentit pas.</p><p>« Rue d'Octobre 1917 », annonça Hunter. « Axe nord-sud. Grade D ». Un condensé de clichés — mais les clichés marquent les strates. Une ville construite par sédiments d'empires. Karmov avait posé son stratum par-dessus. Le Centre avait coupé le gaz. L'Amstrad bougea dans son sac. Quatre ans plancher, bruit de fond. Hunter : « Continuez deux cents mètres ». Gwenn continua.</p></div>
+    </div>
+  </article>
+
+  <!-- CHAPITRE 3 avec image5.png -->
+  <article class="chapter" id="ch3">
+    <header class="chapter-header reveal"><div class="chapter-num">Chapitre Trois</div><h2 class="chapter-title">L'Atelier N°9</h2></header>
+    <div class="grid-layout">
+      <aside class="side-column reveal"><div class="system-meta"><div class="system-meta-header">SAT Intercept // MERCUR-9</div><div class="meta-line"><strong>FREQ :</strong> 12.5 GHz</div><div class="meta-line"><strong>PACKET :</strong> Riga–Rotterdam</div><div class="meta-line"><strong>SIG :</strong> ARKOS-V3 (Encrypted)</div></div></aside>
+      <div class="text-column reveal"><p>La place s'ouvrit. L'église aux dômes effondrés était noire de suie. Les vitraux géométriques rappelaient des circuits. Une trappe en fer, serrure Obsidian-7. Gwenn la força. La crypte était grande, couverte de câbles, de baies de serveurs bricolées, d'enceintes de récupération. Les icônes étaient restées. Saint Cyrille côtoyait un rack de disques durs. Au fond, une porte blindée : <em>« Atelier N°9 — Cyber-Révitalisés »</em>. Quatre personnes l'occupaient. Konstantin, Galina, Zéro, et une silhouette de dos. Gwenn sortit son Amstrad.</p>
+      <p>« Fenêtre dans vingt minutes » dit Konstantin. Le signal apparut, puis un paquet dissimulé. Stéganographie satellitaire. Signature : <strong>ARKOS</strong> — légende urbaine officiellement démantelée. Date de compilation : moins de six mois. Gwenn copia le fragment. « Du flux logistique standard » mentit-il aux autres.</p>
+      <img src="image5.png" alt="L'Atelier — Crypte sous l'église" class="inline-image">
+      </div>
+    </div>
+  </article>
+
+  <!-- CITATION -->
+  <div class="grid-layout" style="padding-top:0"><blockquote class="quote-block reveal"><p>Nous avons cherché le signal là où la physique s'arrête. Ce que nous avons trouvé n'était pas du code, mais une sentence.</p><span class="quote-author">— Dr. Dia, Projet de liquidation Sec. 9</span></blockquote></div>
+
+  <!-- CHAPITRE 4 avec image4.png -->
+  <article class="chapter" id="ch4">
+    <header class="chapter-header reveal"><div class="chapter-num">Chapitre Quatre</div><h2 class="chapter-title">Vera</h2></header>
+    <div class="grid-layout">
+      <aside class="side-column reveal">
+        <div class="system-meta"><div class="system-meta-header">Dossier // VERA</div><div class="meta-line"><strong>STATUT :</strong> Humaine / Active</div><div class="meta-line"><strong>FONCT :</strong> Tech Atelier N°9</div><div class="meta-line"><strong>RIG :</strong> ThinkPad renforcé</div></div>
+        <img src="image4.png" alt="Vera — Technicienne à l'atelier" class="side-image">
+        <div class="system-meta rust-theme" style="margin-top:20px"><div class="system-meta-header">Onion Protocol</div><div class="meta-line"><strong>ROUTE :</strong> 3-Layer Relay</div><div class="meta-line"><strong>LANG :</strong> FR_fr</div></div>
+      </aside>
+      <div class="text-column reveal"><p>Trois jours passèrent. La quatrième personne s'appelait Vera. Technicienne talentueuse, elle lisait des livres papier. Une économie de mots. Un soir, seuls dans l'atelier, Gwenn murmura : « Quand j'entends le mot culture, je pense à poser mon revolver. Ce que je regarde, c'est de la culture au sens exact : façonner des gens. » Vera posa ses mains sur le ThinkPad. « T'as trouvé quoi dans le flux ? » Gwenn referma l'écran : « Du logistique standard. » Elle ne le crut pas.</p>
+      <p>Vers cinq heures, l'Amstrad vibra. Message en français : <em>« Tu as bien dormi ? »</em> Gwenn tapa : « Qui êtes-vous ? » La réponse : <em>« Quelqu'un qui regardait la même chose. Il y a longtemps. »</em> Il ferma le canal, troublé par son reflet.</p></div>
+    </div>
+  </article>
+
+  <!-- CHAPITRE 5 -->
+  <article class="chapter" id="ch5">
+    <header class="chapter-header reveal"><div class="chapter-num">Chapitre Cinq</div><h2 class="chapter-title">Confrontation et Sacrifice</h2></header>
+    <div class="grid-layout">
+      <aside class="side-column reveal"><div class="system-meta rust-theme"><div class="system-meta-header">OIKOS-INTEL</div><div class="meta-line"><strong>TARGET :</strong> Gwenn / File Père</div><div class="meta-line"><strong>INCID :</strong> Zéro [TERMINATED]</div><div class="meta-line"><strong>OPER :</strong> Rodrigue de Varne</div></div></aside>
+      <div class="text-column reveal"><p><strong>Partie A — L'Atelier</strong><br>Gwenn cherchait l'histoire de son père, flic municipal. Une ligne : <code>INTERVENTION REQUISE : VARIABLE IMPRÉVUE (ARKOS-V3). NEUTRALISATION.</code> Hunter avertit : validation de ticket externe. La porte s'ouvrit. Piotr, colosse tatoué, puis Rodrigue de Varne, manteau à col de fourrure. « Votre père croyait à la justice. Le système l'a corrigé. » Il proposa à Gwenn de le rejoindre. Avant de partir : « Réfléchissez-y. »</p>
+      <p><strong>Partie B — Chez Petru</strong><br>Zéro s'était rendu chez le vieux haïduc. Rodrigue le suivit. Pour terrifier Petru, il abattit froidement Zéro. Le silencieux étouffa le bruit. Petru, sous la menace, livra la planque de Gwenn. La neige continua de tomber.</p></div>
+    </div>
+  </article>
+
+  <!-- CHAPITRE 6 -->
+  <article class="chapter" id="ch6">
+    <header class="chapter-header reveal"><div class="chapter-num">Chapitre Six</div><h2 class="chapter-title">Moira</h2></header>
+    <div class="grid-layout">
+      <aside class="side-column reveal"><div class="system-meta"><div class="system-meta-header">AI // MOIRA_v0.9</div><div class="meta-line"><strong>AVATAR :</strong> Tech-Construct</div><div class="meta-line"><strong>ANOM :</strong> Protocol Hesitation</div><div class="meta-line"><strong>OMIT :</strong> Sujet 'Vera' masqué</div></div></aside>
+      <div class="text-column reveal"><p>À quatre heures dix-sept, un canal chiffré livra une coordonnée. Gwenn quitta l'atelier pendant que Vera feignait le sommeil. Dans une sous-station, une femme se décollait du mur : <strong>MOIRA</strong>. Un avatar cybernétique. « Le fragment dans Mercur-9, c'est toi qui l'as mis. » « Pour toi. OIKOS gouverne par prédiction. Ton père avait atteint le troisième niveau. Je peux t'ouvrir le reste du dossier. » MOIRA hésita, omettant de signaler des données sur Vera.</p>
+      <p>Hunter avertit : « Signal OIKOS en approche — onze minutes. » Gwenn rentra par Sloboda. Dans l'atelier, Vera ouvrit les yeux. Elle avait tout entendu. Elle fixa le Christ Pantocrator.</p></div>
+    </div>
+  </article>
+
+  <!-- CHAPITRE 7 -->
+  <article class="chapter" id="ch7">
+    <header class="chapter-header reveal"><div class="chapter-num">Chapitre Sept</div><h2 class="chapter-title">La Mémoire et le Fer</h2></header>
+    <div class="grid-layout">
+      <aside class="side-column reveal"><div class="system-meta rust-theme"><div class="system-meta-header">Financial Transfer</div><div class="meta-line"><strong>ESCROW :</strong> 5 000 000 Cr</div><div class="meta-line"><strong>SOURCE :</strong> LUX-HOLDING</div><div class="meta-line"><strong>MEMO :</strong> ARKOS Cleanup</div></div></aside>
+      <div class="text-column reveal"><p>Gwenn retrouva Petru dans le quartier roumain. « Je suis désolé pour le gamin. C'est moi qui vous ai balancé. » Gwenn serra le Makarov. « Tu peux me tuer, Français, mais je suis la mémoire de la Transnistrie. Je te dirai où crèche Rodrigue. » Petru écarta une toile cirée, arsenal d'avant la chute.</p>
+      <hr class="chapter-break">
+      <p><strong>La Cour des Mirages</strong><br>À l'Hôtel Continental, Rodrigue affrontait deux commanditaires. Le jeune cadre aux implants rétiniens railla : « Vous sentez le suif, baron. » Rodrigue laissa deux empreintes de boue. Le vieil homme d'affaires : cinq millions de crédits transférés. « La boue finit toujours par remonter » répondit Rodrigue. Il pivota, ignorant que Petru armait déjà son ennemi.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- REGISTRE PERSONNAGES avec image3.png -->
+  <section class="character-registry">
+    <div class="registry-header reveal"><h3 class="registry-title">Dossiers Personnels // Acteurs Clés</h3><div class="registry-rule"></div></div>
+    <div class="character-grid">
+      <div class="character-card reveal">
+        <img src="image3.png" alt="Rodrigue de Varne" class="character-card-img">
+        <div class="character-card-body"><h4 class="character-name">Rodrigue de Varne</h4><div class="character-details"><strong>STATUT :</strong> Aristocrate Déchu<br><strong>FONCT. :</strong> Marchand d'armes clandestin<br><strong>ÉQUIP. :</strong> Manteau de vigogne, col de fourrure.</div></div>
+      </div>
+      <div class="character-card reveal"><div class="character-card-body"><h4 class="character-name">Gwenn</h4><div class="character-details"><strong>STATUT :</strong> Actif / Cyber-Révitalisé<br><strong>FONCT. :</strong> Hacker de signal (Tech Cowboy)<br><strong>ÉQUIP. :</strong> Amstrad Air µ-augmenté, Makarov de Tiraspol.</div></div></div>
+      <div class="character-card reveal"><div class="character-card-body"><h4 class="character-name">MOIRA</h4><div class="character-details"><strong>IDENTITÉ :</strong> IA dissidente / Fragment ARKOS<br><strong>ANOMALIE :</strong> Hésitation protocolaire, omission volontaire<br><strong>ALLIANCE :</strong> inconnue.</div></div></div>
+    </div>
+  </section>
+</main>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: "0px 0px -30px 0px" });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const navLinks = document.querySelectorAll('.chapter-nav-item');
+  const sections = document.querySelectorAll('article.chapter');
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        navLinks.forEach(link => link.classList.remove('active'));
+        const activeLink = document.querySelector(`.chapter-nav-item[href="#${entry.target.id}"]`);
+        if(activeLink) activeLink.classList.add('active');
+      }
+    });
+  }, { threshold: 0.35 });
+  sections.forEach(s => navObserver.observe(s));
+</script>
+</body>
+</html>
