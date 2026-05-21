@@ -119,20 +119,15 @@ body::after {
   font-family: 'Share Tech Mono', monospace;
   color: var(--gold); font-size: 0.7rem; letter-spacing: 0.35em;
   text-transform: uppercase; margin-bottom: 32px; opacity: 0.8;
-}
 .cover-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.8rem, 9vw, 7rem);
-  font-weight: 900;
-  color: var(--paper); /* <--- ICI : On force le blanc cassé pour le cœur des lettres */
-  line-height: 0.92;
-  position: relative;
-  text-shadow: 0 0 3px var(--phosphor), 0 0 8px var(--phosphor);
+  font-family: 'Playfair Display', serif !important;
+  font-size: clamp(2.8rem, 9vw, 7rem) !important;
+  font-weight: 900 !important;
+  color: var(--paper) !important; /* <--- Force la couleur crème */
+  line-height: 0.92 !important;
+  position: relative !important;
+  text-shadow: 0 0 5px var(--phosphor), 0 0 15px var(--phosphor) !important; /* <--- Augmente le néon */
   animation: neonPulse 1.8s ease-in-out infinite alternate;
-}
-@keyframes neonPulse {
-  0% { text-shadow: 0 0 2px var(--phosphor), 0 0 5px var(--phosphor), 0 0 8px rgba(0,229,90,0.6); }
-  100% { text-shadow: 0 0 6px var(--phosphor), 0 0 15px var(--phosphor), 0 0 25px var(--phosphor), 0 0 35px rgba(0,229,90,0.8); }
 }
 .cover-title::before {
   content: attr(data-text);
