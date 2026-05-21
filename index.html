@@ -9,67 +9,54 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Share+Tech+Mono&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
 
-  <style>
-    /* ── RESET & BASE ── */
+ /* ── RESET & BASE ARCHIVE ── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    html, body {
-      width: 100%; max-width: 100%; overflow-x: hidden;
+    html { scroll-behavior: smooth; background: #0a0806; }
+    body {
       background: #0a0806;
+      font-family: 'IM Fell English', Georgia, serif;
+      color: #0e0c0a;
+      line-height: 1.65;
+      overflow-x: hidden;
     }
 
     :root {
-      --ink:        #0e0c0a;
-      --paper:      #f0ebe2;
-      --paper-dark: #e4ddd2;
-      --paper-mid:  #ccc4b5;
-      --rust:       #8b3a2a;
-      --rust-light: #b84d38;
-      --steel:      #3a4a5c;
+      --ink:         #0e0c0a;
+      --paper:       #f0ebe2;
+      --paper-dark:  #e4ddd2;
+      --rust:        #8b3a2a;
+      --rust-light:  #b84d38;
+      --steel:       #3a4a5c;
       --steel-light:#5b7492;
-      --gold:       #9a7c3c;
-      --gold-light: #c4a054;
-      --gold-dim:   #6b561f;
-      --phosphor:   #00e55a;
-      --void:       #0a0806;
-      --cover-bg:   #0d0b09;
+      --gold:        #9a7c3c;
+      --gold-light:  #c4a054;
+      --phosphor:    #00e55a;
+      --void:        #0a0806;
     }
 
-    body {
-      font-family: 'IM Fell English', Georgia, serif;
-      color: var(--ink);
-      line-height: 1.65;
-    }
-
-    /* ── GRAIN OVERLAY ── */
+    /* Grain argentique analogique global */
     body::after {
       content: '';
       position: fixed;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.045'/%3E%3C/svg%3E");
       pointer-events: none;
       z-index: 9999;
-      opacity: 0.4;
       mix-blend-mode: overlay;
     }
 
-    /* ── REVEAL ANIMATION ── */
+    /* Animations d'apparition progressives */
     .reveal {
       opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 0.75s ease, transform 0.75s ease;
+      transform: translateY(15px);
+      transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s ease;
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
+    .reveal.visible { opacity: 1; transform: none; }
 
-    /* ══════════════════════════════════════════
-       COUVERTURE
-    ══════════════════════════════════════════ */
+    /* === COUVERTURE IMMERSIVE === */
     .cover {
       min-height: 100svh;
-      background: var(--cover-bg);
+      background: #0d0b09;
       display: grid;
       place-items: center;
       position: relative;
@@ -77,96 +64,64 @@
       padding: 60px 24px;
       text-align: center;
     }
-
-    /* Scanlines */
     .cover::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0,0,0,0.08) 2px,
-        rgba(0,0,0,0.08) 4px
-      );
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.12) 2px, rgba(0,0,0,0.12) 4px);
       pointer-events: none;
-      z-index: 1;
     }
-
-    /* Radial glow centre */
     .cover-glow {
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 70% 55% at 50% 48%,
-        rgba(155,124,60,0.12) 0%,
-        transparent 70%);
-      pointer-events: none;
+      background: radial-gradient(ellipse 70% 55% at 50% 48%, rgba(0,229,90,0.08) 0%, transparent 70%);
     }
-
-    /* Cadre double */
     .cover-frame {
       position: absolute;
       inset: 18px;
-      border: 1px solid rgba(154,124,60,0.18);
+      border: 1px solid rgba(154,124,60,0.2);
       pointer-events: none;
-      z-index: 2;
     }
     .cover-frame::after {
       content: '';
       position: absolute;
       inset: 6px;
-      border: 1px solid rgba(154,124,60,0.07);
+      border: 1px solid rgba(154,124,60,0.08);
     }
-
-    /* Coins décoratifs */
     .cover-corner {
       position: absolute;
-      width: 22px;
-      height: 22px;
-      z-index: 3;
+      width: 22px; height: 22px;
     }
-    .cover-corner::before,
-    .cover-corner::after {
-      content: '';
-      position: absolute;
-      background: var(--gold);
+    .cover-corner::before, .cover-corner::after {
+      content: ''; position: absolute; background: var(--gold);
     }
-    .cover-corner::before { width: 100%; height: 1px; top: 0; left: 0; }
-    .cover-corner::after  { width: 1px; height: 100%; top: 0; left: 0; }
-    .cover-corner.tr { top: 18px; right: 18px; transform: scaleX(-1); }
-    .cover-corner.bl { bottom: 18px; left: 18px; transform: scaleY(-1); }
-    .cover-corner.br { bottom: 18px; right: 18px; transform: scale(-1); }
-    .cover-corner.tl { top: 18px; left: 18px; }
-
-    .cover-content {
-      position: relative;
-      z-index: 4;
-      max-width: 780px;
-      width: 100%;
-    }
-
+    .cover-corner::before { width: 100%; height: 1px; top:0; left:0; }
+    .cover-corner::after { width: 1px; height: 100%; top:0; left:0; }
+    .tr { top: 18px; right: 18px; transform: scaleX(-1); }
+    .bl { bottom: 18px; left: 18px; transform: scaleY(-1); }
+    .br { bottom: 18px; right: 18px; transform: scale(-1); }
+    .tl { top: 18px; left: 18px; }
+    
+    .cover-content { position: relative; z-index: 4; max-width: 780px; width: 100%; }
     .cover-eyebrow {
       font-family: 'Share Tech Mono', monospace;
-      color: var(--gold);
-      font-size: 0.7rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      margin-bottom: 32px;
-      opacity: 0.8;
+      color: var(--gold); font-size: 0.7rem; letter-spacing: 0.35em;
+      text-transform: uppercase; margin-bottom: 32px; opacity: 0.8;
     }
-
     .cover-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(3rem, 9vw, 7.5rem);
+      font-size: clamp(2.8rem, 9vw, 7rem);
       font-weight: 900;
       color: var(--paper);
-      line-height: 0.9;
-      letter-spacing: -0.01em;
+      line-height: 0.92;
       position: relative;
+      text-shadow: 0 0 3px var(--phosphor), 0 0 8px var(--phosphor);
+      animation: neonPulse 1.8s ease-in-out infinite alternate, glitch 6s infinite;
     }
-
-    /* Effet glitch */
+    @keyframes neonPulse {
+      0% { text-shadow: 0 0 2px var(--phosphor), 0 0 5px var(--phosphor), 0 0 8px rgba(0,229,90,0.6); }
+      100% { text-shadow: 0 0 6px var(--phosphor), 0 0 15px var(--phosphor), 0 0 25px var(--phosphor), 0 0 35px rgba(0,229,90,0.8); }
+    }
     .cover-title::before {
       content: attr(data-text);
       position: absolute;
@@ -175,505 +130,12 @@
       clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%);
       transform: translate(-3px, 0);
       opacity: 0;
-      animation: glitch 6s infinite 2s;
+      animation: glitchOffset 6s infinite 2s;
     }
     .cover-title::after {
       content: attr(data-text);
       position: absolute;
-      inset: 0;
-      color: var(--steel-light);
-      clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
-      transform: translate(3px, 0);
-      opacity: 0;
-      animation: glitch 6s infinite 2.1s;
-    }
-    @keyframes glitch {
-      0%, 90%, 100% { opacity: 0; transform: translate(0, 0); }
-      91% { opacity: 0.7; transform: translate(-4px, 0); }
-      93% { opacity: 0.7; transform: translate(4px, 0); }
-      95% { opacity: 0.7; transform: translate(-2px, 0); }
-      97% { opacity: 0; }
-    }
-
-    .cover-divider {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin: 36px auto;
-      max-width: 320px;
-    }
-    .cover-divider::before,
-    .cover-divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold));
-    }
-    .cover-divider::after {
-      background: linear-gradient(90deg, var(--gold), transparent);
-    }
-    .cover-divider-diamond {
-      width: 6px;
-      height: 6px;
-      background: var(--gold);
-      transform: rotate(45deg);
-      flex-shrink: 0;
-    }
-
-    .cover-sub {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(0.85rem, 2vw, 1.05rem);
-      font-style: italic;
-      letter-spacing: 0.04em;
-      color: rgba(240,235,226,0.5);
-      line-height: 2;
-    }
-
-    .cover-meta {
-      margin-top: 40px;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      color: rgba(154,124,60,0.5);
-    }
-
-    .cover-scroll {
-      position: absolute;
-      bottom: 28px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-      z-index: 4;
-      opacity: 0.6;
-      transition: opacity 0.3s;
-    }
-    .cover-scroll:hover { opacity: 1; }
-    .cover-scroll span {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.6rem;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 0.25em;
-    }
-    .cover-scroll-line {
-      width: 1px;
-      height: 44px;
-      background: linear-gradient(180deg, var(--gold), transparent);
-      animation: pulse-line 2s ease-in-out infinite;
-    }
-    @keyframes pulse-line {
-      0%, 100% { opacity: 0.4; transform: scaleY(0.8); }
-      50% { opacity: 1; transform: scaleY(1); }
-    }
-
-    /* ══════════════════════════════════════════
-       CORPS DU LIVRE
-    ══════════════════════════════════════════ */
-    .book {
-      background: var(--paper);
-      position: relative;
-    }
-
-    /* Barre supérieure tricolore */
-    .book::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 4px;
-      background: linear-gradient(90deg,
-        var(--rust)   0%,
-        var(--rust)   33%,
-        var(--gold)   33%,
-        var(--gold)   66%,
-        var(--steel)  66%,
-        var(--steel)  100%
-      );
-    }
-
-    /* Texture papier subtile */
-    .book::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        radial-gradient(circle at 20% 80%, rgba(139,58,42,0.025) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(58,74,92,0.025) 0%, transparent 50%);
-      pointer-events: none;
-    }
-
-    /* ── EN-TÊTE CHAPITRE ── */
-    .chapter-header {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 90px 24px 50px;
-      position: relative;
-    }
-
-    .chapter-num {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--rust);
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .chapter-num::after {
-      content: '';
-      display: inline-block;
-      width: 40px;
-      height: 1px;
-      background: var(--rust);
-      opacity: 0.4;
-    }
-
-    .chapter-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.2rem, 5.5vw, 4rem);
-      font-weight: 700;
-      color: var(--ink);
-      line-height: 1.05;
-    }
-
-    /* ── GRILLE RESPONSIVE ── */
-    .grid-layout {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 24px 60px;
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      column-gap: 48px;
-      row-gap: 32px;
-      align-items: start;
-    }
-
-    .text-column { grid-column: 1 / span 8; }
-    .side-column {
-      grid-column: 9 / span 4;
-      padding-top: 6px;
-      position: sticky;
-      top: 60px;
-    }
-
-    /* ── PARAGRAPHES ── */
-    p {
-      font-size: 1.18rem;
-      line-height: 1.78;
-      color: rgba(14,12,10,0.88);
-      margin-bottom: 26px;
-      text-align: justify;
-      hanging-punctuation: first;
-    }
-
-    .dropcap::first-letter {
-      font-family: 'Playfair Display', serif;
-      font-size: 5rem;
-      float: left;
-      margin-top: 2px;
-      margin-right: 8px;
-      line-height: 0.82;
-      font-weight: 900;
-      color: var(--rust);
-      shape-outside: margin-box;
-    }
-
-    code {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.88em;
-      background: rgba(14,12,10,0.07);
-      padding: 1px 5px;
-      border-radius: 2px;
-      color: var(--rust);
-    }
-
-    strong { color: var(--ink); }
-
-    hr.chapter-break {
-      border: none;
-      border-top: 1px dashed rgba(14,12,10,0.18);
-      margin: 48px 0;
-    }
-
-    /* ── IMAGE INLINE ── */
-    .inline-image {
-      width: 100%;
-      height: auto;
-      margin: 28px 0;
-      display: block;
-      border: 1px solid rgba(14,12,10,0.12);
-      box-shadow:
-        0 2px 12px rgba(14,12,10,0.08),
-        inset 0 0 0 4px var(--paper),
-        inset 0 0 0 5px rgba(14,12,10,0.06);
-    }
-
-    /* ── SIDEBAR ── */
-    .side-column > * + * { margin-top: 24px; }
-
-    .side-image {
-      width: 100%;
-      height: auto;
-      display: block;
-      border: 1px solid rgba(14,12,10,0.15);
-      box-shadow:
-        0 4px 20px rgba(14,12,10,0.1),
-        inset 0 0 0 3px var(--paper-dark),
-        inset 0 0 0 4px rgba(14,12,10,0.08);
-      filter: sepia(0.15) contrast(1.05);
-    }
-
-    /* ── MÉTADONNÉES TECHNIQUES ── */
-    .system-meta {
-      border: 1px solid rgba(14,12,10,0.12);
-      background: var(--paper-dark);
-      padding: 18px 20px;
-      position: relative;
-      overflow: hidden;
-    }
-    .system-meta::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 3px; height: 100%;
-      background: var(--steel);
-    }
-    .system-meta.rust-theme::before { background: var(--rust); }
-    .system-meta.gold-theme::before { background: var(--gold); }
-
-    .system-meta-header {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.65rem;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--steel);
-      padding-bottom: 10px;
-      margin-bottom: 14px;
-      border-bottom: 1px solid rgba(14,12,10,0.1);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .system-meta-header::before {
-      content: '▸';
-      color: var(--steel);
-      font-size: 0.7em;
-    }
-    .system-meta.rust-theme .system-meta-header { color: var(--rust); }
-    .system-meta.rust-theme .system-meta-header::before { color: var(--rust); }
-    .system-meta.rust-theme { border-color: rgba(139,58,42,0.15); }
-
-    .meta-line {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 6px 10px;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.78rem;
-      line-height: 1.5;
-      color: rgba(14,12,10,0.75);
-      margin-bottom: 5px;
-    }
-    .system-meta strong {
-      color: var(--rust);
-      font-weight: normal;
-      white-space: nowrap;
-    }
-    .system-meta.rust-theme strong { color: var(--rust); }
-
-    /* ── CITATION ── */
-    .quote-block {
-      grid-column: 1 / -1;
-      position: relative;
-      padding: 32px 40px 32px 56px;
-      margin: 16px 0 8px;
-      background: var(--paper-dark);
-      border-left: none;
-    }
-    .quote-block::before {
-      content: '\201C';
-      position: absolute;
-      top: 10px;
-      left: 16px;
-      font-family: 'Playfair Display', serif;
-      font-size: 5rem;
-      line-height: 1;
-      color: var(--rust);
-      opacity: 0.25;
-    }
-    .quote-block p {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-      font-style: italic;
-      font-weight: 300;
-      color: var(--rust);
-      margin-bottom: 16px;
-      text-align: left;
-      line-height: 1.5;
-    }
-    .quote-author {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--steel);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      display: block;
-    }
-
-    /* ── REGISTRE PERSONNAGES ── */
-    .character-registry {
-      background: var(--void);
-      padding: 80px 24px 90px;
-      position: relative;
-      overflow: hidden;
-    }
-    .character-registry::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 20% 100%, rgba(139,58,42,0.08) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 40% at 80% 0%, rgba(58,74,92,0.1) 0%, transparent 60%);
-      pointer-events: none;
-    }
-
-    .registry-header {
-      max-width: 1000px;
-      margin: 0 auto 48px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-    .registry-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.2rem, 3vw, 1.6rem);
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      white-space: nowrap;
-    }
-    .registry-rule {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, rgba(154,124,60,0.3), transparent);
-    }
-
-    .character-grid {
-      max-width: 1000px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-    }
-
-    .character-card {
-      background: rgba(255,255,255,0.025);
-      border: 1px solid rgba(242,237,230,0.07);
-      overflow: hidden;
-      transition: border-color 0.3s, background 0.3s;
-    }
-    .character-card:hover {
-      border-color: rgba(154,124,60,0.2);
-      background: rgba(255,255,255,0.04);
-    }
-
-    .character-card-img {
-      width: 100%;
-      aspect-ratio: 16/9;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-      filter: sepia(0.2) contrast(1.1);
-      transition: filter 0.4s;
-    }
-    .character-card:hover .character-card-img { filter: sepia(0) contrast(1.05); }
-
-    .character-card-body { padding: 20px 22px 22px; }
-    .character-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
-      color: var(--paper);
-      margin-bottom: 14px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(242,237,230,0.08);
-    }
-    .character-details {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.78rem;
-      color: rgba(242,237,230,0.5);
-      line-height: 1.8;
-    }
-    .character-details strong { color: var(--gold-light); font-weight: normal; }
-
-    /* ── NAVIGATION CHAPITRES (sticky) ── */
-    .chapter-nav {
-     
-      top: 0;
-      z-index: 100;
-      background: rgba(240,235,226,0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(14,12,10,0.08);
-      padding: 10px 24px;
-      display: flex;
-      align-items: center;
-      gap: 0;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-    .chapter-nav::-webkit-scrollbar { display: none; }
-    .chapter-nav-item {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.62rem;
-      color: rgba(14,12,10,0.4);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      text-decoration: none;
-      padding: 4px 14px;
-      white-space: nowrap;
-      border-right: 1px solid rgba(14,12,10,0.1);
-      transition: color 0.2s;
-    }
-    .chapter-nav-item:last-child { border-right: none; }
-    .chapter-nav-item:hover,
-    .chapter-nav-item.active { color: var(--rust); }
-
-    /* ══════════════════════════════════════════
-       RESPONSIVE
-    ══════════════════════════════════════════ */
-    @media (max-width: 900px) {
-      .grid-layout {
-        display: flex;
-        flex-direction: column;
-        gap: 0;
-        padding-bottom: 50px;
-      }
-      .text-column, .side-column { width: 100%; }
-      .side-column {
-        order: -1;
-        padding-top: 0;
-        padding-bottom: 24px;
-        margin-bottom: 16px;
-        border-bottom: 1px dashed rgba(14,12,10,0.12);
-      }
-      p { text-align: left; font-size: 1.1rem; }
-      .quote-block { padding: 24px 24px 24px 40px; }
-      .quote-block p { font-size: 1.2rem; }
-    }
-
-    @media (max-width: 600px) {
-      .cover-title { font-size: clamp(2.4rem, 12vw, 3.5rem); }
-      .chapter-title { font-size: 1.9rem; }
-      .character-grid { grid-template-columns: 1fr; }
-      .chapter-nav { gap: 0; }
-      .dropcap::first-letter { font-size: 4rem; }
-      .chapter-header { padding: 60px 20px 36px; }
-      .grid-layout { padding: 0 20px 40px; }
-    }
-  </style>
+      inset: 0
 </head>
 <body>
 
