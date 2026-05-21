@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Share+Tech+Mono&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
 
   <style>/* ── RESET & BASE ARCHIVE ── */
+ /* ── RESET & BASE ARCHIVE ── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; background: #0a0806; }
     body {
@@ -34,7 +35,7 @@
       --void:        #0a0806;
     }
 
-    /* Grain argentique analogique global */
+    /* Grain argentique analogique */
     body::after {
       content: '';
       position: fixed;
@@ -45,7 +46,7 @@
       mix-blend-mode: overlay;
     }
 
-    /* Animations d'apparition progressives */
+    /* Animations d'apparition */
     .reveal {
       opacity: 0;
       transform: translateY(15px);
@@ -53,7 +54,7 @@
     }
     .reveal.visible { opacity: 1; transform: none; }
 
-    /* === COUVERTURE IMMERSIVE === */
+    /* === COUVERTURE === */
     .cover {
       min-height: 100svh;
       background: #0d0b09;
@@ -172,7 +173,7 @@
     .cover-scroll-line { width: 1px; height: 44px; background: linear-gradient(180deg, var(--gold), transparent); animation: pulse-line 2s infinite; }
     @keyframes pulse-line { 0%,100%{ opacity:0.4; transform:scaleY(0.8); } 50%{ opacity:1; transform:scaleY(1); } }
 
-    /* === ARCHITECTURE DU LIVRE === */
+    /* === CONFIGURATION LIVRE === */
     .book { background: var(--paper); position: relative; }
     .book::before {
       content: ''; position: absolute; top:0; left:0; right:0; height: 4px;
@@ -185,7 +186,7 @@
       pointer-events: none;
     }
 
-    /* Menu de navigation collant */
+    /* Navigation Haute */
     .chapter-nav {
       position: sticky; top: 0; z-index: 100;
       background: rgba(240,235,226,0.96);
@@ -206,56 +207,52 @@
     .chapter-nav-item:last-child { border-right: none; }
     .chapter-nav-item:hover, .chapter-nav-item.active { color: var(--rust); font-weight: 500; }
 
-    /* === STRUCTURE DE LA GRILLE AVEC TITRE INTÉGRÉ === */
+    /* === STRUCTURE DU FLUX ET CORRECTION DE LA ZONE VIDE === */
     .chapter {
       max-width: 1120px;
       margin: 0 auto;
-      padding: 40px 24px 60px;
+      padding: 60px 24px;
     }
 
-    .grid-layout {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      column-gap: 48px;
-      row-gap: 0;
-      align-items: start; /* Aligne le haut des éléments de manière synchrone */
-    }
-
-    /* CORRECTION SOUVERAINE : Force le titre à occuper toute la largeur sur sa propre ligne de calcul */
+    /* Le titre retrouve son comportement d'origine propre */
     .chapter-header {
-      grid-column: 1 / -1; 
-      width: 100%;
       margin-bottom: 32px;
       border-bottom: 1px solid rgba(14,12,10,0.05);
       padding-bottom: 16px;
     }
-    
     .chapter-num {
       font-family: 'Share Tech Mono', monospace;
       font-size: 0.7rem; color: var(--rust);
-      letter-spacing: 0.35em; margin-bottom: 8px;
+      letter-spacing: 0.35em; margin-bottom: 6px;
       display: flex; align-items: center; gap: 12px;
     }
     .chapter-num::after { content: ''; width: 44px; height: 1px; background: var(--rust); opacity: 0.4; }
     .chapter-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 700; color: var(--ink); line-height: 1.1; }
 
-    /* La colonne textuelle commence sur la ligne suivante sans contrainte de hauteur */
+    /* LA CORRECTION FONDAMENTALE : Une grille épurée pour les colonnes de contenu */
+    .grid-layout {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 48px;
+      row-gap: 0;
+      align-items: start; /* Aligne strictement le haut du texte et le haut des encadrés */
+    }
+    
+    /* Colonne texte à gauche : aucun blocage possible */
     .text-column {
       grid-column: 1 / span 8;
-      height: auto;
     }
-
-    /* La colonne latérale est autonome et ne s'étire pas artificiellement */
+    
+    /* Colonne métadonnées à droite : pas de sticky déstabilisant */
     .side-column {
       grid-column: 9 / span 4;
-      position: relative; 
-      align-self: start;  /* Empêche l'étirement vertical et neutralise le bug Safari */
+      position: relative;
     }
     
     p {
       font-size: 1.18rem;
       line-height: 1.78;
-      color: rgba(14, 12, 10, 0.88);
+      color: rgba(14,12,10,0.88);
       margin-bottom: 24px;
       text-align: justify;
     }
@@ -265,9 +262,9 @@
       line-height: 0.78; font-weight: 900; color: var(--rust);
     }
     code { font-family: 'Share Tech Mono', monospace; background: rgba(14,12,10,0.07); padding: 2px 5px; border-radius: 3px; font-size: 0.85em; color: var(--rust); }
-    hr.chapter-break { border: none; border-top: 1px dashed rgba(14,12,10,0.2); margin: 32px 0; }
+    hr.chapter-break { border: none; border-top: 1px dashed rgba(14,12,10,0.2); margin: 36px 0; }
     
-    /* Blocs de données système */
+    /* Blocs système */
     .system-meta {
       border: 1px solid rgba(14,12,10,0.12);
       background: var(--paper-dark); padding: 18px 20px; margin-bottom: 20px;
@@ -294,7 +291,7 @@
       display: block;
     }
     
-    /* Panneau d'archive horizontal complet */
+    /* Panneau d'archive complet (Image large) */
     .archive-multipanel {
       grid-column: 1 / -1;
       margin: 32px 0 16px;
@@ -336,7 +333,7 @@
     .quote-block p { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; color: var(--rust); margin-bottom: 12px; text-align: left; line-height: 1.4; }
     .quote-author { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--steel); letter-spacing: 0.1em; }
 
-    /* Registre des acteurs */
+    /* Registre final */
     .character-registry { background: var(--void); padding: 80px 24px 100px; position: relative; }
     .registry-header { max-width: 1000px; margin: 0 auto 48px; display: flex; align-items: center; gap: 20px; }
     .registry-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
@@ -349,19 +346,16 @@
     .character-details { font-family: 'Share Tech Mono', monospace; font-size: 0.78rem; color: rgba(240,235,226,0.6); line-height: 1.7; }
     .character-details strong { color: var(--gold-light); font-weight: normal; }
 
-    /* === CONTRÔLE STRUCTURÉ DU RESPONSIVE MOBILE === */
+    /* === RESPONSIVE SMARTPHONE === */
     @media (max-width: 900px) {
       .grid-layout { display: flex; flex-direction: column; }
-      /* Les encadrés complémentaires basculent au-dessus du texte sur smartphone */
-      .side-column { order: -1; width: 100%; margin-bottom: 28px; }
+      .side-column { order: -1; width: 100%; margin-bottom: 24px; }
       .text-column { width: 100%; }
       .archive-multipanel { grid-template-columns: 1fr; }
       .archive-media-wrapper { border-right: none; border-bottom: 1px solid rgba(14,12,10,0.12); }
       p { font-size: 1.05rem; text-align: left; }
       .quote-block p { font-size: 1.25rem; }
-      .chapter-header { margin-bottom: 20px; }
     }
-    
     @media (max-width: 640px) {
       .chapter-title { font-size: 1.8rem; }
       .dropcap::first-letter { font-size: 3.2rem; margin-top: 2px; }
