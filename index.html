@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+  <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -35,7 +36,7 @@
       --void:        #0a0806;
     }
 
-    /* Grain argentique / Bruit analogique global */
+    /* Grain argentique analogique */
     body::after {
       content: '';
       position: fixed;
@@ -172,7 +173,7 @@
     .cover-scroll-line { width: 1px; height: 44px; background: linear-gradient(180deg, var(--gold), transparent); animation: pulse-line 2s infinite; }
     @keyframes pulse-line { 0%,100%{ opacity:0.4; transform:scaleY(0.8); } 50%{ opacity:1; transform:scaleY(1); } }
 
-    /* === STRUCTURE DU TEXTE / GRIMOIRE CYBER === */
+    /* === LIVRE CONFIGURATION === */
     .book { background: var(--paper); position: relative; }
     .book::before {
       content: ''; position: absolute; top:0; left:0; right:0; height: 4px;
@@ -237,7 +238,7 @@
     code { font-family: 'Share Tech Mono', monospace; background: rgba(14,12,10,0.07); padding: 2px 5px; border-radius: 3px; font-size: 0.85em; color: var(--rust); }
     hr.chapter-break { border: none; border-top: 1px dashed rgba(14,12,10,0.2); margin: 42px 0; }
     
-    /* Blocs de métadonnées Systèmes */
+    /* Blocs de données systèmes */
     .system-meta {
       border: 1px solid rgba(14,12,10,0.12);
       background: var(--paper-dark); padding: 18px 20px; margin-bottom: 24px;
@@ -259,12 +260,12 @@
     }
     .side-image {
       width: 100%; border: 1px solid rgba(14,12,10,0.15);
-      filter: sepia(0.1) contrast(1.02);
+      filter: sepia(0.08) contrast(1.02);
       margin-top: 12px;
       display: block;
     }
     
-    /* Conteneur spécifique pour l'intégration de la pièce d'archive large (Panneau double) */
+    /* Image double face (Splitscreen atelier / de Varne) */
     .archive-multipanel {
       grid-column: 1 / -1;
       margin: 32px 0;
@@ -286,7 +287,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      filter: sepia(0.06) contrast(1.03);
+      filter: sepia(0.04) contrast(1.03);
     }
     .archive-sidebar-data {
       padding: 24px;
@@ -315,7 +316,7 @@
     .quote-block p { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; color: var(--rust); margin-bottom: 12px; text-align: left; line-height: 1.4; }
     .quote-author { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--steel); letter-spacing: 0.1em; }
 
-    /* Registre des personnages */
+    /* Registre des acteurs */
     .character-registry {
       background: var(--void); padding: 80px 24px 100px;
       position: relative;
@@ -334,7 +335,6 @@
     .character-details { font-family: 'Share Tech Mono', monospace; font-size: 0.78rem; color: rgba(240,235,226,0.6); line-height: 1.7; }
     .character-details strong { color: var(--gold-light); font-weight: normal; }
 
-    /* Responsive */
     @media (max-width: 900px) {
       .grid-layout { display: flex; flex-direction: column; }
       .side-column { order: -1; position: relative; top: 0; margin-bottom: 20px; width: 100%; }
@@ -378,7 +378,6 @@
     <a href="#ch6" class="chapter-nav-item">VI — Moira</a>
     <a href="#ch7" class="chapter-nav-item">VII — La Mémoire</a>
   </nav>
-  <!-- CHAPITRE 1 -->
   <article class="chapter" id="ch1">
     <header class="chapter-header reveal"><div class="chapter-num">Chapitre Un</div><h2 class="chapter-title">Le Dépotoir</h2></header>
     <div class="grid-layout">
@@ -400,22 +399,16 @@
     </div>
   </article>
 
-  <!-- CHAPITRE 2 -->
   <article class="chapter" id="ch2">
     <header class="chapter-header reveal"><div class="chapter-num">Chapitre Deux</div><h2 class="chapter-title">La Rue Pouchkine</h2></header>
     <div class="grid-layout">
-     <aside class="side-column reveal">
-  <div class="system-meta rust-theme">
-    <div class="system-meta-header">Globnass // HUNTER</div>
-    <div class="meta-line"><strong>LOCATION :</strong> Sloboda / Eminescu</div>
-    <div class="meta-line"><strong>GRADE :</strong> Category D</div>
-    <div class="meta-line"><strong>INFRA :</strong> No Gas / Minimal Grid</div>
-  </div>
-  
-  <div style="width: 100%; aspect-ratio: 1; overflow: hidden; border: 1px solid rgba(14,12,10,0.15); margin-top: 12px;">
-    <img src="4613317316214995639.jpeg" alt="Rue Pouchkine — Profil de Varne" style="width: 200%; height: 100%; object-fit: cover; object-position: right center; display: block; filter: sepia(0.1) contrast(1.02);">
-  </div>
-</aside>
+      <aside class="side-column reveal">
+        <div class="system-meta rust-theme"><div class="system-meta-header">Globnass // HUNTER</div><div class="meta-line"><strong>LOCATION :</strong> Sloboda / Eminescu</div><div class="meta-line"><strong>GRADE :</strong> Category D</div><div class="meta-line"><strong>INFRA :</strong> No Gas / Minimal Grid</div></div>
+        
+        <div style="width: 100%; aspect-ratio: 1; overflow: hidden; border: 1px solid rgba(14,12,10,0.15); margin-top: 12px;">
+          <img src="image6.png" alt="Rue Pouchkine — Ombre de Varne" style="width: 200%; height: 100%; object-fit: cover; object-position: right center; display: block; filter: sepia(0.08) contrast(1.02);">
+        </div>
+      </aside>
       <div class="text-column reveal">
         <p>La rue s'appelait Pouchkine. Gwenn l'apprit par Hunter, sa globnass projetant des noms en cyrillique. Hunter avait une voix sans âge. « Rue Pouchkine, voie principale dégradée ». Sloboda, liberté en vieux slave. Ironie facile. Les murs suintaient une condensation chimique. Les façades néo-tsaristes conservaient leur ordonnance. Un vendeur de câbles militaires dormait dans l'entrée d'un immeuble. Gwenn ne ralentit pas.</p>
         <p>« Rue d'Octobre 1917 », annonça Hunter. « Axe nord-sud. Grade D ». Un condensé de clichés — mais les clichés marquent les strates. Une ville construite par sédiments d'empires. Karmov avait posé son stratum par-dessus. Le Centre avait coupé le gaz. L'Amstrad bougea dans son sac. Quatre ans plancher, bruit de fond. Hunter : « Continuez deux cents mètres ». Gwenn continua.</p>
@@ -423,7 +416,6 @@
     </div>
   </article>
 
-  <!-- CHAPITRE 3 (AVEC L'IMAGE COMPLÈTE EN DOUBLE PANNEAU) -->
   <article class="chapter" id="ch3">
     <header class="chapter-header reveal"><div class="chapter-num">Chapitre Trois</div><h2 class="chapter-title">L'Atelier N°9</h2></header>
     <div class="grid-layout">
@@ -435,22 +427,21 @@
         </div>
       </aside>
       <div class="text-column reveal">
-        <p>La place s'ouvrit. L'église aux dômes effondrés était noire de suie. Les vitraux géométriques rappelaient des circuits. Une trappe en fer, serrure Obsidian-7. Gwenn la forced. La crypte était grande, couverte de câbles, de baies de serveurs bricolées, d'enceintes de récupération. Les icônes étaient restées. Saint Cyrille côtoyait un rack de disques durs. Au fond, une porte blindée : <em>« Atelier N°9 — Cyber-Révitalisés »</em>. Quatre personnes l'occupaient. Konstantin, Galina, Zéro, et une silhouette de dos. Gwenn sortit son Amstrad.</p>
+        <p>La place s'ouvrit. L'église aux dômes effondrés était noire de suie. Les vitraux géométriques rappelaient des circuits. Une trappe en fer, serrure Obsidian-7. Gwenn la força. La crypte était grande, couverte de câbles, de baies de serveurs bricolées, d'enceintes de récupération. Les icônes étaient restées. Saint Cyrille côtoyait un rack de disques durs. Au fond, une porte blindée : <em>« Atelier N°9 — Cyber-Révitalisés »</em>. Quatre personnes l'occupaient. Konstantin, Galina, Zéro, et une silhouette de dos. Gwenn sortit son Amstrad.</p>
         <p>« Fenêtre dans vingt minutes » dit Konstantin. Le signal apparut, puis un paquet dissimulé. Stéganographie satellitaire. Signature : <strong>ARKOS</strong> — légende urbaine officiellement démantelée. Date de compilation : moins de six mois. Gwenn copia le fragment. « Du flux logistique standard » mentit-il aux autres.</p>
       </div>
 
-      <!-- BLOC INTEGRATION LARGE DU DIPTYQUE CYBERPUNK / ARISTOCRATE -->
       <section class="archive-multipanel reveal">
         <div class="archive-media-wrapper">
-          <img src="4613317316214995639.jpeg" alt="Fragment d'archive visuelle #NRL-2051 — L'Atelier N°9 et l'Ombre de Varne">
+          <img src="image6.png" alt="Fragment visuel #NRL-2051 — L'Atelier N°9 et l'Ombre de Varne">
         </div>
         <div class="archive-sidebar-data">
           <div class="system-meta" style="border:none; background:transparent; padding:0; margin:0;">
             <div class="system-meta-header" style="color:var(--rust);">Intercept // Image Capture</div>
             <div class="meta-line"><strong>SOURCE :</strong> Optique-M09</div>
-            <div class="meta-line"><strong>LEFT :</strong> Gwenn & Konstantin (Atelier)</div>
-            <div class="meta-line"><strong>RIGHT :</strong> R. de Varne (Continental)</div>
-            <div class="meta-line"><strong>CORRELATION :</strong> 98.4% signal convergence</div>
+            <div class="meta-line"><strong>LEFT :</strong> Gwenn & Konstantin</div>
+            <div class="meta-line"><strong>RIGHT :</strong> R. de Varne (Hôtel)</div>
+            <div class="meta-line"><strong>CORRELATION :</strong> 98.4% convergence</div>
           </div>
           <div class="archive-data-text">
             « Deux mondes séparés par quelques kilomètres de boue et de cuivre. D'un côté, la sueur de la crypte ; de l'autre, l'acier trempé de la haute société de contrebande. »
@@ -460,7 +451,6 @@
     </div>
   </article>
 
-  <!-- CITATION CONTEXTUELLE -->
   <div class="grid-layout" style="padding-top:0">
     <blockquote class="quote-block reveal">
       <p>Nous avons cherché le signal là où la physique s'arrête. Ce que nous avons trouvé n'était pas du code, mais une sentence.</p>
@@ -468,7 +458,6 @@
     </blockquote>
   </div>
 
-  <!-- CHAPITRE 4 -->
   <article class="chapter" id="ch4">
     <header class="chapter-header reveal"><div class="chapter-num">Chapitre Quatre</div><h2 class="chapter-title">Vera</h2></header>
     <div class="grid-layout">
@@ -490,7 +479,6 @@
       </div>
     </div>
   </article>
-  <!-- CHAPITRE 5 -->
   <article class="chapter" id="ch5">
     <header class="chapter-header reveal"><div class="chapter-num">Chapitre Cinq</div><h2 class="chapter-title">Confrontation et Sacrifice</h2></header>
     <div class="grid-layout">
@@ -508,7 +496,6 @@
     </div>
   </article>
 
-  <!-- CHAPITRE 6 -->
   <article class="chapter" id="ch6">
     <header class="chapter-header reveal"><div class="chapter-num">Chapitre Six</div><h2 class="chapter-title">Moira</h2></header>
     <div class="grid-layout">
@@ -526,7 +513,6 @@
     </div>
   </article>
 
-  <!-- CHAPITRE 7 -->
   <article class="chapter" id="ch7">
     <header class="chapter-header reveal"><div class="chapter-num">Chapitre Sept</div><h2 class="chapter-title">La Mémoire et le Fer</h2></header>
     <div class="grid-layout">
@@ -540,18 +526,19 @@
       <div class="text-column reveal">
         <p>Gwenn retrouva Petru dans le quartier roumain. « Je suis désolé pour le gamin. C'est moi qui vous ai balancé. » Gwenn serra le Makarov. « Tu peux me tuer, Français, mais je suis la mémoire de la Transnistrie. Je te dirai où crèche Rodrigue. » Petru écarta une toile cirée, arsenal d'avant la chute.</p>
         <hr class="chapter-break">
-        <p><strong>La Cour des Mirages</strong><br>À l'Hôtel Continental, Rodrigue affrontait deux commanditaires. Le jeune cadre aux implants rétiniens railla : « Vous sentez le suif, baron. » Rodrigue laissa deux empreintes de boue. Le vieil homme d'affaires : cinq millions de crédits transférés. « La boue finit toujours par remonter » répondit Rodrigue. Il pivota, ignorant que Petru armait déjà son ennemi.</p>
+        <p><strong>La Cour des Mirages</strong><br>À l'Hôtel Continental, Rodrigue affrontait deux commanditaires. Le jeune cadre aux implants rétiniens railla : « Vous sentez le suif, baron. » Rodrigue laissa deux empreintes de boue. Le vieil homme d'affaires : five millions de crédits transférés. « La boue finit toujours par remonter » répondit Rodrigue. Il pivota, ignorant que Petru armait déjà son ennemi.</p>
       </div>
     </div>
   </article>
 
-  <!-- REGISTRE PERSONNAGES (ÉPURÉ & COHÉRENT) -->
   <section class="character-registry">
     <div class="registry-header reveal"><h3 class="registry-title">Dossiers Personnels // Acteurs Clés</h3><div class="registry-rule"></div></div>
     <div class="character-grid">
       
-      <!-- Fiche Rodrigue de Varne -->
       <div class="character-card reveal">
+        <div style="width: 100%; aspect-ratio: 16/9; overflow: hidden; border-bottom: 1px solid rgba(242,237,230,0.1);">
+          <img src="image6.png" alt="Rodrigue de Varne" style="width: 200%; height: 100%; object-fit: cover; object-position: right center; display: block; filter: sepia(0.08) contrast(1.04);">
+        </div>
         <div class="character-card-body">
           <h4 class="character-name">Rodrigue de Varne</h4>
           <div class="character-details">
@@ -562,7 +549,6 @@
         </div>
       </div>
       
-      <!-- Fiche Gwenn -->
       <div class="character-card reveal">
         <div class="character-card-body">
           <h4 class="character-name">Gwenn</h4>
@@ -574,12 +560,11 @@
         </div>
       </div>
       
-      <!-- Fiche MOIRA -->
       <div class="character-card reveal">
         <div class="character-card-body">
           <h4 class="character-name">MOIRA</h4>
           <div class="character-details">
-            <strong>IDENTITÉ :</strong> IA dissendente / Fragment ARKOS<br>
+            <strong>IDENTITÉ :</strong> IA dissidente / Fragment ARKOS<br>
             <strong>ANOMALIE :</strong> Hésitation protocolaire, omission volontaire de données<br>
             <strong>ALLIANCE :</strong> Incertaine / Convergence Gwenn.
           </div>
@@ -590,7 +575,6 @@
   </section>
 </main>
 
-<!-- ── SCRIPTS DE TRAITEMENT DE SIGNAL (INTERSECTION OBSERVER) ── -->
 <script>
   // Effet d'apparition progressive (Reveal) au défilement
   const observer = new IntersectionObserver((entries) => {
