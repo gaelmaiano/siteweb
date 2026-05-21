@@ -1,427 +1,131 @@
-<!DOCTYPE html>
+
+ <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Néorussland</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Néorussland - Manuscrit Intégral</title>
+    <style>
+        /* Base & Variables de design */
+        :root {
+            --bg-color: #fcfcf9;
+            --text-color: #222222;
+            --title-color: #111111;
+            --border-color: #e0e0d8;
+            --code-bg: #eeeeee;
+        }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Share+Tech+Mono&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+        /* Réinitialisation de base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-<style>
-  /* 1. RESET & VARIABLES */
-*, *::before, *::after { 
-  margin: 0; 
-  padding: 0; 
-  box-sizing: border-box; 
-}
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
 
-:root {
-  --ink:         #0e0c0a;
-  --paper:       #f0ebe2;
-  --paper-dark:  #e4ddd2;
-  --rust:        #8b3a2a;
-  --rust-light:  #b84d38;
-  --steel:       #3a4a5c;
-  --steel-light: #5b7492;
-  --gold:        #9a7c3c;
-  --gold-light:  #c4a054;
-  --phosphor:    #00e55a;
-  --void:        #0a0806;
-}
+        /* Typographie Narrative */
+        h1 {
+            text-align: center;
+            color: var(--title-color);
+            font-size: 2em;
+            letter-spacing: 3px;
+            margin: 40px 0 60px 0;
+            text-transform: uppercase;
+        }
 
-html { 
-  scroll-behavior: smooth; 
-  background: var(--void); 
-}
+        h2 {
+            color: var(--title-color);
+            font-size: 1.3em;
+            margin: 60px 0 25px 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            letter-spacing: 1px;
+        }
 
-body {
-  background: var(--void);
-  font-family: 'IM Fell English', Georgia, serif;
-  color: var(--paper);
-  line-height: 1.65;
-  overflow-x: hidden;
-}
+        h3 {
+            color: #555555;
+            font-size: 1.05em;
+            margin: 35px 0 15px 0;
+            font-style: italic;
+        }
 
-/* Grain argentique */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.045'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: overlay;
-}
+        p {
+            margin-bottom: 22px;
+            text-align: justify;
+            text-justify: inter-word;
+            font-size: 1.05em;
+        }
 
-/* Animations d'apparition */
-.reveal {
-  opacity: 0;
-  transform: translateY(15px);
-  transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s ease;
-}
-.reveal.visible { opacity: 1; transform: none; }
+        code {
+            background-color: var(--code-bg);
+            color: var(--title-color);
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.95em;
+        }
 
-/* === COUVERTURE — TITRE HYPER VISIBLE === */
-.cover {
-  min-height: 100svh;
-  background: #0a0806;
-  display: grid;
-  place-items: center;
-  position: relative;
-  overflow: hidden;
-  padding: 60px 24px;
-  text-align: center;
-}
-.cover::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.2) 2px, rgba(0,0,0,0.2) 4px);
-  pointer-events: none;
-}
-.cover-glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 70% 55% at 50% 48%, rgba(0,229,90,0.22) 0%, transparent 75%);
-}
-.cover-frame {
-  position: absolute;
-  inset: 18px;
-  border: 1px solid rgba(154,124,60,0.3);
-  pointer-events: none;
-}
-.cover-frame::after {
-  content: '';
-  position: absolute;
-  inset: 6px;
-  border: 1px solid rgba(154,124,60,0.12);
-}
-.cover-corner {
-  position: absolute;
-  width: 22px; height: 22px;
-}
-.cover-corner::before, .cover-corner::after {
-  content: ''; position: absolute; background: var(--gold);
-}
-.cover-corner::before { width: 100%; height: 1px; top:0; left:0; }
-.cover-corner::after { width: 1px; height: 100%; top:0; left:0; }
-.tr { top: 18px; right: 18px; transform: scaleX(-1); }
-.bl { bottom: 18px; left: 18px; transform: scaleY(-1); }
-.br { bottom: 18px; right: 18px; transform: scale(-1); }
-.tl { top: 18px; left: 18px; }
+        section {
+            margin-bottom: 60px;
+        }
 
-.cover-content { position: relative; z-index: 4; max-width: 880px; width: 100%; }
-.cover-eyebrow {
-  font-family: 'Share Tech Mono', monospace;
-  color: var(--gold); font-size: 0.75rem; letter-spacing: 0.45em;
-  text-transform: uppercase; margin-bottom: 32px; opacity: 0.9;
-}
+        /* Layout Responsive (Breakpoints) */
+        @media (min-width: 768px) {
+            body {
+                padding: 60px 40px;
+                border-left: 1px solid var(--border-color);
+            }
+            h1 {
+                font-size: 2.4em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+        }
 
-/* TITRE PRINCIPAL : TRÈS VISIBLE, NÉON, CONTRASTE FORT */
-.cover-title {
-  font-family: 'Playfair Display', serif !important;
-  font-size: clamp(3.5rem, 12vw, 8.5rem) !important;
-  font-weight: 900 !important;
-  color: #fff7e8 !important;
-  line-height: 0.92 !important;
-  position: relative !important;
-  text-shadow: 0 0 12px #00e55a,
-               0 0 25px #00e55a,
-               0 0 45px rgba(0,229,90,0.7),
-               4px 4px 12px rgba(0,0,0,0.7),
-               -2px -2px 6px rgba(0,0,0,0.5) !important;
-  letter-spacing: -0.01em;
-  animation: neonPulse 2s ease-in-out infinite alternate;
-}
-
-@keyframes neonPulse {
-  0% {
-    text-shadow: 0 0 6px #00e55a, 0 0 15px #00e55a, 0 0 30px rgba(0,229,90,0.6), 2px 2px 8px black;
-  }
-  100% {
-    text-shadow: 0 0 18px #00e55a, 0 0 35px #3eff8c, 0 0 60px rgba(0,229,90,0.9), 5px 5px 14px black;
-  }
-}
-
-/* Effet glitch léger (optionnel mais ne nuit pas) */
-.cover-title::before {
-  content: attr(data-text);
-  position: absolute;
-  inset: 0;
-  color: #ffb5a0;
-  clip-path: polygon(0 25%, 100% 25%, 100% 45%, 0 45%);
-  transform: translate(-2px, 1px);
-  opacity: 0;
-  animation: glitchSoft 7s infinite 1.5s;
-}
-.cover-title::after {
-  content: attr(data-text);
-  position: absolute;
-  inset: 0;
-  color: #8ad0ff;
-  clip-path: polygon(0 65%, 100% 65%, 100% 85%, 0 85%);
-  transform: translate(2px, -1px);
-  opacity: 0;
-  animation: glitchSoft 7s infinite 1.8s;
-}
-@keyframes glitchSoft {
-  0%, 94%, 100% { opacity: 0; transform: translate(0,0); }
-  95% { opacity: 0.6; transform: translate(-2px, 0); }
-  97% { opacity: 0.5; transform: translate(2px, 1px); }
-  98% { opacity: 0; }
-}
-
-.cover-divider {
-  display: flex; align-items: center; gap: 20px;
-  margin: 40px auto; max-width: 300px;
-}
-.cover-divider::before, .cover-divider::after {
-  content: ''; flex: 1; height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-light));
-}
-.cover-divider::after { background: linear-gradient(90deg, var(--gold-light), transparent); }
-.cover-divider-diamond { width: 8px; height: 8px; background: var(--gold-light); transform: rotate(45deg); box-shadow: 0 0 6px var(--gold); }
-
-.cover-sub {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1rem, 2.5vw, 1.3rem);
-  font-style: italic;
-  background: rgba(0,0,0,0.45);
-  backdrop-filter: blur(3px);
-  padding: 8px 24px;
-  border-radius: 50px;
-  display: inline-block;
-  color: #f0ebe2;
-  letter-spacing: 0.04em;
-}
-.cover-meta {
-  margin-top: 48px;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.25em;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(2px);
-  padding: 6px 18px;
-  border-radius: 40px;
-  display: inline-block;
-  color: rgba(196,160,84,0.9);
-}
-
-.cover-scroll {
-  position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  text-decoration: none; opacity: 0.7; transition: 0.3s; z-index: 4;
-}
-.cover-scroll:hover { opacity: 1; }
-.cover-scroll span { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--gold-light); letter-spacing: 0.3em; }
-.cover-scroll-line { width: 1px; height: 44px; background: linear-gradient(180deg, var(--gold-light), transparent); animation: pulse-line 2s infinite; }
-@keyframes pulse-line { 0%,100%{ opacity:0.4; transform:scaleY(0.8); } 50%{ opacity:1; transform:scaleY(1); } }
-
-/* === ZONE LIVRE (CLAIR) === */
-.book { 
-  background: var(--paper); 
-  color: var(--ink);
-  position: relative; 
-}
-.book::before {
-  content: ''; position: absolute; top:0; left:0; right:0; height: 4px;
-  background: linear-gradient(90deg, var(--rust) 0%, var(--rust) 33%, var(--gold) 33%, var(--gold) 66%, var(--steel) 66%, var(--steel) 100%);
-}
-.book::after {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(circle at 20% 30%, rgba(139,58,42,0.02) 0%, transparent 60%),
-              radial-gradient(circle at 85% 70%, rgba(58,74,92,0.02) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-/* Navigation */
-.chapter-nav {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(240,235,226,0.96);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(14,12,10,0.08);
-  padding: 10px 24px;
-  display: flex; gap: 0; overflow-x: auto;
-  scrollbar-width: thin;
-}
-.chapter-nav-item {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.62rem; color: rgba(14,12,10,0.55);
-  letter-spacing: 0.12em; text-transform: uppercase;
-  text-decoration: none; padding: 6px 16px;
-  white-space: nowrap; border-right: 1px solid rgba(14,12,10,0.12);
-  transition: color 0.2s;
-}
-.chapter-nav-item:last-child { border-right: none; }
-.chapter-nav-item:hover, .chapter-nav-item.active { color: var(--rust); font-weight: 500; }
-
-/* Chapitres */
-.chapter {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 60px 24px;
-}
-.chapter-header {
-  margin-bottom: 32px;
-  border-bottom: 1px solid rgba(14,12,10,0.05);
-  padding-bottom: 16px;
-}
-.chapter-num {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.7rem; color: var(--rust);
-  letter-spacing: 0.35em; margin-bottom: 6px;
-  display: flex; align-items: center; gap: 12px;
-}
-.chapter-num::after { content: ''; width: 44px; height: 1px; background: var(--rust); opacity: 0.4; }
-.chapter-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 700; color: var(--ink); line-height: 1.1; }
-
-.grid-layout {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  column-gap: 48px;
-  row-gap: 0;
-  align-items: start;
-}
-.text-column { grid-column: 1 / span 8; }
-.side-column { grid-column: 9 / span 4; position: relative; }
-
-p {
-  font-size: 1.18rem;
-  line-height: 1.78;
-  color: rgba(14,12,10,0.88);
-  margin-bottom: 24px;
-  text-align: justify;
-}
-.dropcap::first-letter {
-  font-family: 'Playfair Display', serif;
-  font-size: 4.6rem; float: left; margin-top: 6px; margin-right: 10px;
-  line-height: 0.78; font-weight: 900; color: var(--rust);
-}
-code { font-family: 'Share Tech Mono', monospace; background: rgba(14,12,10,0.07); padding: 2px 5px; border-radius: 3px; font-size: 0.85em; color: var(--rust); }
-hr.chapter-break { border: none; border-top: 1px dashed rgba(14,12,10,0.2); margin: 36px 0; }
-
-/* Système meta */
-.system-meta {
-  border: 1px solid rgba(14,12,10,0.12);
-  background: var(--paper-dark); padding: 18px 20px; margin-bottom: 20px;
-  position: relative; overflow: hidden;
-}
-.system-meta::before { content: ''; position: absolute; top:0; left:0; width: 3px; height: 100%; background: var(--steel); }
-.system-meta.rust-theme::before { background: var(--rust); }
-.system-meta-header {
-  font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; font-weight: bold;
-  text-transform: uppercase; letter-spacing: 0.1em; color: var(--steel);
-  border-bottom: 1px solid rgba(14,12,10,0.1); padding-bottom: 10px; margin-bottom: 14px;
-  display: flex; align-items: center; gap: 6px;
-}
-.system-meta-header::before { content: '▸'; color: var(--steel); }
-.meta-line {
-  display: grid; grid-template-columns: auto 1fr; gap: 6px 12px;
-  font-family: 'Share Tech Mono', monospace; font-size: 0.78rem;
-  color: rgba(14,12,10,0.8); margin-bottom: 6px;
-}
-.side-image {
-  width: 100%; border: 1px solid rgba(14,12,10,0.15);
-  filter: sepia(0.08) contrast(1.02);
-  margin-top: 4px;
-  display: block;
-}
-.inline-image {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 32px 0;
-  border: 1px solid rgba(14,12,10,0.15);
-}
-.archive-multipanel {
-  grid-column: 1 / -1;
-  margin: 32px 0 16px;
-  border: 1px solid rgba(14,12,10,0.18);
-  background: var(--paper-dark);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-}
-.archive-media-wrapper {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  aspect-ratio: 16/9;
-  border-right: 1px solid rgba(14,12,10,0.12);
-}
-.archive-media-wrapper img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  filter: sepia(0.04) contrast(1.03);
-}
-.archive-sidebar-data {
-  padding: 24px; display: flex; flex-direction: column;
-  justify-content: space-between; background: rgba(14,12,10,0.02);
-}
-.archive-data-text {
-  font-family: 'Cormorant Garamond', serif; font-size: 1rem;
-  font-style: italic; line-height: 1.5; color: rgba(14,12,10,0.75);
-}
-
-/* Citations */
-.quote-block {
-  grid-column: 1 / -1; background: var(--paper-dark);
-  padding: 32px 40px 32px 64px; margin: 16px 0 24px; position: relative;
-}
-.quote-block::before {
-  content: '\201C'; position: absolute; top: 16px; left: 24px;
-  font-family: 'Playfair Display', serif; font-size: 5rem; color: var(--rust); opacity: 0.3;
-}
-.quote-block p { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; color: var(--rust); margin-bottom: 12px; text-align: left; line-height: 1.4; }
-.quote-author { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--steel); letter-spacing: 0.1em; }
-
-/* Registre final (sombre) */
-.character-registry { 
-  background: var(--void); 
-  color: var(--paper);
-  padding: 80px 24px 100px; 
-  position: relative; 
-}
-.registry-header { max-width: 1000px; margin: 0 auto 48px; display: flex; align-items: center; gap: 20px; }
-.registry-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
-.registry-rule { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(154,124,60,0.5), transparent); }
-.character-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; }
-.character-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(242,237,230,0.1); transition: 0.25s; }
-.character-card:hover { border-color: rgba(154,124,60,0.3); background: rgba(255,255,255,0.045); }
-.character-card-body { padding: 20px 24px 26px; }
-.character-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--paper); border-bottom: 1px solid rgba(242,237,230,0.1); margin-bottom: 14px; padding-bottom: 10px; }
-.character-details { font-family: 'Share Tech Mono', monospace; font-size: 0.78rem; color: rgba(240,235,226,0.6); line-height: 1.7; }
-.character-details strong { color: var(--gold-light); font-weight: normal; }
-.character-card-img {
-  width: 100%;
-  display: block;
-  aspect-ratio: 4/3;
-  object-fit: cover;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  filter: grayscale(0.2) contrast(1.05);
-  background: #1e1915;
-}
-
-/* === RESPONSIVE === */
-@media (max-width: 900px) {
-  .grid-layout { display: flex; flex-direction: column; }
-  .side-column { order: -1; width: 100%; margin-bottom: 24px; }
-  .text-column { width: 100%; }
-  .archive-multipanel { grid-template-columns: 1fr; }
-  .archive-media-wrapper { border-right: none; border-bottom: 1px solid rgba(14,12,10,0.12); }
-  p { font-size: 1.05rem; text-align: left; }
-  .quote-block p { font-size: 1.25rem; }
-}
-@media (max-width: 640px) {
-  .chapter-title { font-size: 1.8rem; }
-  .dropcap::first-letter { font-size: 3.2rem; margin-top: 2px; }
-  .cover-title { font-size: 3rem !important; text-shadow: 0 0 10px #00e55a, 0 0 20px #00e55a, 2px 2px 5px black !important; }
-  .character-grid { grid-template-columns: 1fr; }
-  .cover-eyebrow { font-size: 0.6rem; letter-spacing: 0.2em; }
-}
-</style>
+        @media (max-width: 600px) {
+            body {
+                padding: 25px 15px;
+            }
+            h1 {
+                font-size: 1.6em;
+                letter-spacing: 1px;
+                margin-bottom: 40px;
+            }
+            h2 {
+                font-size: 1.2em;
+                margin-top: 40px;
+            }
+            p {
+                text-align: left; /* Évite les grands blancs sur petit écran */
+                margin-bottom: 18px;
+                font-size: 1em;
+            }
+        }
+    </style>
 </head>
+<body>
+
+<h1>NÉORUSSLAND</h1>
+
+<section id="chapitre-un">
+    <h2>CHAPITRE UN</h2>
+    <p>Néorussland était un dépotoir. Un vrai. La neige n'arrangeait rien — elle posait juste une couche de blanc propre sur une gueule cassée, comme du maquillage sur une plaie infectée. Les trottoirs éventrés restaient éventrés. La neige fondait en gadoue grise avant même d'avoir fini de tomber.</p>
+    <p>En été, c'était presque supportable. Les grands arbres karmoviens — ces colosses verts et anachroniques qu'Anatoly Karmov avait plantés entre ses blocs néo-tsaristes — donnaient à la ville une étrange dignité de ruine. Du style, aurait dit quelqu'un qui n'y vivait pas. Karmov avait été un génie, paraît-il. Les articles de l'époque — ceux d'avant, quand la ville attirait encore les gens — le juraient : révolutionnaire, visionnaire, précurseur. Son concept tenait en une ligne : façades du passé, intérieurs du futur. Tradition de la vieille mère Russie à l'extérieur. Confort moderne à l'intérieur. Pendant un moment, ça avait marché. Ça avait même brillé.</p>
+    <p>Puis le Centre avait décidé que ça brillait trop.</p>
+    <p>Les crédits s'étaient évaporés. L'électricité avait augmenté. Le gaz était arrivé plus rarement, puis plus du tout certains hivers. Et les ingénieurs, les artistes, les têtes brûlées et les faiseurs de trouble avaient fait leurs valises, l'un après l'autre, jusqu'à ce qu'il ne reste que la carcasse et quelques irréductibles trop pauvres ou trop entêtés pour partir.</p>
+    <p>Il restait une aura, se disait Gwenn. Quelque chose qui résistait. C'est pour ça qu'il était là.</p>
+    <p>Il serra les bretelles de son sac. À l'intérieur, l'Amstrad Air — contrebande classe B, peine minimale quatre ans — était enveloppé dans une veste froissée et du câblage en vrac. Pas lourd. Pas encombrant. Mais Gwenn transpirait quand même, et pas à cause du froid.</p>
+    <p
  <body>
 
 Voici le code HTML simple, propre et intégral de l'ensemble de votre texte, incluant le texte original, le Parallèle Narratif et le Chapitre Huit complet.
