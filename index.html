@@ -9,40 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Share+Tech+Mono&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
 
-  <style>
-    /* === RE-CALIBRAGE DE LA GRILLE POUR ÉVITER LES VIDES === */
-.grid-layout {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 0 24px 60px;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  column-gap: 48px;
-  row-gap: 20px; /* Réduit pour resserrer le flux vertical */
-}
-
-.text-column {
-  grid-column: 1 / span 8;
-  display: flex;
-  flex-direction: column;
-}
-
-.side-column {
-  grid-column: 9 / span 4;
-  /* Suppression du sticky rigide qui provoquait des décalages visuels */
-  position: relative; 
-  align-self: start;
-}
-
-/* Ajustement spécifique des paragraphes pour un bloc compact */
-p {
-  font-size: 1.18rem;
-  line-height: 1.78;
-  color: rgba(14, 12, 10, 0.88);
-  margin-bottom: 20px;
-  text-align: justify;
-}
-    /* ── RESET & BASE ARCHIVE ── */
+/* ── RESET & BASE ARCHIVE ── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; background: #0a0806; }
     body {
@@ -67,7 +34,7 @@ p {
       --void:        #0a0806;
     }
 
-    /* Grain argentique analogique */
+    /* Grain argentique analogique sur l'ensemble du document */
     body::after {
       content: '';
       position: fixed;
@@ -78,15 +45,15 @@ p {
       mix-blend-mode: overlay;
     }
 
-    /* Animations d'apparition */
+    /* Animations d'apparition au défilement */
     .reveal {
       opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.1), transform 0.8s ease;
+      transform: translateY(20px);
+      transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.05), transform 0.8s ease;
     }
     .reveal.visible { opacity: 1; transform: none; }
 
-    /* === COUVERTURE === */
+    /* === COUVERTURE IMMERSIVE === */
     .cover {
       min-height: 100svh;
       background: #0d0b09;
@@ -194,6 +161,7 @@ p {
     .cover-divider-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); }
     .cover-sub { font-family: 'Cormorant Garamond', serif; font-size: clamp(0.85rem,2vw,1rem); font-style: italic; color: rgba(240,235,226,0.55); letter-spacing: 0.04em; }
     .cover-meta { margin-top: 40px; font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: rgba(154,124,60,0.55); }
+    
     .cover-scroll {
       position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
       display: flex; flex-direction: column; align-items: center; gap: 8px;
@@ -204,7 +172,7 @@ p {
     .cover-scroll-line { width: 1px; height: 44px; background: linear-gradient(180deg, var(--gold), transparent); animation: pulse-line 2s infinite; }
     @keyframes pulse-line { 0%,100%{ opacity:0.4; transform:scaleY(0.8); } 50%{ opacity:1; transform:scaleY(1); } }
 
-    /* === LIVRE CONFIGURATION === */
+    /* === RE-CALIBRAGE DES GRILLES DE TEXTE === */
     .book { background: var(--paper); position: relative; }
     .book::before {
       content: ''; position: absolute; top:0; left:0; right:0; height: 4px;
@@ -237,42 +205,69 @@ p {
     .chapter-nav-item:last-child { border-right: none; }
     .chapter-nav-item:hover, .chapter-nav-item.active { color: var(--rust); font-weight: 500; }
 
+    /* En-tête de chapitre resserré verticalement pour éviter le vide sous le titre */
     .chapter-header {
-      max-width: 1120px; margin: 0 auto; padding: 80px 24px 40px;
+      max-width: 1120px; 
+      margin: 0 auto; 
+      padding: 60px 24px 20px; /* Réduit le padding du bas */
     }
     .chapter-num {
       font-family: 'Share Tech Mono', monospace;
       font-size: 0.7rem; color: var(--rust);
-      letter-spacing: 0.35em; margin-bottom: 12px;
+      letter-spacing: 0.35em; margin-bottom: 8px;
       display: flex; align-items: center; gap: 12px;
     }
     .chapter-num::after { content: ''; width: 44px; height: 1px; background: var(--rust); opacity: 0.4; }
     .chapter-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 700; color: var(--ink); line-height: 1.1; }
 
+    /* Correction majeure de la structure Grid */
     .grid-layout {
-      max-width: 1120px; margin: 0 auto; padding: 0 24px 60px;
-      display: grid; grid-template-columns: repeat(12,1fr); column-gap: 48px; row-gap: 32px;
+      max-width: 1120px; 
+      margin: 0 auto; 
+      padding: 0 24px 40px;
+      display: grid; 
+      grid-template-columns: repeat(12, 1fr); 
+      column-gap: 48px; 
+      row-gap: 16px; /* Évite les décalages si plusieurs blocs s'enchaînent */
     }
-    .text-column { grid-column: 1 / span 8; }
-    .side-column { grid-column: 9 / span 4; position: sticky; top: 80px; align-self: start; }
+    
+    /* Le texte prend le contrôle du flux vertical */
+    .text-column { 
+      grid-column: 1 / span 8; 
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    
+    /* La colonne latérale s'aligne en haut de manière relative */
+    .side-column { 
+      grid-column: 9 / span 4; 
+      position: relative; 
+      align-self: start; 
+      margin-top: 6px; /* Aligne le haut des boîtes de données avec le haut du texte */
+    }
     
     p {
-      font-size: 1.18rem; line-height: 1.78;
-      color: rgba(14,12,10,0.88); margin-bottom: 26px;
+      font-size: 1.18rem; 
+      line-height: 1.78;
+      color: rgba(14,12,10,0.88); 
+      margin-bottom: 20px; /* Légèrement resserré */
       text-align: justify;
     }
+    
     .dropcap::first-letter {
       font-family: 'Playfair Display', serif;
       font-size: 4.6rem; float: left; margin-top: 6px; margin-right: 10px;
       line-height: 0.78; font-weight: 900; color: var(--rust);
     }
-    code { font-family: 'Share Tech Mono', monospace; background: rgba(14,12,10,0.07); padding: 2px 5px; border-radius: 3px; font-size: 0.85em; color: var(--rust); }
-    hr.chapter-break { border: none; border-top: 1px dashed rgba(14,12,10,0.2); margin: 42px 0; }
     
-    /* Blocs de données systèmes */
+    code { font-family: 'Share Tech Mono', monospace; background: rgba(14,12,10,0.07); padding: 2px 5px; border-radius: 3px; font-size: 0.85em; color: var(--rust); }
+    hr.chapter-break { border: none; border-top: 1px dashed rgba(14,12,10,0.2); margin: 32px 0; }
+    
+    /* Blocs de métadonnées */
     .system-meta {
       border: 1px solid rgba(14,12,10,0.12);
-      background: var(--paper-dark); padding: 18px 20px; margin-bottom: 24px;
+      background: var(--paper-dark); padding: 18px 20px; margin-bottom: 16px;
       position: relative; overflow: hidden;
     }
     .system-meta::before { content: ''; position: absolute; top:0; left:0; width: 3px; height: 100%; background: var(--steel); }
@@ -292,14 +287,14 @@ p {
     .side-image {
       width: 100%; border: 1px solid rgba(14,12,10,0.15);
       filter: sepia(0.08) contrast(1.02);
-      margin-top: 12px;
+      margin-top: 8px;
       display: block;
     }
     
-    /* Image double face (Splitscreen atelier / de Varne) */
+    /* Panneau d'archive complet (Image 6) */
     .archive-multipanel {
       grid-column: 1 / -1;
-      margin: 32px 0;
+      margin: 24px 0;
       border: 1px solid rgba(14,12,10,0.18);
       background: var(--paper-dark);
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
@@ -314,31 +309,21 @@ p {
       border-right: 1px solid rgba(14,12,10,0.12);
     }
     .archive-media-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+      width: 100%; height: 100%; object-fit: cover; display: block;
       filter: sepia(0.04) contrast(1.03);
     }
     .archive-sidebar-data {
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background: rgba(14,12,10,0.02);
+      padding: 24px; display: flex; flex-direction: column;
+      justify-content: space-between; background: rgba(14,12,10,0.02);
     }
     .archive-data-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
-      font-style: italic;
-      line-height: 1.5;
-      color: rgba(14,12,10,0.75);
+      font-family: 'Cormorant Garamond', serif; font-size: 1rem;
+      font-style: italic; line-height: 1.5; color: rgba(14,12,10,0.75);
     }
 
     .quote-block {
       grid-column: 1 / -1; background: var(--paper-dark);
-      padding: 32px 40px 32px 64px; margin: 8px 0 24px;
-      position: relative;
+      padding: 32px 40px 32px 64px; margin: 8px 0 16px; position: relative;
     }
     .quote-block::before {
       content: '\201C'; position: absolute; top: 16px; left: 24px;
@@ -347,41 +332,38 @@ p {
     .quote-block p { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; color: var(--rust); margin-bottom: 12px; text-align: left; line-height: 1.4; }
     .quote-author { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--steel); letter-spacing: 0.1em; }
 
-    /* Registre des acteurs */
-    .character-registry {
-      background: var(--void); padding: 80px 24px 100px;
-      position: relative;
-    }
+    /* === REGISTRE FINAL (ACCENT NOIR CHROME) === */
+    .character-registry { background: var(--void); padding: 80px 24px 100px; position: relative; }
     .registry-header { max-width: 1000px; margin: 0 auto 48px; display: flex; align-items: center; gap: 20px; }
     .registry-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
     .registry-rule { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(154,124,60,0.5), transparent); }
     .character-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; }
-    .character-card {
-      background: rgba(255,255,255,0.02); border: 1px solid rgba(242,237,230,0.1);
-      transition: 0.25s;
-    }
+    .character-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(242,237,230,0.1); transition: 0.25s; }
     .character-card:hover { border-color: rgba(154,124,60,0.3); background: rgba(255,255,255,0.045); }
     .character-card-body { padding: 20px 24px 26px; }
     .character-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--paper); border-bottom: 1px solid rgba(242,237,230,0.1); margin-bottom: 14px; padding-bottom: 10px; }
     .character-details { font-family: 'Share Tech Mono', monospace; font-size: 0.78rem; color: rgba(240,235,226,0.6); line-height: 1.7; }
     .character-details strong { color: var(--gold-light); font-weight: normal; }
 
+    /* === MEDIA QUERIES SOUVERAINES (RESPONSIVE SMARTPHONE) === */
     @media (max-width: 900px) {
-      .grid-layout { display: flex; flex-direction: column; }
-      .side-column { order: -1; position: relative; top: 0; margin-bottom: 20px; width: 100%; }
+      .grid-layout { display: flex; flex-direction: column; row-gap: 24px; }
+      /* Sur mobile, la boîte d'infos se place juste en dessous du titre et avant le récit */
+      .side-column { order: -1; width: 100%; margin-top: 0; }
       .text-column { width: 100%; }
       .archive-multipanel { grid-template-columns: 1fr; }
       .archive-media-wrapper { border-right: none; border-bottom: 1px solid rgba(14,12,10,0.12); }
-      p { font-size: 1rem; }
-      .quote-block p { font-size: 1.2rem; }
+      p { font-size: 1.05rem; }
+      .quote-block p { font-size: 1.25rem; }
+      .chapter-header { padding: 40px 24px 10px; }
     }
+    
     @media (max-width: 640px) {
       .chapter-title { font-size: 1.8rem; }
       .dropcap::first-letter { font-size: 3.2rem; margin-top: 2px; }
       .cover-title { font-size: 2.8rem; }
       .character-grid { grid-template-columns: 1fr; }
     }
-  </style>
 </head>
 <body>
 
