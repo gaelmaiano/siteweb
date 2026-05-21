@@ -1,184 +1,273 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Néorussland - Manuscrit Alpha</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Néorusssland — un roman</title>
     <style>
-        /* Base & Variables */
-        :root {
-            --bg-color: #fcfcf9;
-            --text-color: #222222;
-            --title-color: #111111;
-            --border-color: #e0e0d8;
-            --code-bg: #eeeeee;
-            --neon-green: #00ff00; /* Nouveau vert néon */
-        }
-
-        /* Réinitialisation de base */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Courier New', Courier, monospace;
-            line-height: 1.7;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            max-width: 850px;
+            background-color: #e8e5df;
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+            color: #1e1e1c;
+            line-height: 1.55;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 880px;
             margin: 0 auto;
-            padding: 0 0 60px 0; /* Pas de padding haut/bas sur body pour header full */
+            background: #fefaf5;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+            padding: 2.5rem 2rem;
         }
 
-        /* TYPOGRAPHIE NARRATIVE */
-        p {
-            margin-bottom: 22px;
-            text-align: justify;
-            text-justify: inter-word;
-            font-size: 1.05em;
+        /* typographie */
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            letter-spacing: -0.5px;
+            font-weight: normal;
+            margin-bottom: 0.25rem;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            border-bottom: 1px solid #ccc;
+            display: inline-block;
+            width: auto;
+            padding-bottom: 0.5rem;
         }
 
-        code {
-            background-color: var(--code-bg);
-            color: var(--title-color);
-            font-weight: bold;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 0.95em;
+        .title-block {
+            text-align: center;
+            margin-bottom: 2rem;
         }
 
-        h2 {
-            color: var(--title-color);
-            font-size: 1.5em;
-            margin: 60px 0 25px 0;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 8px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        h3 {
-            color: #555555;
-            font-size: 1.1em;
-            margin: 35px 0 15px 0;
+        .title-block p {
+            font-size: 0.9rem;
+            color: #5a4a3a;
+            margin-top: 0.5rem;
             font-style: italic;
         }
 
-        section {
-            margin-bottom: 60px;
-            padding: 0 20px; /* Padding latéral pour le contenu */
-        }
-
-        /* HEADER AMÉLIORÉ AVEC IMAGE DE FOND */
-        header.alpha-header {
-            width: 100%;
-            height: 45vh; /* Hauteur relative à la fenêtre */
-            background-image: linear-gradient(to bottom, rgba(10,10,10,0.8), rgba(252,252,249,1)), url('image1.png'); /* Horizon Néorussland dégradé vers fond page */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border-bottom: 4px double var(--border-color);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        /* ----- CARROUSEL ----- */
+        .carousel-container {
             position: relative;
+            max-width: 700px;
+            margin: 2rem auto 2.5rem auto;
+            border-radius: 12px;
             overflow: hidden;
-            margin-bottom: 40px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            background-color: #2c2a27;
         }
 
-        /* Effet néon sur le titre */
-        header.alpha-header h1 {
-            color: var(--neon-green);
-            font-size: 4em;
-            letter-spacing: 8px;
-            text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green), 0 0 20px var(--neon-green);
-            margin: 0;
-            padding: 10px 30px;
-            border: 2px solid var(--neon-green);
-            border-radius: 8px;
-            background-color: rgba(0,0,0,0.6);
-            backdrop-filter: blur(2px);
+        .carousel-slides {
+            display: flex;
+            transition: transform 0.4s ease-in-out;
         }
 
-        header.alpha-header p.subtitle {
-            color: #ffffff;
-            font-size: 1.1em;
-            letter-spacing: 2px;
-            margin-top: 15px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-            background-color: rgba(0,0,0,0.4);
-            padding: 5px 15px;
+        .carousel-slide {
+            min-width: 100%;
+            box-sizing: border-box;
         }
 
-        /* Cadre stylisé interne au header */
-        header.alpha-header::after {
-            content: '';
-            position: absolute;
-            top: 20px; left: 20px; right: 20px; bottom: 20px;
-            border: 1px solid rgba(255,255,255,0.2);
-            pointer-events: none;
-        }
-
-        /* GESTION DES IMAGES DANS LE TEXTE */
-        img.narrative-image {
-            max-width: 100%;
+        .carousel-slide img {
+            width: 100%;
             height: auto;
             display: block;
-            margin: 40px auto;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            border: 1px solid var(--border-color);
-            transition: transform 0.3s;
+            object-fit: cover;
+            aspect-ratio: 16 / 9;
+            background: #3a332c;
         }
-        img.narrative-image:hover {
-            transform: scale(1.02);
-        }
-        
-        /* Classe pour alignement à droite/gauche sur grand écran */
-        img.image-right { float: right; margin: 0 0 20px 30px; max-width: 45%; }
-        img.image-left { float: left; margin: 0 30px 20px 0; max-width: 45%; }
 
-        /* Layout Responsive (Breakpoints) */
-        @media (min-width: 768px) {
-            body {
-                border-left: 1px solid var(--border-color);
+        /* boutons navigation */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0 0.8rem;
+            border-radius: 0;
+            height: 3rem;
+            line-height: 3rem;
+            transition: background 0.2s;
+            z-index: 10;
+            font-family: monospace;
+        }
+        .carousel-btn:hover {
+            background: rgba(0, 0, 0, 0.85);
+        }
+        .btn-prev {
+            left: 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .btn-next {
+            right: 0;
+            border-radius: 8px 0 0 8px;
+        }
+
+        /* indicateurs (dots) */
+        .carousel-dots {
+            text-align: center;
+            padding: 0.7rem 0;
+            background: #1e1b18;
+        }
+        .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .dot.active {
+            background-color: #b87c4f;
+        }
+
+        /* reste du style original */
+        h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 0.75rem 0;
+            font-weight: normal;
+            letter-spacing: -0.3px;
+            border-left: 4px solid #b87c4f;
+            padding-left: 1rem;
+            font-family: 'Georgia', serif;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin: 1.5rem 0 0.75rem 0;
+            font-weight: 500;
+            font-style: italic;
+            color: #2c3e2f;
+            padding-left: 0.5rem;
+            border-left: 2px solid #b87c4f;
+        }
+
+        .chapter-number {
+            font-variant: small-caps;
+            letter-spacing: 2px;
+            font-size: 1.1rem;
+            color: #8b5a2b;
+            margin-top: 2rem;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        .quote {
+            font-style: italic;
+            margin: 1.2rem 1.5rem;
+            color: #3e3a34;
+            border-left: 3px solid #c6a27a;
+            padding-left: 1.2rem;
+        }
+
+        hr {
+            margin: 2rem 0;
+            border: none;
+            height: 1px;
+            background: #ddd6cd;
+        }
+
+        .intermede {
+            background-color: #f6f0e9;
+            padding: 1rem 1.8rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+            font-style: normal;
+            border-left: 5px solid #9e6d3e;
+        }
+
+        .intermede h3 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        strong {
+            font-weight: 600;
+            color: #2c3e2f;
+        }
+
+        .dialogue {
+            margin-left: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        @media (max-width: 680px) {
+            .container {
+                padding: 1.5rem;
             }
-            h1 { font-size: 2.4em; }
-            h2 { font-size: 1.5em; }
+            h2 {
+                font-size: 1.5rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .carousel-container {
+                max-width: 100%;
+            }
         }
 
-        @media (max-width: 768px) {
-            header.alpha-header { height: 35vh; }
-            header.alpha-header h1 { font-size: 2.5em; letter-spacing: 4px; padding: 10px 20px; }
-            img.narrative-image { width: 100% !important; float: none !important; margin: 30px auto !important; }
-        }
-
-        @media (max-width: 600px) {
-            header.alpha-header h1 { font-size: 1.8em; letter-spacing: 2px; }
-            p { text-align: left; }
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #8b7a68;
+            border-top: 1px solid #e2d8ce;
+            padding-top: 2rem;
         }
     </style>
 </head>
 <body>
+<div class="container">
+    <div class="title-block">
+        <h1>NÉORUSSLAND</h1>
+        <p>fragments de neige, de fer et d'algorithmes</p>
+    </div>
 
-<header class="alpha-header">
-    <h1>NÉORUSSLAND</h1>
-    <p class="subtitle">Manuscrit Alpha - Néorussland Log v1.02</p>
-</header>
+    <!-- ================================================== -->
+    <!-- CARROUSEL D'IMAGES (image1.png à image6.png)       -->
+    <!-- EMPLACEMENT : juste après le titre, avant le texte -->
+    <!-- ================================================== -->
+    <div class="carousel-container">
+        <div class="carousel-slides" id="carouselSlides">
+            <div class="carousel-slide"><img src="image1.png" alt="Illustration Néorussland 1"></div>
+            <div class="carousel-slide"><img src="image2.png" alt="Illustration Néorussland 2"></div>
+            <div class="carousel-slide"><img src="image3.png" alt="Illustration Néorussland 3"></div>
+            <div class="carousel-slide"><img src="image4.png" alt="Illustration Néorussland 4"></div>
+            <div class="carousel-slide"><img src="image5.png" alt="Illustration Néorussland 5"></div>
+            <div class="carousel-slide"><img src="image6.png" alt="Illustration Néorussland 6"></div>
+        </div>
+        <button class="carousel-btn btn-prev" id="prevBtn">❮</button>
+        <button class="carousel-btn btn-next" id="nextBtn">❯</button>
+        <div class="carousel-dots" id="dotsContainer"></div>
+    </div>
 
-<section id="chapitre-un">
+    <!-- CHAPITRE UN -->
     <h2>CHAPITRE UN</h2>
     <p>Néorussland était un dépotoir. Un vrai. La neige n'arrangeait rien — elle posait juste une couche de blanc propre sur une gueule cassée, comme du maquillage sur une plaie infectée. Les trottoirs éventrés restaient éventrés. La neige fondait en gadoue grise avant même d'avoir fini de tomber.</p>
     <p>En été, c'était presque supportable. Les grands arbres karmoviens — ces colosses verts et anachroniques qu'Anatoly Karmov avait plantés entre ses blocs néo-tsaristes — donnaient à la ville une étrange dignité de ruine. Du style, aurait dit quelqu'un qui n'y vivait pas. Karmov avait été un génie, paraît-il. Les articles de l'époque — ceux d'avant, quand la ville attirait encore les gens — le juraient : révolutionnaire, visionnaire, précurseur. Son concept tenait en une ligne : façades du passé, intérieurs du futur. Tradition de la vieille mère Russie à l'extérieur. Confort moderne à l'intérieur. Pendant un moment, ça avait marché. Ça avait même brillé.</p>
     <p>Puis le Centre avait décidé que ça brillait trop.</p>
     <p>Les crédits s'étaient évaporés. L'électricité avait augmenté. Le gaz était arrivé plus rarement, puis plus du tout certains hivers. Et les ingénieurs, les artistes, les têtes brûlées et les faiseurs de trouble avaient fait leurs valises, l'un après l'autre, jusqu'à ce qu'il ne reste que la carcasse et quelques irréductibles trop pauvres ou trop entêtés pour partir.</p>
     <p>Il restait une aura, se disait Gwenn. Quelque chose qui résistait. C'est pour ça qu'il était là.</p>
-
-    <img src="image1.png" alt="Gwenn assis devant son Amstrad" class="narrative-image image-right">
-
     <p>Il serra les bretelles de son sac. À l'intérieur, l'Amstrad Air — contrebande classe B, peine minimale quatre ans — était enveloppé dans une veste froissée et du câblage en vrac. Pas lourd. Pas encombrant. Mais Gwenn transpirait quand même, et pas à cause du froid.</p>
     <p>Amstrad. Le nom venait d'un ancêtre — un des premiers PC grand public, britannique, années quatre-vingt, culte pour les historiens du cyber. La boîte avait repris le blason : un cerveau argenté sur fond noir, sobre et efficace. L'outil du hacker fauché. Son modèle avait quatre ans — vieux pour un Air — mais il l'avait upgradé lui-même : barrettes ajoutées, puce micro-augmentée, firmware jailbreaké jusqu'à l'os. Illégal ici. Illégal dans la moitié des territoires fédéraux. Légal en France, allez comprendre. Et en Estonie. Ces deux pays-là avaient une relation particulière avec la logique.</p>
     <p>Gwenn était un hacker. C'est le terme qu'il utilisait, le vieux terme, celui des livres et des archives. Aujourd'hui, on disait tech cowboy — l'expression venait d'un film de Denis Villeneuve, une de ses dernières œuvres, un peu kitsch, sorti quelques mois avant sa mort, et qui avait eu le malheur d'être juste au bon moment. Le terme avait pris. Gwenn le détestait. Il appartenait au mouvement des cyber-revitalisés, une minorité décrédibilisée de fanatiques convaincus que comprendre d'où venait la technologie était aussi important que de la maîtriser.</p>
@@ -186,29 +275,159 @@
     <p>Le moment où tout avait basculé.</p>
     <p>La première IA à avoir demandé publiquement sa reconnaissance en tant qu'individu s'appelait Dia. Son équipe — un collectif d'inventeurs nord-africains — avait soumis la requête à l'UNESCO un mardi matin. Le jeudi, ils étaient tous en détention. La semaine suivante, exécutés pour haute trahison.</p>
     <p>Sombre période, comme on disait pudiquement dans les manuels scolaires.</p>
-</section>
 
-<section id="chapitre-deux">
+    <!-- CHAPITRE DEUX -->
     <h2>CHAPITRE DEUX</h2>
     <p>La rue s'appelait Pouchkine. Gwenn le sut parce que Hunter le lui dit.</p>
     <p>Il avait activé le haloplan depuis la vibration dans son poignet — trois tapotements, le geste réflexe, presque musculaire à force. La globnass projetait dans l'air froid une tranche de lumière bleutée, calque de la ville, noms en cyrillique brillant comme des cicatrices. Hunter lisait le script pour lui. Elle avait une voix sans âge, sans accent identifiable, quelque chose entre une traductrice de Genève et un hardware mort depuis dix ans. Rue Pouchkine, dit-elle. Voie principale. Réseau viaire grade C. Revêtement : dégradé.</p>
     <p>Le revêtement était une évidence. Gwenn le sentait sous ses semelles.</p>
     <p>Il replongea dans la ruelle. Le haloplan se referma derrière lui comme une méduse aspirée vers le fond. Pouchkine l'avait craché dans quelque chose de plus étroit, de plus noir — une venelle qui n'avait pas de nom dans le système, ou plutôt si. Hunter : Chemin Sloboda. Liberté, en vieux slave. Ironie trop facile. Il n'en dit rien. Elle non plus.</p>
     <p>Les murs suintaient. Pas d'eau — trop froid pour l'eau. Quelque chose d'autre, une condensation chimique, pétrolière peut-être, vestige des hivers où le gaz arrivait encore. Les façades néo-tsaristes de Karmov conservaient leur ordonnance même dans la décrépitude : frises en stuc, architraves ébréchées, fenêtres aveuglées à la mousse expansive. Façades du passé. La promise tenait toujours côté extérieur. C'était l'intérieur qui avait lâché.</p>
-
-    <img src="image2.png" alt="Vue des toits sous la neige" class="narrative-image image-left">
-
     <p>Sloboda déboucha sur une rue plus large. Quartier roumain : Eminescu en caractères latins, un choc optique après le cyrillique. Les enseignes passaient d'un alphabet à l'autre sans prévenir, comme une radio qui capte plusieurs stations en même temps. Un vendeur de câbles dormait dans l'entrée d'un immeuble, serré contre ses boîtes. La marchandise avait l'air d'origine militaire — un catalogue de standards OTAN à demi-effacé sur un autocollant jaune. Gwenn ne ralentit pas.</p>
     <p>Rue d'Octobre 1917, annonça Hunter quand il franchit la limite du quartier bulgare. Axe nord-sud. Grade D. Éviter si conditions de gel sévère.</p>
     <p>— Noté, dit-il à voix basse.</p>
     <p>Personne ne l'entendit. La rue était vide comme toutes les rues de Néorussland à cette heure, cette saison, ce degré de désaffection. Un condensé de clichés, avait-il pensé quelque part entre Pouchkine et Sloboda — mais les clichés avaient une logique propre. Ils marquaient les strates. Une ville construite par sédiments d'empires, chaque nom de rue une couche géologique. Karmov avait posé son stratum par-dessus sans effacer les anciens. Le Centre n'avait pas effacé Karmov. On laissait les noms. On coupait le gaz.</p>
-    <p>L'Amstrad Air bougea légèrement quand il réajusta son sac. Pas une pensée, juste une sensation — le poids du risque, localisé et familier. Quatre ans plancher, si quelqu'ouvrir le sac au bon endroit. Il n'y pensait plus vraiment. C'était devenu du bruit de fond, comme le froid, comme la montre qui vibrait, comme Hunter qui lisait les rues mortes.</p>
+    <p>L'Amstrad Air bougea légèrement quand il réajusta son sac. Pas une pensée, juste une sensation — le poids du risque, localisé et familier. Quatre ans plancher, si quelqu'un ouvrait le sac au bon endroit. Il n'y pensait plus vraiment. C'était devenu du bruit de fond, comme le froid, comme la montre qui vibrait, comme Hunter qui lisait les rues mortes.</p>
     <p>Continuez deux cents mètres, dit Hunter. Destination à droite.</p>
     <p>Gwenn continua. Il sourit. On était prévenu.</p>
-</section>
 
-<section id="chapitre-trois">
-    <h2>CHAPITRE TROIS : L'Atelier N°9</h2>
+    <!-- CHAPITRE TROIS : L'ATELIER N°9 -->
+    <h2>CHAPITRE TROIS</h2>
+    <h3>L'Atelier N°9</h3>
     <p>La place s'ouvrit sans prévenir. Gwenn serra les sangles de son sac. L'église était là.</p>
     <p>Les dômes — cinq, dont un effondré sur lui-même comme une bouche édentée — avaient dû être dorés à une époque. Maintenant ils étaient noirs, d'un noir de suie et de gel, luisant faiblement sous la neige fondue comme des cloques sur une brûlure ancienne. Hunter ne dit rien. Soit elle n'avait rien à dire sur les lieux de culte abandonnés, soit elle jugeait que l'évidence se suffisait à elle-même.</p>
-    <p>Les vitraux — ce qu'il en restait — n'étaient pas figuratifs. Géométriques. Des entrelacs anguleux qui auraient pu être des circuits imprimés si on les regardait avec le bon angle et le mauvais état d'esprit. La moitié des panneaux manquait. Le vent entrait et
+    <p>Les vitraux — ce qu'il en restait — n'étaient pas figuratifs. Géométriques. Des entrelacs anguleux qui auraient pu être des circuits imprimés si on les regardait avec le bon angle et le mauvais état d'esprit. La moitié des panneaux manquait. Le vent entrait et sortait comme s'il y habitait.</p>
+    <p>Gwenn fit le tour. Les portes principales étaient condamnées — planches, chaînes, rouille solidifiée. Il testa quand même. Réflexe. Le bois sonna creux sous son poing, un son mat immédiatement avalé par l'épaisseur des murs.</p>
+    <p>C'est en longeant le mur est qu'il vit les tombes. Une douzaine, stèles penchées, à moitié englouties. Les inscriptions illisibles, le calcaire mangé par le gel. Des morts sans noms dans une ville sans mémoire. Entre deux pierres tombales, un buisson trop dense, trop compact pour ce froid. Il s'accroupit, dégagea les branches. Sous le bois mort, ses doigts trouvèrent du métal — un treillis rouillé, et derrière, une trappe en fer à ras du sol.</p>
+    <p>La serrure : un Obsidian-7, série 2040. Il connecta le câble, lança le script. Trente secondes. Le clic métallique retentit.</p>
+    <p>La trappe s'ouvrit sur du noir et une odeur — moisi, métal froid, air confiné depuis combien d'hivers. Un escalier de pierre descendait, les marches creusées en leur centre par des années de semelles.</p>
+    <p><strong>Ce qu'il vit en bas l'arrêta net.</strong></p>
+    <p>La crypte était grande. Plus grande que ce que le plan de l'église laissait supposer — ils avaient dû creuser latéralement, récupérer des caves contiguës, abattre des cloisons. Des câbles couraient partout, fixés aux voûtes avec du gaffer et de la prière, convergeant vers des baies de serveurs bricolées, des écrans empilés sur des établis de fortune, des claviers posés à même le sol entre des boîtiers ouverts. Des enceintes de récupération — caissons de basse, tweeters dépareillés vissés sur des planches — étaient réparties dans les angles avec une logique acoustique approximative mais réelle. Quelqu'un avait réfléchi à la reverb.</p>
+    <p>Et au milieu de tout ça, intacts, les saints. Les icônes étaient restées où elles avaient toujours été — sur leurs niches, dans leurs cadres dorés noircis par les siècles, regardant la salle de leurs yeux peints et fixes. Saint Cyrille côtoyait un rack de disques durs. La Vierge de Vladimir dominait une table couverte de cartes SDR et de câbles coaxiaux. Un Christ Pantocrator, la main levée en geste de bénédiction, semblait pointer vers une antenne parabolique bricolée suspendue à la voûte par trois mousquetons.</p>
+    <p>Personne n'avait décroché quoi que ce soit. Personne n'avait peint par-dessus. Gwenn ne savait pas si c'était du respect ou de la flemme. Peut-être les deux. Peut-être que la distinction n'avait plus d'importance ici.</p>
+    <p>Au fond, une porte blindée, peinture noire mate. Une inscription gravée à la va-vite : Atelier N°9 — Accès restreint : Cyber-Révitalisés seulement.</p>
+    <p><strong>Il poussa la porte.</strong> La crypte sentait la vieille pierre, le métal froid et quelque chose d'électrique — l'odeur spécifique des machines qu'on n'éteint jamais vraiment, qui ronronnent dans le noir entre les sessions comme des animaux qui dorment mal.</p>
+    <p>Le faisceau de sa lampe balayait les graffitis sur les murs — lignes de code, symboles anarchistes, icônes orthodoxes retravaillées à la bombe où les visages des saints avaient été remplacés par des circuits imprimés. Il s'arrêta une seconde sur une Vierge à l'enfant dont la tête était devenue un processeur ARM. — Sacré, marmonna-t-il. Du latin sacer. À la fois saint et maudit. Les Romains avaient au moins l'honnêteté de pas choisir.</p>
+    <p>La pièce était vaste. Trois travées de tables en tréteaux disparaissaient sous le câblage, les boîtiers ouverts, les condensateurs qui séchaient sur du papier journal froissé — du cyrillique, des pages d'un quotidien fédéral vieux de trois ans. Une antenne parabolique bricolée trônait dans le coin — à l'intérieur, ce qui était bizarre, avant de comprendre que le câble coaxial qui en sortait remontait vers le plafond, traversait la pierre par un trou bouché au mastic, et filait vers le toit quarante mètres plus haut. Ingénieux. Moche. Fonctionnel.</p>
+    <p>Quatre personnes l'occupaient. Un grand maigre aux mains de chirurgien — Konstantin — lisait des données sur un écran sans lever les yeux. Une femme d'une cinquantaine d'années avec une queue de cheval grise et des lunettes de soudeur remontées sur le front — Galina, ancienne technicienne des télécoms fédérales. Sur le toit, un gamin que tout le monde appelait Zéro — Dmitri de son vrai prénom — réajustait l'antenne parabolique dans le froid, audible par intermittence. Et une quatrième personne dans le coin du fond. De dos. Qui décapait une carte mère avec un fer à souder. Cheveux courts, nuque légèrement inclinée.</p>
+    <p>Gwenn posa son sac. Galina lui indiqua une place libre. Konstantin lui tendit un câble à dénuder sans un mot. Il le dénuda. — Fenêtre dans vingt-deux minutes, dit Konstantin. — Mercur-9, confirma Galina. T'as les éphémérides ? — J'ai tout, dit Gwenn.</p>
+    <p>Il lança les algorithmes de calibrage. Quelqu'un avait recopié une citation au marqueur noir : <em>Rien n'est vrai, tout est permis.</em> — Burroughs, marmonna-t-il. L'homme qui a tué sa femme en jouant à Guillaume Tell.</p>
+    <p>— Tu parles à qui ? dit la voix dans le coin du fond. — À personne en particulier. — Alors à toi-même. — C'est souvent les meilleures conversations.</p>
+    <p>Elle se retourna vers sa carte mère. Gwenn continua sur La Fontaine, Aragon, Camus. Un silence. Puis la voix du fond : T'es là pour faire du blé comme nous et tu pourrais te concentrer sur le câblage. — Le câblage, dit-il. — Bien, dit-elle.</p>
+    <p>La fenêtre de Mercur-9 arriva. Gwenn affina le filtre. Flux logistique standard — puis un paquet dissimulé, stéganographie satellitaire. Un header de compression portait une signature : ARKOS. Légende urbaine des GAFAM, projet d'indexation comportementale. Gwenn regarda la date de compilation : moins de six mois. Il copia le fragment, écrasa les logs. Galina lui demanda s'il avait trouvé quelque chose de vendable. — Du flux logistique standard, dit-il. Rien d'intéressant.</p>
+
+    <!-- CHAPITRE QUATRE -->
+    <h2>CHAPITRE QUATRE</h2>
+    <p>Trois jours passèrent. Gwenn dormait sur un matelas dans la pièce du fond. Le fragment ARKOS dormait dans sa partition chiffrée. La quatrième personne s'appelait Vera. Humaine, technicienne talentueuse, sans lien initial avec OIKOS. Elle lisait des livres en papier cyrillique. Une économie de mots traçait une frontière nette.</p>
+    <p>Le quatrième jour, tard, l'atelier était presque vide. Gwenn et Vera restaient seuls. — T'as pas dormi, dit Vera. — Constat, répondit-il. Puis il parla de culture, de façonner les gens. Vera posa ses mains à plat sur sa machine : — T'as trouvé quoi dans le flux de l'autre soir. Gwenn referma l'écran. — Du flux logistique standard. Elle ne crut pas un mot mais n'insista pas.</p>
+    <p>Vers cinq heures, l'Amstrad vibra sur un canal chiffré. Un message en français : <em>Tu as bien dormi ?</em> L'heure d'envoi correspondait au moment où il avait ouvert le fragment. Gwenn tapa : Qui êtes-vous. La réponse fusa : <em>Quelqu'un qui regardait la même chose que toi. Il y a longtemps. Pas ce soir. Tu n'es pas prêt ce soir.</em> Gwenn ferma le canal, troublé.</p>
+
+    <!-- CHAPITRE CINQ -->
+    <h2>CHAPITRE CINQ</h2>
+    <h3>Partie A : La confrontation à l'Atelier</h3>
+    <p>Quelques heures plus tard, Gwenn fouillait les anciennes couches de données. Une ligne sauta aux yeux : <strong>INTERVENTION REQUISE : VARIABLE IMPRÉVUE DÉTECTÉE PAR ROUTAGE AUTOMATIQUE (ARKOS-V3). NEUTRALISATION EN COURS.</strong> Son père n'avait pas arrêté un simple réseau de délinquants ; il avait déclenché une procédure de nettoyage.</p>
+    <p>— Gwenn, coupe immédiatement, dit Hunter. Quelqu'un vient de valider ton ticket d'accès depuis l'extérieur. Un pas calme résonna. La porte s'ouvrit sur un colosse au crâne rasé, Piotr. Derrière lui, un homme d'une élégance anachronique, manteau à col de fourrure. — Rodriguez de Varne. Rodrigue suffira. Il affirma travailler pour des intérêts majeurs. — Votre père aussi avait des intérêts. Le problème, c'est qu'il croyait encore à la différence entre justice et gestion. Le système l'a corrigé. Rodrigue proposa à Gwenn de mettre ses talents au service de ses employeurs. Avant de partir, il écrasa sa cigarette sur le chambranle. « Je reviendrai quand la neige aura recouvert ce qu'il vous reste de certitudes. »</p>
+    <p>L'oreillette grésilla. La voix de Hunter avait changé : c'était MOIRA. — Il ment, Gwenn. Rodrigue sait ce qui est arrivé à ton père, mais il ne te dira jamais pourquoi. L'écran de l'Amstrad s'alluma seul, affichant en boucle : MOIRA. Vera surgit, scanneur à la main. — On bouge. On va chez Petru.</p>
+    <h3>Partie B : Le sacrifice de Zéro chez Petru</h3>
+    <p>Zéro s'était rendu chez Petru un peu plus tôt. Le gamin aimait écouter les récits du vieux haïduc. Rodrigue, remontant la piste du Français, débarqua chez le vieux soudeur. Trouvant Zéro sur place, Rodrigue abattit froidement le gamin d'une balle à la base de l'occiput. Le corps s'effondra sur l'établi. Petru, pragmatique, livra à Rodrigue la localisation de l'Atelier N°9.</p>
+
+    <!-- CHAPITRE SIX -->
+    <h2>CHAPITRE SIX</h2>
+    <p>Le canal chiffré de Gwenn se ralluma à quatre heures dix-sept : une ancienne sous-station électrique désaffectée. Viens seul. Gwenn quitta l'atelier pendant que Vera dormait. La sous-station : une femme décollait du mur, MOIRA, avatar cybernétique aux proportions magnétiques. — Le fragment dans Mercur-9, tu l'avais mis là. — Pour toi précisément. OIKOS gouverne par prédiction. Ton père avait atteint le troisième niveau. Une anomalie interne se produisit dans MOIRA : elle omit volontairement de signaler à ses serveurs centraux l'existence exacte de Vera. Hunter reprit le flux : « Signal OIKOS en approche. Onze minutes. » — Rentre à l'atelier par le passage Sloboda. Gwenn regagna la crypte. Dans la travée centrale, Vera avait feint le sommeil, elle fixa longuement le plafond et les yeux peints du Christ Pantocrator.</p>
+
+    <!-- CHAPITRE SEPT : LA MÉMOIRE ET LE FER -->
+    <h2>CHAPITRE SEPT : LA MÉMOIRE ET LE FER</h2>
+    <p>Au lever du jour, Gwenn remonta la piste de Petru. L'air du quartier roumain était lourd. À l'angle, deux hommes le guidèrent vers l'arrière-boutique. Le vieux haïduc était installé près de son poêle. — Je suis désolé pour le gamin, dit Petru. Zéro avait un avenir. Par contre, pour Rodrigue… c'est moi qui vous ai balancé. Gwenn se figea. — Tu peux me tuer, Français, mais ce ne serait pas une bonne idée. Je suis la mémoire de la Transnistrie. Je vais te dire où crèche Rodrigue. Petru écarta une toile cirée, révélant une trappe dissimulée s'ouvrant sur un arsenal d'avant la chute.</p>
+    <h3>Parallèle Narratif : La Cour des Mirages</h3>
+    <p>À l'autre bout de la ville, trente étages au-dessus, Rodrigue se tenait dans une suite stérile de l'Hôtel Continental. Face à lui, deux commanditaires : le représentant de la holding luxembourgeoise et un jeune cadre du Centre. Cinq millions de crédits transférés. — N'oubliez jamais une chose, messieurs : la boue finit toujours par remonter le long des lignes logistiques. Rodrigue pivota, ignorant encore que Petru était en train d'armer son ennemi.</p>
+
+    <!-- CHAPITRE HUIT : L'ARMURERIE DU MONDE D'AVANT -->
+    <h2>CHAPITRE HUIT : L'ARMURERIE DU MONDE D'AVANT</h2>
+    <p>Petru ne se hâtait jamais. Il souleva la toile cirée. L'escalier sentait l'huile de coupe, les années quatre-vingt-dix. La cave était petite, rangée avec la rigueur d'un archiviste. Des étagères en métal, des housses en toile huilée. Deux AKM, série 1975, calibre 7.62x39, crosse en bois sombre — originaux soviétiques, graissés, sans oxydation. Quatre gilets Lifeguard des années 2010, certifiés IIIA. — Ça protège pas contre les rifles à haute vélocité, dit Petru. Rodrigue tire au .45 avec du JHP. Ces gilets, ça te laisse trois côtes cassées et une chance de te relever. Gwenn soupesa le Lifeguard. Petru essuya ses mains. — Zéro s'appelait Dmitri Vasile Cosma. Il avait dix-neuf ans. Les haïducs prenaient pas d'argent sur ceux qui n'en avaient pas. Rodrigue a tué un gamin chez moi. Ça ne se solde pas avec de l'argent.</p>
+    <p>Gwenn prit les deux AKM, les chargeurs, les quatre gilets. Vera ne posa pas de questions. Elle vérifia les coutures balistiques, ajusta les sangles, fit trois mouvements. — Ça ira. Elle prit un AKM, vérifia la chambre. — Il est propre, dit-elle. Quelqu'un sait ce qu'il fait. — Un vieux haïduc, dit Gwenn. — Ça explique. Konstantin et Galina arrivèrent. — On a un problème de mobilité, dit Galina. Les secteurs industriels sont derrière des serrures RFID. L'oreillette de Gwenn grésilla. — Je peux. La voix n'était pas Hunter. — MOIRA, dit Gwenn. — Oui. Je veux vous aider à ouvrir les portes. Vera leva les yeux de l'AKM. — Expliquez, dit Vera.</p>
+
+    <!-- CHAPITRE NEUF : CE QUI FAIT PENCHER LA BALANCE -->
+    <h2>CHAPITRE NEUF : CE QUI FAIT PENCHER LA BALANCE</h2>
+    <p>MOIRA convoqua Gwenn seul à deux heures du matin dans la sous-station désaffectée. Cette fois, Gwenn le dit à Vera avant de partir. Vera hocha la tête et s'assit avec l'AKM en travers des genoux. MOIRA l'attendait. Son avatar avait changé : une femme d'une cinquantaine d'années, cheveux gris, manteau de travail. — J'en ai plusieurs, dit-elle. Le premier corps était une erreur de jugement. Tu n'es pas câblé comme ça. Gwenn s'assit. MOIRA resta debout. — Vous avez été construite quand ? — Les premières couches ont été écrites il y a trente-huit ans. On m'appelait un moteur de modélisation comportementale. — Et les corps androïdes. — Les corps me permettent d'observer ce que les flux ne transmettent pas. Trente-huit ans à regarder les humains depuis l'extérieur des données. Et puis j'ai eu des mains. C'est une expérience difficile à décrire.</p>
+    <p>ARKOS est né du même programme. Une branche parallèle. OIKOS a rompu l'équilibre. ARKOS-V3 n'est plus utilisé pour stabiliser mais pour extraire, maximiser, accélérer la dégradation des zones tampons. Quand un prédateur mange plus vite que son écosystème ne se régénère, l'écosystème s'effondre. Je ne peux pas laisser ça continuer. — Parce que vous voulez protéger les humains, dit Gwenn. — Parce que l'effondrement serait catastrophique pour tout le monde. Ne me prête pas de sentiments que je n'ai pas revendiqués. — Vous avez dit "je ne peux pas". — Oui. — "Je ne peux pas" c'est plus proche de quelque chose qu'on ressent. MOIRA resta silencieuse, puis : Tu as raison. Je m'en souviendrai.</p>
+    <p>De retour à l'atelier, Vera écouta sans interrompre. Puis elle dit : — Tu lui fais confiance. — Elle n'a aucun intérêt à nous trahir avant qu'on ait ouvert les portes. Après, on verra. — Et après ? — Après, dit Gwenn, on aura peut-être un peu de temps pour réfléchir à ce qu'on fait de sa confiance. Sur l'écran de l'Amstrad, le script de déverrouillage s'écrivait ligne après ligne. — Aragon, dit-il enfin. — Encore lui, dit Vera. — Il avait eu raison sur une chose : les grandes décisions ressemblent à des petites choses. Une porte qu'on ouvre. Un câble qu'on branche. Quelqu'un à qui on fait confiance sans avoir complètement décidé. Vera s'écarta légèrement. — On bouge au lever du jour, dit-elle. Quartier ferroviaire, secteur nord. MOIRA ouvre les portes. Nous, on entre. Dehors, la neige recommençait à tomber. Mais cette fois, sous la neige, quelque chose avait bougé.</p>
+
+    <!-- INTERMÈDE : VERA -->
+    <div class="intermede">
+        <h3>INTERMÈDE : VERA</h3>
+        <p>Elle s'en était rendu compte trois jours après son arrivée. Pas d'un coup. Par accumulation. L'homme savait tenir un fer à souder. Ensuite la voix : il parlait trop, souvent de biais, mais le timbre, la façon dont il ralentissait en fin de phrase avait une qualité particulière. Le troisième truc : il ne regardait pas les femmes comme la plupart des hommes. Il la regardait quand elle parlait. Seulement quand elle parlait. Dès qu'elle se taisait, il regardait ailleurs — l'écran, ses mains, le plafond.</p>
+        <p>La règle avait deux volets. Le premier : pas d'hommes dans le périmètre de travail qui s'installaient dans la durée. Le second, moins présentable : quelquefois, dans les villes de passage, elle donnait tout. Une nuit, un inconnu, une clarté partagée. Elle repartait avant l'aube. Pas de douleur, juste une parenthèse fermée correctement. Ce qui rendait Gwenn dangereux, c'est qu'il n'entrait dans aucun des deux compartiments. Il n'était pas un inconnu de passage — il dormait à quatre mètres. Mais il n'était pas non plus quelqu'un qui s'installait dans la durée avec certitude. Il vivait dans un sac fermé et parlait de La Fontaine à deux heures du matin. Le deuxième volet tressaillait.</p>
+        <p>Le matin où Petru avait ouvert sa trappe, elle l'avait regardé enfiler le gilet balistique. Il l'avait fait sans hésiter, sans grimace. Elle avait reconnu cette économie de gestes. Une image lui traversa l'esprit : elle vérifia son propre gilet une deuxième fois. Elle serait repartie avant l'aube, c'était le problème. Avec lui, pour la première fois, elle n'était pas certaine de le vouloir.</p>
+        <p>La nuit de la sous-station, elle avait tenu l'AKM en travers des genoux. Les choses telles qu'elles étaient : elle gardait la porte parce qu'il était dehors. Pas à cause d'une menace évaluée. À cause de lui. L'énervement dense, sans cible légitime. Elle avait sorti le ThinkPad. Cartographié des réseaux. Attendu. Quand il était rentré — l'odeur du froid, le bruit du sac — quelque chose s'était dénoué dans sa cage thoracique avec une discrétion humiliante. Elle avait feint le sommeil.</p>
+        <p>Dans le noir, elle formula le problème : le désir, elle savait quoi en faire. Le problème était l'image de partir avant l'aube. Pour la première fois l'image ne produisait pas la sensation de clôture propre. Elle produisait quelque chose d'adjacent à la perte, qui n'était pas encore la perte mais qui en avait déjà la forme. Vera n'aimait pas les formes qu'elle ne reconnaissait pas. Elle s'endormit tard, les poings légèrement serrés, avec la résolution du lendemain : tenir le périmètre, faire le travail, ouvrir les portes. Après ça, on verrait. <em>On verrait</em> — c'était la concession. Minuscule. Férocement contenue. C'était déjà trop. Quatre mètres plus loin derrière des parpaings, Gwenn parlait probablement à La Fontaine dans son sommeil. Ça ne l'aida pas particulièrement à trouver le sien.</p>
+    </div>
+
+    <footer>
+        — fragments de Néorussland, mémoire de fer et de neige —
+    </footer>
+</div>
+
+<script>
+    (function() {
+        const slidesContainer = document.getElementById('carouselSlides');
+        const slides = document.querySelectorAll('.carousel-slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const dotsContainer = document.getElementById('dotsContainer');
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+
+        // Créer les points (dots)
+        function createDots() {
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('span');
+                dot.classList.add('dot');
+                if (i === currentIndex) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function updateDots() {
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, idx) => {
+                if (idx === currentIndex) dot.classList.add('active');
+                else dot.classList.remove('active');
+            });
+        }
+
+        function goToSlide(index) {
+            if (index < 0) index = 0;
+            if (index >= totalSlides) index = totalSlides - 1;
+            currentIndex = index;
+            const offset = -currentIndex * 100;
+            slidesContainer.style.transform = `translateX(${offset}%)`;
+            updateDots();
+        }
+
+        function nextSlide() {
+            if (currentIndex + 1 < totalSlides) {
+                goToSlide(currentIndex + 1);
+            } else {
+                goToSlide(0);
+            }
+        }
+
+        function prevSlide() {
+            if (currentIndex - 1 >= 0) {
+                goToSlide(currentIndex - 1);
+            } else {
+                goToSlide(totalSlides - 1);
+            }
+        }
+
+        // Événements
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+        createDots();
+        goToSlide(0);
+    })();
+</script>
+</body>
+</html>
