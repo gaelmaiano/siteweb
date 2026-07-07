@@ -1,28 +1,470 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender Artlog — Carnet d'apprentissage 3D</title>
+    <style>
+        /* --- CONFIGURATION DES COULEURS ET VARIABLES (Style Blender Dark) --- */
+        :root {
+            --bg-main: #18181c;
+            --bg-card: #212127;
+            --bg-inner: #131316;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --accent: #e06c1d; /* Ambre/Orange Blender */
+            --accent-dim: rgba(224, 108, 29, 0.15);
+            --border: #2d2d34;
+            --border-focus: #44444f;
+        }
 
-       <article class="project-card">
-            <div class="project-image-container">
-                <img src="az.jpg" alt="Modélisation 3D d'un mecha militaire bipède avec textures de camouflage">
+        /* --- STYLES GENERAUX --- */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- EN-TÊTE --- */
+        header {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 5rem 2rem 2.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-container {
+            display: block;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin: 0 0 0.5rem 0;
+            letter-spacing: -0.04em;
+        }
+
+        h1 span {
+            color: var(--accent);
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 650px;
+            margin: 0;
+        }
+
+        /* --- CONTENEUR PRINCIPAL --- */
+        main {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* --- NOTE D'INTENTION / PHILOSOPHIE --- */
+        .manifesto {
+            background-color: var(--bg-card);
+            border-left: 4px solid var(--accent);
+            border-top: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .manifesto-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent);
+            margin: 0 0 0.5rem 0;
+            font-weight: 700;
+        }
+
+        .manifesto p {
+            margin: 0;
+            font-size: 1.05rem;
+            color: var(--text-main);
+        }
+
+        /* --- FILTRE / TITRE DE SECTION --- */
+        .section-header {
+            display: block;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+
+        /* --- STRUCTURE DES CARTES DE PROJET --- */
+        .project-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 4rem;
+        }
+
+        /* Cadre Image */
+        .project-viewer {
+            width: 100%;
+            background-color: var(--bg-inner);
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+            padding: 0;
+            line-height: 0;
+        }
+
+        .project-viewer img {
+            max-width: 100%;
+            height: auto;
+            display: inline-block;
+        }
+
+        /* Contenu Technique */
+        .project-details {
+            padding: 2rem;
+        }
+
+        .project-meta {
+            margin-bottom: 1.25rem;
+        }
+
+        .project-id {
+            font-family: monospace;
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .project-name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin: 0 0 1rem 0;
+            letter-spacing: -0.02em;
+        }
+
+        /* Badges / Tags */
+        .tag-group {
+            margin: 0 0 1.5rem 0;
+            padding: 0;
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            background-color: var(--bg-inner);
+            color: var(--text-muted);
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .tag.primary {
+            background-color: var(--accent-dim);
+            color: var(--accent);
+            border: 1px solid rgba(224, 108, 29, 0.3);
+        }
+
+        .project-description {
+            font-size: 1rem;
+            color: var(--text-main);
+            margin: 0 0 2rem 0;
+        }
+
+        /* Grille d'Analyse (Logbook) */
+        .logbook-grid {
+            display: table;
+            width: 100%;
+            border-top: 1px solid var(--border);
+            padding-top: 1.5rem;
+        }
+
+        .logbook-column {
+            display: table-cell;
+            width: 50%;
+            vertical-align: top;
+        }
+
+        .logbook-column:first-child {
+            padding-right: 1.5rem;
+            border-right: 1px solid var(--border);
+        }
+
+        .logbook-column:last-child {
+            padding-left: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .logbook-grid, .logbook-column {
+                display: block;
+                width: 100%;
+            }
+            .logbook-column:first-child {
+                padding-right: 0;
+                border-right: none;
+                margin-bottom: 1.5rem;
+                padding-bottom: 1.5rem;
+                border-bottom: 1px solid var(--border);
+            }
+            .logbook-column:last-child {
+                padding-left: 0;
+            }
+        }
+
+        .logbook-header {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin: 0 0 0.5rem 0;
+            font-weight: 700;
+        }
+
+        .logbook-text {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* --- PIED DE PAGE --- */
+        footer {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <h1>Blender <span>Artlog</span></h1>
+            <p class="subtitle">Journal d'apprentissage et d'exploration technique. Documenter la courbe de progression, de la primitive au shader.</p>
+        </div>
+    </header>
+
+    <main>
+
+        <section class="manifesto">
+            <h2 class="manifesto-title">Méthodologie Logbook</h2>
+            <p>Ce site fait office de carnet de laboratoire en libre accès. L'enjeu n'est pas de présenter des œuvres commerciales achevées, mais de disséquer le processus d'assimilation des concepts clés de la 3D : topologie, comportement diélectrique, génération procédurale et gestion du hard-surface.</p>
+        </section>
+
+        <div class="section-header">
+            <h2 class="section-title">Index des Expérimentations</h2>
+        </div>
+
+        <article class="project-card">
+            <div class="project-viewer">
+                <img src="potion.jpg" alt="Rendu de fiole de liquide translucide">
             </div>
-            <div class="project-content">
-                <div class="project-header">
-                    <h3 class="project-title">06. Assemblage Mécanique Complexe et Placage de Textures</h3>
-                    <div class="meta-tags">
-                        <span class="tag focus">Hard Surface avancé</span>
-                        <span class="tag">Mapping de Texture</span>
-                        <span class="tag">Détails d'Armement</span>
-                    </div>
+            <div class="project-details">
+                <div class="project-meta">
+                    <span class="project-id">PROJET_01</span>
+                    <h3 class="project-name">Réfraction et Matériaux Diélectriques</h3>
                 </div>
-                <p>Conception d'une unité bipède blindée. Ce modèle marque un palier dans la gestion d'un grand nombre de sous-objets imbriqués (systèmes d'armement, lance-missiles, tuyères de propulsion) et l'application d'un revêtement texturé global.</p>
+                <div class="tag-group">
+                    <span class="tag primary">Glass Shader</span>
+                    <span class="tag">Cycles</span>
+                    <span class="tag">Transmission IOR</span>
+                </div>
+                <p class="project-description">Étude analytique du comportement du verre et de la lumière transmissive traversant un fluide coloré. L'accent a été mis sur la fidélité optique et la physique des interfaces.</p>
                 
-                <div class="analysis-grid">
-                    <div class="analysis-block">
-                        <h4>Verrous Techniques</h4>
-                        <p>Maintenir la cohérence visuelle d'une texture de type camouflage sur des surfaces aux géométries et orientations variées, tout en délimitant proprement les zones fonctionnelles (optiques, compartiment de munitions rouges).</p>
+                <div class="logbook-grid">
+                    <div class="logbook-column">
+                        <h4 class="logbook-header">Verrous Identifier</h4>
+                        <p class="logbook-text">Éviter les artefacts noirs aux points de contact entre la paroi interne du verre et le volume du liquide. Gestion du bruit numérique provoqué par les caustiques de réfraction.</p>
                     </div>
-                    <div class="analysis-block">
-                        <h4>Solutions & Acquis</h4>
-                        <p>Expérimentation avec la projection de texture (génération de coordonnées de mapping adaptées) et structuration de la scène par l'utilisation de liaisons de parenté entre les membres pour anticiper une future mise en position ou animation.</p>
+                    <div class="logbook-column">
+                        <h4 class="logbook-header">Solutions Validées</h4>
+                        <p class="logbook-text">Mise en œuvre d'une légère interpénétration géométrique (le liquide traverse légèrement le verre à hauteur de 100.5% d'échelle) pour annuler la fente d'air artificielle. Optimisation via le Light Path node.</p>
                     </div>
                 </div>
             </div>
         </article>
+
+        <article class="project-card">
+            <div class="project-viewer">
+                <img src="epée.jpg" alt="Rendu d'une lame stylisée en émeraude">
+            </div>
+            <div class="project-details">
+                <div class="project-meta">
+                    <span class="project-id">PROJET_02</span>
+                    <h3 class="project-name">Modélisation d'Asset Stylisé & Shaders Organiques</h3>
+                </div>
+                <div class="tag-group">
+                    <span class="tag primary">Subsurface Scattering</span>
+                    <span class="tag">Hard Surface</span>
+                    <span class="tag">Procedural Mask</span>
+                </div>
+                <p class="project-description">Création d'une arme blanche médiévale-fantastique associant une garde rigide géométrique à une lame minérale translucide aux reflets émeraude.</p>
+                
+                <div class="logbook-grid">
+                    <div class="logbook-column">
+                        <h4 class="logbook-header">Verrous Identifier</h4>
+                        <p class="logbook-text">Donner de la profondeur interne à la structure de la lame (aspect cristal) sans compromettre la netteté des arêtes de coupe lors de la capture de la lumière.</p>
+                    </div>
+                    <div class="logbook-column">
+                        <h4 class="logbook-header">Solutions Validées</h4>
+                        <p class="logbook-text">Combinaison du Subsurface Scattering (SSS) avec un bruit procédural (Musgrave/Noise) injecté directement dans les entrées Roughness et Normal. Le matériau réagit dynamiquement selon l'épaisseur de la géométrie.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <div class="project-viewer">
+                <img src="mer2.jpg" alt="Simulation de vagues et mer agitée">
+            </div>
+            <div class="project-details">
+                <div class="project-meta">
+                    <span class="project-id">PROJET_03</span>
+                    <h3 class="project-name">Déplacement de Surface et Dynamique Organique</h3>
+                </div>
+                <div class="tag-group">
+                    <span class="tag primary">Displacement</span>
+                    <span class="tag">Modifier Stack</span>
+                    <span class="tag">Fresnel Specular</span>
+                </div>
+                <p class="project-description">Simulation d'un plan d'eau à grande échelle, soumis à de fortes variations de relief. Recherche de réalisme sur le ressac et l'accroche de la lumière rasante.</p>
+                
+                <div class="logbook-grid">
+                    <div class="logbook-column">
+                        <h4 class="logbook-header">Verrous Identifier</h4>
+                        <p class="logbook-text">Générer un niveau de détail élevé et crédible pour les micro-vagues sans provoquer l'effondrement de la mémoire tampon (VRAM) lors du calcul du maillage.</p>
+                    </div>
+                    <div class="logbook-column">
+                        <h4 class="logbook-header">Solutions Validées</h4>
+                        <p class="logbook-text">Utilisation d'une pile de modificateurs hiérarchisée (Displace basé sur des textures procédurales superposées) couplée à une équation de Fresnel marquée dans le shader pour accentuer la brillance exclusive des crêtes.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <div class="project-viewer">
+                <img src="tank.jpg" alt="Modélisation d'un blindé futuriste low-poly">
+            </div>
+            <div class="project-details">
+                <div class="project-meta">
+                    <span class="project-id">PROJET_04</span>
+                    <h3 class="project-name">Modélisation Block-Out & Hard Surface</h3>
+                </div>
+                <div class="tag-group">
+                    <span class="tag primary">Hard Surface</span>
+                    <span class="tag">Low-Poly</span>
+                    <span class="tag">Proportion & Blocking</span>
+                </div>
+                <p class="project-description">Étude de volumes non-organiques rigides à travers la conception d'un véhicule blindé chenillé compact. Travail axé sur l'emboîtement des masses mécaniques.</p>
+                
+                <div class="logbook-grid">
+                    <div class="logbook-column">
+                        <h4 class="logbook-header">Verrous Identifier</h4>
+                        <p class="logbook-text">Préserver la lisibilité de silhouettes angulaires nettes et gérer les intersections entre sous-systèmes structurels autonomes (liaison tourelle/châssis).</p>
+                    </div>
+                    <div class="logbook-column">
+                        <h4 class="logbook-header">Solutions Validées</h4>
+                        <p class="logbook-text">Application systématique de modificateurs Bevel (biseau) contrôlés par poids d'arêtes pour capturer de fins filets de lumière sur les angles vifs, évitant un rendu plat artificiel.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <div class="project-viewer">
+                <img src="az.jpg" alt="Modélisation d'un mecha bipède texturé">
+            </div>
+            <div class="project-details">
+                <div class="project-meta">
+                    <span class="project-id">PROJET_05</span>
+                    <h3 class="project-name">Assemblage Articulé & Cartographie de Textures</h3>
+                </div>
+                <div class="tag-group">
+                    <span class="tag primary">Mechanical Rigging</span>
+                    <span class="tag">Camouflage Mapping</span>
+                    <span class="tag">Focal Points</span>
+                </div>
+                <p class="project-description">Palier supérieur dans la gestion industrielle Hard-Surface. Conception d'une unité de combat bipède intégrant de nombreux composants mobiles, vérins, et modules d'armement.</p>
+                
+                <div class="logbook-grid">
+                    <div class="logbook-column">
+                        <h4 class="logbook-header">Verrous Identifier</h4>
+                        <p class="logbook-text">Appliquer un motif de camouflage global et uniforme sur des pièces aux coordonnées géométriques fragmentées sans étirement de texture visible.</p>
+                    </div>
+                    <div class="logbook-column">
+                        <h4 class="logbook-header">Solutions Validées</h4>
+                        <p class="logbook-text">Exploration des projections de texture triplanaires. Intégration d'un point focal chromatique fort (les opercules de missiles rouges) pour structurer la hiérarchie visuelle de l'asset.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <div class="project-viewer">
+                <img src="Sans titre.jpg" alt="Diorama d'une forêt sur un îlot low-poly">
+            </div>
+            <div class="project-details">
+                <div class="project-meta">
+                    <span class="project-id">PROJET_06</span>
+                    <h3 class="project-name">Composition de Scène & Gestion de l'Instancing</h3>
+                </div>
+                <div class="tag-group">
+                    <span class="tag primary">Scene Composition</span>
+                    <span class="tag">Flat Shading</span>
+                    <span class="tag">Direct Lighting</span>
+                </div>
+                <p class="project-description">Création d'un micro-diorama insulaire stylisé. Travail d'ensemble portant sur la répartition spatiale de la flore et la mise en place d'une atmosphère colorimétrique unifiée.</p>
+                
+                <div class="logbook-grid">
+                    <div class="logbook-column">
+                        <h4 class="logbook-header">Verrous Identifier</h4>
+                        <p class="logbook-text">Générer une impression de densité organique (forêt de sapins) sans créer une répétition visuelle stérile ou géométriquement identique.</p>
+                    </div>
+                    <div class="logbook-column">
+                        <h4 class="logbook-header">Solutions Validées</h4>
+                        <p class="logbook-text">Modélisation par variations d'échelles aléatoires appliquées sur l'axe vertical (Z) et inclinaisons légères. Utilisation d'une source lumineuse de type 'Sun' à ombres dures pour marquer le facettage (Flat Shading) de l'eau et de l'îlot.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    </main>
+
+    <footer>
+        <p>Hébergé de manière transparente via GitHub Pages — Carnet de recherche en évolution continue.</p>
+    </footer>
+
+</body>
+</html>
